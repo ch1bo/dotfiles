@@ -17,16 +17,21 @@ derivations or even use NixOS .. but I still have a social life.
 
 ## Install
 
-Run this:
+As `nix` is used to manage dependencies, make sure it's
+[installed](https://nixos.org/nix/download.html) and run this (`nix` will also
+install `git`):
 
 ```sh
+nix-env -if https://github.com/ch1bo/dotfiles/tarball/master
 git clone https://github.com/ch1bo/dotfiles.git ~/.dotfiles
-cd ~/.dotfiles
-./bootstrap
+./.dotfiles/bootstrap
 ```
 
 This will symlink any file or directory suffixed with `.symlink` from your
 dotfiles to your home directory (see below).
+
+To use these dotfiles without `nix`, the `essentials` in `default.nix` give a
+good outline of pre-requisites.
 
 ## Topics & symlinking
 
@@ -70,4 +75,5 @@ check for a dependency.
 
 ## TODO / Next steps
 - [ ] List prerequisites and use `nix` to install them
+- [ ] Document/untangle xsession -> sh ($PATH?) -> xmonad vs. zsh ($PATH?)
 - [ ] Package customizations into `nix` derivations instead of symlinking

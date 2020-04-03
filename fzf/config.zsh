@@ -1,19 +1,10 @@
 # Config for command line fuzzy finder fzf (https://github.com/junegunn/fzf)
-export FZF_DEFAULT_COMMAND="ag -l -g ''"
+export FZF_DEFAULT_COMMAND="fd"
 export FZF_DEFAULT_OPTS="--height=40% --reverse"
-local fzfroot="$DOTFILES/fzf/fzf"
-
-# Man path
-if [[ ! "$MANPATH" =~ "$fzfroot/man" && -d "$fzfroot/man" ]]; then
-  export MANPATH="$MANPATH:$fzfroot/man"
-fi
-
-# Auto-completion
-[[ $- == *i* ]] && source "$fzfroot/shell/completion.zsh" 2> /dev/null
 
 # Key bindings
-source "$fzfroot/shell/key-bindings.zsh"
-bindkey '^G' fzf-cd-widget
+FZF_PREFIX=$(dirname $(which fzf))/..
+source "${FZF_PREFIX}/share/fzf/key-bindings.zsh"
 
 # z (https://github.com/rupa/z) as source for fzf (only if available)
 fzf-z-widget() {

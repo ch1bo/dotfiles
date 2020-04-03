@@ -1,6 +1,3 @@
-[submodule "fzf/fzf"]
-	path = fzf/fzf
-	url = https://github.com/junegunn/fzf.git
 [submodule "z/z"]
 	path = z/z
 	url = https://github.com/rupa/z.git

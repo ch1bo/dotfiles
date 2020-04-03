@@ -1,6 +1,16 @@
-#!/bin/bash
+#!/bin/sh
 
 export PATH=$HOME/.local/bin:$HOME/.dotfiles/bin:$PATH
+
+#TODO(SN): unify with zshrc
+if [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ]; then
+  . $HOME/.nix-profile/etc/profile.d/nix.sh
+fi
+# requires: nix-env -i glibc-locales
+if [ -e $HOME/.nix-profile/lib/locale/locale-archive ]; then
+  export LOCALE_ARCHIVE=$HOME/.nix-profile/lib/locale/locale-archive
+fi
+
 
 # Gnome keyring as SSH agent
 if [ $(which gnome-keyring-daemon 2> /dev/null) ]; then
@@ -32,7 +42,6 @@ xset r rate 200 60
 #xrandr --output eDP1 --off --output DP1 --output DP2 --right-of DP1
 
 # Load custom keybindings
-xmodmap $HOME/.xmodmaprc
 xbindkeys
 
 # Load colors and settings
