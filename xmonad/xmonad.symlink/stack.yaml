@@ -1,0 +1,16 @@
+resolver: lts-12.13
+extra-deps:
+  - xmobar-0.28
+  - xmonad-0.15
+  - xmonad-contrib-0.15
+  - X11-xft-0.3.1
+  - parsec-numbers-0.1.0
+  - iwlib-0.1.0
+flags:
+  xmobar:
+    with_xft: true
+    with_iwlib: true
+  xmonad-contrib:
+    use_xft: true
+packages:
+  - .

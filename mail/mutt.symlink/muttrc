@@ -1,0 +1,57 @@
+### General mailbox settings
+set header_cache = "~/.cache/mutt"
+set mbox_type=Maildir
+set folder = "~/mail"
+
+### Accounts
+source "~/.mutt/mailboxes"
+source "~/.mutt/franka"
+
+### Colors
+color hdrdefault blue black
+color quoted blue black
+color signature blue black
+color attachment brightmagenta black
+color message cyan black
+color error brightred black
+color indicator black blue
+color status brightgreen black
+color tree white black
+color normal white black
+color markers red black
+color search white black
+color tilde brightmagenta black
+color index blue black ~F
+color index red black "~N|~O"
+
+set mailcap_path  = ~/.mutt/mailcap
+mime_lookup application/octet-stream
+auto_view text/html
+alternative_order text/plain text/html
+
+### Sidebar
+set sidebar_width=25
+set sidebar_visible=yes
+set sidebar_delim='|'
+set sidebar_sort=yes
+macro index \Cb "<enter-command>toggle sidebar_visible<enter>" "toggle sidebar"
+macro pager \Cb "<enter-command>toggle sidebar_visible<enter>" "toggle sidebar"
+
+### Misc settings
+set confirmappend=no
+bind index j next-entry
+bind index k previous-entry
+bind index \CF next-page
+bind index \CB previous-page
+
+# Ctrl-n, Ctrl-p to select next, previous folder.
+# Ctrl-o to open selected folder.
+bind index,pager \CP sidebar-prev
+bind index,pager \CN sidebar-next
+bind index,pager \CO sidebar-open
+
+# Refresh mails using Ctrl-r
+bind index,pager \Cr imap-fetch-mail
+
+# Open attachements using mailcap by default
+bind attach <return> view-mailcap

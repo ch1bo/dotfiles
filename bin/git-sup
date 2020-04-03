@@ -1,0 +1,7 @@
+#!/bin/bash
+# Update submodules and checkout branches. Checks out tracking branch or master
+# and tries a fast-forward pull on each.
+git submodule update --init --remote
+git submodule foreach --recursive \
+  'git checkout $(git config -f $toplevel/.gitmodules submodule.$name.branch || echo master); \
+   git pull --ff-only'

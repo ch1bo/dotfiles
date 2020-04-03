@@ -1,0 +1,2 @@
+(("default"   . ((user-emacs-directory . "~/.dotfiles/emacs/spacemacs.emacs.d")))
+ ("doom" . ((user-emacs-directory . "~/.dotfiles/emacs/doom.emacs.d"))))

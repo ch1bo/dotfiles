@@ -1,0 +1,35 @@
+[general]
+maxsyncaccounts = 1
+accounts = franka
+pythonfile = ~/.offlineimap/keyring.py
+
+[Account franka]
+localrepository = franka-local
+remoterepository = franka-remote
+status_backend = sqlite
+autorefresh = 0.5
+quick = 10
+postsynchook = mu index --maildir ~/mail
+
+[Repository franka-local]
+type = Maildir
+localfolders = ~/mail/franka
+restoreatime = no
+
+[Repository franka-remote]
+type = IMAP
+remotehost = mail.franka.de
+remoteuser = nage_se
+remotepasseval = keyring.get_password('mail', 'nage_se')
+starttls = yes
+ssl = no
+keepalive = 60
+holdconnectionopen = yes
+
+[mbnames]
+enabled = yes
+filename = ~/.mutt/mailboxes
+header = "mailboxes "
+peritem = "+%(accountname)s/%(foldername)s"
+sep = " "
+footer = "\n"

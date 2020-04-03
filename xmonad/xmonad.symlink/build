@@ -1,0 +1,5 @@
+#!/bin/sh
+output_file=$1
+shift
+stack build --install-ghc
+cp -uf $(stack exec which xmonad) $output_file

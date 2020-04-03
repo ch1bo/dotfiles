@@ -1,0 +1,41 @@
+[user]
+  name = Sebastian Nagel
+  email = sebastian.nagel@ncoding.at
+[alias]
+  co      = checkout
+  graph   = log --graph --oneline --decorate
+  changelog = log --pretty=format:"%s" --no-merges
+  count   = shortlog -sn
+  wtf     = !$DOTFILES/bin/git-wtf
+  up      = !$DOTFILES/bin/git-up
+  reup    = !$DOTFILES/bin/git-reup
+  dlm     = !$DOTFILES/bin/git-delete-local-merged
+  sup     = !$DOTFILES/bin/git-sup
+[color]
+  diff = auto
+  status = auto
+  branch = auto
+  ui = true
+[core]
+  excludesfile = ~/.gitignore
+[apply]
+  whitespace = nowarn
+[mergetool]
+  keepBackup = false
+[difftool]
+  prompt = false
+[help]
+  autocorrect = 1
+[push]
+  default = simple
+[rerere]
+  enabled = true
+  autoupdate = true
+[pull]
+  rebase = preserve
+[diff]
+  submodule = log
+[fetch]
+  recurseSubmodules = on-demand
+[status]
+  submoduleSummary = true

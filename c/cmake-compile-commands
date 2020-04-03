@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+# Utility for generating CMake compile commands.
+#
+# The generated compile_commands.json is used by clang-tidy, whereas the
+# standard output can be used as .clang_complete file used by various editor
+# plugins.
+
+mkdir -p build
+cd build
+cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON .. > /dev/null
+make > /dev/null
+cat compile_commands.json | sed 's/-.[[:graph:]]*/\n&/g' | grep "^-[DI]" | sort | awk '{$1=$1};1' | uniq

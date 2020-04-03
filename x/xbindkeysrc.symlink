@@ -1,0 +1,28 @@
+# Volume control
+"amixer sset Master 5+"
+  XF86AudioRaiseVolume
+"amixer sset Master 5-"
+  XF86AudioLowerVolume
+"amixer sset Master toggle"
+  XF86AudioMute
+
+# Xrandr output switching
+"xmessage 'xrandr'"
+  Mod4 + F8
+
+# Toggle touchpad
+"toggle-touchpad"
+  XF86Search
+
+# Brigthness control
+"xbacklight -inc 5"
+  XF86MonBrightnessUp
+"xbacklight -dec 5"
+  XF86MonBrightnessDown
+
+# Screenshot
+"scrot"
+  Print
+
+"systemctl suspend"
+  XF86Sleep

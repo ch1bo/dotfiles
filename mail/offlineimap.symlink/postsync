@@ -1,0 +1,5 @@
+#!/bin/bash
+# NEWDIRS=$(find $HOME/mail -type f -regex '.*/new/.*' | cut -f5 -d/ | sort -u | tr '\n' ',' | sed -e 's/,/, /g;s/, $//')
+if [ -n "$(ls $HOME/mail/*/INBOX/new)" ]; then
+  notify-send -i /usr/share/notify-osd/icons/gnome/scalable/status/notification-message-email.svg "New mail in inbox"
+fi

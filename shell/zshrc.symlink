@@ -1,0 +1,62 @@
+# Generic .zshrc which sources all *.zsh files in the dotfiles
+# repository in a pre-determined sequence.
+# */path.zsh -> zsh/*.zsh -> */(^completion)*.zsh -> */completion.zsh
+export DOTFILES=$HOME/.dotfiles
+
+typeset -U config_files
+config_files=($DOTFILES/*/*.zsh)
+
+# source all path.zsh files
+typeset -U path
+path=(./bin $HOME/.local/bin $DOTFILES/bin $path)
+for file in ${(M)config_files:#*/path.zsh}; do
+  source $file
+done
+config_files=(${config_files:#*/path.zsh})
+
+# add each topic folder to fpath so that they can add functions and completion scripts
+for topic_folder ($DOTFILES/*) if [ -d $topic_folder ]; then
+  fpath=($topic_folder $fpath)
+fi
+
+# source zsh specific config files
+for file in ${(M)config_files:#*/shell/*.zsh}; do
+  source $file
+done
+config_files=(${config_files:#*/shell/*.zsh})
+
+# source everything but the completion files
+for file in ${config_files:#*/completion.zsh}; do
+  source $file
+done
+
+# initialize autocomplete here, otherwise functions won't be loaded
+autoload -Uz compinit
+compinit -i
+
+# source completion files after autocomplete loads
+for file in ${(M)config_files:#*/completion.zsh}; do
+  source $file
+done
+
+unset config_files
+
+# plugins
+source $DOTFILES/shell/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# use .localrc for SUPER SECRET CRAP that you don't
+# want in your public, versioned repo.
+if [[ -a $HOME/.localrc ]]; then
+  source $HOME/.localrc
+fi
+
+# TODO(SN): move to "nix" topic
+# TODO(SN): fix .profile loading
+if [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ]; then
+  . $HOME/.nix-profile/etc/profile.d/nix.sh
+fi
+# requires: nix-env -i glibc-locales
+if [ -e $HOME/.nix-profile/lib/locale/locale-archive ]; then
+  export LOCALE_ARCHIVE=$HOME/.nix-profile/lib/locale/locale-archive
+fi
+

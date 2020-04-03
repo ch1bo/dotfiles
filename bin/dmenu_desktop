@@ -1,0 +1,48 @@
+#!/usr/bin/env perl
+use strict;
+use warnings;
+use 5.010;
+use List::Util 'first';
+
+my $gdir = '/usr/share/applications';
+my $ldir = $ENV{'HOME'} . '/.local/share/applications';
+my (%apps, $file, @text, $name, $prog);
+
+foreach (<$gdir/*.desktop $ldir/*.desktop>) {
+    s|^.*/||;
+
+    open $file, "<", "$ldir/$_" or open $file, "<", "$gdir/$_";
+    @text = <$file>;
+    close $file;
+
+    unless ((grep /^Categories=.*Settings/, @text)
+      || (grep /^NoDisplay=true$/, @text)
+      || (grep /^OnlyShowIn=.*(GNOME|KDE)/, @text)
+      || (grep /^Type=.*XSession/, @text )) {
+        $name = first { /^Name=.*$/ } @text;
+    chomp $name;
+    $name =~ s/^Name=//;
+
+    $prog = first { /^Exec=.*$/ } @text;
+    chomp $prog;
+    $prog =~ s/^Exec=//;
+    $prog =~ s/ .*$//;
+    if ((grep /^Terminal=true/, @text)) {
+      $prog = "urxvt -e $prog";
+    }
+
+    $apps{$name} = $prog;
+  }
+}
+
+my $args;
+if (@ARGV) {
+    $args = join " ", @ARGV;
+} else {
+    $args = "-i";
+}
+chomp $args;
+# $args = "-i" unless defined($args);
+my $choice = `echo "${\(join "\n", sort {lc $a cmp lc $b} keys %apps)}" | dmenu $args`;
+chomp $choice;
+system("$apps{$choice} &") if ($apps{$choice});

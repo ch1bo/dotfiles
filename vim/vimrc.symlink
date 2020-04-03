@@ -1,0 +1,38 @@
+set nocompatible
+
+" Map ctrl+arrow keys
+nnoremap Oa k
+nnoremap Ob j
+nnoremap Oc w
+nnoremap Od b
+inoremap Oa <ESC>ka
+inoremap Ob <ESC>ja
+inoremap Oc <ESC>lwi
+inoremap Od <ESC>lbi
+
+" Enable modelines and set default tab stop as 2 spaces
+set modeline
+set modelines=5
+set shiftwidth=2
+set tabstop=2
+set expandtab
+
+" Syntax highlighting and autoindent
+let base16colorspace=256
+colorscheme base16-solarflare
+syntax on
+filetype plugin indent on
+
+" Pathogen plugin management
+execute pathogen#infect()
+
+" Syntastic
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 0
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+

@@ -1,0 +1,12 @@
+#!/bin/sh
+profile=${1}
+output=$(basename ${1} ".hp").ps
+hp2ps="hp2ps -c -e3in"
+head -`fgrep -n END_SAMPLE ${profile} | tail -1 | cut -d : -f 1` ${profile} \
+  | ${hp2ps} > ${output}
+evince ${output} &
+while [ 1 ] ; do
+  sleep 3 # We generate a new profile every 10 seconds.
+  head -`fgrep -n END_SAMPLE ${profile} | tail -1 | cut -d : -f 1` ${profile} \
+    | ${hp2ps} > ${output}
+done
