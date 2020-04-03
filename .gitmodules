@@ -1,9 +1,6 @@
 [submodule "z/z"]
 	path = z/z
 	url = https://github.com/rupa/z.git
-[submodule "shell/zsh-syntax-highlighting"]
-	path = shell/zsh-syntax-highlighting
-	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
 [submodule "emacs/emacs.d.symlink"]
 	path = emacs/spacemacs.emacs.d
 	url = https://github.com/syl20bnr/spacemacs
