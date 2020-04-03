@@ -22,6 +22,8 @@ The first level of directories are 'topics'. They are used to group relevant con
 
 When running `boostrap`, any file or directory with the `.symlink` suffix is to be symlinked from your home directory. The mechanism does preserve the path below the topic folder and adds the name-giving dot in the home directory. For example my emacs xmonad config `dotfiles/xmonad/xmonad.symlink` is symlinked from `~/.xmonad` while for my gnome gtk3 config `dotfiles/gnome/config/gtk-3.0.symlink` the symlink `~/config/gtk-3.0` is created.
 
+Also, as I often switch tools and abandon certain configs, `bootsrap` does look for broken dotfile symlinks (roughly `$HOM$/.*`) and ask what should happen with those.
+
 ## Conventions
 
 There's a few special files in the hierarchy.
@@ -41,4 +43,3 @@ check for a dependency.
 
 ## TODO
 [ ] List prerequisites and use `nix` to install them
-[ ] Detect orphan links by dumping list of paths in `bootstrap` and check them on next run

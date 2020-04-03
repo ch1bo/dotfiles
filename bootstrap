@@ -4,8 +4,6 @@
 
 set -e
 
-echo ''
-
 info () {
   printf "  [ \033[00;34m..\033[0m ] $1"
 }
@@ -24,6 +22,7 @@ fail () {
   exit
 }
 
+# Link a 'src' from 'dst'
 link_file () {
   local src=$1 dst=$2
 
@@ -45,7 +44,7 @@ link_file () {
 
       else
 
-        user "File already exists: $dst ($(basename "$src")), what do you want to do?\n\
+        user "File already exists: $dst (current: ${currentSrc}), what do you want to do?\n\
         [s]kip, [S]kip all, [o]verwrite, [O]verwrite all, [b]ackup, [B]ackup all?"
         read -n 1 action
 
@@ -108,23 +107,63 @@ link_file () {
 
   if [ "$skip" != "true" ]  # "false" or empty
   then
-    ln -s "$1" "$2"
-    success "linked $1 to $2"
+    ln -s "$src" "$dst"
+    success "created $dst -> $src"
   fi
 }
 
-cd "$(dirname "$0")/.."
-DOTFILES_ROOT=$(pwd)
-info 'Bootstrapping dotfiles'
+bootstrap () {
+  DOTFILES_ROOT=$1
+  info 'Bootstrapping dotfiles'
+  local overwrite_all=false backup_all=false skip_all=false
+  for src in $(find -H "$DOTFILES_ROOT" -mindepth 1 -name '*.symlink' -not -path '*.git*')
+  do
+    base="${src%.symlink}"
+    dst="$HOME/.${base#*$DOTFILES_ROOT/*/}"
+    link_file "$src" "$dst"
+  done
+}
 
-local overwrite_all=false backup_all=false skip_all=false
+broken_links () {
+  info 'Looking for broken dotfile links in $HOME'
+  local remove_all=false skip_all=false
+  for broken in $(find $HOME -xtype l -path "$HOME/.*"); do
+    local remove=false skip=false
+    local action=
+    if [ "$remove_all" == "false" ] && [ "$skip_all" == "false" ]; then
+      user "Found broken link ${broken} -> $(readlink ${broken}), what do you want to do?\n\
+      [s]kip, [S]kip all, [r]emove, [R]emove all?"
+      read -n 1 action
+      case "$action" in
+        r )
+          remove=true;;
+        R )
+          remove_all=true;;
+        s )
+          skip=true;;
+        S )
+          skip_all=true;;
+        * )
+          ;;
+        esac
+    fi
 
-for src in $(find -H "$DOTFILES_ROOT" -name '*.symlink' -not -path '*.git*')
-do
-  base="${src%.*}"
-  dst="$HOME/.${base#*$DOTFILES_ROOT/*/}"
-  link_file "$src" "$dst"
-done
+    remove=${remove:-$remove_all}
+    skip=${skip:-$skip_all}
 
-echo ''
+    if [ "${remove}" == "true" ]
+    then
+      rm "${broken}"
+      success "removed ${broken}"
+    fi
+    if [ "${skip}" == "true" ]
+    then
+      success "skipped ${broken}"
+    fi
+  done
+}
+
+bootstrap "$(realpath $(dirname "$0"))"
+broken_links
+
 success 'All done'
