@@ -4,6 +4,7 @@ let
   essentials = (with pkgs; [
     feh # for the backgrounds
     fzf # fuzzy find tool
+    glibcLocales # non broken LOCALE
     nix # nix package manager
     rofi # launch stuff
     rxvt_unicode-with-plugins # urxvt terminal
@@ -15,6 +16,8 @@ let
     xorg.setxkbmap # switch kb maps
     xorg.xrdb # for Xresources to theme urxvt
     xorg.xset # configure xorg
+    zsh # the shell
+    zsh-syntax-highlighting # like fish
   ]);
 
   nicetohave = (with pkgs; [
