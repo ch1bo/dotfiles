@@ -6,8 +6,8 @@
 
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets.
-(setq user-full-name "John Doe"
-      user-mail-address "john@doe.com")
+(setq user-full-name "Sebastian Nagel"
+      user-mail-address "sebastian.nagel@ncoding.at")
 
 ;; Doom exposes five (optional) variables for controlling fonts in Doom. Here
 ;; are the three important ones:
@@ -19,21 +19,16 @@
 ;;
 ;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
 ;; font string. You generally only need these two:
-(setq doom-font (font-spec :family "monospace" :size 14))
+(setq doom-font (font-spec :family "monospace" :size 15))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
 (setq doom-theme 'doom-one)
 
-;; If you use `org' and don't want your org files in the default location below,
-;; change `org-directory'. It must be set before org loads!
-(setq org-directory "~/org/")
-
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
 (setq display-line-numbers-type t)
-
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
@@ -51,3 +46,45 @@
 ;;
 ;; You can also try 'gd' (or 'C-c g d') to jump to their definition and see how
 ;; they are implemented.
+
+;; Keybinding overrides of doom.emacs.d/modules/config/default/+evil-bindings.el
+(map! :leader
+      :desc "M-x"                   "SPC" #'execute-extended-command
+      :desc "Search in project"     "/"   #'+default/search-project
+      ;;; <leader> a --- agenda
+      :desc "Org agenda"            "a"   #'org-agenda
+      ;;; <leader> g --- git/version control
+      (:prefix ("g" . "git")
+          :desc "Git status"        "s"   #'magit-status
+          ))
+;; Local with-editor key bindings
+(map! :map with-editor-mode-map
+      :localleader
+      "," #'with-editor-finish
+      "f" #'with-editor-finish
+      "k" #'with-editor-cancel)
+
+;; Org
+;; TODO(SN): keybindings in org-agenda (e.g. org-agenda-later)
+(setq org-directory "~/documents/org/"
+      org-default-notes-file (concat org-directory "notes.org")
+      org-agenda-files (list org-directory)
+      org-capture-templates
+      '(("t" "Todo" entry (file+headline "notes.org" "Tasks") "* TODO %?\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\n%a")
+        ("i" "Idea" entry (file+headline "notes.org" "Ideas") "* TODO %?%a")
+        ("m" "Meeting" entry (file+headline "notes.org" "Meetings") "* %?\n  #+DATE: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))")
+        )
+      org-agenda-custom-commands
+      '(("n" "Agenda and all TODOs"
+          ((agenda ""
+                  ((org-agenda-span
+                    (quote day))))
+          (tags-todo "-idea&-candidate"
+                      ((org-agenda-overriding-header "TODOs (unscheduled)")
+                      (org-agenda-skip-function
+                        (quote
+                        (org-agenda-skip-subtree-if
+                          (quote scheduled))))))
+          (tags-todo "idea"
+                      ((org-agenda-overriding-header "Ideas"))))
+          )))
