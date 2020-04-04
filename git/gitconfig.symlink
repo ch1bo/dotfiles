@@ -8,7 +8,6 @@
   count   = shortlog -sn
   wtf     = !$DOTFILES/bin/git-wtf
   up      = !$DOTFILES/bin/git-up
-  reup    = !$DOTFILES/bin/git-reup
   dlm     = !$DOTFILES/bin/git-delete-local-merged
   sup     = !$DOTFILES/bin/git-sup
 [color]

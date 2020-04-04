@@ -4,6 +4,7 @@ let
   essentials = (with pkgs; [
     feh # for the backgrounds
     fzf # fuzzy find tool
+    git # bootstrap from nix
     glibcLocales # non broken LOCALE
     nix # nix package manager
     rofi # launch stuff
