@@ -54,14 +54,12 @@ those.
 
 ## Conventions
 
-There's a few special files in the hierarchy.
-
 - **bin/**: is added to `$PATH` and should refer globally available scripts and
   executables.
+- **topic/profile.sh**: Are sourced from `.profile` and thus for all shells,
+  login and non-login, and is expected to setup `$PATH` or similar.
 - **topic/\*.zsh**: Are sourced from `.zshrc` and used to configure the zsh
   environment.
-- **topic/path.zsh**: Are sourced first from `.zshrc` and is expected to setup
-  `$PATH` or similar.
 - **topic/completion.zsh**: Are sourced last from `.zshrc` and is expected to
   setup autocomplete.
 - **topic/\*\*/\*.symlink**: Any files ending in `.symlink` get symlinked
@@ -74,6 +72,8 @@ dotfiles, so there's a good chance I may break something if I forget to make a
 check for a dependency.
 
 ## TODO / Next steps
-- [ ] List prerequisites and use `nix` to install them
-- [ ] Document/untangle xsession -> sh ($PATH?) -> xmonad vs. zsh ($PATH?)
+- [ ] Configure zsh-syntax-highlighting/zsh and fzf differently (the `nix` way?)
+- [ ] Theme rofi
+- [ ] Different terminal emulator
+- [ ] Evaluate fish shell
 - [ ] Package customizations into `nix` derivations instead of symlinking
