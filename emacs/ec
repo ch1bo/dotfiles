@@ -1,2 +1,2 @@
-#!/usr/bin/env zsh
+#!/bin/sh
 exec emacsclient --alternate-editor="$(which emacs)" -c "$@"

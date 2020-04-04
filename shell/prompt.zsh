@@ -116,4 +116,3 @@ precmd() {
   title "zsh" "zsh - %n@%m" ""
   set_prompt
 }
-

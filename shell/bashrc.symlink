@@ -1,0 +1,10 @@
+# bashrc which directly drops into zsh. This is to keep bash as log in shell and
+# use the nix-installed zsh as actual interactive shell.
+#
+# Have commands such as bash -c 'echo test' still run the command in bash
+if [ -z "$BASH_EXECUTION_STRING" ]; then
+    # Do not start zsh if we are already in 'zsh', but continue in bash
+    if [[ $(ps --no-header --pid=$PPID --format=cmd) != "zsh" ]]; then
+        exec zsh
+    fi
+fi

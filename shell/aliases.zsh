@@ -2,8 +2,8 @@
 alias sudo="nocorrect sudo "
 
 # enable color support of ls and also add handy aliases
-if [ -x /usr/bin/dircolors ]; then
-  test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+if [ -x $(which dircolors) ]; then
+  [ -r ~/.dircolors ] && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
   alias ls="ls --color=auto"
 
   alias grep="grep --color=auto"
@@ -16,7 +16,6 @@ alias ll="ls -alhF"
 alias la="ls -A"
 alias l="ls -CF"
 alias vi="vim"
-alias rgrep="grep -R --color"
 alias todos="grep -R 'TODO' . | wc -l"
 alias skype="apulse32 skype"
 alias cert="openssl x509 -noout"

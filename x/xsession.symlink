@@ -1,16 +1,5 @@
 #!/bin/sh
-
-export PATH=$HOME/.local/bin:$HOME/.dotfiles/bin:$PATH
-
-#TODO(SN): unify with zshrc
-if [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ]; then
-  . $HOME/.nix-profile/etc/profile.d/nix.sh
-fi
-# requires: nix-env -i glibc-locales
-if [ -e $HOME/.nix-profile/lib/locale/locale-archive ]; then
-  export LOCALE_ARCHIVE=$HOME/.nix-profile/lib/locale/locale-archive
-fi
-
+# Environment setup in ~/.profile
 
 # Gnome keyring as SSH agent
 if [ $(which gnome-keyring-daemon 2> /dev/null) ]; then
@@ -22,7 +11,7 @@ fi
 if [ $(which unity-settings-daemon 2> /dev/null) ]; then
   unity-settings-daemon &
   sleep 1 # Wait to override settings properly
-  cat $HOME/.config/dconf/gnome.conf | dconf load /
+  cat ${HOME}/.config/dconf/gnome.conf | dconf load /
 fi
 
 # No beeps
@@ -45,9 +34,9 @@ xset r rate 200 60
 xbindkeys
 
 # Load colors and settings
-xrdb -load $HOME/.Xresources
+xrdb -load ${HOME}/.Xresources
 
 # Desktop wallpaper
-feh --bg-scale $HOME/.dotfiles/x/firewatch.jpg
+feh --bg-scale ${DOTFILES}/x/firewatch.jpg
 
 exec xmonad
