@@ -3,8 +3,7 @@ export FZF_DEFAULT_COMMAND="fd"
 export FZF_DEFAULT_OPTS="--height=40% --reverse"
 
 # Key bindings
-FZF_PREFIX=$(nix-build -Q '<nixpkgs>' -A fzf)
-source "${FZF_PREFIX}/share/fzf/key-bindings.zsh"
+source "$(fzf-share)/key-bindings.zsh"
 
 # z (https://github.com/rupa/z) as source for fzf (only if available)
 fzf-z-widget() {

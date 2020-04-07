@@ -18,6 +18,7 @@ let
     xorg.xrdb # for Xresources to theme urxvt
     xorg.xset # configure xorg
     zsh # the shell
+    # TODO(SN): share binary not in release -> overlay? fetchGit ch1bo/nixpkgs?
     zsh-syntax-highlighting # like fish
   ]);
 

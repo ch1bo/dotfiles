@@ -72,7 +72,16 @@ dotfiles, so there's a good chance I may break something if I forget to make a
 check for a dependency.
 
 ## TODO / Next steps
-- [ ] Configure zsh-syntax-highlighting/zsh and fzf differently (the `nix` way?)
+- [x] Use `nix` to install dependencies
+- [x] Untangle / unify environment setup (`.profile`)
+- [x] Configure zsh-syntax-highlighting/zsh and fzf differently (the `nix` way?)
+- [ ] Doom emacs
+  - [X] org
+  - [ ] editor (text, mc/iedit)
+  - [ ] mail
+  - [ ] haskell
+- [ ] Tray & tune xmobar
+- [ ] Improved / new xmonad layouts
 - [ ] Theme rofi
 - [ ] Different terminal emulator
 - [ ] Evaluate fish shell

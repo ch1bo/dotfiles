@@ -30,9 +30,7 @@ done
 unset config_files
 
 # syntax highlighting
-local prefix=$(nix-build -Q '<nixpkgs>' -A zsh-syntax-highlighting)
-source "${prefix}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
-unset prefix
+source "$(zsh-syntax-highlighting-share)/zsh-syntax-highlighting.zsh"
 
 # use .localrc for SUPER SECRET CRAP that you don't
 # want in your public, versioned repo.
