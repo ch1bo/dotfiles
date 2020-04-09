@@ -47,6 +47,9 @@
 ;; You can also try 'gd' (or 'C-c g d') to jump to their definition and see how
 ;; they are implemented.
 
+;; Quick key bindings (at least during transition to doom)
+(setq which-key-idle-delay 0.2)
+
 ;; Keybinding overrides of doom.emacs.d/modules/config/default/+evil-bindings.el
 (map! :leader
       :desc "M-x"                   "SPC" #'execute-extended-command
