@@ -1,5 +1,11 @@
+{ pkgs ? import <nixpkgs> {} }:
+
 let
-  pkgs = import <nixpkgs> { };
+  #NOTE(SN): https://github.com/NixOS/nixpkgs/pull/84627
+  zsh-syntax-highlighting = pkgs.callPackage (import (builtins.fetchurl {
+    name = "nixpkgs-ch1bo-zsh-sytnax-highlighting-share";
+    url = "https://raw.githubusercontent.com/ch1bo/nixpkgs/b8a212f625b5eebe3c28a62c6736674cd516dd40/pkgs/shells/zsh/zsh-syntax-highlighting/default.nix";
+  })) {};
 
   essentials = (with pkgs; [
     feh # for the backgrounds
@@ -18,7 +24,6 @@ let
     xorg.xrdb # for Xresources to theme urxvt
     xorg.xset # configure xorg
     zsh # the shell
-    # TODO(SN): share binary not in release -> overlay? fetchGit ch1bo/nixpkgs?
     zsh-syntax-highlighting # like fish
   ]);
 
@@ -35,4 +40,4 @@ let
     scrot # screenshots
     vim # the editor
   ]);
-in essentials ++ nicetohave
+in  essentials ++ nicetohave
