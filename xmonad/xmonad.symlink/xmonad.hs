@@ -114,7 +114,8 @@ keyBindings conf@(XConfig {XMonad.modMask = modMask}) = Map.fromList $
     -- Launch browser
     , ((modMask, xK_w), spawn "chromium")
     -- Lock screen
-    , ((controlMask .|. mod1Mask, xK_l), spawn "slock")
+    -- NOTE(SN): slock from nixpkgs does not have setuid, hence requires a sudoers entry
+    , ((controlMask .|. mod1Mask, xK_l), spawn "sudo slock")
     ]
     ++
     --

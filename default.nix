@@ -7,6 +7,8 @@ let
     url = "https://raw.githubusercontent.com/ch1bo/nixpkgs/b8a212f625b5eebe3c28a62c6736674cd516dd40/pkgs/shells/zsh/zsh-syntax-highlighting/default.nix";
   })) {};
 
+  slock = import ./nix/slockArch.nix;
+
   essentials = (with pkgs; [
     feh # for the backgrounds
     fzf # fuzzy find tool
