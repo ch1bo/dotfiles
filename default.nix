@@ -10,10 +10,13 @@ let
   slock = import ./nix/slockArch.nix;
 
   essentials = (with pkgs; [
+    cachix # nix cache
+    direnv # do dir specific things
     feh # for the backgrounds
     fzf # fuzzy find tool
     git # bootstrap from nix
     glibcLocales # non broken LOCALE
+    lorri # keep nix-shell gc-roots
     nix # nix package manager
     rofi # launch stuff
     rxvt_unicode-with-plugins # urxvt terminal

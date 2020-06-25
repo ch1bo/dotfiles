@@ -54,6 +54,7 @@
 (map! :leader
       :desc "M-x"                   "SPC" #'execute-extended-command
       :desc "Search in project"     "/"   #'+default/search-project
+      :desc "Comment lines"         ";"   #'comment-or-uncomment-region
       ;;; <leader> a --- agenda
       :desc "Org agenda"            "a"   #'org-agenda
       ;;; <leader> g --- git/version control
@@ -91,3 +92,9 @@
           (tags-todo "idea"
                       ((org-agenda-overriding-header "Ideas"))))
           )))
+
+;; File extension -> mode association
+(add-to-list 'auto-mode-alist '("\\.mc\\'" . java-mode))
+
+;; Enable use of emacsclient
+(server-start)

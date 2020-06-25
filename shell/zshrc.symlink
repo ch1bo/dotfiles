@@ -32,6 +32,9 @@ unset config_files
 # syntax highlighting
 source "$(zsh-syntax-highlighting-share)/zsh-syntax-highlighting.zsh"
 
+# evaluate .envrc files
+eval "$(direnv hook zsh)"
+
 # use .localrc for SUPER SECRET CRAP that you don't
 # want in your public, versioned repo.
 if [ -e ${HOME}/.localrc ]; then
