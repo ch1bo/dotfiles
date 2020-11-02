@@ -12,6 +12,7 @@ import           XMonad.Actions.Navigation2D         (defaultNavigation2DConfig,
 import           XMonad.Hooks.DynamicLog             (PP (..), defaultPP,
                                                       shorten, statusBar, wrap,
                                                       xmobarColor)
+import           XMonad.Hooks.EwmhDesktops           (ewmh)
 import           XMonad.Layout.Gaps                  (gaps)
 import           XMonad.Layout.IM                    (Property (..), gridIM)
 import           XMonad.Layout.LayoutModifier        (ModifiedLayout (..))
@@ -30,7 +31,7 @@ import           XMonad.Util.Types                   (Direction2D (..))
 import qualified Data.Map                            as Map
 import qualified XMonad.StackSet                     as StackSet
 
-main = xmobar config >>= xmonad
+main = xmobar config >>= xmonad . ewmh
 
 config = withNavigation2DConfig defaultNavigation2DConfig $
   defaultConfig { modMask = mod4Mask -- Super as modifier
