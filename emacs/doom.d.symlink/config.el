@@ -19,7 +19,7 @@
 ;;
 ;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
 ;; font string. You generally only need these two:
-(setq doom-font (font-spec :family "monospace" :size 15))
+(setq doom-font (font-spec :family "Source Code Pro" :size 15))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
@@ -28,7 +28,7 @@
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
-(setq display-line-numbers-type t)
+(setq display-line-numbers-type 'relative)
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
@@ -80,21 +80,27 @@
         )
       org-agenda-custom-commands
       '(("n" "Agenda and all TODOs"
-          ((agenda ""
+         ((agenda ""
                   ((org-agenda-span
                     (quote day))))
           (tags-todo "-idea&-candidate"
-                      ((org-agenda-overriding-header "TODOs (unscheduled)")
+                     ((org-agenda-overriding-header "TODOs (unscheduled)")
                       (org-agenda-skip-function
-                        (quote
+                       (quote
                         (org-agenda-skip-subtree-if
-                          (quote scheduled))))))
+                         (quote scheduled))))))
           (tags-todo "idea"
-                      ((org-agenda-overriding-header "Ideas"))))
-          )))
-
-;; File extension -> mode association
-(add-to-list 'auto-mode-alist '("\\.mc\\'" . java-mode))
+                     ((org-agenda-overriding-header "Ideas"))))
+         )))
 
 ;; Enable use of emacsclient
-(server-start)
+;;(server-start)
+
+;; Language environment settings
+(setq lsp-groovy-server-file
+      (concat lsp-server-install-dir "groovy-language-server/groovy-language-server-all.jar"))
+
+;; Use java-mode for "monkeyc" files, but disable auto-formatting
+(add-to-list 'auto-mode-alist '("\\.mc\\'" . java-mode))
+(after! format
+  (nconc +format-on-save-enabled-modes '(java-mode)))
