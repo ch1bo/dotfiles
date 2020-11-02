@@ -16,7 +16,27 @@ easily update and rollback between generations of my whole user environment.
 
 ## Install
 
-TODO
+As I am not (yet) using any `NixOS` systems, [nix](https://nixos.org) needs to
+be installed first:
+
+``` sh
+curl -L https://nixos.org/nix/install | sh
+```
+
+Then, [home-manager](https://github.com/nix-community/home-manager):
+
+``` sh
+nix-channel --add https://github.com/nix-community/home-manager/archive/release-20.09.tar.gz home-manager
+nix-channel --update
+nix-shell '<home-manager>' -A install
+```
+
+And, for now, symlink the default path to the checked out `home.nix`:
+
+``` sh
+ln -sf $PWD/home.nix ~/.config/nixpkgs/home.nix
+home-manager switch
+```
 
 ## Disclaimer
 
