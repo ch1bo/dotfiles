@@ -10,5 +10,8 @@ let
 in
 pkgs.mkShell {
   buildInputs = [ home-manager.home-manager ];
-  HOME_MANAGER_CONFIG = ./home.nix;
+
+  shellHook = ''
+    export HOME_MANAGER_CONFIG="./home.nix"
+  '';
 }
