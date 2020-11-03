@@ -35,6 +35,10 @@ in
   programs.zsh = {
     enable = true;
     inherit shellAliases;
+    history = {
+      size = 10000000;
+      save = 10000000;
+    };
     profileExtra = builtins.readFile ./shell/profile;
     initExtraBeforeCompInit = ''
       # Generic .zshrc which sources all *.zsh files in the dotfiles repository (completion.zsh last)
@@ -46,6 +50,12 @@ in
         fpath=($topic_folder $fpath)
       fi
 
+      # source zsh specific config files
+      for file in ''${(M)config_files:#*/shell/*.zsh}; do
+        source $file
+      done
+      config_files=(''${config_files:#*/shell/*.zsh})
+
       # source everything but the completion files
       for file in ''${config_files:#*/completion.zsh}; do
         source $file
@@ -56,12 +66,6 @@ in
       for file in ''${(M)config_files:#*/completion.zsh}; do
         source $file
       done
-
-      # source zsh specific config files
-      for file in ''${(M)config_files:#*/shell/*.zsh}; do
-        source $file
-      done
-      config_files=(''${config_files:#*/shell/*.zsh})
 
       unset config_files
 
