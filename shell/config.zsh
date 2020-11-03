@@ -1,4 +1,3 @@
-export LSCOLORS="exfxcxdxbxegedabagacad"
 export CLICOLOR=true
 
 setopt NO_BG_NICE # don't nice background tasks
@@ -26,6 +25,7 @@ setopt HIST_SAVE_NO_DUPS         # Don't write duplicate entries in the history 
 setopt HIST_REDUCE_BLANKS        # Remove superfluous blanks before recording entry.
 setopt HIST_VERIFY               # Don't execute immediately upon history expansion.
 
+# History backup
 if [[ $(wc -l ${HISTFILE} | awk '{print $1}') -gt $(wc -l ${HISTFILE}.bkp | awk '{print $1}' || 0) ]]; then
   cp ${HISTFILE} ${HISTFILE}.bkp
 fi
