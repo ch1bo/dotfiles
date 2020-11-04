@@ -2,5 +2,5 @@
 export GOPATH="$HOME/work/go"
 export PATH=${GOPATH}/bin:${PATH}
 if [ -d /usr/lib/go-1.10/bin ]; then
-  export PATH=/usr/lib/go-1.10/bin:${path}
+  export PATH=/usr/lib/go-1.10/bin:${PATH}
 fi
