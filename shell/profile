@@ -6,9 +6,6 @@
 # NOTE: Only use this for environment variable set up, interactive non-login
 # shells like bash/zsh will be configured in .bashrc / .zshrc
 
-export DOTFILES=$HOME/.dotfiles
-export PATH=${DOTFILES}/bin:$PATH
-
 # source profile.sh files in topics
 for file in ${DOTFILES}/*/profile.sh; do
   [ -f "${file}" ] || continue
