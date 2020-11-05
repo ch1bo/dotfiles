@@ -7,14 +7,18 @@ in
   home.stateVersion = "20.09";
   home.username = "ch1bo";
   home.homeDirectory = "/home/ch1bo";
+
   home.sessionVariables = {
     DOTFILES = dotFilesDirectory;
     EDITOR = "emacs";
   };
+
   home.sessionPath = [
     "${dotFilesDirectory}/bin"
   ];
+
   imports = [
+    ./arch
     ./git
     ./nix
     ./shell
