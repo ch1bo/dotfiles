@@ -6,25 +6,6 @@
     userName = "Sebastian Nagel";
     userEmail = "sebastian.nagel@ncoding.at";
 
-    aliases = {
-      co = "checkout";
-      graph = "log --graph --oneline --decorate";
-      changelog = "log --pretty=format:'%s' --no-merges";
-      count = "shortlog -sn";
-      wtf = "!$DOTFILES/bin/git-wtf";
-      up = "!$DOTFILES/bin/git-up";
-      dlm = "!$DOTFILES/bin/git-delete-local-merged";
-      sup = "!$DOTFILES/bin/git-sup";
-    };
-
-    ignores = [
-      "*~"
-      "*.swp"
-      ".clang_complete"
-      "TAGS"
-      "dist*/"
-    ];
-
     extraConfig = {
       color.ui = true;
       diff.submodule = "log";
@@ -37,6 +18,25 @@
       };
       status.submoduleSummary = true;
     };
+
+    aliases = {
+      co = "checkout";
+      graph = "log --graph --oneline --decorate";
+      changelog = "log --pretty=format:'%s' --no-merges";
+      count = "shortlog -sn";
+      wtf = "!${./git-wtf}";
+      dlm = "!${./git-delete-local-merged}";
+      up = "!${./git-up}";
+      sup = "!${./git-sup}";
+    };
+
+    ignores = [
+      "*~"
+      "*.swp"
+      ".clang_complete"
+      "TAGS"
+      "dist*/"
+    ];
   };
 
   programs.zsh.shellAliases = {

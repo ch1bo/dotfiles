@@ -1,10 +1,7 @@
 #!/bin/sh
 #
-# Usage: git-up
-#        git-reup
-#
 # Like git-pull but show a short and sexy log of changes
-# immediately after merging (git-up) or rebasing (git-reup).
+# immediately after rebasing.
 #
 # Inspired by Kyle Neath's `git up' alias:
 # http://gist.github.com/249223
