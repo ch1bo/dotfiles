@@ -14,6 +14,10 @@ keep them maintainable, but have now migrated to
 [home-manager](https://github.com/nix-community/home-manager). This allows me to
 easily update and rollback between generations of my whole user environment.
 
+## Dependencies
+
+* `slock` installed on system-level
+
 ## Install
 
 1. Install [nix](https://nixos.org/download.html)
@@ -29,9 +33,10 @@ check for a dependency.
 
 - [ ] Use home-manager
   - [X] Make self-contained (`home-manager` in `nix-shell`)
-  - [ ] Use `nix-direnv` or `lorri`
   - [ ] Migrate existing config
+  - [ ] Use `nix-direnv` or `lorri`
   - [ ] Make independent of "<nixpkgs>" (pinning using `niv` or flakes)
+  - [ ] Find a better way to screen locking
 - [ ] Switch to doom emacs
   - [X] org
   - [ ] editor (text, mc/iedit)

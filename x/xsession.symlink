@@ -21,6 +21,10 @@ xset -b
 xset dpms 0 360 420
 xset s blank
 xset s 300
+# Use system-level screen locker as either setuid flags are required, or
+# pam-based lockers do not play well. Also, fork xss-lock here instead a systemd
+# unit as XDG_SESSION_ID was unset there.
+xss-lock slock &
 
 # Faster keyboard typematic delay and rate
 xset r rate 200 60

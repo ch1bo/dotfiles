@@ -18,9 +18,16 @@ in
   ];
 
   imports = [
-    ./arch
     ./git
     ./nix
     ./shell
+  ];
+
+  # TODO try this out
+  targets.genericLinux.enable = true;
+
+  # TODO move xsession/xmonad stuff into home-manager
+  home.packages = [
+    pkgs.xss-lock
   ];
 }
