@@ -21,13 +21,9 @@ in
     ./git
     ./nix
     ./shell
+    ./x
   ];
 
   # TODO try this out
   targets.genericLinux.enable = true;
-
-  # TODO move xsession/xmonad stuff into home-manager
-  home.packages = [
-    pkgs.xss-lock
-  ];
 }

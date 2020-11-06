@@ -51,7 +51,7 @@ URxvt.colorIT:  base0D
 URxvt.colorBD:  base0E
 URxvt.colorUL:  base0C
 
-URxvt.font: xft:Inconsolata:size=16:antialias=true
+URxvt.font: xft:DejaVu Sans Mono:size=16:antialias=true
 URxvt.boldFont:
 URxvt.italicFont:
 URxvt.bolditalicFont:
