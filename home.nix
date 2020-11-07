@@ -21,6 +21,7 @@ in
     ./git
     ./nix
     ./shell
+    ./urxvt
     ./x
   ];
 

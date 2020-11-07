@@ -4,6 +4,7 @@
   home.packages = [
     pkgs.xbindkeys
     pkgs.xorg.xrandr
+    pkgs.xorg.xrdb
     pkgs.xorg.xset
   ];
 
@@ -43,11 +44,12 @@
       # Load custom keybindings
       xbindkeys
 
+      # TODO use xresources module?
       # Load colors and settings
       xrdb -load ${./xresources}
 
       # Desktop wallpaper
-      feh --bg-scale ${./firewatch.jpg}
+      feh --bg-scale ${./matterhorn2.jpg}
     '';
   };
 

@@ -12,7 +12,8 @@ shortcuts (git aliases, fzf, z).
 I used to symlink configurations from the home directory into this repository to
 keep them maintainable, but have now migrated to
 [home-manager](https://github.com/nix-community/home-manager). This allows me to
-easily update and rollback between generations of my whole user environment.
+easily update and rollback between generations of my whole user environment, as
+well as convenient modelling of os-specific configs.
 
 ## Dependencies
 
@@ -33,10 +34,11 @@ check for a dependency.
 
 - [ ] Use home-manager
   - [X] Make self-contained (`home-manager` in `nix-shell`)
-  - [ ] Migrate existing config
+  - [ ] Migrate using existing config files
+  - [ ] Modularize config
   - [ ] Use `nix-direnv` or `lorri`
   - [ ] Make independent of "<nixpkgs>" (pinning using `niv` or flakes)
-  - [ ] Find a better way to screen locking
+  - [ ] Find a better way to screen locking (without dependencies)
 - [ ] Switch to doom emacs
   - [X] org
   - [ ] editor (text, mc/iedit)
