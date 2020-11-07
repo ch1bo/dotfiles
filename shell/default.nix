@@ -17,7 +17,6 @@ in
   programs.bash = {
     enable = true;
     inherit shellAliases;
-    profileExtra = builtins.readFile ./profile;
     initExtra = builtins.readFile ./bashrc;
   };
   programs.zsh = {
@@ -27,7 +26,6 @@ in
       size = 10000000;
       save = 10000000;
     };
-    profileExtra = builtins.readFile ./profile;
     initExtraBeforeCompInit = ''
       # Generic .zshrc which sources all *.zsh files in the dotfiles repository (completion.zsh last)
       typeset -U config_files
@@ -57,11 +55,12 @@ in
 
       unset config_files
 
-      # syntax highlighting
-      source "$(zsh-syntax-highlighting-share)/zsh-syntax-highlighting.zsh"
-
       # evaluate .envrc files
-      eval "$(direnv hook zsh)"
+      eval "$(${pkgs.direnv}/bin/direnv hook zsh)"
     '';
   };
+
+  home.packages = [
+    pkgs.direnv
+  ];
 }
