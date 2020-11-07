@@ -2,6 +2,7 @@
 
 {
   home.packages = [
+    pkgs.rofi # launcher
     pkgs.xbindkeys
     pkgs.xorg.xrandr
     pkgs.xorg.xrdb
