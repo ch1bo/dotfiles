@@ -18,6 +18,9 @@ in
     "$HOME/.local/bin"
   ];
 
+  # TODO try this out
+  targets.genericLinux.enable = true;
+
   imports = [
     ./git
     ./nix
@@ -28,6 +31,7 @@ in
     ./connectiq
   ];
 
-  # TODO try this out
-  targets.genericLinux.enable = true;
+  home.packages = [
+    pkgs.docker-compose
+  ];
 }

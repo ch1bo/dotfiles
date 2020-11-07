@@ -26,15 +26,11 @@ in
       size = 10000000;
       save = 10000000;
     };
+    enableAutosuggestions = true;
     initExtraBeforeCompInit = ''
       # Generic .zshrc which sources all *.zsh files in the dotfiles repository (completion.zsh last)
       typeset -U config_files
       config_files=($DOTFILES/*/*.zsh)
-
-      # add each topic folder to fpath so that they can add functions and completion scripts
-      for topic_folder ($DOTFILES/*) if [ -d $topic_folder ]; then
-        fpath=($topic_folder $fpath)
-      fi
 
       # source zsh specific config files
       for file in ''${(M)config_files:#*/shell/*.zsh}; do
