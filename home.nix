@@ -15,6 +15,7 @@ in
 
   home.sessionPath = [
     "${dotFilesDirectory}/bin"
+    "$HOME/.local/bin"
   ];
 
   imports = [
@@ -24,6 +25,7 @@ in
     ./urxvt
     ./x
     ./haskell
+    ./connectiq
   ];
 
   # TODO try this out
