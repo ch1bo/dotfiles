@@ -23,6 +23,7 @@ in
     ./shell
     ./urxvt
     ./x
+    ./haskell
   ];
 
   # TODO try this out
