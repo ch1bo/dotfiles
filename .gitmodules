@@ -1,5 +1,5 @@
-[submodule "z/z"]
-	path = z/z
+[submodule "shell/z"]
+	path = shell/z
 	url = https://github.com/rupa/z.git
 [submodule "emacs/emacs.d.symlink"]
 	path = emacs/spacemacs.emacs.d

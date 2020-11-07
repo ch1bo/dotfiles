@@ -53,10 +53,29 @@ in
 
       # evaluate .envrc files
       eval "$(${pkgs.direnv}/bin/direnv hook zsh)"
+
+      # z for jumping around
+      source ${./z/z.sh}
+
+      # z as source for fzf
+      fzf-z-widget() {
+        if type "z" > /dev/null; then
+          cd "$(echo $(z -t -l | cut -d' ' -f2- | tr -d ' ' | fzf --tac))"
+          zle reset-prompt
+        fi
+      }
+      zle -N fzf-z-widget
+      bindkey '^Z' fzf-z-widget
     '';
+  };
+  programs.fzf = {
+    enable = true;
+    defaultCommand = "fd";
+    defaultOptions = [ "--height=40%" "--reverse" ];
   };
 
   home.packages = [
     pkgs.direnv
+    pkgs.fd
   ];
 }

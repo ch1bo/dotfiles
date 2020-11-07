@@ -41,11 +41,11 @@ check for a dependency.
   - [ ] Find a better way to screen locking (without dependencies)
 - [ ] Switch to doom emacs
   - [X] org
-  - [ ] editor (text, mc/iedit)
+  - [ ] editor (mc vs. iedit?)
   - [ ] mail
   - [ ] haskell
 - [ ] Tray & tune xmobar
 - [ ] Improve / new xmonad layouts
 - [ ] Theme rofi
 - [ ] Different terminal emulator
-- [ ] Evaluate fish shell
+- [ ] Evaluate fish shell or fix zsh completion
