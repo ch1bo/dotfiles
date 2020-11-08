@@ -23,9 +23,6 @@ colorscheme base16-solar-flare
 syntax on
 filetype plugin indent on
 
-" Pathogen plugin management
-execute pathogen#infect()
-
 " Syntastic
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
