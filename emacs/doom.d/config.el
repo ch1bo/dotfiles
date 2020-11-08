@@ -104,3 +104,6 @@
 (add-to-list 'auto-mode-alist '("\\.mc\\'" . java-mode))
 (after! format
   (nconc +format-on-save-enabled-modes '(java-mode)))
+
+;; Don't follow symlinks by default
+(setq find-file-visit-truename nil)

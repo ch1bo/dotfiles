@@ -1,2 +1,2 @@
 #!/bin/sh
-exec emacs --with-profile spacemacs
+exec emacsclient --alternate-editor="$(emacs --with-profile spacemacs)" -c "$@"

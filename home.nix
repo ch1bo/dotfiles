@@ -23,6 +23,7 @@
     ./shell
     ./urxvt
     ./x
+    ./emacs
     ./vim
     ./haskell
     ./connectiq
