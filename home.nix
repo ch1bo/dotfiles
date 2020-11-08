@@ -1,7 +1,4 @@
 { config, pkgs, ... }:
-let
-  dotFilesDirectory = "$HOME/.dotfiles";
-in
 {
   programs.home-manager.enable = true;
   home.stateVersion = "20.09";
@@ -9,12 +6,11 @@ in
   home.homeDirectory = "/home/ch1bo";
 
   home.sessionVariables = {
-    DOTFILES = dotFilesDirectory;
     EDITOR = "emacs";
   };
 
   home.sessionPath = [
-    "${dotFilesDirectory}/bin"
+    "$HOME/.dotfiles/bin"
     "$HOME/.local/bin"
   ];
 

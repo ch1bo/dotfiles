@@ -27,29 +27,15 @@ in
       save = 10000000;
     };
     enableAutosuggestions = true;
-    initExtraBeforeCompInit = ''
-      # Generic .zshrc which sources all *.zsh files in the dotfiles repository (completion.zsh last)
-      typeset -U config_files
-      config_files=($DOTFILES/*/*.zsh)
-
-      # source zsh specific config files
-      for file in ''${(M)config_files:#*/shell/*.zsh}; do
-        source $file
-      done
-      config_files=(''${config_files:#*/shell/*.zsh})
-
-      # source everything but the completion files
-      for file in ''${config_files:#*/completion.zsh}; do
-        source $file
-      done
-    '';
     initExtra = ''
-      # source completion files after autocomplete loads
-      for file in ''${(M)config_files:#*/completion.zsh}; do
-        source $file
-      done
+      source ${./colors.zsh};
+      source ${./completion.zsh};
+      source ${./prompt.zsh};
+      source ${./window.zsh};
+      source ${./config.zsh};
 
-      unset config_files
+      # syntax highlighting
+      source "${pkgs.zsh-syntax-highlighting}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 
       # evaluate .envrc files
       eval "$(${pkgs.direnv}/bin/direnv hook zsh)"
