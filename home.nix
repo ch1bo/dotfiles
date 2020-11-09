@@ -1,6 +1,5 @@
 { config, pkgs, ... }:
 {
-  programs.home-manager.enable = true;
   home.stateVersion = "20.09";
   home.username = "ch1bo";
   home.homeDirectory = "/home/ch1bo";
@@ -14,21 +13,29 @@
     "$HOME/.local/bin"
   ];
 
-  # TODO try this out
-  targets.genericLinux.enable = true;
+  programs.home-manager.enable = true;
+
+  targets.genericLinux = {
+    enable = true;
+    # Use host's data dir as fallback, e.g. when the nixpkgs' gsettings schemas
+    # are incompatible / older
+    extraXdgDataDirs = [ "/usr/share" ];
+  };
 
   imports = [
     ./git
     ./nix
     ./shell
     ./urxvt
-    ./x
+    ./xsession
+    ./gnome
     ./emacs
     ./vim
     ./haskell
     ./connectiq
   ];
 
+  # Random packages
   home.packages = [
     pkgs.docker-compose
   ];
