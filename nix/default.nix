@@ -2,6 +2,7 @@
 
 {
   home.packages = [
+    pkgs.nix-index
     pkgs.nixpkgs-fmt
   ];
 
@@ -15,4 +16,9 @@
   home.sessionVariables = {
     LOCALE_ARCHIVE = "${pkgs.glibcLocales}/lib/locale/locale-archive";
   };
+
+  # Locate missing commands using nix-index
+  programs.zsh.initExtra = ''
+    source ${pkgs.nix-index}/etc/profile.d/command-not-found.sh
+  '';
 }
