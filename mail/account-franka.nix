@@ -19,6 +19,13 @@
       enable = true;
       extraConfig.remote = {
         starttls = true;
+        folderfilter = ''
+          lambda fn: not(any(
+            [ fn.startswith('Public')
+            , fn.startswith('KBee')
+            , fn.startswith('Kastanienbaum')
+            ]))
+        '';
       };
     };
   };
