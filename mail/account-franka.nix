@@ -1,5 +1,6 @@
 {
   accounts.email.accounts.franka = {
+    primary = true;
     address = "sebastian.nagel@franka.de";
     realName = "Sebastian Nagel";
     userName = "nage_se";
@@ -8,12 +9,17 @@
     maildir = { path = "franka.de"; };
     imap = {
       host = "mail.franka.de";
-      tls.enable = true;
+      tls.enable = false; # only starttls
     };
     smtp = {
       host = "mail.franka.de";
       tls.enable = true;
     };
-    offlineimap.enable = true;
+    offlineimap = {
+      enable = true;
+      extraConfig.remote = {
+        starttls = true;
+      };
+    };
   };
 }
