@@ -23,16 +23,18 @@
   };
 
   imports = [
+    ./connectiq
+    ./emacs
     ./git
+    ./gnome
+    ./haskell
+    ./mail
+    ./mail/account-ncoding.nix
     ./nix
     ./shell
     ./urxvt
-    ./xsession
-    ./gnome
-    ./emacs
     ./vim
-    ./haskell
-    ./connectiq
+    ./xsession
   ];
 
   # Random packages
