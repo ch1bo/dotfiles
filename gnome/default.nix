@@ -30,6 +30,8 @@
     package = pkgs.numix-cursor-theme;
     name = "Numix-Cursor";
   };
+  # TODO upstream into home-manager xcursor module
+  home.file.".icons/default".source = "${pkgs.numix-cursor-theme}/share/icons/Numix-Cursor";
 
   home.packages = [
     pkgs.gnome3.eog
