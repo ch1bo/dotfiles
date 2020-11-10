@@ -93,9 +93,6 @@
                      ((org-agenda-overriding-header "Ideas"))))
          )))
 
-;; Enable use of emacsclient
-;;(server-start)
-
 ;; Language environment settings
 (setq lsp-groovy-server-file
       (concat lsp-server-install-dir "groovy-language-server/groovy-language-server-all.jar"))
@@ -107,3 +104,23 @@
 
 ;; Don't follow symlinks by default
 (setq find-file-visit-truename nil)
+
+;; Email
+(setq +mu4e-backend 'offlineimap
+      mu4e-maildir "~/mail"
+      user-full-name "Sebastian Nagel"
+      )
+;; TODO DRY with mail/accounts-ncoding.nix
+(set-email-account!
+ "ncoding.at"
+ '((user-mail-address . "sebastian.nagel@ncoding.at")
+   (mu4e-trash-folder . "/ncoding.at/Trash")
+   (mu4e-refile-folder  . "/ncoding.at/Archive")
+   (mu4e-sent-folder . "/ncoding.at/Sent")
+   (mu4e-drafts-folder . "/ncoding.at/Drafts")
+   (smtpmail-smtp-user . "sebastian.nagel@ncoding.at")
+   (smtpmail-smtp-server . "mail.ncoding.at")
+   (smtpmail-smtp-service . 587) ;; TODO switch to 465
+   (smtpmail-stream-type 'ssl)
+   )
+ t)

@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 let
   # TODO how to avoid this hardcoded path here and also in emacs configs?
-  dotfilesPath = "$HOME/.dotfiles";
+  dotfilesPath = "~/.dotfiles";
 in
 {
   home.packages = [ pkgs.emacs ];
@@ -14,9 +14,5 @@ in
   '';
   # TODO replace .dotfiles/bin path for doom, doom-emacs and spacemacs?
   home.file.".spacemacs".source = ./spacemacs;
-  home.file.".doom.d" = {
-    source = ./doom.d;
-    # TODO how to also perform this when .dotfiles/emacs/doom.d changes?
-    onChange = "doom sync";
-  };
+  home.file.".doom.d".source = ./doom.d;
 }

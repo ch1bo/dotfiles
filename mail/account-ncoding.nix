@@ -14,9 +14,11 @@
     };
     smtp = {
       host = "mail.ncoding.at";
+      port = 587; # TODO switch to 465
       tls.enable = true;
     };
     # TODO gpg
     offlineimap.enable = true;
+    msmtp.enable = true;
   };
 }
