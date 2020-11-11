@@ -108,27 +108,10 @@
 ;; Email
 (setq +mu4e-backend 'offlineimap
       mu4e-maildir "~/mail"
-      user-full-name "Sebastian Nagel"
-      )
+      mu4e-update-interval 120
+      user-full-name "Sebastian Nagel")
 ;; Load/Refresh main mu4e view on context change
 (add-hook! 'mu4e-context-changed-hook 'mu4e)
-;; TODO DRY with mail/accounts-ncoding.nix
-(set-email-account!
- "ncoding.at"
- '((user-mail-address . "sebastian.nagel@ncoding.at")
-   (mu4e-trash-folder . "/ncoding.at/Trash")
-   (mu4e-refile-folder  . "/ncoding.at/Archive")
-   (mu4e-sent-folder . "/ncoding.at/Sent")
-   (mu4e-drafts-folder . "/ncoding.at/Drafts")
-   (smtpmail-smtp-user . "sebastian.nagel@ncoding.at")
-   (smtpmail-smtp-server . "mail.ncoding.at")
-   (smtpmail-smtp-service . 587) ;; TODO switch to 465
-   (smtpmail-stream-type . 'ssl)
-   (mu4e-bookmarks . ((:name "Unread messages" :query "maildir:/ncoding.at/* AND flag:unread AND NOT flag:trashed" :key ?u)
-                      (:name "Today's messages" :query "maildir:/ncoding.at/* AND date:today..now AND NOT flag:trashed" :key ?t)
-                      (:name "Flagged messages" :query "maildir:/ncoding.at/* AND flag:flagged" :key ?f)
-                      ))
-   ))
 ;; TODO DRY with mail/accounts-franka.nix
 (set-email-account!
  "franka.de"
@@ -147,3 +130,20 @@
                       ))
    )
  t)
+;; TODO DRY with mail/accounts-ncoding.nix
+(set-email-account!
+ "ncoding.at"
+ '((user-mail-address . "sebastian.nagel@ncoding.at")
+   (mu4e-trash-folder . "/ncoding.at/Trash")
+   (mu4e-refile-folder  . "/ncoding.at/Archive")
+   (mu4e-sent-folder . "/ncoding.at/Sent")
+   (mu4e-drafts-folder . "/ncoding.at/Drafts")
+   (smtpmail-smtp-user . "sebastian.nagel@ncoding.at")
+   (smtpmail-smtp-server . "mail.ncoding.at")
+   (smtpmail-smtp-service . 587) ;; TODO switch to 465
+   (smtpmail-stream-type . 'ssl)
+   (mu4e-bookmarks . ((:name "Unread messages" :query "maildir:/ncoding.at/* AND flag:unread AND NOT flag:trashed" :key ?u)
+                      (:name "Today's messages" :query "maildir:/ncoding.at/* AND date:today..now AND NOT flag:trashed" :key ?t)
+                      (:name "Flagged messages" :query "maildir:/ncoding.at/* AND flag:flagged" :key ?f)
+                      ))
+   ))
