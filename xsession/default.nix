@@ -28,10 +28,9 @@
       # No beeps
       xset -b
 
-      # Screensaver 5min, monitor suspend 6min, monitor off 7min
-      xset dpms 0 360 420
+      # Screen saver (blank) after 3min, lock 2min later
       xset s blank
-      xset s 300
+      xset s 180 120
 
       # Faster keyboard typematic delay and rate
       # TODO this resets when docking or un/plugging keyboards
