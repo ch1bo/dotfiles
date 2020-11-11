@@ -75,5 +75,9 @@
   services.screen-locker = {
     enable = true;
     lockCmd = "/usr/bin/slock";
+    xssLockExtraOptions =
+      let dimScreenScript = pkgs.writeScript "dim-screen"
+        (builtins.readFile "${pkgs.xss-lock}/share/doc/xss-lock/dim-screen.sh");
+      in [ "-n ${dimScreenScript}" ];
   };
 }
