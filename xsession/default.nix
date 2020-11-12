@@ -4,6 +4,7 @@
   home.packages = [
     pkgs.rofi # launcher
     pkgs.xbindkeys
+    pkgs.xmobar # launched by xmonad
     pkgs.xorg.xrandr
     pkgs.xorg.xrdb
     pkgs.xorg.xset

@@ -113,7 +113,7 @@ keyBindings conf@(XConfig {XMonad.modMask = modMask}) = Map.fromList $
     -- Show/hide scratchpad
     , ((modMask, xK_s), scratchpadSpawnAction config)
     -- Launch browser
-    , ((modMask, xK_w), spawn "chromium")
+    , ((modMask, xK_w), spawn "firefox")
     -- Lock screen
     , ((controlMask .|. mod1Mask, xK_l), spawn "loginctl lock-session")
     ]
