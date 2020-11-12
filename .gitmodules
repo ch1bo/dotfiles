@@ -1,12 +1,11 @@
 [submodule "shell/z"]
 	path = shell/z
 	url = https://github.com/rupa/z.git
-[submodule "emacs/emacs.d.symlink"]
-	path = emacs/spacemacs.emacs.d
-	url = https://github.com/syl20bnr/spacemacs
 [submodule "emacs/spacemacs.emacs.d"]
 	path = emacs/spacemacs.emacs.d
 	url = https://github.com/syl20bnr/spacemacs
+	branch = develop
 [submodule "emacs/doom.emacs.d"]
 	path = emacs/doom.emacs.d
 	url = https://github.com/hlissner/doom-emacs
+	branch = develop
