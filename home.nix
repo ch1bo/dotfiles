@@ -1,25 +1,42 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 {
-  home.stateVersion = "20.09";
-  home.username = "ch1bo";
-  home.homeDirectory = "/home/ch1bo";
-
-  home.sessionVariables = {
-    EDITOR = "emacs";
+  options = {
+    dotfiles = lib.mkOption {
+      type = lib.types.path;
+      apply = toString;
+      example = "${config.home.homeDirectory}/.dotfiles";
+      description = "Location of the dotfiles working copy";
+    };
   };
 
-  home.sessionPath = [
-    "$HOME/.dotfiles/bin"
-    "$HOME/.local/bin"
-  ];
+  config = {
+    home.stateVersion = "20.09";
+    home.username = "ch1bo";
+    home.homeDirectory = "/home/ch1bo";
+    dotfiles = "${config.home.homeDirectory}/.dotfiles";
 
-  programs.home-manager.enable = true;
+    home.sessionVariables = {
+      EDITOR = "emacs";
+    };
 
-  targets.genericLinux = {
-    enable = true;
-    # Use host's data dir as fallback, e.g. when the nixpkgs' gsettings schemas
-    # are incompatible / older
-    extraXdgDataDirs = [ "/usr/share" ];
+    home.sessionPath = [
+      "${config.dotfiles}/bin"
+      "${config.home.homeDirectory}/.local/bin"
+    ];
+
+    programs.home-manager.enable = true;
+
+    targets.genericLinux = {
+      enable = true;
+      # Use host's data dir as fallback, e.g. when the nixpkgs' gsettings schemas
+      # are incompatible / older
+      extraXdgDataDirs = [ "/usr/share" ];
+    };
+
+    # Random packages
+    home.packages = [
+      pkgs.docker-compose
+    ];
   };
 
   imports = [
@@ -35,10 +52,5 @@
     ./urxvt
     ./vim
     ./xsession
-  ];
-
-  # Random packages
-  home.packages = [
-    pkgs.docker-compose
   ];
 }

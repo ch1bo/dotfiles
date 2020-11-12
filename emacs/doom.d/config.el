@@ -28,7 +28,7 @@
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
-(setq display-line-numbers-type 'relative)
+(setq display-line-numbers-type 't)
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
@@ -108,8 +108,7 @@
 ;; Email
 (setq +mu4e-backend 'offlineimap
       mu4e-maildir "~/mail"
-      mu4e-update-interval 120
-      user-full-name "Sebastian Nagel")
+      mu4e-update-interval 120)
 ;; Load/Refresh main mu4e view on context change
 (add-hook! 'mu4e-context-changed-hook 'mu4e)
 ;; TODO DRY with mail/accounts-franka.nix

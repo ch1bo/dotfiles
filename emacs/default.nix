@@ -1,18 +1,42 @@
+# Module which installs and configures my various emacs distributions in use. As
+#
+# I am in the process of switching between spacemacs to doom-emacs, I use the
+# chemacs profile switcher + utilty scripts to launch these two profiles.
+#
+# Furthermore, we deliberately set up emacs up to look for config and emacs
+# distribution upstreams within the dotfiles working copy to allow for faster
+# tweaking (for now at least).
+#
+# TODO emacs-overlay with emacsGcc
+# TODO dependencies like git, fd, rg, etc.
+
 { config, pkgs, ... }:
 let
-  # TODO how to avoid this hardcoded path here and also in emacs configs?
-  dotfilesPath = "~/.dotfiles";
+  emacsDir = "${config.dotfiles}/emacs";
+  # The 'doom' utility
+  doom = pkgs.writeScriptBin "doom" (builtins.readFile "${emacsDir}/doom.emacs.d/bin/doom");
+  # Chemacs shortcuts
+  doom-emacs = pkgs.writeScriptBin "doom-emacs" "exec emacs --with-profile doom";
+  spacemacs = pkgs.writeScriptBin "spacemacs"
+    ''emacsclient --alternate-editor="emacs --with-profile spacemacs" -s spacemacs -c "$@"'';
 in
 {
-  home.packages = [ pkgs.emacs ];
-  # Chemacs profile switcher
+  # Chemacs profile switcher with user-configuration directly in working copy
   home.file.".emacs".source = ./chemacs;
   home.file.".emacs-profiles.el".text = ''
-    (("default" . ((user-emacs-directory . "${dotfilesPath}/emacs/doom.emacs.d")))
-     ("doom" . ((user-emacs-directory . "${dotfilesPath}/emacs/doom.emacs.d")))
-     ("spacemacs" . ((user-emacs-directory . "${dotfilesPath}/emacs/spacemacs.emacs.d"))))
+    (("default" . ((user-emacs-directory . "${emacsDir}/doom.emacs.d")
+                   (env . (("DOOMDIR" . "${emacsDir}/doom.d")))))
+     ("doom" . ((user-emacs-directory . "${emacsDir}/doom.emacs.d")
+                (env . (("DOOMDIR" . "${emacsDir}/doom.d")))))
+     ("spacemacs" . ((user-emacs-directory . "${emacsDir}/spacemacs.emacs.d")
+                     (server-name . "spacemacs")
+                     (env . (("SPACEMACSDIR" . "${emacsDir}/spacemacs.d"))))))
   '';
-  # TODO replace .dotfiles/bin path for doom, doom-emacs and spacemacs?
-  home.file.".spacemacs".source = ./spacemacs;
-  home.file.".doom.d".source = ./doom.d;
+
+  home.packages = [
+    pkgs.emacs
+    doom
+    doom-emacs
+    spacemacs
+  ];
 }
