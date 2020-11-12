@@ -8,7 +8,7 @@ Config { font =         "xft:Source Code Pro:size=10:antialias=true"
        -- layout
        , sepChar =  "%"   -- delineator between plugin names and straight text
        , alignSep = "}{"  -- separator between left-right alignment
-       , template = "%StdinReader% }{ %multicpu% | %coretemp% | %memory% | %wlp58s0% | %dynnetwork% | %battery% | %bright% | %kbd% | %date%"
+       , template = "%StdinReader% }{ %multicpu% | %coretemp% | %memory% | %@wifi@% | %dynnetwork% | %battery% | %bright% | %kbd% | %date%"
 
        -- general behavior
        , lowerOnStart =     True    -- send to bottom of window stack on start
@@ -21,7 +21,7 @@ Config { font =         "xft:Source Code Pro:size=10:antialias=true"
        -- plugins see http://projects.haskell.org/xmobar/#system-monitor-plugins.
        , commands =
          [ Run StdinReader
-         , Run Wireless "wlp58s0" [ "--template", "<essid>" ] 10
+         , Run Wireless "@wifi@" [ "--template", "<essid>" ] 10
          , Run DynNetwork     [ "--template" , "<dev>: <tx>kB/s|<rx>kB/s"
                               , "--Low"      , "1000"       -- units: kB/s
                               , "--High"     , "5000"       -- units: kB/s

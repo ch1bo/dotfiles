@@ -1,84 +1,89 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, types, ... }:
 
 {
-  home.packages = [
-    pkgs.rofi # launcher
-    pkgs.xbindkeys
-    pkgs.xmobar # launched by xmonad
-    pkgs.xorg.xrandr
-    pkgs.xorg.xrdb
-    pkgs.xorg.xset
-  ];
 
-  xsession = {
-    enable = true;
-    initExtra = ''
-      # TODO Gnome keyring as SSH agent
-      if [ $(which gnome-keyring-daemon 2> /dev/null) ]; then
-        eval $(gnome-keyring-daemon --start)
-        export SSH_AUTH_SOCK
-      fi
-
-      # TODO Start the settings daemon on ubuntu
-      if [ $(which unity-settings-daemon 2> /dev/null) ]; then
-        unity-settings-daemon &
-        sleep 1 # Wait to override settings properly
-        cat $HOME/.config/dconf/gnome.conf | dconf load /
-      fi
-
-      # No beeps
-      xset -b
-
-      # Screen saver (blank) after 3min, lock 2min later
-      xset s blank
-      xset s 180 120
-
-      # Faster keyboard typematic delay and rate
-      # TODO this resets when docking or un/plugging keyboards
-      xset r rate 200 60
-
-      # TODO use autorandr or grobi
-      xrandr --dpi 120
-      # Dual head @ work
-      #xrandr --output eDP1 --off --output DP1 --output DP2 --right-of DP1
-
-      # Load custom keybindings
-      xbindkeys
-
-      # TODO use xresources module?
-      # Load colors and settings
-      xrdb -load ${./xresources}
-
-      # Desktop wallpaper
-      feh --bg-scale ${./matterhorn2.jpg}
-    '';
+  options.wifi = lib.mkOption {
+    type = lib.types.str;
+    example = "wlp58s0";
+    description = "Wifi device name";
   };
 
-  xsession.windowManager.xmonad = {
-    enable = true;
-    enableContribAndExtras = true;
-    config = ./xmonad/xmonad.hs;
-  };
+  config = {
+    home.packages = [
+      pkgs.rofi # launcher
+      pkgs.xbindkeys
+      pkgs.xmobar # launched by xmonad
+      pkgs.xorg.xrandr
+      pkgs.xorg.xrdb
+      pkgs.xorg.xset
+    ];
 
-  home.file.".xbindkeysrc".source = ./xbindkeysrc;
-  home.file.".xmobarrc" = {
-    source = ./xmobarrc;
-    onChange = ''
-      if [[ -v DISPLAY ]] ; then
-        $DRY_RUN_CMD ${config.xsession.windowManager.command} --restart
-      fi
-    '';
-  };
+    xsession = {
+      enable = true;
+      initExtra = ''
+        # TODO Gnome keyring as SSH agent
+        if [ $(which gnome-keyring-daemon 2> /dev/null) ]; then
+          eval $(gnome-keyring-daemon --start)
+          export SSH_AUTH_SOCK
+        fi
 
-  # Use system-level screen locker as either
-  # * setuid flags are required, or
-  # * pam-based lockers do not play well.
-  services.screen-locker = {
-    enable = true;
-    lockCmd = "/usr/bin/slock";
-    xssLockExtraOptions =
-      let dimScreenScript = pkgs.writeScript "dim-screen"
-        (builtins.readFile "${pkgs.xss-lock}/share/doc/xss-lock/dim-screen.sh");
-      in [ "-n ${dimScreenScript}" ];
+        # No beeps
+        xset -b
+
+        # Screen saver (blank) after 3min, lock 2min later
+        xset s blank
+        xset s 180 120
+
+        # Faster keyboard typematic delay and rate
+        # TODO this resets when docking or un/plugging keyboards
+        xset r rate 200 60
+
+        # TODO use autorandr or grobi
+        xrandr --dpi 120
+        # Dual head @ work
+        #xrandr --output eDP1 --off --output DP1 --output DP2 --right-of DP1
+
+        # Load custom keybindings
+        xbindkeys
+
+        # TODO use xresources module?
+        # Load colors and settings
+        xrdb -load ${./xresources}
+
+        # Desktop wallpaper
+        feh --bg-scale ${./matterhorn2.jpg}
+      '';
+    };
+
+    xsession.windowManager.xmonad = {
+      enable = true;
+      enableContribAndExtras = true;
+      config = ./xmonad/xmonad.hs;
+    };
+
+    home.file.".xbindkeysrc".source = ./xbindkeysrc;
+    home.file.".xmobarrc" = {
+      source = pkgs.substituteAll {
+        src = ./xmobarrc;
+        wifi = "${config.wifi}";
+      };
+      onChange = ''
+        if [[ -v DISPLAY ]] ; then
+          $DRY_RUN_CMD ${config.xsession.windowManager.command} --restart
+        fi
+      '';
+    };
+
+    # Use system-level screen locker as either
+    # * setuid flags are required, or
+    # * pam-based lockers do not play well.
+    services.screen-locker = {
+      enable = true;
+      lockCmd = "/usr/bin/slock";
+      xssLockExtraOptions =
+        let dimScreenScript = pkgs.writeScript "dim-screen"
+          (builtins.readFile "${pkgs.xss-lock}/share/doc/xss-lock/dim-screen.sh");
+        in [ "-n ${dimScreenScript}" ];
+    };
   };
 }

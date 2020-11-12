@@ -1,5 +1,19 @@
 { config, lib, pkgs, ... }:
 {
+  imports = [
+    ./connectiq
+    ./emacs
+    ./git
+    ./gnome
+    ./haskell
+    ./mail
+    ./nix
+    ./shell
+    ./urxvt
+    ./vim
+    ./xsession
+  ];
+
   options = {
     dotfiles = lib.mkOption {
       type = lib.types.path;
@@ -11,8 +25,7 @@
 
   config = {
     home.stateVersion = "20.09";
-    home.username = "ch1bo";
-    home.homeDirectory = "/home/ch1bo";
+    home.homeDirectory = "/home/${config.home.username}";
     dotfiles = "${config.home.homeDirectory}/.dotfiles";
 
     home.sessionVariables = {
@@ -38,19 +51,4 @@
       pkgs.docker-compose
     ];
   };
-
-  imports = [
-    ./connectiq
-    ./emacs
-    ./git
-    ./gnome
-    ./haskell
-    ./mail
-    ./mail/account-ncoding.nix
-    ./nix
-    ./shell
-    ./urxvt
-    ./vim
-    ./xsession
-  ];
 }

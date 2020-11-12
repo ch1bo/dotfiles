@@ -17,17 +17,16 @@ well as modularizing host-specific configs.
 ## Install
 
 1. Install [nix](https://nixos.org/download.html)
-2. `nix-shell --run home-manager switch`
+2. `nix-shell --run home-manager switch -f private.nix`
 
 ## TODO / Next steps
 
 - [ ] Use home-manager
   - [X] Make self-contained (`home-manager` in `nix-shell`)
   - [X] Migrate using existing config files
-  - [ ] Modularize config
-  - [ ] Tooling (`nix-direnv`/`lorri` or something like https://github.com/hlissner/dotfiles/blob/master/bin/hey)
+  - [ ] Modularize config into proper topics and assemble host modules
+  - [ ] Tooling - `nix-direnv`/`lorri` or something like https://github.com/hlissner/dotfiles/blob/master/bin/hey
   - [ ] Make independent of "<nixpkgs>" (using nix flakes)
-  - [ ] Find a better way to screen locking (without dependencies)
 - [ ] Switch to doom emacs
   - [X] org
   - [X] mail
@@ -39,6 +38,7 @@ well as modularizing host-specific configs.
 - [ ] New terminal emulator
 - [ ] Evaluate fish shell or fix zsh completion
 - [ ] Clean up with XDG and have proper mime associations
+- [ ] Find a better way to screen locking (without dependencies)
 
 ## Inspired by
 
