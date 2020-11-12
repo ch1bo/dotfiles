@@ -462,10 +462,10 @@ before packages are loaded."
   (setq user-full-name "Sebastian Nagel"
         user-mail-address "sebastian.nagel@franka.de"
         mu4e-maildir "~/mail"
-        mu4e-trash-folder "/franka/Trash"
-        mu4e-refile-folder  "/franka/Archive"
-        mu4e-sent-folder "/franka/Sent"
-        mu4e-drafts-folder "/franka/Drafts"
+        mu4e-trash-folder "/franka.de/Trash"
+        mu4e-refile-folder  "/franka.de/Archive"
+        mu4e-sent-folder "/franka.de/Sent"
+        mu4e-drafts-folder "/franka.de/Drafts"
         mu4e-compose-signature (with-temp-buffer
                                  (insert-file-contents "~/.dotfiles/mail/franka.sig")
                                  (buffer-string))
@@ -479,8 +479,8 @@ before packages are loaded."
         mml-secure-openpgp-encrypt-to-self t
         )
   (setq mu4e-maildir-shortcuts
-        '(("/franka/INBOX" . ?i)
-          ("/franka/Trash" . ?t)
+        '(("/franka.de/INBOX" . ?i)
+          ("/franka.de/Trash" . ?t)
           ))
   (setq mu4e-bookmarks
         `(("flag:unread AND NOT flag:trashed" "Unread messages" ?u)
