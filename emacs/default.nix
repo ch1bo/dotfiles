@@ -14,11 +14,18 @@
 let
   emacsDir = "${config.dotfiles}/emacs";
   # The 'doom' utility
-  doom = pkgs.writeScriptBin "doom" (builtins.readFile "${emacsDir}/doom.emacs.d/bin/doom");
+  doom = pkgs.writeScriptBin "doom" ''
+    EMACSDIR=${emacsDir}/doom.emacs.d \
+    DOOMDIR=${emacsDir}/doom.d \
+    ${emacsDir}/doom.emacs.d/bin/doom "$@"
+  '';
   # Chemacs shortcuts
-  doom-emacs = pkgs.writeScriptBin "doom-emacs" "exec emacs --with-profile doom";
-  spacemacs = pkgs.writeScriptBin "spacemacs"
-    ''emacsclient --alternate-editor="emacs --with-profile spacemacs" -s spacemacs -c "$@"'';
+  doom-emacs = pkgs.writeScriptBin "doom-emacs" ''
+    exec emacs --with-profile doom
+  '';
+  spacemacs = pkgs.writeScriptBin "spacemacs" ''
+    emacsclient - -alternate-editor="emacs --with-profile spacemacs" -s spacemacs -c "$@"
+  '';
 in
 {
   # Chemacs profile switcher with user-configuration directly in working copy
