@@ -65,7 +65,7 @@
        )
       ;;; <leader> e --- errors (flycheck)
       (:prefix ("e" . "errors")
-       :desc "List errors"          "l"   #'flycheck-error-list
+       :desc "List errors"          "l"   #'+toggle-flycheck-error-list
        :desc "Next error"           "n"   #'next-error
        :desc "Previous error"       "p"   #'previous-error
        :desc "Select checker"       "s"   #'flycheck-select-checker
@@ -77,6 +77,16 @@
       "," #'with-editor-finish
       "f" #'with-editor-finish
       "k" #'with-editor-cancel)
+
+;; Flycheck
+;; Toggle flycheck window
+(defun +toggle-flycheck-error-list ()
+  "Toggle flycheck's error list window.
+If the error list is visible, hide it.  Otherwise, show it."
+  (interactive)
+  (-if-let (window (flycheck-get-error-list-window))
+      (quit-window nil window)
+    (flycheck-list-errors)))
 
 ;; Org
 ;; TODO(SN): keybindings in org-agenda (e.g. org-agenda-later)
