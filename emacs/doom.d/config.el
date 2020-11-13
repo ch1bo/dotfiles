@@ -50,7 +50,9 @@
 ;; Quick key bindings (at least during transition to doom)
 (setq which-key-idle-delay 0.2)
 
-;; Keybinding overrides of doom.emacs.d/modules/config/default/+evil-bindings.el
+;; Keybindings .. mostly reminiscent of spacemacs muscle memory.
+;;
+;; Typically overrides of ../doom.emacs.d/modules/config/default/+evil-bindings.el
 (map! :leader
       :desc "M-x"                   "SPC" #'execute-extended-command
       :desc "Search in project"     "/"   #'+default/search-project
@@ -59,8 +61,16 @@
       :desc "Org agenda"            "a"   #'org-agenda
       ;;; <leader> g --- git/version control
       (:prefix ("g" . "git")
-          :desc "Git status"        "s"   #'magit-status
-          ))
+       :desc "Git status"           "s"   #'magit-status
+       )
+      ;;; <leader> e --- errors (flycheck)
+      (:prefix ("e" . "errors")
+       :desc "List errors"          "l"   #'flycheck-error-list
+       :desc "Next error"           "n"   #'next-error
+       :desc "Previous error"       "p"   #'previous-error
+       :desc "Select checker"       "s"   #'flycheck-select-checker
+       :desc "Verify setup"         "v"   #'flycheck-verify-setup
+       ))
 ;; Local with-editor key bindings
 (map! :map with-editor-mode-map
       :localleader
