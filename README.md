@@ -30,8 +30,8 @@ well as modularizing host-specific configs.
 - [ ] Switch to doom emacs
   - [X] org
   - [X] mail
-  - [ ] editor (mc vs. iedit?)
-  - [ ] haskell
+  - [X] haskell
+  - [ ] mc vs. iedit?
 - [ ] Tray & tune xmobar
 - [ ] Improve / new xmonad layouts
 - [ ] Theme rofi

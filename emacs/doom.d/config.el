@@ -47,8 +47,13 @@
 ;; You can also try 'gd' (or 'C-c g d') to jump to their definition and see how
 ;; they are implemented.
 
+;; General
+
 ;; Quick key bindings (at least during transition to doom)
 (setq which-key-idle-delay 0.2)
+
+;; Don't follow symlinks by default
+(setq find-file-visit-truename nil)
 
 ;; Keybindings .. mostly reminiscent of spacemacs muscle memory.
 ;;
@@ -71,6 +76,7 @@
        :desc "Select checker"       "s"   #'flycheck-select-checker
        :desc "Verify setup"         "v"   #'flycheck-verify-setup
        ))
+
 ;; Local with-editor key bindings
 (map! :map with-editor-mode-map
       :localleader
@@ -79,10 +85,10 @@
       "k" #'with-editor-cancel)
 
 ;; Flycheck
-;; Toggle flycheck window
+
 (defun +toggle-flycheck-error-list ()
-  "Toggle flycheck's error list window.
-If the error list is visible, hide it.  Otherwise, show it."
+  "Toggle flycheck's error list window. If the error list is
+visible, hide it. Otherwise, show it."
   (interactive)
   (-if-let (window (flycheck-get-error-list-window))
       (quit-window nil window)
@@ -113,24 +119,37 @@ If the error list is visible, hide it.  Otherwise, show it."
                      ((org-agenda-overriding-header "Ideas"))))
          )))
 
-;; Language environment settings
+;; Groovy
+
 (setq lsp-groovy-server-file
       (concat lsp-server-install-dir "groovy-language-server/groovy-language-server-all.jar"))
+
+;; Haskell
+
+;; Use 'stylish-haskell' as formatter.
+;;
+;; NOTE: Call stylish-haskell directly instead of the
+;; 'haskell-mode-stylish-buffer command as I am still a bit puzzled why the
+;; latter does not pick up the projects .stylish-haskell.yaml.
+(set-formatter! 'stylish-haskell "stylish-haskell"
+  :modes 'haskell-mode)
+
+;; MonkeyC
 
 ;; Use java-mode for "monkeyc" files, but disable auto-formatting
 (add-to-list 'auto-mode-alist '("\\.mc\\'" . java-mode))
 (after! format
   (nconc +format-on-save-enabled-modes '(java-mode)))
 
-;; Don't follow symlinks by default
-(setq find-file-visit-truename nil)
-
 ;; Email
+
 (setq +mu4e-backend 'offlineimap
       mu4e-maildir "~/mail"
       mu4e-update-interval 120)
+
 ;; Load/Refresh main mu4e view on context change
 (add-hook! 'mu4e-context-changed-hook 'mu4e)
+
 ;; TODO DRY with mail/accounts-franka.nix
 (set-email-account!
  "franka.de"
@@ -149,6 +168,7 @@ If the error list is visible, hide it.  Otherwise, show it."
                       ))
    )
  t)
+
 ;; TODO DRY with mail/accounts-ncoding.nix
 (set-email-account!
  "ncoding.at"
