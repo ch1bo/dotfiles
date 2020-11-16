@@ -149,7 +149,7 @@ visible, hide it. Otherwise, show it."
 
 ;; Load/Refresh main mu4e view on context change
 (add-hook! 'mu4e-context-changed-hook 'mu4e)
-
+;; TODO Update bookmarks: mails are only moved, not flagged as trash
 ;; TODO DRY with mail/accounts-franka.nix
 (set-email-account!
  "franka.de"
@@ -161,7 +161,7 @@ visible, hide it. Otherwise, show it."
    (smtpmail-smtp-user . "sebastian.nagel@franka.de")
    (smtpmail-smtp-server . "mail.franka.de")
    (smtpmail-smtp-service . 25)
-   (smtpmail-stream-type . 'starttls)
+   (smtpmail-stream-type . starttls)
    (mu4e-bookmarks . ((:name "Unread messages" :query "maildir:/franka.de/* AND flag:unread AND NOT flag:trashed" :key ?u)
                       (:name "Today's messages" :query "maildir:/franka.de/* AND date:today..now AND NOT flag:trashed" :key ?t)
                       (:name "Flagged messages" :query "maildir:/franka.de/* AND flag:flagged" :key ?f)
@@ -179,10 +179,10 @@ visible, hide it. Otherwise, show it."
    (mu4e-drafts-folder . "/ncoding.at/Drafts")
    (smtpmail-smtp-user . "sebastian.nagel@ncoding.at")
    (smtpmail-smtp-server . "mail.ncoding.at")
-   (smtpmail-smtp-service . 587) ;; TODO switch to 465
-   (smtpmail-stream-type . 'ssl)
-   (mu4e-bookmarks . ((:name "Unread messages" :query "maildir:/ncoding.at/* AND flag:unread AND NOT flag:trashed" :key ?u)
-                      (:name "Today's messages" :query "maildir:/ncoding.at/* AND date:today..now AND NOT flag:trashed" :key ?t)
+   (smtpmail-smtp-service . 465)
+   (smtpmail-stream-type . ssl)
+   (mu4e-bookmarks . ((:name "Unread messages" :query "maildir:/ncoding.at/* AND flag:unread AND NOT subject:SPAM" :key ?u)
+                      (:name "Today's messages" :query "maildir:/ncoding.at/* AND date:today..now AND NOT subject:SPAM" :key ?t)
                       (:name "Flagged messages" :query "maildir:/ncoding.at/* AND flag:flagged" :key ?f)
                       ))
    ))
