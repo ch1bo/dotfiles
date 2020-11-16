@@ -119,6 +119,11 @@ visible, hide it. Otherwise, show it."
                      ((org-agenda-overriding-header "Ideas"))))
          )))
 
+;; C/C++
+
+(after! flycheck
+  (add-hook 'flycheck-mode-hook #'flycheck-clang-tidy-setup))
+
 ;; Groovy
 
 (setq lsp-groovy-server-file
@@ -148,7 +153,7 @@ visible, hide it. Otherwise, show it."
       mu4e-update-interval 120)
 
 ;; Load/Refresh main mu4e view on context change
-(add-hook! 'mu4e-context-changed-hook 'mu4e)
+(add-hook! 'mu4e-context-changed-hook #'mu4e)
 ;; TODO Update bookmarks: mails are only moved, not flagged as trash
 ;; TODO DRY with mail/accounts-franka.nix
 (set-email-account!
