@@ -27,11 +27,11 @@ well as modularizing host-specific configs.
   - [ ] Modularize config into proper topics and assemble host modules
   - [ ] Tooling - `nix-direnv`/`lorri` or something like https://github.com/hlissner/dotfiles/blob/master/bin/hey
   - [ ] Make independent of "<nixpkgs>" (using nix flakes)
-- [ ] Switch to doom emacs
+- [X] Switch to doom emacs
   - [X] org
   - [X] mail
   - [X] haskell
-  - [ ] mc vs. iedit?
+  - [X] mc vs. iedit? => both
 - [ ] Tray & tune xmobar
 - [ ] Improve / new xmonad layouts
 - [ ] Theme rofi

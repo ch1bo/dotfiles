@@ -13,7 +13,6 @@ let
   };
 in
 {
-  programs.dircolors.enable = true;
   programs.bash = {
     enable = true;
     inherit shellAliases;
@@ -54,6 +53,14 @@ in
       bindkey '^Z' fzf-z-widget
     '';
   };
+
+  programs.dircolors.enable = true;
+
+  programs.direnv = {
+    enable = true;
+    enableNixDirenvIntegration = true;
+  };
+
   programs.fzf = {
     enable = true;
     defaultCommand = "fd";
@@ -61,7 +68,6 @@ in
   };
 
   home.packages = [
-    pkgs.direnv
     pkgs.fd
   ];
 }
