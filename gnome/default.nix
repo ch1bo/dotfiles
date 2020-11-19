@@ -36,6 +36,6 @@
   home.packages = [
     pkgs.gnome3.eog
     pkgs.gnome3.evince
-    pkgs.gnome3.nautilus
+    # pkgs.gnome3.nautilus -> see README.md#Dependencies
   ];
 }
