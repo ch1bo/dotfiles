@@ -58,6 +58,7 @@
 ;; Keybindings .. mostly reminiscent of spacemacs muscle memory.
 ;;
 ;; Typically overrides of ../doom.emacs.d/modules/config/default/+evil-bindings.el
+;; TODO: use :map to override only specifics
 (map! :leader
       :desc "M-x"                   "SPC" #'execute-extended-command
       :desc "Search in project"     "/"   #'+default/search-project
@@ -107,14 +108,11 @@ visible, hide it. Otherwise, show it."
       org-agenda-custom-commands
       '(("n" "Agenda and all TODOs"
          ((agenda ""
-                  ((org-agenda-span
-                    (quote day))))
+                  ((org-agenda-span 'week)))
           (tags-todo "-idea&-candidate"
                      ((org-agenda-overriding-header "TODOs (unscheduled)")
                       (org-agenda-skip-function
-                       (quote
-                        (org-agenda-skip-subtree-if
-                         (quote scheduled))))))
+                       '(org-agenda-skip-subtree-if 'scheduled))))
           (tags-todo "idea"
                      ((org-agenda-overriding-header "Ideas"))))
          )))
@@ -149,8 +147,7 @@ visible, hide it. Otherwise, show it."
 ;; Email
 
 (setq +mu4e-backend 'offlineimap
-      mu4e-maildir "~/mail"
-      mu4e-update-interval 120)
+      mu4e-maildir "~/mail")
 
 ;; Load/Refresh main mu4e view on context change
 (add-hook! 'mu4e-context-changed-hook #'mu4e)
@@ -167,8 +164,9 @@ visible, hide it. Otherwise, show it."
    (smtpmail-smtp-server . "mail.franka.de")
    (smtpmail-smtp-service . 25)
    (smtpmail-stream-type . starttls)
-   (mu4e-bookmarks . ((:name "Unread messages" :query "maildir:/franka.de/* AND flag:unread AND NOT flag:trashed" :key ?u)
-                      (:name "Today's messages" :query "maildir:/franka.de/* AND date:today..now AND NOT flag:trashed" :key ?t)
+   (mu4e-update-interval . 120)
+   (mu4e-bookmarks . ((:name "Unread messages" :query "maildir:/franka.de/INBOX AND flag:unread" :key ?u)
+                      (:name "Today's messages" :query "maildir:/franka.de/* AND date:today..now" :key ?t)
                       (:name "Flagged messages" :query "maildir:/franka.de/* AND flag:flagged" :key ?f)
                       ))
    )
@@ -186,6 +184,7 @@ visible, hide it. Otherwise, show it."
    (smtpmail-smtp-server . "mail.ncoding.at")
    (smtpmail-smtp-service . 465)
    (smtpmail-stream-type . ssl)
+   (mu4e-update-interval . 120)
    (mu4e-bookmarks . ((:name "Unread messages" :query "maildir:/ncoding.at/* AND flag:unread AND NOT subject:SPAM" :key ?u)
                       (:name "Today's messages" :query "maildir:/ncoding.at/* AND date:today..now AND NOT subject:SPAM" :key ?t)
                       (:name "Flagged messages" :query "maildir:/ncoding.at/* AND flag:flagged" :key ?f)
