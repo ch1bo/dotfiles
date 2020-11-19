@@ -9,15 +9,6 @@
   };
 
   config = {
-    home.packages = [
-      pkgs.rofi # launcher
-      pkgs.xbindkeys
-      pkgs.xmobar # launched by xmonad
-      pkgs.xorg.xrandr
-      pkgs.xorg.xrdb
-      pkgs.xorg.xset
-    ];
-
     xsession = {
       enable = true;
       initExtra = ''
@@ -44,14 +35,14 @@
         #xrandr --output eDP1 --off --output DP1 --output DP2 --right-of DP1
 
         # Load custom keybindings
-        xbindkeys
+        ${pkgs.xbindkeys}/bin/xbindkeys
 
         # TODO use xresources module?
         # Load colors and settings
         xrdb -load ${./xresources}
 
         # Desktop wallpaper
-        feh --bg-scale ${./matterhorn2.jpg}
+        ${pkgs.feh}/bin/feh --bg-scale ${./matterhorn2.jpg}
       '';
     };
 
@@ -85,5 +76,15 @@
           (builtins.readFile "${pkgs.xss-lock}/share/doc/xss-lock/dim-screen.sh");
         in [ "-n ${dimScreenScript}" ];
     };
+
+    home.packages = [
+      pkgs.rofi # launch stuff
+      pkgs.xmobar # launched by xmonad
+      pkgs.xorg.setxkbmap # TODO keyboard module and finally add short cuts
+      pkgs.xorg.xrandr # manage monitors # TODO use autorandr/grobi?
+      pkgs.xorg.xrdb # manipulate xresources
+      pkgs.xorg.xset # configure xorg
+    ];
+
   };
 }

@@ -1,12 +1,6 @@
 { config, pkgs, ... }:
 
 {
-  home.packages = [
-    pkgs.nix
-    pkgs.nix-index
-    pkgs.nixpkgs-fmt
-  ];
-
   # Use config files instead of config.nixpkgs module for nix-env etc.
   xdg.configFile."nixpkgs/config.nix".source = ./nixpkgs-config.nix;
   xdg.configFile."nixpkgs/overlays.nix".source = ./nixpkgs-overlays.nix;
@@ -27,4 +21,12 @@
   programs.zsh.initExtra = ''
     source ${pkgs.nix-index}/etc/profile.d/command-not-found.sh
   '';
+
+  home.packages = [
+    pkgs.cachix # nix cache
+    pkgs.nix # the tool
+    pkgs.nix-index # locate for nix
+    pkgs.nixfmt # format nix
+    pkgs.nixpkgs-fmt # format nix the nixpkgs way
+  ];
 }

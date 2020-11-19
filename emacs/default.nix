@@ -41,9 +41,16 @@ in
   '';
 
   home.packages = [
-    pkgs.emacs
+    pkgs.emacs # The editor
+
+    # Utilities
     doom
     doom-emacs
     spacemacs
+
+    # doom-emacs dependencies
+    pkgs.fd
+    pkgs.git
+    pkgs.ripgrep
   ];
 }

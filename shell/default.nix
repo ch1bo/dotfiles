@@ -56,11 +56,14 @@ in
 
   programs.dircolors.enable = true;
 
+  # Load directory specific variables. I mostly 'use_nix' to get
+  # project-specific tools from a shell.nix in scope.
   programs.direnv = {
     enable = true;
     enableNixDirenvIntegration = true;
   };
 
+  # Fuzzy find everything
   programs.fzf = {
     enable = true;
     defaultCommand = "fd";
@@ -68,6 +71,6 @@ in
   };
 
   home.packages = [
-    pkgs.fd
+    pkgs.fd # A simple, fast and user-friendly alternative to 'find'
   ];
 }

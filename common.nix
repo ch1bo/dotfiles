@@ -48,7 +48,13 @@
 
     # Random packages
     home.packages = [
-      pkgs.docker-compose
+      pkgs.bat # cat clone with wings
+      pkgs.chromium # a browser
+      pkgs.docker-compose # docker projects
+      pkgs.firefox # the browser
+      pkgs.jq # json processing in scripts / terminal
+      pkgs.pandoc # convert everything
+      pkgs.scrot # screenshots
     ];
   };
 }

@@ -1,11 +1,11 @@
 { config, pkgs, ... }:
 
 {
-  # TODO use programs.urxvt module
+  # TODO use programs.urxvt module?
   # NOTE Configuration in x/xresources.
 
   home.packages = [
-    pkgs.rxvt-unicode
+    pkgs.rxvt-unicode # the terminal
     pkgs.xsel # clipboard
   ];
 
