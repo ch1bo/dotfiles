@@ -143,11 +143,9 @@ visible, hide it. Otherwise, show it."
 
 ;; And the same when we use the LSP server.
 ;;
-;; NOTE Ideally, this would only be set after initializing the haskell language
-;; server.
-(after! lsp-mode
-  (add-hook! 'lsp-after-initialize-hook
-    (setq lsp-haskell-formatting-provider "stylish-haskell")))
+;; NOTE This is intentionally set early, as options are only picked up by the
+;; haskell LS when (re-)starting.
+(setq lsp-haskell-formatting-provider "stylish-haskell")
 
 ;; MonkeyC
 
