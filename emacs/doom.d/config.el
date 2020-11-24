@@ -78,6 +78,9 @@
        :desc "Verify setup"         "v"   #'flycheck-verify-setup
        ))
 
+;; TODO: iedit/evil-multiedit aditional functionality: e.g. limit to line,
+;; expand above / below
+
 ;; Local with-editor key bindings
 (map! :map with-editor-mode-map
       :localleader
@@ -96,6 +99,7 @@ visible, hide it. Otherwise, show it."
     (flycheck-list-errors)))
 
 ;; Org
+
 ;; TODO(SN): keybindings in org-agenda (e.g. org-agenda-later)
 (setq org-directory "~/documents/org/"
       org-default-notes-file (concat org-directory "notes.org")
@@ -131,11 +135,19 @@ visible, hide it. Otherwise, show it."
 
 ;; Use 'stylish-haskell' as formatter.
 ;;
-;; NOTE: Call stylish-haskell directly instead of the
+;; NOTE Call stylish-haskell directly instead of the
 ;; 'haskell-mode-stylish-buffer command as I am still a bit puzzled why the
 ;; latter does not pick up the projects .stylish-haskell.yaml.
 (set-formatter! 'stylish-haskell "stylish-haskell"
   :modes 'haskell-mode)
+
+;; And the same when we use the LSP server.
+;;
+;; NOTE Ideally, this would only be set after initializing the haskell language
+;; server.
+(after! lsp-mode
+  (add-hook! 'lsp-after-initialize-hook
+    (setq lsp-haskell-formatting-provider "stylish-haskell")))
 
 ;; MonkeyC
 
