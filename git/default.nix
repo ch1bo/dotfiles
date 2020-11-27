@@ -10,7 +10,7 @@
       color.ui = true;
       diff.submodule = "log";
       fetch.recurseSubmodules = "on-demand";
-      pull.rebase = "preserve";
+      pull.rebase = "merges";
       push.default = "simple";
       rerere = {
         enabled = true;
