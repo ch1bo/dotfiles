@@ -1,6 +1,0 @@
-text/html; chromium %s
-text/html; w3m -I %{charset} -T text/html; copiousoutput;
-image/svg+xml; chromium %s
-application/pdf; evince %s
-image/*; eog %s
-application/*; xdg-open %s

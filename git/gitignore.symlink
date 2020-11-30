@@ -1,8 +1,0 @@
-.DS_Store
-*~
-*.swp
-*.sublime-workspace
-*.sublime-project
-.clang_complete
-TAGS
-dist*/
