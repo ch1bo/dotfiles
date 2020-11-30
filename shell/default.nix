@@ -24,6 +24,7 @@ in
     history = {
       size = 10000000;
       save = 10000000;
+      share = false;
     };
     enableAutosuggestions = true;
     initExtra = ''
