@@ -12,7 +12,7 @@
     xsession = {
       enable = true;
       initExtra = ''
-        # TODO Gnome keyring as SSH agent
+        # TODO Use keepassxc as libsecret and SSH agent
         if [ $(which gnome-keyring-daemon 2> /dev/null) ]; then
           eval $(gnome-keyring-daemon --start)
           export SSH_AUTH_SOCK
