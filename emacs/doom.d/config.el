@@ -133,19 +133,28 @@ visible, hide it. Otherwise, show it."
 
 ;; Haskell
 
+;; TODO How to organize formatters? brittany is default, and switching using
+;; config updates is annoying. Also, tools are not picked up from nix-shells
+
 ;; Use 'stylish-haskell' as formatter.
 ;;
 ;; NOTE Call stylish-haskell directly instead of the
 ;; 'haskell-mode-stylish-buffer command as I am still a bit puzzled why the
 ;; latter does not pick up the projects .stylish-haskell.yaml.
-(set-formatter! 'stylish-haskell "stylish-haskell"
-  :modes 'haskell-mode)
+;; (set-formatter! 'stylish-haskell "stylish-haskell"
+;;   :modes 'haskell-mode)
+
+;; TODO Formatting via LSP has also problems.. at least in haskell using
+;; brittany ("broken pipe")
 
 ;; And the same when we use the LSP server.
 ;;
 ;; NOTE This is intentionally set early, as options are only picked up by the
 ;; haskell LS when (re-)starting.
-(setq lsp-haskell-formatting-provider "stylish-haskell")
+;; (setq lsp-haskell-formatting-provider "stylish-haskell")
+;; (setq lsp-haskell-formatting-provider "brittany")
+(setq-hook! 'haskell-mode-hook
+  +format-with-lsp nil)
 
 ;; MonkeyC
 
