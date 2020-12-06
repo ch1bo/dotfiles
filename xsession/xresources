@@ -51,7 +51,7 @@ URxvt.colorIT:  base0D
 URxvt.colorBD:  base0E
 URxvt.colorUL:  base0C
 
-URxvt.font: xft:DejaVu Sans Mono:size=16:antialias=true
+! URxvt.font: configured using home-manager xresources module
 URxvt.boldFont:
 URxvt.italicFont:
 URxvt.bolditalicFont:
@@ -92,11 +92,11 @@ URxvt.iso14755: false
 URxvt.iso14755_52: false
 
 ! ------ ROFI ------
+! rofi.font: configured using home-manager xresources module
 rofi.modi:                window,run,ssh
 rofi.width:               50
 rofi.lines:               5
 rofi.bw:                  4
-rofi.font:                Source Code Pro 11
 rofi.padding:             2
 !                         'background', 'border', 'dividing line'
 rofi.color-window:	      base00, base0D, base03

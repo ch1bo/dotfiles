@@ -105,9 +105,9 @@ collapse_prompt() {
 
 set_prompt() {
   if [[ -n $PROMPT_COLLAPSE ]]; then
-    export PROMPT="$(prompt_dir)$(prompt_git)$(prompt_status)%{$fg[cyan]%} ➜ %{$reset_color%}"
+    export PROMPT="$(prompt_dir)$(prompt_git)$(prompt_status)%{$fg[cyan]%} λ %{$reset_color%}"
   else
-    export PROMPT="$(prompt_context)$(prompt_dir)$(prompt_git)$(prompt_docker)$(prompt_aws)$(prompt_status)%{$fg[cyan]%} ➜ %{$reset_color%}"
+    export PROMPT="$(prompt_context)$(prompt_dir)$(prompt_git)$(prompt_docker)$(prompt_aws)$(prompt_status)%{$fg[cyan]%} λ %{$reset_color%}"
   fi
   # SPROMPT='zsh: correct %F{red}%R%f to %F{green}%r%f [nyae]? '
 }

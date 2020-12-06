@@ -4,11 +4,11 @@
     ./connectiq
     ./emacs
     ./git
-    ./gnome
     ./haskell
     ./mail
     ./nix
     ./shell
+    ./theme
     ./urxvt
     ./vim
     ./xsession

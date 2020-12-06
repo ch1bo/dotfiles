@@ -1,4 +1,4 @@
-Config { font =         "xft:Source Code Pro:size=10:antialias=true"
+Config { font =         "xft:Fira Code:size=10:antialias=true"
        , bgColor =      "#1b2b34"
        , fgColor =      "#c0c5ce"
        , position =     Top

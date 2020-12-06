@@ -1,6 +1,14 @@
-{ config, pkgs, ... }:
+# Arc Dark theme with Numix cursors throughout x11, gtk2 and gtk3 applications
+{ pkgs, lib, ... }:
 {
-  # Arc Dark theme with Numix cursors throughout x11, gtk2 and gtk3 applications
+  fonts.fontconfig.enable = true;
+
+  xresources.properties = {
+    "URxvt.font" = "xft:Fira Code:size=12:antialias=true";
+    "rofi.font" = "Fira Code 8";
+  };
+
+
   gtk = {
     enable = true;
     theme = {
@@ -34,6 +42,7 @@
   home.file.".icons/default".source = "${pkgs.numix-cursor-theme}/share/icons/Numix-Cursor";
 
   home.packages = [
+    pkgs.fira-code
     pkgs.gnome3.eog
     pkgs.gnome3.evince
     # pkgs.gnome3.nautilus -> see README.md#Dependencies
