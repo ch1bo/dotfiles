@@ -1,0 +1,11 @@
+#+TITLE: Matterhorn
+
+My private Dell XPS 13 notebook. This is one is (still) running Arch and thus
+uses nix only via home-manager.
+
+| Model | Dell XPS 13 9350    |
+| CPU   | Intel Core i5-6200U |
+| RAM   | 8GB                 |
+| SSD   | 256GB               |
+| OS    | Archlinux           |
+| DM    | LightDM             |

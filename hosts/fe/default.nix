@@ -1,10 +1,7 @@
-# Main module for my machine used at work at FE
-# OS: Ubuntu 16.04
-# DM: LightDM
 {
   imports = [
-    ./common.nix
-    ./mail/account-franka.nix
+    ../../common.nix
+    ../../mail/account-franka.nix
   ];
 
   home.username = "nage_se";
