@@ -38,15 +38,10 @@
     ];
 
     programs.home-manager.enable = true;
+    systemd.user.startServices = true;
 
-    targets.genericLinux = {
-      enable = true;
-      # Use host's data dir as fallback, e.g. when the nixpkgs' gsettings schemas
-      # are incompatible / older
-      extraXdgDataDirs = [ "/usr/share" ];
-    };
-
-    # Random packages
+    # Random stuff
+    services.nextcloud-client.enable = true;
     home.packages = [
       pkgs.bat # cat clone with wings
       pkgs.chromium # a browser

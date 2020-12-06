@@ -7,6 +7,13 @@
   home.username = "ch1bo";
   wifi = "wlp58s0";
 
+  targets.genericLinux = {
+    enable = true;
+    # Use host's data dir as fallback, e.g. when the nixpkgs' gsettings schemas
+    # are incompatible / older
+    extraXdgDataDirs = [ "/usr/share" ];
+  };
+
   # Use host drivers if prepared in $HOME/.nix-opengl-driver, analogous to
   # NixOS's /run/opengl-driver
   #
@@ -22,4 +29,9 @@
     LIBGL_DRIVERS_PATH = "$HOME/.nix-opengl-driver/lib/dri";
     LD_LIBRARY_PATH = "$HOME/.nix-opengl-driver/lib";
   };
+  systemd.user.sessionVariables = {
+    LIBGL_DRIVERS_PATH = "$HOME/.nix-opengl-driver/lib/dri";
+    LD_LIBRARY_PATH = "$HOME/.nix-opengl-driver/lib";
+  };
+
 }
