@@ -55,7 +55,7 @@
     home.file.".xbindkeysrc".source = ./xbindkeysrc;
     home.file.".xmobarrc" = {
       source = pkgs.substituteAll {
-        src = ./xmobarrc;
+        src = ./xmobarrc.hs;
         wifi = "${config.wifi}";
       };
       onChange = ''
@@ -79,6 +79,7 @@
 
     home.packages = [
       pkgs.rofi # launch stuff
+      pkgs.trayer # launched by xmonad
       pkgs.xmobar # launched by xmonad
       pkgs.xorg.setxkbmap # TODO keyboard module and finally add short cuts
       pkgs.xorg.xrandr # manage monitors # TODO use autorandr/grobi?

@@ -30,8 +30,9 @@ import           XMonad.Util.Types                   (Direction2D (..))
 
 import qualified Data.Map                            as Map
 import qualified XMonad.StackSet                     as StackSet
+import           XMonad.Util.Run                     (spawnPipe)
 
-main = xmobar config >>= xmonad . ewmh
+main = tray >> xmobar config >>= xmonad . ewmh
 
 config = withNavigation2DConfig defaultNavigation2DConfig $
   defaultConfig { modMask = mod4Mask -- Super as modifier
@@ -55,6 +56,22 @@ xmobar = statusBar "xmobar" pp toggleStrutsKey
                  }
   -- Toggle display of top bar
   toggleStrutsKey XConfig {XMonad.modMask = modMask} = (modMask, xK_b)
+
+-- TODO(SN): process stays alive when recompiling/restarting xmonad
+tray = spawnPipe $ unwords
+  [ "trayer"
+  , "--edge top"
+  , "--align right"
+  , "--SetDockType true"
+  , "--SetPartialStrut true"
+  , "--expand true"
+  , "--width 2" -- TODO make it dynamic
+  , "--transparent true"
+  , "--alpha 0"
+  , "--tint 0x1b2b34"
+  , "--height 24"
+  , "--monitor 1"
+  ]
 
 keyBindings conf@(XConfig {XMonad.modMask = modMask}) = Map.fromList $
     -- Quit xmonad
