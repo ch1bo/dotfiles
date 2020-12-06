@@ -4,8 +4,8 @@
   fonts.fontconfig.enable = true;
 
   xresources.properties = {
-    "URxvt.font" = "xft:Fira Code:size=12:antialias=true";
-    "rofi.font" = "Fira Code 8";
+    "URxvt*font" = "xft:FiraCode Nerd Font Mono:size=12:antialias=true";
+    "rofi.font" = "FiraCode Nerd Font Mono 8";
   };
 
 
@@ -43,6 +43,7 @@
 
   home.packages = [
     pkgs.fira-code
+    (pkgs.nerdfonts.override { fonts = [ "FiraCode" ]; })
     pkgs.gnome3.eog
     pkgs.gnome3.evince
     # pkgs.gnome3.nautilus -> see README.md#Dependencies

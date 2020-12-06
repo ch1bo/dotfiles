@@ -1,10 +1,6 @@
 { config, pkgs, ... }:
 let
   shellAliases = {
-    l = "ls -CF";
-    ll = "ls -alhF";
-    la = "ls -A";
-    ls = "ls --color=auto";
     grep = "grep --color=auto";
     fgrep = "fgrep --color=auto";
     egrep = "egrep --color=auto";
@@ -55,7 +51,12 @@ in
     '';
   };
 
+  # Colorize ls
   programs.dircolors.enable = true;
+  programs.lsd = {
+    enable = true;
+    enableAliases = true;
+  };
 
   # Load directory specific variables. I mostly 'use_nix' to get
   # project-specific tools from a shell.nix in scope.
