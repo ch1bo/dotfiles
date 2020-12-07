@@ -40,7 +40,7 @@
         # TODO use xresources module?
         # Load colors and settings
         xrdb -load ${./xresources}
-        xrdb -merge $HOME./Xresources
+        xrdb -merge $HOME/.Xresources
 
         # Desktop wallpaper
         ${pkgs.feh}/bin/feh --bg-scale ${./matterhorn2.jpg}
