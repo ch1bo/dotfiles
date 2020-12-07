@@ -40,6 +40,7 @@
         # TODO use xresources module?
         # Load colors and settings
         xrdb -load ${./xresources}
+        xrdb -merge $HOME./Xresources
 
         # Desktop wallpaper
         ${pkgs.feh}/bin/feh --bg-scale ${./matterhorn2.jpg}
@@ -77,8 +78,10 @@
         in [ "-n ${dimScreenScript}" ];
     };
 
+    # launched by xmonad
+    programs.rofi.enable = true;
+
     home.packages = [
-      pkgs.rofi # launch stuff
       pkgs.trayer # launched by xmonad
       pkgs.xmobar # launched by xmonad
       pkgs.xorg.setxkbmap # TODO keyboard module and finally add short cuts

@@ -1,13 +1,15 @@
 # Arc Dark theme with Numix cursors throughout x11, gtk2 and gtk3 applications
+# along with doom/atom one dark color scheme
+#
+# TODO: turn configuration around? i.e. set colors, font etc. as read-only
+# options here and use it in individual modules?
 { pkgs, lib, ... }:
 {
   fonts.fontconfig.enable = true;
 
   xresources.properties = {
-    "URxvt*font" = "xft:FiraCode Nerd Font Mono:size=12:antialias=true";
-    "rofi.font" = "FiraCode Nerd Font Mono 8";
+    "URxvt*font" = "xft:FiraCode Nerd Font Mono:style=Regular:size=12:antialias=true";
   };
-
 
   gtk = {
     enable = true;
@@ -34,6 +36,11 @@
     };
   };
 
+  programs.rofi = {
+    theme = "Arc-Dark";
+    font = "FiraCode Nerd Font Mono 8";
+  };
+
   xsession.pointerCursor = {
     package = pkgs.numix-cursor-theme;
     name = "Numix-Cursor";
@@ -41,11 +48,14 @@
   # TODO upstream into home-manager xcursor module
   home.file.".icons/default".source = "${pkgs.numix-cursor-theme}/share/icons/Numix-Cursor";
 
+  programs.vim.extraConfig = ''
+    let base16colorspace=256
+    colorscheme base16-onedark
+  '';
+  home.file.".vim/colors".source = ./vim-colors;
+
   home.packages = [
     pkgs.fira-code
     (pkgs.nerdfonts.override { fonts = [ "FiraCode" ]; })
-    pkgs.gnome3.eog
-    pkgs.gnome3.evince
-    # pkgs.gnome3.nautilus -> see README.md#Dependencies
   ];
 }

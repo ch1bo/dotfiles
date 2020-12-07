@@ -47,6 +47,9 @@
       pkgs.chromium # a browser
       pkgs.docker-compose # docker projects
       pkgs.firefox # the browser
+      pkgs.gnome3.eog # image viewer
+      pkgs.gnome3.evince # pdf viewer
+      # pkgs.gnome3.nautilus -> see README.md#Dependencies
       pkgs.jq # json processing in scripts / terminal
       pkgs.pandoc # convert everything
       pkgs.scrot # screenshots

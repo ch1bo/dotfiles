@@ -1,9 +1,7 @@
-Config { font =         "xft:Fira Code:size=10:antialias=true"
-       , bgColor =      "#1b2b34"
-       , fgColor =      "#c0c5ce"
+Config { font =         "xft:FiraCode Nerd Font Mono:size=10:antialias=true"
+       , bgColor =      "#21242b"
+       , fgColor =      "#bbc2cf"
        , position =     Top
-       , border =       BottomB
-       , borderColor =  "#6699cc"
 
        -- layout
        , sepChar =  "%"   -- delineator between plugin names and straight text

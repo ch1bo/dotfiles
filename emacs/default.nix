@@ -1,6 +1,6 @@
-# Module which installs and configures my various emacs distributions in use. As
+# Module which installs and configures my various emacs distributions in use.
 #
-# I am in the process of switching between spacemacs to doom-emacs, I use the
+# As I am in the process of switching between spacemacs to doom-emacs, I use the
 # chemacs profile switcher + utilty scripts to launch these two profiles.
 #
 # Furthermore, we deliberately set up emacs up to look for config and emacs
@@ -8,8 +8,6 @@
 # tweaking (for now at least).
 #
 # TODO emacs-overlay with emacsGcc
-# TODO dependencies like git, fd, rg, etc.
-
 { config, pkgs, ... }:
 let
   emacsDir = "${config.dotfiles}/emacs";
