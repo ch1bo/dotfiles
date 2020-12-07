@@ -7,7 +7,7 @@ Config { font =         "xft:FiraCode Nerd Font Mono:size=10:antialias=true"
        , sepChar =  "%"   -- delineator between plugin names and straight text
        , alignSep = "}{"  -- separator between left-right alignment
        -- TODO make right padding dynamic
-       , template = "%StdinReader% }{ %multicpu% | %coretemp% | %memory% | %@wifi@% | %dynnetwork% | %battery% | %bright% | %kbd% | %date%    "
+       , template = "%StdinReader% }{ %multicpu% %coretemp% %memory% %dynnetwork% %battery% %bright% %kbd% %date%    "
 
        -- general behavior
        , lowerOnStart =     True    -- send to bottom of window stack on start
@@ -20,48 +20,52 @@ Config { font =         "xft:FiraCode Nerd Font Mono:size=10:antialias=true"
        -- plugins see http://projects.haskell.org/xmobar/#system-monitor-plugins.
        , commands =
          [ Run StdinReader
-         , Run Wireless "@wifi@" [ "--template", "<essid>" ] 10
-         , Run DynNetwork     [ "--template" , "<dev>: <tx>kB/s|<rx>kB/s"
+         -- TODO broken? always "Updating..."
+         -- , Run Wireless "@wifi@" [ "--template", "<essid>" ] 10
+         , Run DynNetwork     [ "--template" , " <tx>kB/s  <rx>kB/s"
                               , "--Low"      , "1000"       -- units: kB/s
                               , "--High"     , "5000"       -- units: kB/s
                               , "--low"      , "#99c794"
                               , "--normal"   , "#5fb3b3"
                               , "--high"     , "#ec5f67"
                               ] 10
-         , Run MultiCpu       [ "--template" , "C: <total>%"
+         , Run MultiCpu       [ "--template" , "碌 <total>%"
                               , "--Low"      , "50"         -- units: %
                               , "--High"     , "85"         -- units: %
                               , "--low"      , "#99c794"
                               , "--normal"   , "#5fb3b3"
                               , "--high"     , "#ec5f67"
                               ] 10
-         , Run CoreTemp       [ "--template" , "T: <core0>°C"
+         , Run CoreTemp       [ "--template" , " <core0>°C"
                               , "--Low"      , "70"        -- units: °C
                               , "--High"     , "80"        -- units: °C
                               , "--low"      , "#99c794"
                               , "--normal"   , "#5fb3b3"
                               , "--high"     , "#ec5f67"
                               ] 50
-         , Run Memory         [ "--template" ,"M: <usedratio>%"
+         , Run Memory         [ "--template" ," <usedratio>%"
                               , "--Low"      , "30"        -- units: %
                               , "--High"     , "90"        -- units: %
                               , "--low"      , "#99c794"
                               , "--normal"   , "#5fb3b3"
                               , "--high"     , "#ec5f67"
                               ] 10
-         , Run Battery        [ "--template" , "B: <acstatus>"
+         , Run Battery        [ "--template" , "<acstatus>"
                               , "--Low"      , "20"        -- units: %
                               , "--High"     , "60"        -- units: %
                               , "--low"      , "#ec5f67"
                               , "--normal"   , "#5fb3b3"
                               , "--high"     , "#99c794"
                               , "--" -- battery specific options
-                                        -- discharging status
-                                        , "-o" , "<left>% (<timeleft>)"
-                                        -- AC "on" status
-                                        , "-O" , "<fc=#33B5E1>Charging</fc>"
-                                        -- charged status
-                                        , "-i" , "<fc=#5fb3b3>Charged</fc>"
+                              -- AC "on" status
+                              , "-O" , "<fc=#33B5E1></fc>"
+                              -- AC "idle" status
+                              , "-i" , "<fc=#5fb3b3></fc>"
+                              -- discharging status
+                              , "-o" , " <left>%"
+                              , "--highs", "" -- higher than -H
+                              , "--mediums", "" -- between -H and -L
+                              , "--lows", "" -- lower than -L
                               ] 50
          --   (%F = y-m-d date, %a = day of week, %T = h:m:s time)
          , Run Date           "%a %F %T" "date" 10
@@ -71,6 +75,6 @@ Config { font =         "xft:FiraCode Nerd Font Mono:size=10:antialias=true"
          , Run Brightness [ "-t" , "<vbar>"
                           , "--" , "-D" , "intel_backlight"
                           ] 10
-         , Run Mail [("M", "~/mail/franka/INBOX")] "mail"
+         , Run Mail [("﯍", "~/mail/ncoding.at/INBOX")] "mail"
          ]
        }
