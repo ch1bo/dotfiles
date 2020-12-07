@@ -1,6 +1,7 @@
 { pkgs, config, ... }:
 {
   home.file.".ghc/ghci.conf".source = ./ghci.conf;
+  xdg.configFile."brittany/config.yaml".source = ./brittany-config.yaml;
 
   home.sessionPath = [
     "${config.home.homeDirectory}/.local/bin" # stack install path
