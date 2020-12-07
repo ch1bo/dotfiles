@@ -101,7 +101,7 @@ rofi.bw:                  4
 rofi.padding:             2
 rofi.fullscreen:          false
 rofi.case-sensitive:      false
-rofi.dpi:                 1
+rofi.dpi:                 120
 rofi.hide-scrollbar:      true
 rofi.show-icons:          true
 rofi.separator-style:     none
