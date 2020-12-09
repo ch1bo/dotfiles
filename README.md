@@ -24,11 +24,23 @@ usually require to be on the "system-level":
   [gvfs](https://wiki.archlinux.org/index.php/File_manager_functionality#Mounting)
   for mounting file systems, which seems not to work (out of the box) when using
   from `nixpkgs`
+* `dconf` - to configure GTK etc.
 
 ## Install
 
+### On non-NixOS
+
 1. Install [nix](https://nixos.org/download.html)
-2. `nix-shell --run home-manager switch -f private.nix`
+2. `nix-shell --run home-manager switch -f hosts/<host>/home.nix`
+3. Prepare doom emacs using `doom sync`
+4. TODO Install secrets
+
+### On NixOS
+
+1. Follow [installation instructions](https://nixos.org/manual/nixos/stable/index.html#sec-installation-installing)
+2. But symlink `/etc/nixos/configuration.nix` with one from `hosts/<host>/configuration.nix` before `nixos-install`
+3. Prepare doom emacs using `doom sync`
+4. TODO Install secrets
 
 ## TODO / Next steps
 

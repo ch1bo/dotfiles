@@ -71,7 +71,7 @@
     # * pam-based lockers do not play well.
     services.screen-locker = {
       enable = true;
-      lockCmd = "/usr/bin/slock";
+      lockCmd = lib.mkDefault "/usr/bin/slock";
       xssLockExtraOptions =
         let dimScreenScript = pkgs.writeScript "dim-screen"
           (builtins.readFile "${pkgs.xss-lock}/share/doc/xss-lock/dim-screen.sh");

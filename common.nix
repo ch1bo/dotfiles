@@ -37,7 +37,6 @@
       "${config.home.homeDirectory}/.local/bin"
     ];
 
-    programs.home-manager.enable = true;
     systemd.user.startServices = true;
 
     # Random stuff
