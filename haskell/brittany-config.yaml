@@ -34,16 +34,15 @@ conf_layout:
   lconfig_importColumn: 50
   lconfig_hangingTypeSignature: false
   lconfig_importAsColumn: 50
-  lconfig_alignmentLimit: 30
+  lconfig_alignmentLimit: 4
   lconfig_allowHangingQuasiQuotes: true
   lconfig_indentListSpecial: true
   lconfig_indentAmount: 2
   lconfig_alignmentBreakOnMultiline: true
   lconfig_experimentalSemicolonNewlines: false
   lconfig_cols: 80
-  lconfig_indentPolicy: IndentPolicyMultiple
+  lconfig_indentPolicy: IndentPolicyLeft
   lconfig_indentWhereSpecial: true
   lconfig_columnAlignMode:
-    tag: ColumnAlignModeDisabled
-    # tag: ColumnAlignModeMajority
-    # contents: 0.7
+    tag: ColumnAlignModeMajority
+    contents: 0.7
