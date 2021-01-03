@@ -101,25 +101,26 @@ visible, hide it. Otherwise, show it."
 ;; Org
 
 ;; TODO(SN): keybindings in org-agenda (e.g. org-agenda-later)
-(setq org-directory "~/documents/org/"
-      org-default-notes-file (concat org-directory "notes.org")
-      org-agenda-files (list org-directory)
-      org-capture-templates
-      '(("t" "Todo" entry (file+headline "notes.org" "Tasks") "* TODO %?\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\n%a")
-        ("i" "Idea" entry (file+headline "notes.org" "Ideas") "* TODO %?%a")
-        ("m" "Meeting" entry (file+headline "notes.org" "Meetings") "* %?\n  #+DATE: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))")
-        )
-      org-agenda-custom-commands
-      '(("n" "Agenda and all TODOs"
-         ((agenda ""
-                  ((org-agenda-span 'week)))
-          (tags-todo "-idea&-candidate"
-                     ((org-agenda-overriding-header "TODOs (unscheduled)")
-                      (org-agenda-skip-function
-                       '(org-agenda-skip-subtree-if 'scheduled))))
-          (tags-todo "idea"
-                     ((org-agenda-overriding-header "Ideas"))))
-         )))
+(after! org
+  (setq org-directory "~/nextcloud/org/"
+        org-default-notes-file (concat org-directory "notes.org")
+        org-agenda-files (list org-directory)
+        ;; REVIEW [[file:~/.dotfiles/emacs/doom.d/config.el::org-capture-templates]]
+        org-capture-templates
+        '(("t" "Todo" entry (file+headline "notes.org" "Tasks") "* TODO %?\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\n%a")
+          ("i" "Idea" entry (file+headline "notes.org" "Ideas") "* TODO %?%a")
+          )
+        org-agenda-custom-commands
+        '(("n" "Agenda and all TODOs"
+           ((agenda ""
+                    ((org-agenda-span 'week)))
+            (tags-todo "-idea"
+                       ((org-agenda-overriding-header "TODOs (unscheduled)")
+                        (org-agenda-skip-function
+                         '(org-agenda-skip-subtree-if 'scheduled))))
+            (tags-todo "idea"
+                       ((org-agenda-overriding-header "Ideas"))))
+           ))))
 
 ;; C/C++
 
