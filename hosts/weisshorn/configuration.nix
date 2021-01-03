@@ -73,6 +73,7 @@
     vim
     gnome3.nautilus
     dconf
+    pavucontrol
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -85,6 +86,11 @@
   # };
 
   # List services that you want to enable:
+
+  services.autorandr = {
+    enable = true;
+    defaultTarget = "mobile";
+  };
 
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;

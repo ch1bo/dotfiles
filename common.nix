@@ -40,6 +40,7 @@
     systemd.user.startServices = true;
 
     # Random stuff
+    # TODO: https://github.com/NixOS/nixpkgs/issues/60012
     services.nextcloud-client.enable = true;
     home.packages = [
       pkgs.bat # cat clone with wings
@@ -52,6 +53,8 @@
       pkgs.jq # json processing in scripts / terminal
       pkgs.pandoc # convert everything
       pkgs.scrot # screenshots
+      pkgs.keepassxc # secret stuff
+      pkgs.openssl # key handling
     ];
   };
 }
