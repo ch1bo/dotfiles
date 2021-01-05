@@ -63,6 +63,9 @@
   sound.enable = true;
   hardware.pulseaudio.enable = true;
 
+  # Docker deamon
+  virtualisation.docker.enable = true;
+
   # Enable touchpad support (enabled default in most desktopManager).
   services.xserver.libinput.enable = true;
 
@@ -104,7 +107,7 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.ch1bo = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" ];
+    extraGroups = [ "wheel" "networkmanager" "docker" ];
     uid = 1000;
   };
 
