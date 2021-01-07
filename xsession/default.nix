@@ -39,6 +39,9 @@ in
         xrdb -load ${./xresources}
         xrdb -merge $HOME/.Xresources
 
+        # Initial dpi setting, later autorandr manages things
+        xrandr --dpi 120
+
         # Desktop wallpaper
         ${setBackground}
       '';
