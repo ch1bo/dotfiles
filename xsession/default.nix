@@ -81,6 +81,8 @@ in
     # launched by xmonad
     programs.rofi.enable = true;
 
+    # access pulse incl. volume control from tray
+    services.pasystray.enable = true;
     home.packages = [
       pkgs.trayer # launched by xmonad
       pkgs.xmobar # launched by xmonad

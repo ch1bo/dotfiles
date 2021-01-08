@@ -59,9 +59,19 @@
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
-  # Enable sound.
+  # Bluetooth support (bluez)
+  hardware.bluetooth.enable = true;
+
+  # Sound
   sound.enable = true;
-  hardware.pulseaudio.enable = true;
+  hardware.pulseaudio = {
+    enable = true;
+    # Bluetooth support
+    package = pkgs.pulseaudioFull;
+  };
+  boot.extraModprobeConfig = ''
+    options snd slots=snd-hda-intel
+  '';
 
   # Docker deamon
   virtualisation.docker.enable = true;
