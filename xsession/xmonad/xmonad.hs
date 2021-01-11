@@ -84,7 +84,7 @@ tray = spawnPipe $ unwords
   , "--SetDockType true"
   , "--SetPartialStrut true"
   , "--expand true"
-  , "--width 2" -- TODO make it dynamic
+  , "--width 3" -- TODO make it dynamic
   , "--transparent true"
   , "--alpha 0"
   , "--tint 0x21242b"
@@ -184,7 +184,6 @@ layouts =
     $   tiled
     ||| Mirror tiled
     ||| Full
-    ||| im
  where
   -- Resizable tiling with maximize modifier
   tiled   = maximize $ ResizableTall nmaster delta ratio []
@@ -194,8 +193,6 @@ layouts =
   ratio   = 1 / 2
   -- Percent of screen to increment by when resizing panes
   delta   = 3 / 100
-  -- Instant messaging, 1/6 of width
-  im      = gridIM (1 % 6) (skype `Or` pidgin)
   skype =
     (ClassName "Skype")
       `And` (Not $ Role "ConversationsWindow")
