@@ -2,6 +2,9 @@
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE TypeSynonymInstances  #-}
 
+import Data.Functor ((<&>))
+import Data.List (isPrefixOf)
+import qualified Data.Map as Map
 import Data.Ratio ((%))
 import System.Exit (ExitCode(..), exitSuccess, exitWith)
 import XMonad hiding (config)
@@ -16,6 +19,8 @@ import XMonad.Actions.Navigation2D
 import XMonad.Hooks.DynamicLog
   (PP(..), defaultPP, shorten, statusBar, wrap, xmobarColor)
 import XMonad.Hooks.EwmhDesktops (ewmh)
+import XMonad.Hooks.ManageDocks (manageDocks)
+import XMonad.Hooks.ManageHelpers (Side(..), doFloatDep, doSideFloat)
 import XMonad.Layout.Gaps (gaps)
 import XMonad.Layout.IM (Property(..), gridIM)
 import XMonad.Layout.LayoutModifier (ModifiedLayout(..))
@@ -24,12 +29,10 @@ import XMonad.Layout.MultiToggle (Toggle(..), Transformer(..), mkToggle, single)
 import XMonad.Layout.MultiToggle.Instances (StdTransformers(SMARTBORDERS))
 import XMonad.Layout.ResizableTile (MirrorResize(..), ResizableTall(..))
 import XMonad.Layout.Spacing (Border(..), Spacing(..), spacingRaw)
-import XMonad.Util.Scratchpad (scratchpadManageHook, scratchpadSpawnAction)
-import XMonad.Util.Types (Direction2D(..))
-
-import qualified Data.Map as Map
 import qualified XMonad.StackSet as StackSet
 import XMonad.Util.Run (spawnPipe)
+import XMonad.Util.Scratchpad (scratchpadManageHook, scratchpadSpawnAction)
+import XMonad.Util.Types (Direction2D(..))
 
 main = tray >> xmobar config >>= xmonad . ewmh
 
@@ -185,6 +188,8 @@ layouts =
 manageHooks = composeAll
   [ scratchpadManageHook (StackSet.RationalRect 0.25 0.25 0.5 0.5)
   , className =? "Gimp" --> doFloat
+  , (className <&> isPrefixOf ".blueman") --> doFloatTopRight
+  , (className <&> flip elem ["Pavucontrol", "Paprefs"]) --> doFloatTopRight
   , teamsNotification
   ]
  where
@@ -193,3 +198,9 @@ manageHooks = composeAll
       =?  "Microsoft Teams Notification"
       --> doFloat
       <+> doF StackSet.focusDown
+
+  doFloatTopRight = doFloatDep $ \(StackSet.RationalRect _ _ w h) ->
+    StackSet.RationalRect (1 - w) xmobarRationalHeight w 0.5
+
+-- HACK
+xmobarRationalHeight = 0.02
