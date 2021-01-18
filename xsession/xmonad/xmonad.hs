@@ -2,77 +2,58 @@
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE TypeSynonymInstances  #-}
 
-import           Data.Ratio                     ( (%) )
-import           System.Exit                    ( ExitCode(..)
-                                                , exitWith
-                                                )
-import           XMonad                  hiding ( config )
-import           XMonad.Actions.Navigation2D    ( defaultNavigation2DConfig
-                                                , screenGo
-                                                , switchLayer
-                                                , windowGo
-                                                , windowSwap
-                                                , withNavigation2DConfig
-                                                )
-import           XMonad.Hooks.DynamicLog        ( PP(..)
-                                                , defaultPP
-                                                , shorten
-                                                , statusBar
-                                                , wrap
-                                                , xmobarColor
-                                                )
-import           XMonad.Hooks.EwmhDesktops      ( ewmh )
-import           XMonad.Layout.Gaps             ( gaps )
-import           XMonad.Layout.IM               ( Property(..)
-                                                , gridIM
-                                                )
-import           XMonad.Layout.LayoutModifier   ( ModifiedLayout(..) )
-import           XMonad.Layout.Maximize         ( maximize
-                                                , maximizeRestore
-                                                )
-import           XMonad.Layout.MultiToggle      ( Toggle(..)
-                                                , Transformer(..)
-                                                , mkToggle
-                                                , single
-                                                )
-import           XMonad.Layout.MultiToggle.Instances
-                                                ( StdTransformers(SMARTBORDERS)
-                                                )
-import           XMonad.Layout.ResizableTile    ( MirrorResize(..)
-                                                , ResizableTall(..)
-                                                )
-import           XMonad.Layout.Spacing          ( spacing )
-import           XMonad.Util.Scratchpad         ( scratchpadManageHook
-                                                , scratchpadSpawnAction
-                                                )
-import           XMonad.Util.Types              ( Direction2D(..) )
+import Data.Ratio ((%))
+import System.Exit (ExitCode(..), exitWith)
+import XMonad hiding (config)
+import XMonad.Actions.Navigation2D
+  ( defaultNavigation2DConfig
+  , screenGo
+  , switchLayer
+  , windowGo
+  , windowSwap
+  , withNavigation2DConfig
+  )
+import XMonad.Hooks.DynamicLog
+  (PP(..), defaultPP, shorten, statusBar, wrap, xmobarColor)
+import XMonad.Hooks.EwmhDesktops (ewmh)
+import XMonad.Layout.Gaps (gaps)
+import XMonad.Layout.IM (Property(..), gridIM)
+import XMonad.Layout.LayoutModifier (ModifiedLayout(..))
+import XMonad.Layout.Maximize (maximize, maximizeRestore)
+import XMonad.Layout.MultiToggle (Toggle(..), Transformer(..), mkToggle, single)
+import XMonad.Layout.MultiToggle.Instances (StdTransformers(SMARTBORDERS))
+import XMonad.Layout.ResizableTile (MirrorResize(..), ResizableTall(..))
+import XMonad.Layout.Spacing (spacing)
+import XMonad.Util.Scratchpad (scratchpadManageHook, scratchpadSpawnAction)
+import XMonad.Util.Types (Direction2D(..))
 
-import qualified Data.Map                      as Map
-import qualified XMonad.StackSet               as StackSet
-import           XMonad.Util.Run                ( spawnPipe )
+import qualified Data.Map as Map
+import qualified XMonad.StackSet as StackSet
+import XMonad.Util.Run (spawnPipe)
 
 main = tray >> xmobar config >>= xmonad . ewmh
 
 config = withNavigation2DConfig defaultNavigation2DConfig $ defaultConfig
-  { modMask            = mod4Mask -- Super as modifier
-  , terminal           = "urxvt"
-  , focusFollowsMouse  = True -- Focus on mouse enter
-  , clickJustFocuses   = False -- Click 'into' window
-  , normalBorderColor  = "#21242b"
+  { modMask  = mod4Mask -- Super as modifier
+  , terminal = "urxvt"
+  , focusFollowsMouse = True -- Focus on mouse enter
+  , clickJustFocuses = False -- Click 'into' window
+  , normalBorderColor = "#21242b"
   , focusedBorderColor = "#51afef"
-  , borderWidth        = 1
-  , keys               = keyBindings
-  , layoutHook         = layouts
-  , manageHook         = manageHooks
+  , borderWidth = 1
+  , keys     = keyBindings
+  , layoutHook = layouts
+  , manageHook = manageHooks
   }
 
 xmobar = statusBar "xmobar" pp toggleStrutsKey
  where
   -- Pretty print xmonad status
-  pp = defaultPP { ppCurrent = xmobarColor "#51afef" "" . wrap "[" "]"
-                 , ppTitle   = xmobarColor "#51afef" "" . shorten 40
-                 , ppVisible = wrap "(" ")"
-                 }
+  pp = defaultPP
+    { ppCurrent = xmobarColor "#51afef" "" . wrap "[" "]"
+    , ppTitle   = xmobarColor "#51afef" "" . shorten 40
+    , ppVisible = wrap "(" ")"
+    }
   -- Toggle display of top bar
   toggleStrutsKey XConfig { XMonad.modMask = modMask } = (modMask, xK_b)
 
@@ -108,13 +89,13 @@ keyBindings conf@(XConfig { XMonad.modMask = modMask }) =
     -- Switch windows with rofi
        , ((modMask, xK_o), spawn "rofi -show window")
     -- Close focused window
-       , ((modMask, xK_q), kill)
+       , ((modMask, xK_q)    , kill)
     -- Rotate through the available layout algorithms
        , ((modMask, xK_space), sendMessage NextLayout)
     -- Reset the layouts on the current workspace to default
        , ((modMask .|. shiftMask, xK_space), setLayout $ XMonad.layoutHook conf)
     -- Resize viewed windows to the correct size
-       , ((modMask, xK_n), refresh)
+       , ((modMask, xK_n)    , refresh)
     -- Focus next/previous window in the stack
        , ((modMask, xK_Tab), windows StackSet.focusDown)
        , ((modMask .|. shiftMask, xK_Tab), windows StackSet.swapDown)
