@@ -15,12 +15,6 @@ in
     xsession = {
       enable = true;
       initExtra = ''
-        # TODO Use keepassxc as libsecret and SSH agent
-        if [ $(which gnome-keyring-daemon 2> /dev/null) ]; then
-          eval $(gnome-keyring-daemon --start)
-          export SSH_AUTH_SOCK
-        fi
-
         # No beeps
         xset -b
 
@@ -83,6 +77,7 @@ in
 
     # access pulse incl. volume control from tray
     services.pasystray.enable = true;
+
     home.packages = [
       pkgs.trayer # launched by xmonad
       pkgs.xmobar # launched by xmonad
