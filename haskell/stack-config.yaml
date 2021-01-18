@@ -1,0 +1,10 @@
+# This file contains default non-project-specific settings for 'stack', used
+# in all projects.  For more information about stack's configuration, see
+# http://docs.haskellstack.org/en/stable/yaml_configuration/
+
+# I manage ghc installations using nix (-shells)
+system-ghc: true
+
+# Disable the stock nix integration to be able to use stack from within nix-shells
+nix:
+  enable: false
