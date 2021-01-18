@@ -1,25 +1,27 @@
 # TODO: use xmonad from home-manager options!
 { pkgs ? import <unstable> { }
-, compilerVersion ? "8102"
-, compiler ? "ghc${compilerVersion}"
 }:
 
 with pkgs;
+with lib;
 let
-  ghc = pkgs.haskell.packages.${compiler}.ghcWithPackages (ps: [
+  ghc = haskellPackages.ghcWithPackages (ps: [
     ps.xmonad
     ps.xmonad-contrib
     ps.process
   ]);
-  hls = pkgs.haskell-language-server.override
-    { supportedGhcVersions = [ compilerVersion ]; };
+  ghcVersion = concatStrings (filter (x: x != ".") (stringToCharacters ghc.version));
+  hls = haskell-language-server.override
+    {
+      supportedGhcVersions = [ ghcVersion ];
+    };
 in
-pkgs.mkShell rec {
+mkShell rec {
   buildInputs = [
     ghc
     hls
-    # pkgs.cabal-install
-    # pkgs.stylish-haskell
-    pkgs.haskell.packages.${compiler}.brittany
+    cabal-install
+    # stylish-haskell
+    haskellPackages.brittany
   ];
 }

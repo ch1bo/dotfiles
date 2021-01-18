@@ -3,7 +3,7 @@
 {-# LANGUAGE TypeSynonymInstances  #-}
 
 import Data.Ratio ((%))
-import System.Exit (ExitCode(..), exitWith)
+import System.Exit (ExitCode(..), exitSuccess, exitWith)
 import XMonad hiding (config)
 import XMonad.Actions.Navigation2D
   ( defaultNavigation2DConfig
@@ -23,7 +23,7 @@ import XMonad.Layout.Maximize (maximize, maximizeRestore)
 import XMonad.Layout.MultiToggle (Toggle(..), Transformer(..), mkToggle, single)
 import XMonad.Layout.MultiToggle.Instances (StdTransformers(SMARTBORDERS))
 import XMonad.Layout.ResizableTile (MirrorResize(..), ResizableTall(..))
-import XMonad.Layout.Spacing (spacing)
+import XMonad.Layout.Spacing (Border(..), Spacing(..), spacingRaw)
 import XMonad.Util.Scratchpad (scratchpadManageHook, scratchpadSpawnAction)
 import XMonad.Util.Types (Direction2D(..))
 
@@ -33,7 +33,7 @@ import XMonad.Util.Run (spawnPipe)
 
 main = tray >> xmobar config >>= xmonad . ewmh
 
-config = withNavigation2DConfig defaultNavigation2DConfig $ defaultConfig
+config = withNavigation2DConfig def $ def
   { modMask  = mod4Mask -- Super as modifier
   , terminal = "urxvt"
   , focusFollowsMouse = True -- Focus on mouse enter
@@ -49,7 +49,7 @@ config = withNavigation2DConfig defaultNavigation2DConfig $ defaultConfig
 xmobar = statusBar "xmobar" pp toggleStrutsKey
  where
   -- Pretty print xmonad status
-  pp = defaultPP
+  pp = def
     { ppCurrent = xmobarColor "#51afef" "" . wrap "[" "]"
     , ppTitle   = xmobarColor "#51afef" "" . shorten 40
     , ppVisible = wrap "(" ")"
@@ -73,11 +73,11 @@ tray = spawnPipe $ unwords
   , "--monitor 1"
   ]
 
-keyBindings conf@(XConfig { XMonad.modMask = modMask }) =
+keyBindings conf@XConfig { XMonad.modMask = modMask } =
   Map.fromList
     $
     -- Quit xmonad
-       [ ((modMask .|. shiftMask, xK_q), io (exitWith ExitSuccess))
+       [ ((modMask .|. shiftMask, xK_q), io exitSuccess)
     -- Restart xmonad
        , ( (modMask .|. shiftMask, xK_r)
          , spawn "xmonad --recompile; xmonad --restart"
@@ -153,14 +153,21 @@ keyBindings conf@(XConfig { XMonad.modMask = modMask }) =
 -- Layout transformer to apply gap and spacing to layouts via MultiToggle
 data EXPLODE = EXPLODE
   deriving (Read, Show, Eq, Typeable)
+
 instance Transformer EXPLODE Window where
   transform EXPLODE x k = k
     (gaps [(U, 10), (R, 10), (D, 10), (L, 10)] $ spacing 10 x)
     (\(ModifiedLayout _ (ModifiedLayout _ x')) -> x')
 
+spacing :: Int -> l a -> ModifiedLayout Spacing l a
+spacing i = spacingRaw False (uniformBorder 0) False (uniformBorder i') True
+ where
+  i' = fromIntegral i
+  uniformBorder x = Border x x x x
+
+
 layouts =
-  id
-    .   mkToggle (single SMARTBORDERS)
+  mkToggle (single SMARTBORDERS)
     .   mkToggle (single EXPLODE)
     $   tiled
     ||| Mirror tiled
@@ -174,17 +181,15 @@ layouts =
   ratio   = 1 / 2
   -- Percent of screen to increment by when resizing panes
   delta   = 3 / 100
-  skype =
-    (ClassName "Skype")
-      `And` (Not $ Role "ConversationsWindow")
-      `And` (Not $ Role "CallWindow")
-  pidgin = (ClassName "Pidgin") `And` (Role "buddy_list")
 
 manageHooks = composeAll
   [ scratchpadManageHook (StackSet.RationalRect 0.25 0.25 0.5 0.5)
   , className =? "Gimp" --> doFloat
-  , title
-  =?  "Microsoft Teams Notification"
-  --> doFloat
-  <+> doF StackSet.focusDown
+  , teamsNotification
   ]
+ where
+  teamsNotification =
+    title
+      =?  "Microsoft Teams Notification"
+      --> doFloat
+      <+> doF StackSet.focusDown
