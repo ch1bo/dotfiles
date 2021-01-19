@@ -1,3 +1,5 @@
+# NOTE: use 'xbindkeys -k' or '-mk' to find key codes
+
 # Volume control
 "amixer sset Master 5+"
   XF86AudioRaiseVolume
@@ -6,13 +8,19 @@
 "amixer sset Master toggle"
   XF86AudioMute
 
-# Xrandr output switching
-"xmessage 'xrandr'"
-  Mod4 + F8
-
-# Toggle touchpad
-"toggle-touchpad"
-  XF86Search
+# Media control
+"dbus-send --type=method_call --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next"
+    m:0x0 + c:171
+    XF86AudioNext
+"dbus-send --type=method_call --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous"
+    m:0x0 + c:173
+    XF86AudioPrev
+"dbus-send --type=method_call --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause"
+    m:0x0 + c:208
+    XF86AudioPlay
+"dbus-send --type=method_call --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause"
+    m:0x0 + c:209
+    XF86AudioPause
 
 # Brigthness control
 "xbacklight -inc 5"
