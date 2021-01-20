@@ -79,6 +79,7 @@ in
     services.pasystray.enable = true;
 
     home.packages = [
+      pkgs.brightnessctl # used by xbindkeys
       pkgs.trayer # launched by xmonad
       pkgs.xmobar # launched by xmonad
       pkgs.xorg.setxkbmap # TODO keyboard module and finally add short cuts

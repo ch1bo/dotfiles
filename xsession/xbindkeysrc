@@ -23,9 +23,9 @@
     XF86AudioPause
 
 # Brigthness control
-"xbacklight -inc 5"
+"brightnessctl s +10%"
   XF86MonBrightnessUp
-"xbacklight -dec 5"
+"brightnessctl s 10%-"
   XF86MonBrightnessDown
 
 # Screenshot
