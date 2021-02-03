@@ -52,3 +52,6 @@
 
 (package! flycheck-clang-tidy
   :recipe (:host github :repo "ch1bo/flycheck-clang-tidy"))
+
+(package! lsp-treemacs
+  :recipe (:host github :repo "ch1bo/lsp-treemacs"))

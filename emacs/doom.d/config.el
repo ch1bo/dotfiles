@@ -122,6 +122,11 @@ visible, hide it. Otherwise, show it."
                        ((org-agenda-overriding-header "Ideas"))))
            ))))
 
+;; Code
+
+(after! lsp-treemacs
+  (setq lsp-treemacs-errors-position-params '((side . right) (slot . 1))))
+
 ;; C/C++
 
 (after! flycheck
