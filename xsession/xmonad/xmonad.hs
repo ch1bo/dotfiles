@@ -68,7 +68,7 @@ tray = spawnPipe $ unwords
   , "--SetDockType true"
   , "--SetPartialStrut true"
   , "--expand true"
-  , "--width 3" -- TODO make it dynamic
+  , "--width 4" -- TODO make it dynamic
   , "--transparent true"
   , "--alpha 0"
   , "--tint 0x21242b"

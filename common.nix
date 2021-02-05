@@ -29,7 +29,7 @@
     dotfiles = "${config.home.homeDirectory}/.dotfiles";
 
     home.sessionVariables = {
-      EDITOR = "emacs";
+      EDITOR = "vim";
     };
 
     home.sessionPath = [

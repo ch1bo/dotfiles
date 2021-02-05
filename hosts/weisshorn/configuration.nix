@@ -23,8 +23,6 @@
   };
 
   networking.hostName = "weisshorn";
-  #networking.wireless.enable = true;
-  #networking.wireless.networks = { "._." = { psk = "wlanmuc2016"; }; };
   networking.networkmanager.enable = true;
 
   # Set your time zone.
