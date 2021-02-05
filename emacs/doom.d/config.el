@@ -162,6 +162,10 @@ visible, hide it. Otherwise, show it."
 (setq-hook! 'haskell-mode-hook
   +format-with-lsp nil)
 
+;; Purescript
+(set-formatter! 'purty "purty"
+  :modes 'purescript-mode)
+
 ;; MonkeyC
 
 ;; Use java-mode for "monkeyc" files, but disable auto-formatting
