@@ -49,6 +49,9 @@
 
 ;; General
 
+;; Use Secrets API for managing secrets
+(setq auth-sources '("secrets:Login"))
+
 ;; Quick key bindings (at least during transition to doom)
 (setq which-key-idle-delay 0.2)
 

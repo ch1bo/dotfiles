@@ -7,6 +7,7 @@
 
   services.gpg-agent = {
     enable = true;
+    # TODO: This is incompatible with agents = [ "ssh" ] of keychain
     enableSshSupport = true;
   };
 
@@ -14,9 +15,11 @@
   programs.keychain = {
     enable = true;
     # NOTE: Disable SSH agent as we use the GPG agent for that
-    # TODO: "ssh" here is incompatible with gpg-agent.enableSshSupport
     agents = [ "gpg" ];
     # Keys are added manually or via keepassxc
     keys = [ ];
   };
+
+  # TODO: GPG agent replicates ssh keys from keepassxc into
+  # .gnupg/private-keys-v1.d
 }

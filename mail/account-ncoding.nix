@@ -1,11 +1,15 @@
 {
+  # Corresponding secrets API entry (as also used by emacs)
+  # secret-tool store --label='Mail ncoding.at' \
+  #   port 465
+  #   host mail.ncoding.at
+  #   user sebastian.nagel@ncoding.at
   accounts.email.accounts.ncoding = {
     primary = true;
     address = "sebastian.nagel@ncoding.at";
     aliases = ".*@ncoding.at";
     realName = "Sebastian Nagel";
     userName = "sebastian.nagel@ncoding.at";
-    # secret-tool store --label='Mail' email sebastian.nagel@ncoding.at
     passwordCommand = "secret-tool lookup email sebastian.nagel@ncoding.at";
     maildir = { path = "ncoding.at"; };
     imap = {
@@ -14,10 +18,9 @@
     };
     smtp = {
       host = "mail.ncoding.at";
-      port = 587; # TODO switch to 465
+      port = 465;
       tls.enable = true;
     };
-    # TODO gpg
     offlineimap.enable = true;
     msmtp.enable = true;
   };
