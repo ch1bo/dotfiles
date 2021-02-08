@@ -16,7 +16,7 @@
     # NOTE: Disable SSH agent as we use the GPG agent for that
     # TODO: "ssh" here is incompatible with gpg-agent.enableSshSupport
     agents = [ "gpg" ];
-    # Other keys are added by hand or via keepassxc
-    keys = [ "0x59FAA903C906659A" ];
+    # Keys are added manually or via keepassxc
+    keys = [ ];
   };
 }
