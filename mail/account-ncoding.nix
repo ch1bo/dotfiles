@@ -10,7 +10,7 @@
     aliases = ".*@ncoding.at";
     realName = "Sebastian Nagel";
     userName = "sebastian.nagel@ncoding.at";
-    passwordCommand = "secret-tool lookup email sebastian.nagel@ncoding.at";
+    passwordCommand = "secret-tool lookup host mail.ncoding.at user sebastian.nagel@ncoding.at";
     maildir = { path = "ncoding.at"; };
     imap = {
       host = "mail.ncoding.at";
