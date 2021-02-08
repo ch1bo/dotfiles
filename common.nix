@@ -4,6 +4,7 @@
     ./connectiq
     ./emacs
     ./git
+    ./gpg
     ./haskell
     ./mail
     ./nix
@@ -40,12 +41,6 @@
     systemd.user.startServices = true;
 
     # Random stuff
-
-    # Manage SSH and GPG agents
-    programs.keychain = {
-      enable = true;
-      keys = [ ]; # Added by hand or via keepassxc
-    };
 
     # TODO: https://github.com/NixOS/nixpkgs/issues/60012
     services.nextcloud-client.enable = true;
