@@ -32,15 +32,30 @@ usually require to be on the "system-level":
 
 1. Install [nix](https://nixos.org/download.html)
 2. `nix-shell --run home-manager switch -f hosts/<host>/home.nix`
-3. Prepare doom emacs using `doom sync`
-4. TODO Install secrets
 
 ### On NixOS
 
-1. Follow [installation instructions](https://nixos.org/manual/nixos/stable/index.html#sec-installation-installing)
-2. But symlink `/etc/nixos/configuration.nix` with one from `hosts/<host>/configuration.nix` before `nixos-install`
-3. Prepare doom emacs using `doom sync`
-4. TODO Install secrets
+1. Follow [installation instructions](https://nixos.org/manual/nixos/stable/index.html#sec-installation-installing) until `nixos-install`
+2. Checkout this repo into `/etc/nixos/dotfiles` and symlink `configuration.nix`
+   and `hardware-configuration.nix` with one from `hosts/`.
+3. Perform `nixos-install` and reboot.
+4. From a vTTY, (optional) move `dotfiles` to `~/.dotfiles` and re-symlink
+   `configuration.nix` and `hardware-configuration.nix`, and initialize home
+   directory using `nix-shell --run 'home-manager -f hosts/<host>/home.nix switch'`.
+
+### First steps at home
+
+- Prepare doom emacs using `doom sync` and `all-the-icons-install-fonts` (in `emacs`).
+- Authenticate nextcloud and sync `keepass` and `org` into `~/sync`.
+- Add mail credentials to secrets service:
+  ```
+  secret-tool store --label='Mail ncoding.at' \
+    port 465 \
+    host mail.ncoding.at \
+    user sebastian.nagel@ncoding.at
+  ```
+- Fetch yubikey and `gpg --receive key C906659A && gpg --card-status` (and `chmod 700 ~/.gnupg`).
+- Sign in to Firefox sync.
 
 ## TODO / Next steps
 
@@ -54,6 +69,7 @@ usually require to be on the "system-level":
 - [ ] Evaluate fish shell or fix zsh completion
 - [ ] Clean up with XDG and have proper mime associations
 - [ ] Get rid of the dependencies (above)
+- [ ] Set firefox settings / search engines declaratively
 
 ## Inspired by
 

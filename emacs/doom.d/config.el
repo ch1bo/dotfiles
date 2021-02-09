@@ -105,7 +105,7 @@ visible, hide it. Otherwise, show it."
 
 ;; TODO(SN): keybindings in org-agenda (e.g. org-agenda-later)
 (after! org
-  (setq org-directory "~/nextcloud/org/"
+  (setq org-directory "~/sync/org/"
         org-default-notes-file (concat org-directory "notes.org")
         org-agenda-files (list org-directory)
         ;; REVIEW [[file:~/.dotfiles/emacs/doom.d/config.el::org-capture-templates]]
