@@ -1,7 +1,7 @@
 #+TITLE: Matterhorn
 
-My private Dell XPS 13 notebook. This is one is (still) running Arch and thus
-uses nix only via home-manager.
+A Dell XPS 13 notebook, (still) running Arch Linux and thus uses nix only via
+home-manager.
 
 | Model | Dell XPS 13 9350    |
 | CPU   | Intel Core i5-6200U |

@@ -1,0 +1,11 @@
+#+TITLE: Eiger
+
+A hand built desktop system which could need some love (fresh cooling water) -
+however, now it's got at least NixOS.
+
+| Model | Handmade desktop              |
+| CPU   | Intel Core i5 4690K - 4 cores |
+| RAM   | 16GB                          |
+| SSD   | 256GB                         |
+| HD    | 2 x 1TB                       |
+| GPU   | Nvidia GTX 970 - 4GB          |

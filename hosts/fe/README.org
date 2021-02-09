@@ -1,8 +1,0 @@
-#+TITLE: FE
-
-A machine used at work at FE. Ancient Ubuntu (16.04) which got me into using
-nix.
-
-| Model | Dell Latitude E5470 |
-| OS    | Ubuntu 16.04        |
-| DM    | LightDM             |
