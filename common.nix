@@ -58,6 +58,8 @@
       pkgs.scrot # screenshots
       pkgs.keepassxc # secret stuff
       pkgs.openssl # key handling
+      pkgs.spotify # unlimited music
+      pkgs.signal-desktop # connect with rl
     ];
   };
 }
