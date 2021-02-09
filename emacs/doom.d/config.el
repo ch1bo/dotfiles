@@ -183,27 +183,6 @@ visible, hide it. Otherwise, show it."
 
 ;; Load/Refresh main mu4e view on context change
 (add-hook! 'mu4e-context-changed-hook #'mu4e)
-;; TODO Update bookmarks: mails are only moved, not flagged as trash by mobile client
-;; TODO DRY with mail/accounts-franka.nix
-(set-email-account!
- "franka.de"
- '((user-mail-address . "sebastian.nagel@franka.de")
-   (mu4e-trash-folder . "/franka.de/Trash")
-   (mu4e-refile-folder  . "/franka.de/Archive")
-   (mu4e-sent-folder . "/franka.de/Sent")
-   (mu4e-drafts-folder . "/franka.de/Drafts")
-   (smtpmail-smtp-user . "sebastian.nagel@franka.de")
-   (smtpmail-smtp-server . "mail.franka.de")
-   (smtpmail-smtp-service . 25)
-   (smtpmail-stream-type . starttls)
-   (mu4e-update-interval . 120)
-   (mu4e-bookmarks . ((:name "Unread messages" :query "maildir:/franka.de/INBOX AND flag:unread" :key ?u)
-                      (:name "Today's messages" :query "maildir:/franka.de/* AND date:today..now" :key ?t)
-                      (:name "Flagged messages" :query "maildir:/franka.de/* AND flag:flagged" :key ?f)
-                      ))
-   )
- t)
-
 ;; TODO DRY with mail/accounts-ncoding.nix
 (set-email-account!
  "ncoding.at"
