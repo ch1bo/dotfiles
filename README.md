@@ -12,11 +12,9 @@ well as modularizing host-specific configs.
 
 ## Dependencies
 
-As I have not (yet) made the jump to [NixOS](https://nixos.org), I am using
-`nixpkgs` (via `home-manager`) as an "after-market" package manager on an
-arbitrary host linux distribution to declaratively manage my home enviroment.
-This usually works quite well, but applications with strong ties into the system
-are not as straight-forward to set up. The following list contains programs I
+Using `home-manager` and the user profile to install things from `nixpkgs`
+usually works quite well, but applications with strong ties into the system are
+not as straight-forward to set up. The following list contains programs I
 usually require to be on the "system-level":
 
 * `slock` - requires root via setuid, maybe a wrapper similar to NixOS helps?
@@ -25,6 +23,10 @@ usually require to be on the "system-level":
   for mounting file systems, which seems not to work (out of the box) when using
   from `nixpkgs`
 * `dconf` - to configure GTK etc.
+* `pcscd` / `opensc` - for smartcard support.
+
+NOTE: For NixOS this are essentially the required parts of a host's
+`configuration.nix`.
 
 ## Install
 
