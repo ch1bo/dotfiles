@@ -49,9 +49,6 @@
   services.xserver.layout = "us";
   services.xserver.xkbOptions = "eurosign:e";
 
-  # Enable CUPS to print documents.
-  services.printing.enable = true;
-
   # Bluetooth support (bluez)
   hardware.bluetooth.enable = true;
   services.blueman.enable = true;
@@ -66,6 +63,13 @@
   boot.extraModprobeConfig = ''
     options snd slots=snd-hda-intel
   '';
+
+  # Printing
+  services.printing.enable = true;
+  services.printing.drivers = [ pkgs.gutenprint ];
+
+  # Scanning
+  hardware.sane.enable = true;
 
   # Docker deamon
   virtualisation.docker.enable = true;
@@ -88,9 +92,11 @@
     vim
     gnome3.gnome-disk-utility
     gnome3.nautilus
+    gnome3.simple-scan
     dconf
     pavucontrol
     ntfsprogs
+    system-config-printer
   ];
 
   ## Services
@@ -111,7 +117,7 @@
 
   users.users.ch1bo = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" "docker" ];
+    extraGroups = [ "wheel" "networkmanager" "docker" "scanner" ];
     uid = 1000;
   };
 
