@@ -15,7 +15,6 @@
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.grub.useOSProber = true;
 
   networking.hostName = "eiger";
   networking.networkmanager.enable = true;
@@ -75,30 +74,29 @@
   # TODO(SN): move to a notebook module
   # services.xserver.libinput.enable = true;
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
+  ## Programs
+
+  # Including opengl fixes
+  programs.steam.enable = true;
+
+  # Screensaver / -locker (usses setuid wrapper)
+  programs.slock.enable = true;
+
+  # Other things
   environment.systemPackages = with pkgs; [
     git
     vim
+    gnome3.gnome-disk-utility
     gnome3.nautilus
     dconf
     pavucontrol
+    ntfsprogs
   ];
 
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  programs.slock.enable = true;
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
+  ## Services
+
   # Smartcard support
   services.pcscd.enable = true;
-
-  programs.steam.enable = true;
-
-  # List services that you want to enable:
 
   # TODO(SN): move to a notebook module
   # services.autorandr = {
@@ -106,19 +104,11 @@
   #   defaultTarget = "mobile";
   # };
 
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
-
   # Gnome secrets service
   services.gnome3.gnome-keyring.enable = true;
 
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
+  ## User configuration
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.ch1bo = {
     isNormalUser = true;
     extraGroups = [ "wheel" "networkmanager" "docker" ];
