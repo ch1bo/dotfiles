@@ -49,12 +49,14 @@ NOTE: For NixOS this are essentially the required parts of a host's
 
 - Prepare doom emacs using `doom sync` and `all-the-icons-install-fonts` (in `emacs`).
 - Authenticate nextcloud and sync `keepass` and `org` into `~/sync`.
-- Add mail credentials to secrets service:
+- Add mail credentials to secrets service and initialize:
   ```
   secret-tool store --label='Mail ncoding.at' \
     port 465 \
     host mail.ncoding.at \
     user sebastian.nagel@ncoding.at
+  mu init -m ~/mail --my-address=sebastian.nagel@ncoding.at
+  mu index
   ```
 - Fetch yubikey and `gpg --receive key C906659A && gpg --card-status` (and `chmod 700 ~/.gnupg`).
 - Sign in to Firefox sync.
