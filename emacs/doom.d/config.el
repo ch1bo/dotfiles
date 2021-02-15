@@ -125,6 +125,10 @@ visible, hide it. Otherwise, show it."
                        ((org-agenda-overriding-header "Ideas"))))
            ))))
 
+;; Timeclock
+(after! timeclock
+  (setq timeclock-file "~/sync/org/timelog"))
+
 ;; Code
 
 (after! lsp-treemacs
