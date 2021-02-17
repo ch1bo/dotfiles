@@ -26,7 +26,7 @@
   # Per-interface useDHCP will be mandatory in the future, so this generated config
   # replicates the default behaviour.
   networking.useDHCP = false;
-  networking.interfaces.enp57s0u1u2.useDHCP = true; # NOTE(SN): matterhorn-specific
+  # TODO networking.interfaces.enp57s0u1u2.useDHCP = true; # NOTE(SN): matterhorn-specific
   networking.interfaces.wlp58s0.useDHCP = true; # NOTE(SN): matterhorn-specific
 
   # Select internationalisation properties.
