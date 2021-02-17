@@ -1,7 +1,9 @@
 { config, pkgs, ... }:
 
 {
+
   # Use config files instead of config.nixpkgs module for nix-env etc.
+  nixpkgs.config = import ./nixpkgs-config.nix;
   xdg.configFile."nixpkgs/config.nix".source = ./nixpkgs-config.nix;
   xdg.configFile."nixpkgs/overlays.nix".source = ./nixpkgs-overlays.nix;
 
