@@ -1,11 +1,9 @@
 #+TITLE: Matterhorn
 
-A Dell XPS 13 notebook, (still) running Arch Linux and thus uses nix only via
-home-manager.
+A Dell XPS 13 notebook, now running NixOS because weird things happened in my
+previous Arch install.
 
 | Model | Dell XPS 13 9350    |
 | CPU   | Intel Core i5-6200U |
 | RAM   | 8GB                 |
 | SSD   | 256GB               |
-| OS    | Archlinux           |
-| DM    | LightDM             |
