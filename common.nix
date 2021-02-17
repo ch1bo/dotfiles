@@ -60,6 +60,7 @@
       pkgs.openssl # key handling
       pkgs.spotify # unlimited music
       pkgs.signal-desktop # connect with rl
+      pkgs.skype # old-school comms
     ];
   };
 }
