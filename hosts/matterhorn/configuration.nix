@@ -82,6 +82,9 @@
   # NOTE(SN): removed for matterhorn
   # programs.steam.enable = true;
 
+  # Android debug bridge and other tools
+  programs.adb.enable = true;
+
   # Screensaver / -locker (usses setuid wrapper)
   programs.slock.enable = true;
 
@@ -114,7 +117,7 @@
 
   users.users.ch1bo = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" "docker" ];
+    extraGroups = [ "wheel" "networkmanager" "docker" "adbusers" ];
     uid = 1000;
   };
 
