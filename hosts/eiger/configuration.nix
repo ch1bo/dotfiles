@@ -74,6 +74,9 @@
   # Docker deamon
   virtualisation.docker.enable = true;
 
+  # Access cryptos
+  hardware.ledger.enable = true;
+
   # Enable touchpad support (enabled default in most desktopManager).
   # TODO(SN): move to a notebook module
   # services.xserver.libinput.enable = true;
