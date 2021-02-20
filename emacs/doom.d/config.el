@@ -183,8 +183,9 @@ visible, hide it. Otherwise, show it."
 ;; Email
 
 (setq +mu4e-backend 'offlineimap
-      mu4e-maildir "~/mail")
-
+      mu4e-maildir "~/mail"
+      mml-secure-openpgp-sign-with-sender t
+      mml-secure-openpgp-encrypt-to-self t)
 ;; Load/Refresh main mu4e view on context change
 (add-hook! 'mu4e-context-changed-hook #'mu4e)
 ;; TODO DRY with mail/accounts-ncoding.nix
@@ -204,4 +205,24 @@ visible, hide it. Otherwise, show it."
                       (:name "Today's messages" :query "maildir:/ncoding.at/INBOX AND date:today..now" :key ?t)
                       (:name "Flagged messages" :query "maildir:/ncoding.at/* AND flag:flagged" :key ?f)
                       ))
+   (mu4e-compose-signature . nil)
+   ))
+;; TODO DRY with mail/accounts-iohk.nix
+(set-email-account!
+ "iohk.io"
+ '((user-mail-address . "sebastian.nagel@iohk.io")
+   (mu4e-trash-folder . "/iohk.io/[Gmail].Trash")
+   (mu4e-refile-folder  . "/iohk.io/[Gmail].All Mail") ;; TODO no archive?
+   (mu4e-sent-folder . "/iohk.io/[Gmail].Sent Mail")
+   (mu4e-drafts-folder . "/iohk.io/[Gmail].Drafts")
+   (smtpmail-smtp-user . "sebastian.nagel@iohk.io")
+   (smtpmail-smtp-server . "smtp.gmail.com")
+   (smtpmail-smtp-service . 465)
+   (smtpmail-stream-type . ssl)
+   (mu4e-update-interval . 120)
+   (mu4e-bookmarks . ((:name "Unread messages" :query "maildir:/iohk.io/INBOX AND flag:unread" :key ?u)
+                      (:name "Today's messages" :query "maildir:/iohk.io/INBOX AND date:today..now" :key ?t)
+                      (:name "Flagged messages" :query "maildir:/iohk.io/* AND flag:flagged" :key ?f)
+                      ))
+   (mu4e-compose-signature . (with-temp-buffer (insert-file-contents "~/.dotfiles/mail/iohk.sig") (buffer-string)))
    ))

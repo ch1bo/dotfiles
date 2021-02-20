@@ -2,6 +2,7 @@
   imports = [
     ../../common.nix
     ../../mail/account-ncoding.nix
+    ../../mail/account-iohk.nix
   ];
 
   home.username = "ch1bo";
