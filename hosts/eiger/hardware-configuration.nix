@@ -5,35 +5,46 @@
 
 {
   imports =
-    [
-      (modulesPath + "/installer/scan/not-detected.nix")
+    [ (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
-  boot.initrd.availableKernelModules = [ "xhci_pci" "ehci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" "sr_mod" ];
+  boot.initrd.availableKernelModules = [ "xhci_pci" "ehci_pci" "ahci" "nvme" "usb_storage" "usbhid" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
-  fileSystems."/" =
-    {
-      device = "/dev/disk/by-uuid/646b5d5a-06ce-4110-a4bd-0c19c7060294";
-      fsType = "ext4";
-    };
+  boot.initrd.luks.devices = {
+    # Holds ZFS rpool
+    root = { device = "/dev/disk/by-id/nvme-Samsung_SSD_970_EVO_1TB_S5H9NS1NB18061Z-part2"; };
+    # Encrypted swap
+    swap = { device = "/dev/disk/by-id/nvme-Samsung_SSD_970_EVO_1TB_S5H9NS1NB18061Z-part3"; };
+  };
 
   fileSystems."/boot" =
-    {
-      device = "/dev/disk/by-uuid/7BDE-95DA";
+    { device = "/dev/disk/by-id/nvme-Samsung_SSD_970_EVO_1TB_S5H9NS1NB18061Z-part1";
       fsType = "vfat";
     };
 
-  fileSystems."/data" =
-    {
-      device = "/dev/disk/by-uuid/1d61d2c1-d635-401e-b87d-09fdcb8fbe3f";
-      fsType = "ext4";
+  fileSystems."/" =
+    { device = "rpool/safe/root";
+      fsType = "zfs";
+    };
+
+  fileSystems."/home" =
+    { device = "rpool/safe/home";
+      fsType = "zfs";
+    };
+
+  fileSystems."/nix" =
+    { device = "rpool/local/nix";
+      fsType = "zfs";
     };
 
   swapDevices =
-    [{ device = "/dev/disk/by-uuid/409bc5b6-6379-4e21-897c-c9e2ecf365ce"; }];
+    [ { device = "/dev/mapper/swap"; }
+    ];
 
-  powerManagement.cpuFreqGovernor = "ondemand";
+  powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
+  # high-resolution display
+  hardware.video.hidpi.enable = lib.mkDefault true;
 }

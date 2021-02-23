@@ -3,9 +3,53 @@
 A hand built desktop system which could need some love (fresh cooling water) -
 however, now it's got at least NixOS.
 
-| Model | Handmade desktop              |
-| CPU   | Intel Core i5 4690K - 4 cores |
-| RAM   | 16GB                          |
-| SSD   | 256GB                         |
-| HD    | 2 x 1TB                       |
-| GPU   | Nvidia GTX 970 - 4GB          |
+| Model | Handmade desktop                      |
+| CPU   | Intel Core i5 4690K - 4 cores         |
+| RAM   | 16GB                                  |
+| GPU   | Nvidia GTX 970 - 4GB                  |
+| SSD   | Samsung 970 EVO 1TB                   |
+| SSD   | Samsung 840 EVO 250GB                 |
+| HD    | 2 x Western Digital Caviar Black 1TB  |
+
+* Partitioning
+
+Currently only the 1TB SSD is used for NixOS itself, while other disks might be
+added as a raid1-like backup soon.
+
+#+begin_src
+   1            2048         1050623   512.0 MiB   EF00  boot
+   2         1050624      1936747918   923.0 GiB   8309  root
+   3      1936748544      1953525134   8.0 GiB     8309  swap
+#+end_src
+
+A standarf FAT32 EFI boot partition, LUKS encrypted swap and root partitions,
+where the latter is home to a ZFS pool:
+
+#+begin_src
+mkfs.vfat -F32 -n boot /dev/nvme0n1p1
+
+cryptsetup luksFormat /dev/nvme0n1p3
+cryptsetup open /dev/nvme0n1p3 swap
+mkswap /dev/mapper/swap
+
+cryptsetup luksFormat /dev/nvme0n1p2
+cryptsetup open /dev/nvme0n1p2 root
+zpool create -o ashift=12 -O acltype=posixacl -O xattr=sa rpool /dev/mapper/root
+#+end_src
+
+Currently the ZFS pool is setup with these data sets:
+
+#+begin_src
+zfs create -o mountpoint=none rpool/local
+zfs create -o mountpoint=legacy rpool/local/nix
+zfs create -o mountpoint=none rpool/safe
+zfs create -o mountpoint=legacy rpool/safe/root
+zfs create -o mountpoint=legacy rpool/safe/home
+zfs create -o refreservation=512M -o mountpoint=none rpool/reserved
+#+end_src
+
+Where the =rpool/reserved= can be shrinked when space runs out (required for deletion on a COW file system) with
+
+#+begin_src
+zfs set refreservation=none rpool/reserved
+#+end_src

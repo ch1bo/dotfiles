@@ -17,6 +17,7 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "eiger";
+  networking.hostId = "1caa41c5"; # required for ZFS
   networking.networkmanager.enable = true;
 
   # Set your time zone.
