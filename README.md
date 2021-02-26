@@ -66,11 +66,11 @@ NOTE: For NixOS this are essentially the required parts of a host's
 - [ ] Modularize home-manager config into proper topics and assemble host modules
 - [ ] Make independent of "<nixpkgs>" (using nix flakes)
 - [ ] Add tooling to "swap" dotfiles like https://github.com/hlissner/dotfiles/blob/master/bin/hey
-- [ ] Tray & tune xmobar
+- [/] Tray & tune xmobar
 - [ ] Improve / new xmonad layouts
 - [ ] Theme rofi
 - [ ] New terminal emulator
-- [ ] Evaluate fish shell or fix zsh completion
+- [ ] Evaluate fish shell or fix zsh completion (+ starship prompt?)
 - [ ] Clean up with XDG and have proper mime associations
 - [ ] Get rid of the dependencies (above)
 - [ ] Set firefox settings / search engines declaratively
