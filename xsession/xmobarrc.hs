@@ -6,8 +6,7 @@ Config { font =         "xft:FiraCode Nerd Font Mono:size=10:antialias=true"
        -- layout
        , sepChar =  "%"   -- delineator between plugin names and straight text
        , alignSep = "}{"  -- separator between left-right alignment
-       -- TODO make right padding dynamic
-       , template = "%StdinReader% }{ %multicpu% %coretemp% %memory% %dynnetwork% %battery% %bright% %kbd% %date%           "
+       , template = "%StdinReader% }{ %multicpu% %coretemp% %memory% %dynnetwork% %battery% %bright% %kbd% %date% %trayerpad%"
 
        -- general behavior
        , lowerOnStart =     True    -- send to bottom of window stack on start
@@ -76,5 +75,6 @@ Config { font =         "xft:FiraCode Nerd Font Mono:size=10:antialias=true"
                           , "--" , "-D" , "intel_backlight"
                           ] 10
          , Run Mail [("﯍", "~/mail/ncoding.at/INBOX")] "mail"
+         , Run Com "trayerpad" [] "trayerpad" 10
          ]
        }

@@ -65,15 +65,14 @@ tray = spawnPipe $ unwords
   [ "trayer"
   , "--edge top"
   , "--align right"
+  , "--widthtype request"
+  , "--expand true"
   , "--SetDockType true"
   , "--SetPartialStrut true"
-  , "--expand true"
-  , "--width 4" -- TODO make it dynamic
   , "--transparent true"
   , "--alpha 0"
   , "--tint 0x21242b"
   , "--height 24"
-  , "--monitor 1"
   ]
 
 keyBindings conf@XConfig { XMonad.modMask = modMask } =
