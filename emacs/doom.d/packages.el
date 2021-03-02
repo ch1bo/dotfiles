@@ -55,3 +55,9 @@
 
 (package! lsp-treemacs
   :recipe (:host github :repo "ch1bo/lsp-treemacs"))
+
+;; Edit text in the browser using emacs
+(package! atomic-chrome)
+
+;; Auto-commit and push files, useful for wikis
+(package! git-auto-commit-mode)

@@ -146,6 +146,10 @@ visible, hide it. Otherwise, show it."
 
 ;; Haskell
 
+;; Appropriate HLS is assumed to be in scope (by nix-shell)
+(after! lsp
+  (setq lsp-haskell-server-path "haskell-language-server"))
+
 ;; TODO How to organize formatters? brittany is default, and switching using
 ;; config updates is annoying. Also, tools are not picked up from nix-shells
 
@@ -226,3 +230,7 @@ visible, hide it. Otherwise, show it."
                       ))
    (mu4e-compose-signature . (with-temp-buffer (insert-file-contents "~/.dotfiles/mail/iohk.sig") (buffer-string)))
    ))
+
+;; Git auto-commit
+(after! git-auto-commit-mode
+  (setq gac-debounce-interval 5.0))
