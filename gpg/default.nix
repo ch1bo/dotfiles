@@ -11,6 +11,8 @@
     enable = true;
     # TODO: This is incompatible with agents = [ "ssh" ] of keychain
     enableSshSupport = true;
+    # Used for agent forwarding
+    enableExtraSocket = true;
   };
 
   # Manage SSH and GPG agents
