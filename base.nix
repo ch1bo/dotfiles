@@ -1,18 +1,12 @@
 { config, lib, pkgs, ... }:
 {
   imports = [
-    ./connectiq
-    ./emacs
     ./git
     ./gpg
-    ./haskell
-    ./mail
     ./nix
     ./shell
-    ./theme
     ./urxvt
     ./vim
-    ./xsession
   ];
 
   options = {
@@ -42,25 +36,10 @@
 
     # Random stuff
 
-    # TODO: https://github.com/NixOS/nixpkgs/issues/60012
-    services.nextcloud-client.enable = true;
-
     home.packages = [
       pkgs.bat # cat clone with wings
-      pkgs.chromium # a browser
-      pkgs.docker-compose # docker projects
-      pkgs.firefox # the browser
-      pkgs.gnome3.eog # image viewer
-      pkgs.gnome3.evince # pdf viewer
-      # pkgs.gnome3.nautilus -> see README.md#Dependencies
       pkgs.jq # json processing in scripts / terminal
-      pkgs.pandoc # convert everything
-      pkgs.scrot # screenshots
-      pkgs.keepassxc # secret stuff
       pkgs.openssl # key handling
-      pkgs.spotify # unlimited music
-      pkgs.signal-desktop # connect with rl
-      pkgs.skype # old-school comms
     ];
   };
 }

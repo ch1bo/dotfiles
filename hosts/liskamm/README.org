@@ -1,0 +1,41 @@
+#+TITLE: Liskamm
+
+A NixOS re-incarnation of my server in smaller, but more powerfull hardware.
+
+| Model | Fujitsu Esprimo                       |
+| CPU   | Intel Core i7 6700T - 4 cores         |
+| RAM   | 8GB                                   |
+| SSD   | Micron 1100 512G                      |
+
+* Partitioning
+
+Currently only the 512G SSD is used for NixOS itself, while other disks might be
+added as a raid1-like backup soon.
+
+#+begin_src
+   1            2048         1050623   512.0 MiB   EF00  boot
+   2         1050624      1000215182   476.4 GiB   8300  root
+#+end_src
+
+A standard FAT32 EFI boot partition and a ZFS pool:
+
+#+begin_src
+mkfs.vfat -F32 -n boot /dev/sda1
+zpool create -o ashift=12 -O acltype=posixacl -O xattr=sa rpool /dev/sda2
+#+end_src
+
+Currently the ZFS pool is setup with these data sets:
+
+#+begin_src
+zfs create -o mountpoint=none rpool/local
+zfs create -o mountpoint=legacy rpool/local/nix
+zfs create -o mountpoint=none rpool/safe
+zfs create -o mountpoint=legacy rpool/safe/root
+zfs create -o refreservation=512M -o mountpoint=none rpool/reserved
+#+end_src
+
+Where the =rpool/reserved= can be shrinked when space runs out (required for deletion on a COW file system) with
+
+#+begin_src
+zfs set refreservation=none rpool/reserved
+#+end_src

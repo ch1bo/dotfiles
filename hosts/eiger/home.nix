@@ -1,6 +1,6 @@
 {
   imports = [
-    ../../common.nix
+    ../../desktop.nix
     ../../mail/account-ncoding.nix
     ../../mail/account-iohk.nix
   ];
