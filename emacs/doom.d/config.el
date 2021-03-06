@@ -147,8 +147,7 @@ visible, hide it. Otherwise, show it."
 ;; Haskell
 
 ;; Appropriate HLS is assumed to be in scope (by nix-shell)
-(after! lsp
-  (setq lsp-haskell-server-path "haskell-language-server"))
+(setq lsp-haskell-server-path "haskell-language-server")
 
 ;; TODO How to organize formatters? brittany is default, and switching using
 ;; config updates is annoying. Also, tools are not picked up from nix-shells
@@ -170,8 +169,9 @@ visible, hide it. Otherwise, show it."
 ;; haskell LS when (re-)starting.
 ;; (setq lsp-haskell-formatting-provider "stylish-haskell")
 ;; (setq lsp-haskell-formatting-provider "brittany")
-(setq-hook! 'haskell-mode-hook
-  +format-with-lsp nil)
+(setq lsp-haskell-formatting-provider "fourmolu")
+;; (setq-hook! 'haskell-mode-hook
+;;   +format-with-lsp nil)
 
 ;; Purescript
 (set-formatter! 'purty "purty"
