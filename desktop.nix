@@ -4,6 +4,7 @@
     ./base
     ./connectiq
     ./emacs
+    ./gpg
     ./haskell
     ./mail
     ./theme
