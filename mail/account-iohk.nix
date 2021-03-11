@@ -14,6 +14,9 @@
     imap.tls.enable = true;
     smtp.tls.enable = true;
     offlineimap.enable = true;
+    offlineimap.extraConfig.remote = {
+      folderfilter = "lambda name: name not in ['[Gmail]/All Mail']";
+    };
     msmtp.enable = true;
   };
 }
