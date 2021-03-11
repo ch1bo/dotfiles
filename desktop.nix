@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 {
   imports = [
-    ./base
+    ./base.nix
     ./connectiq
     ./emacs
     ./gpg
