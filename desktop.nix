@@ -12,8 +12,13 @@
   ];
 
   config = {
+    # To sync stuff with server
     # TODO: https://github.com/NixOS/nixpkgs/issues/60012
     services.nextcloud-client.enable = true;
+
+    # To sync stuff between eiger / matterhorn
+    # TODO(SN) use nixos module services.syncthing.declarative instead?
+    services.syncthing.enable = true;
 
     home.packages = [
       pkgs.chromium # a browser
