@@ -43,8 +43,15 @@
     manage = "desktop";
     start = ''exec $HOME/.xsession'';
   }];
+
   # Use nvidia drivers
   services.xserver.videoDrivers = [ "nvidia" ];
+
+  # Disable syscalls to 32bit programs because required by some games (via wine)
+  # TODO(SN): move to a gaming module
+  boot.kernel.sysctl = {
+    "abi.vsyscall32" = 0;
+  };
 
   # Configure keymap in X11
   services.xserver.layout = "us";
