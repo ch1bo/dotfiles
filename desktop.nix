@@ -18,7 +18,10 @@
 
     # To sync stuff between eiger / matterhorn
     # TODO(SN) use nixos module services.syncthing.declarative instead?
-    services.syncthing.enable = true;
+    services.syncthing = {
+      enable = true;
+      tray = true;
+    };
 
     home.packages = [
       pkgs.chromium # a browser
