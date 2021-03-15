@@ -26,7 +26,6 @@
 
   home.packages = [
     pkgs.cachix # nix cache
-    pkgs.nix # the tool
     pkgs.nix-index # locate for nix
     pkgs.nixfmt # format nix
     pkgs.nixpkgs-fmt # format nix the nixpkgs way
