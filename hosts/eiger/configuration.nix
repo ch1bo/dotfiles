@@ -136,6 +136,11 @@
     {
       trustedUsers = users;
       allowedUsers = users;
+      # Use upcoming 'nix flake' and updated other commands
+      package = pkgs.nixFlakes;
+      extraOptions = ''
+        experimental-features = nix-command flakes
+      '';
     };
 
   # This value determines the NixOS release from which the default
