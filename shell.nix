@@ -4,14 +4,9 @@ let
     (builtins.fetchGit {
       url = "https://github.com/nix-community/home-manager.git";
       ref = "release-20.09";
-      rev = "";
     })
     { inherit pkgs; });
 in
 pkgs.mkShell {
   buildInputs = [ home-manager.home-manager ];
-
-  shellHook = ''
-    export HOME_MANAGER_CONFIG="./home.nix"
-  '';
 }
