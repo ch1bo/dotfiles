@@ -111,10 +111,10 @@ visible, hide it. Otherwise, show it."
         ;; REVIEW [[file:~/.dotfiles/emacs/doom.emacs.d/modules/lang/org/config.el::defun +org-init-capture-defaults-h (]]
         org-capture-templates
         '(("t" "Task" entry
-           (file+headline "notes.org" "Inbox")
-           "* TODO %?\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\n%a")
+           (file+headline org-default-notes-file "Inbox")
+           "* TODO %?\nSCHEDULED: %t\n%a")
           ("i" "Idea" entry
-           (file+headline "notes.org" "Ideas")
+           (file+headline org-default-notes-file "Ideas")
            "* IDEA %?\n%a")
           )
         org-agenda-custom-commands
@@ -133,8 +133,16 @@ visible, hide it. Otherwise, show it."
   )
 
 ;; Timeclock
+
 (after! timeclock
   (setq timeclock-file "~/sync/org/timelog"))
+
+(map! :leader
+      (:prefix "t" (:prefix ("c" . "clock")
+                    :desc "Clock in" "i" #'timeclock-in
+                    :desc "Clock out" "o" #'timeclock-out
+                    :desc "Status" "s" #'timeclock-status-string
+                    )))
 
 ;; C/C++
 
