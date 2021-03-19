@@ -136,11 +136,6 @@ visible, hide it. Otherwise, show it."
 (after! timeclock
   (setq timeclock-file "~/sync/org/timelog"))
 
-;; Code
-
-(after! lsp-treemacs
-  (setq lsp-treemacs-errors-position-params '((side . right) (slot . 1))))
-
 ;; C/C++
 
 (after! flycheck
