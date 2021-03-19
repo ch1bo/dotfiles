@@ -40,7 +40,7 @@
 
   programs.rofi = {
     theme = "Arc-Dark";
-    font = "FiraCode Nerd Font Mono 8";
+    font = "FiraCode Nerd Font Mono 12";
   };
 
   xsession.pointerCursor = {
