@@ -108,22 +108,29 @@ visible, hide it. Otherwise, show it."
   (setq org-directory "~/sync/org/"
         org-default-notes-file (concat org-directory "notes.org")
         org-agenda-files (list org-directory)
-        ;; REVIEW [[file:~/.dotfiles/emacs/doom.d/config.el::org-capture-templates]]
+        ;; REVIEW [[file:~/.dotfiles/emacs/doom.emacs.d/modules/lang/org/config.el::defun +org-init-capture-defaults-h (]]
         org-capture-templates
-        '(("t" "Todo" entry (file+headline "notes.org" "Tasks") "* TODO %?\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\n%a")
-          ("i" "Idea" entry (file+headline "notes.org" "Ideas") "* TODO %?%a")
+        '(("t" "Task" entry
+           (file+headline "notes.org" "Inbox")
+           "* TODO %?\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\n%a")
+          ("i" "Idea" entry
+           (file+headline "notes.org" "Ideas")
+           "* IDEA %?\n%a")
           )
         org-agenda-custom-commands
-        '(("n" "Agenda and all TODOs"
+        '(("n" "Full agenda"
            ((agenda ""
                     ((org-agenda-span 'week)))
-            (tags-todo "-idea"
-                       ((org-agenda-overriding-header "TODOs (unscheduled)")
+            (tags-todo "task"
+                       ((org-agenda-overriding-header "Tasks")
                         (org-agenda-skip-function
                          '(org-agenda-skip-subtree-if 'scheduled))))
-            (tags-todo "idea"
-                       ((org-agenda-overriding-header "Ideas"))))
-           ))))
+            (tags-todo "inbox"
+                       ((org-agenda-overriding-header "Inbox")))
+            )
+           ))
+        )
+  )
 
 ;; Timeclock
 (after! timeclock
