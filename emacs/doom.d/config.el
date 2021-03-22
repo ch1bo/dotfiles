@@ -111,7 +111,7 @@ visible, hide it. Otherwise, show it."
         ;; REVIEW [[file:~/.dotfiles/emacs/doom.emacs.d/modules/lang/org/config.el::defun +org-init-capture-defaults-h (]]
         org-capture-templates
         '(("t" "Task" entry
-           (file+headline org-default-notes-file "Inbox")
+           (file+headline org-default-notes-file "Tasks")
            "* TODO %?\nSCHEDULED: %t\n%a")
           ("i" "Idea" entry
            (file+headline org-default-notes-file "Ideas")
@@ -125,8 +125,8 @@ visible, hide it. Otherwise, show it."
                        ((org-agenda-overriding-header "Tasks")
                         (org-agenda-skip-function
                          '(org-agenda-skip-subtree-if 'scheduled))))
-            (tags-todo "inbox"
-                       ((org-agenda-overriding-header "Inbox")))
+            (tags-todo "ideas"
+                       ((org-agenda-overriding-header "Ideas")))
             )
            ))
         )
