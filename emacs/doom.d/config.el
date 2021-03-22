@@ -141,6 +141,7 @@ visible, hide it. Otherwise, show it."
       (:prefix "t" (:prefix ("c" . "clock")
                     :desc "Clock in" "i" #'timeclock-in
                     :desc "Clock out" "o" #'timeclock-out
+                    :desc "Reread log" "r" #'timeclock-reread-log
                     :desc "Status" "s" #'timeclock-status-string
                     )))
 
