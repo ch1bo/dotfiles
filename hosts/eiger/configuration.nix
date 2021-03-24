@@ -137,7 +137,7 @@
       trustedUsers = users;
       allowedUsers = users;
       # Use upcoming 'nix flake' and updated other commands
-      package = pkgs.nixFlakes;
+      package = pkgs.nixUnstable;
       extraOptions = ''
         experimental-features = nix-command flakes
       '';

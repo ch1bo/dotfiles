@@ -53,3 +53,27 @@ Where the =rpool/reserved= can be shrinked when space runs out (required for del
 #+begin_src
 zfs set refreservation=none rpool/reserved
 #+end_src
+
+** Additional ZFS pool of HDs for backups and less often used storage
+
+#+begin_src
+cryptsetup luksFormat /dev/disk/by-id/ata-WDC_WD1001FALS-00J7B1_WD-WMATV2660055
+cryptsetup open /dev/disk/by-id/ata-WDC_WD1001FALS-00J7B1_WD-WMATV2660055 backup1
+zpool create -o ashift=12 backup /dev/mapper/backup1
+zfs create -o mountpoint=/home/ch1bo/backup backup/ch1bo
+#+end_src
+
+Adding another sames-sized HD for a RAID1-like mirror:
+
+#+begin_src
+cryptsetup luksFormat /dev/disk/by-id/ata-WDC_WD1001FALS-00J7B1_WD-WMATV2744001
+cryptsetup open /dev/disk/by-id/ata-WDC_WD1001FALS-00J7B1_WD-WMATV2744001 backup2
+zpool attach backup /dev/mapper/backup1 /dev/mapper/backup2
+#+end_src
+
+To replace the =/dev/mapper/backup2= with the =by-id= variants of the LUKS containers:
+
+#+begin_src
+zpool export backup
+zpool import backup -d /dev/disk/by-id
+#+end_src
