@@ -125,7 +125,7 @@ visible, hide it. Otherwise, show it."
                        ((org-agenda-overriding-header "Tasks")
                         (org-agenda-skip-function
                          '(org-agenda-skip-subtree-if 'scheduled))))
-            (tags-todo "ideas"
+            (tags-todo "idea"
                        ((org-agenda-overriding-header "Ideas")))
             )
            ))
