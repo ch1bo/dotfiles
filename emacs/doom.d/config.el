@@ -130,6 +130,24 @@ visible, hide it. Otherwise, show it."
             )
            ))
         )
+
+  ;; Inline css on org html export
+  (add-hook 'org-export-before-processing-hook
+            (lambda (exporter)
+              (when (eq exporter 'html)
+                (let* ((dir (ignore-errors (file-name-directory (buffer-file-name))))
+                       (path (concat dir "style.css"))
+                       (homestyle (or (null dir) (null (file-exists-p path))))
+                       (final (if homestyle "~/.dotfiles/emacs/org-style.css" path)))
+                  (setq org-html-head-include-default-style nil)
+                  (setq org-html-head (concat
+                                       "<style type=\"text/css\">\n"
+                                       "<!--/*--><![CDATA[/*><!--*/\n"
+                                       (with-temp-buffer
+                                         (insert-file-contents final)
+                                         (buffer-string))
+                                       "/*]]>*/-->\n"
+                                       "</style>\n"))))))
   )
 
 ;; Timeclock
@@ -144,6 +162,10 @@ visible, hide it. Otherwise, show it."
                     :desc "Reread log" "r" #'timeclock-reread-log
                     :desc "Status" "s" #'timeclock-status-string
                     )))
+
+;; LSP
+
+(setq lsp-enable-file-watchers nil)
 
 ;; C/C++
 
@@ -201,6 +223,8 @@ visible, hide it. Otherwise, show it."
       mu4e-maildir "~/mail"
       mml-secure-openpgp-sign-with-sender t
       mml-secure-openpgp-encrypt-to-self t)
+;; Sign mails by default
+(add-hook! 'mu4e-compose-mode-hook :append #'mml-secure-message-sign-pgp)
 ;; Load/Refresh main mu4e view on context change
 (add-hook! 'mu4e-context-changed-hook #'mu4e)
 ;; TODO DRY with mail/accounts-ncoding.nix
