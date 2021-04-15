@@ -224,7 +224,7 @@ visible, hide it. Otherwise, show it."
       mml-secure-openpgp-sign-with-sender t
       mml-secure-openpgp-encrypt-to-self t)
 ;; Sign mails by default
-(add-hook! 'mu4e-compose-mode-hook :append #'mml-secure-message-sign-pgp)
+(add-hook! 'mu4e-compose-mode-hook :append #'mml-secure-message-sign-pgpauto)
 ;; Load/Refresh main mu4e view on context change
 (add-hook! 'mu4e-context-changed-hook #'mu4e)
 ;; TODO DRY with mail/accounts-ncoding.nix
