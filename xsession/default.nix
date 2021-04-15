@@ -1,6 +1,6 @@
 { config, lib, pkgs, types, ... }:
 let
-  setBackground = "${pkgs.feh}/bin/feh --bg-fill ${./matterhorn-wide.jpg}";
+  setBackground = "${pkgs.feh}/bin/feh --bg-max ${./matterhorn-wide.jpg}";
   setKeyboardRate = "xset r rate 200 60";
 in
 {
