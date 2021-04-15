@@ -23,6 +23,12 @@
       tray = true;
     };
 
+    # Automount removable devices
+    services.udiskie = {
+      enable = true;
+      tray = "never";
+    };
+
     home.packages = [
       pkgs.chromium # a browser
       pkgs.docker-compose # docker projects
