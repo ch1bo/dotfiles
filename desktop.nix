@@ -29,6 +29,12 @@
       tray = "never";
     };
 
+    # Start mic effect preset on login
+    services.pulseeffects = {
+      enable = true;
+      preset = "LCS";
+    };
+
     home.packages = [
       pkgs.chromium # a browser
       pkgs.docker-compose # docker projects
