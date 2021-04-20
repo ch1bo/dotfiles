@@ -86,6 +86,8 @@ in
       pkgs.xorg.xrandr # manage monitors
       pkgs.xorg.xrdb # manipulate xresources
       pkgs.xorg.xset # configure xorg
+      pkgs.maim # for taking screenshots, used by xbindkeys
+      pkgs.xclip # for taking screenshots, used by xbindkeys
     ];
 
     # Automatic screen setup

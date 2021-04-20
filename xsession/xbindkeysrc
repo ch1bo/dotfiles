@@ -34,8 +34,8 @@
 "brightnessctl s 10%-"
   XF86MonBrightnessDown
 
-# Screenshot
-"scrot"
+# Screenshot area / window into clipboard
+"maim -s | xclip -selection clipboard -t image/png"
   Print
 
 "systemctl suspend"

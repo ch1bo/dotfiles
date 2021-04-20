@@ -43,7 +43,6 @@
       pkgs.gnome3.evince # pdf viewer
       # pkgs.gnome3.nautilus -> see README.md#Dependencies
       pkgs.pandoc # convert everything
-      pkgs.scrot # screenshots
       pkgs.keepassxc # secret stuff
       pkgs.spotify # unlimited music
       pkgs.signal-desktop # connect with rl
