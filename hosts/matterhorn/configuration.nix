@@ -26,7 +26,7 @@
   # Per-interface useDHCP will be mandatory in the future, so this generated config
   # replicates the default behaviour.
   networking.useDHCP = false;
-  networking.interfaces.enp57s0u1u2.useDHCP = true; # NOTE(SN): matterhorn-specific
+  # networking.interfaces.enp57s0u1u2.useDHCP = true; # NOTE(SN): matterhorn-specific
   networking.interfaces.wlp58s0.useDHCP = true; # NOTE(SN): matterhorn-specific
 
   # Select internationalisation properties.
@@ -75,6 +75,12 @@
   # TODO(SN): move to a notebook module
   # NOTE(SN): added for matterhorn
   services.xserver.libinput.enable = true;
+
+  # Configuration currently in xsession/default.nix
+  services.autorandr = {
+    enable = true;
+    defaultTarget = "mobile";
+  };
 
   ## Programs
 
@@ -125,6 +131,11 @@
     {
       trustedUsers = users;
       allowedUsers = users;
+      # Use upcoming 'nix flake' and updated other commands
+      package = pkgs.nixFlakes;
+      extraOptions = ''
+        experimental-features = nix-command flakes
+      '';
     };
 
   # This value determines the NixOS release from which the default
