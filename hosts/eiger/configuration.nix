@@ -22,6 +22,7 @@
 
   # Set your time zone.
   time.timeZone = "Europe/Berlin";
+  time.hardwareClockInLocalTime = true;
 
   # The global useDHCP flag is deprecated, therefore explicitly set to false here.
   # Per-interface useDHCP will be mandatory in the future, so this generated config
@@ -101,9 +102,9 @@
   environment.systemPackages = with pkgs; [
     git
     vim
-    gnome3.gnome-disk-utility
-    gnome3.nautilus
-    gnome3.simple-scan
+    gnome.gnome-disk-utility
+    gnome.nautilus
+    gnome.simple-scan
     dconf
     pavucontrol
     ntfsprogs
@@ -122,7 +123,7 @@
   # };
 
   # Gnome secrets service
-  services.gnome3.gnome-keyring.enable = true;
+  services.gnome.gnome-keyring.enable = true;
 
   ## User configuration
 

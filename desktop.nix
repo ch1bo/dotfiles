@@ -39,9 +39,9 @@
       pkgs.chromium # a browser
       pkgs.docker-compose # docker projects
       pkgs.firefox # the browser
-      pkgs.gnome3.eog # image viewer
-      pkgs.gnome3.evince # pdf viewer
-      # pkgs.gnome3.nautilus -> see README.md#Dependencies
+      pkgs.gnome.eog # image viewer
+      pkgs.gnome.evince # pdf viewer
+      # pkgs.gnome.nautilus -> see README.md#Dependencies
       pkgs.pandoc # convert everything
       pkgs.keepassxc # secret stuff
       pkgs.spotify # unlimited music

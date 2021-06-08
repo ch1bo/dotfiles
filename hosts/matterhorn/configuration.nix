@@ -106,8 +106,8 @@
   environment.systemPackages = with pkgs; [
     git
     vim
-    gnome3.gnome-disk-utility
-    gnome3.nautilus
+    gnome.gnome-disk-utility
+    gnome.nautilus
     dconf
     pavucontrol
     # ntfsprogs # NOTE(SN): removed for matterhorn
@@ -125,7 +125,7 @@
   # };
 
   # Gnome secrets service
-  services.gnome3.gnome-keyring.enable = true;
+  services.gnome.gnome-keyring.enable = true;
 
   ## User configuration
 

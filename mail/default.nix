@@ -4,7 +4,7 @@
   # Include any of the ./account-xxx.nix modules
 
   home.packages = [
-    pkgs.gnome3.libsecret # secret-tool
+    pkgs.gnome.libsecret # secret-tool
   ];
 
   accounts.email.maildirBasePath = "mail";
