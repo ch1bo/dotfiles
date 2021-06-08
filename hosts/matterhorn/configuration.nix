@@ -50,6 +50,14 @@
   services.xserver.layout = "us";
   services.xserver.xkbOptions = "eurosign:e";
 
+  # Customization to emulate a 60% keyboard
+  services.xserver.extraLayouts.us-60percent = {
+    description = "US layout with 60% keyboard layer switches";
+    languages = [ "eng" ];
+    symbolsFile = ./symbols/us-60percent;
+  };
+
+
   # Enable CUPS to print documents.
   services.printing.enable = true;
 

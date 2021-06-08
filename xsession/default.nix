@@ -82,7 +82,6 @@ in
       pkgs.brightnessctl # used by xbindkeys
       pkgs.trayer # launched by xmonad
       pkgs.xmobar # launched by xmonad
-      pkgs.xorg.setxkbmap # TODO keyboard module and finally add short cuts
       pkgs.xorg.xrandr # manage monitors
       pkgs.xorg.xrdb # manipulate xresources
       pkgs.xorg.xset # configure xorg
