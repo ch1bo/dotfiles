@@ -1,15 +1,15 @@
 #+TITLE: Eiger
 
-A hand built desktop system which could need some love (fresh cooling water) -
-however, now it's got at least NixOS.
+My new workstation, currently on air .. but likely going to be put under water soon.
 
-| Model | Handmade desktop                      |
-| CPU   | Intel Core i5 4690K - 4 cores         |
-| RAM   | 16GB                                  |
-| GPU   | Nvidia GTX 970 - 4GB                  |
-| SSD   | Samsung 970 EVO 1TB                   |
-| SSD   | Samsung 840 EVO 250GB                 |
-| HD    | 2 x Western Digital Caviar Black 1TB  |
+| Case | Fractal Meshify 2                    |
+| CPU  | Ryzen 5900x, 12 cores, 64MB L3       |
+| RAM  | G.Skill Trident Z 3600, 64GB         |
+| MB   | ASUS ROG Strix B550-E                |
+| GPU  | Nvidia GTX 970 4GB                   |
+| SSD  | Samsung 970 EVO 1TB                  |
+| SSD  | Micron 500GB                         |
+| HD   | 2 x Western Digital Caviar Black 1TB |
 
 * Partitioning
 
