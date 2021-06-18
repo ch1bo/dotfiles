@@ -20,7 +20,7 @@
     # TODO(SN) use nixos module services.syncthing.declarative instead?
     services.syncthing = {
       enable = true;
-      tray = true;
+      tray.enable = true;
     };
 
     # Automount removable devices

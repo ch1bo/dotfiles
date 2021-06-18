@@ -6,7 +6,7 @@ Config { font =         "xft:FiraCode Nerd Font Mono:size=10:antialias=true"
        -- layout
        , sepChar =  "%"   -- delineator between plugin names and straight text
        , alignSep = "}{"  -- separator between left-right alignment
-       , template = "%StdinReader% }{ %multicpu% %coretemp% %memory% %dynnetwork% %battery% %bright% %kbd% %date% %trayerpad%"
+       , template = "%StdinReader% }{ %multicpu% %multicoretemp% %memory% %dynnetwork% %battery% %bright% %kbd% %date% %trayerpad%"
 
        -- general behavior
        , lowerOnStart =     True    -- send to bottom of window stack on start
@@ -35,12 +35,14 @@ Config { font =         "xft:FiraCode Nerd Font Mono:size=10:antialias=true"
                               , "--normal"   , "#5fb3b3"
                               , "--high"     , "#ec5f67"
                               ] 10
-         , Run CoreTemp       [ "--template" , " <core0>°C"
-                              , "--Low"      , "70"        -- units: °C
+         , Run MultiCoreTemp  [ "--template" , " <max>°C"
+                              , "--Low"      , "50"        -- units: °C
                               , "--High"     , "80"        -- units: °C
                               , "--low"      , "#99c794"
                               , "--normal"   , "#5fb3b3"
                               , "--high"     , "#ec5f67"
+                              , "--"
+                              , "--hwmon-path", "/sys/class/hwmon/hwmon1/"
                               ] 50
          , Run Memory         [ "--template" ," <usedratio>%"
                               , "--Low"      , "30"        -- units: %
@@ -71,9 +73,6 @@ Config { font =         "xft:FiraCode Nerd Font Mono:size=10:antialias=true"
          , Run Kbd            [ ("us", "US")
                               , ("de", "DE")
                               ]
-         , Run Brightness [ "-t" , "<vbar>"
-                          , "--" , "-D" , "intel_backlight"
-                          ] 10
          , Run Mail [("﯍", "~/mail/ncoding.at/INBOX")] "mail"
          , Run Com "trayerpad" [] "trayerpad" 10
          ]
