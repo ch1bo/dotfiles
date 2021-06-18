@@ -4,10 +4,7 @@
 { config, lib, pkgs, modulesPath, ... }:
 
 {
-  imports =
-    [
-      (modulesPath + "/installer/scan/not-detected.nix")
-    ];
+  imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usbhid" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
@@ -24,11 +21,11 @@
     backup2 = { device = "/dev/disk/by-id/ata-WDC_WD1001FALS-00J7B1_WD-WMATV2744001"; };
   };
 
-  fileSystems."/boot" =
-    {
-      device = "/dev/disk/by-id/nvme-Samsung_SSD_970_EVO_1TB_S5H9NS1NB18061Z-part1";
-      fsType = "vfat";
-    };
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-id/nvme-Samsung_SSD_970_EVO_1TB_S5H9NS1NB18061Z-part1";
+    fsType = "vfat";
+  };
+
   fileSystems."/" = {
     device = "rpool/safe/root";
     fsType = "zfs";
@@ -44,16 +41,14 @@
     fsType = "zfs";
   };
 
-
   fileSystems."/home/ch1bo/backup" = {
     device = "backup/ch1bo";
     fsType = "zfs";
   };
 
-  swapDevices =
-    [{ device = "/dev/mapper/swap"; }];
+  swapDevices = [{ device = "/dev/mapper/swap"; }];
 
-  powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
+  powerManagement.cpuFreqGovernor = lib.mkDefault "performance";
   # high-resolution display
   hardware.video.hidpi.enable = lib.mkDefault true;
 }
