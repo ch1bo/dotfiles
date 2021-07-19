@@ -42,7 +42,7 @@ Config { font =         "xft:FiraCode Nerd Font Mono:size=10:antialias=true"
                               , "--normal"   , "#5fb3b3"
                               , "--high"     , "#ec5f67"
                               , "--"
-                              , "--hwmon-path", "/sys/class/hwmon/hwmon1/"
+                              , "--hwmon-path", "/sys/class/hwmon/hwmon2/"
                               ] 50
          , Run Memory         [ "--template" ," <usedratio>%"
                               , "--Low"      , "30"        -- units: %
