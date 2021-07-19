@@ -17,8 +17,8 @@
     # Encrypted swap
     swap = { device = "/dev/disk/by-id/nvme-Samsung_SSD_970_EVO_1TB_S5H9NS1NB18061Z-part3"; };
     # ZFS pool: backup
-    backup1 = { device = "/dev/disk/by-id/ata-WDC_WD1001FALS-00J7B1_WD-WMATV2660055"; };
-    backup2 = { device = "/dev/disk/by-id/ata-WDC_WD1001FALS-00J7B1_WD-WMATV2744001"; };
+    # backup1 = { device = "/dev/disk/by-id/ata-WDC_WD1001FALS-00J7B1_WD-WMATV2660055"; };
+    # backup2 = { device = "/dev/disk/by-id/ata-WDC_WD1001FALS-00J7B1_WD-WMATV2744001"; };
   };
 
   fileSystems."/boot" = {
@@ -41,10 +41,10 @@
     fsType = "zfs";
   };
 
-  fileSystems."/home/ch1bo/backup" = {
-    device = "backup/ch1bo";
-    fsType = "zfs";
-  };
+  # fileSystems."/home/ch1bo/backup" = {
+  #   device = "backup/ch1bo";
+  #   fsType = "zfs";
+  # };
 
   swapDevices = [{ device = "/dev/mapper/swap"; }];
 
