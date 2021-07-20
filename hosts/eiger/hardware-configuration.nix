@@ -15,7 +15,7 @@
     # ZFS pool: rpool
     # root = { device = "/dev/disk/by-id/nvme-Samsung_SSD_970_EVO_1TB_S5H9NS1NB18061Z-part2"; };
     # Encrypted swap
-    swap = { device = "/dev/disk/by-id/nvme-Samsung_SSD_970_EVO_1TB_S5H9NS1NB18061Z-part3"; };
+    # swap = { device = "/dev/disk/by-id/nvme-Samsung_SSD_970_EVO_1TB_S5H9NS1NB18061Z-part3"; };
     # ZFS pool: backup
     # backup1 = { device = "/dev/disk/by-id/ata-WDC_WD1001FALS-00J7B1_WD-WMATV2660055"; };
     # backup2 = { device = "/dev/disk/by-id/ata-WDC_WD1001FALS-00J7B1_WD-WMATV2744001"; };
@@ -46,7 +46,7 @@
   #   fsType = "zfs";
   # };
 
-  swapDevices = [{ device = "/dev/mapper/swap"; }];
+  # swapDevices = [{ device = "/dev/mapper/swap"; }];
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "performance";
   # high-resolution display
