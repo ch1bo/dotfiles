@@ -12,29 +12,19 @@ My new workstation, now also water cooled :snowflake:
 | SSD  | Micron 500GB                         |
 
 * Partitioning
-
-Currently only the 1TB SSD is used for NixOS itself, while other disks might be
-added as a raid1-like backup soon.
+I use a single 1TB SSD for NixOS itself right now:
 
 #+begin_src
-   1            2048         1050623   512.0 MiB   EF00  boot
-   2         1050624      1936747918   923.0 GiB   8309  root
-   3      1936748544      1953525134   8.0 GiB     8309  swap
+   1            2048         1050623   512.0 MiB   EF00  EFI system partition
+   2         1050624      1953525134   931.0 GiB   8300  Linux filesystem
 #+end_src
 
-A standard FAT32 EFI boot partition, LUKS encrypted swap and root partitions,
-where the latter is home to a ZFS pool:
+A standard FAT32 EFI boot partition and a root partition, where the latter is
+home to a ZFS pool:
 
 #+begin_src
-mkfs.vfat -F32 -n boot /dev/nvme0n1p1
-
-cryptsetup luksFormat /dev/nvme0n1p3
-cryptsetup open /dev/nvme0n1p3 swap
-mkswap /dev/mapper/swap
-
-cryptsetup luksFormat /dev/nvme0n1p2
-cryptsetup open /dev/nvme0n1p2 root
-zpool create -o ashift=12 -O acltype=posixacl -O xattr=sa rpool /dev/mapper/root
+mkfs.vfat -F32 -n boot /dev/disk/by-id/nvme-Samsung_SSD_980_PRO_1TB_S5GXNF0R440049W-part1
+zpool create -o ashift=12 -O acltype=posixacl -O xattr=sa rpool /dev/disk/by-id/nvme-Samsung_SSD_980_PRO_1TB_S5GXNF0R440049W-part2
 #+end_src
 
 Currently the ZFS pool is setup with these data sets:
@@ -80,6 +70,7 @@ zpool import backup -d /dev/disk/by-id
 
 ** Migrating RootFS to new SSD
 Keeping / extending swap on 970 EVO and only moving boot/root (non-encrypted now). Partition with gdisk:
+
 #+begin_src
    1            2048         1050623   512.0 MiB   EF00  EFI system partition
    2         1050624      1953525134   931.0 GiB   8300  Linux filesystem
