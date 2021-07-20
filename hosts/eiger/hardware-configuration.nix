@@ -13,7 +13,7 @@
 
   boot.initrd.luks.devices = {
     # ZFS pool: rpool
-    root = { device = "/dev/disk/by-id/nvme-Samsung_SSD_970_EVO_1TB_S5H9NS1NB18061Z-part2"; };
+    # root = { device = "/dev/disk/by-id/nvme-Samsung_SSD_970_EVO_1TB_S5H9NS1NB18061Z-part2"; };
     # Encrypted swap
     swap = { device = "/dev/disk/by-id/nvme-Samsung_SSD_970_EVO_1TB_S5H9NS1NB18061Z-part3"; };
     # ZFS pool: backup
@@ -22,7 +22,7 @@
   };
 
   fileSystems."/boot" = {
-    device = "/dev/disk/by-id/nvme-Samsung_SSD_970_EVO_1TB_S5H9NS1NB18061Z-part1";
+    device = "/dev/disk/by-id/nvme-Samsung_SSD_980_PRO_1TB_S5GXNF0R440049W-part1";
     fsType = "vfat";
   };
 
