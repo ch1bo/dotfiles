@@ -53,6 +53,10 @@
 (package! flycheck-clang-tidy
   :recipe (:host github :repo "ch1bo/flycheck-clang-tidy"))
 
+(package! lsp-treemacs
+  :recipe (:host github :repo "ch1bo/lsp-treemacs"
+           :branch "errors-position-params"))
+
 ;; Edit text in the browser using emacs
 (package! atomic-chrome)
 
