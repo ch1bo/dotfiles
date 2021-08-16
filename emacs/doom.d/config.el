@@ -155,6 +155,8 @@ visible, hide it. Otherwise, show it."
 (after! timeclock
   (setq timeclock-file "~/sync/org/timelog"))
 
+;; Unmap because by default global-display-fill-column-indicator-mode is bound to this
+(map! :leader "t c" nil)
 (map! :leader
       (:prefix "t" (:prefix ("c" . "clock")
                     :desc "Clock in" "i" #'timeclock-in
