@@ -32,7 +32,8 @@
     # Start mic effect preset on login
     services.pulseeffects = {
       enable = true;
-      preset = "LCS";
+      package = pkgs.pulseeffects-legacy;
+      preset = "Rode";
     };
 
     home.packages = [

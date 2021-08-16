@@ -62,7 +62,7 @@ in
   # project-specific tools from a shell.nix in scope.
   programs.direnv = {
     enable = true;
-    enableNixDirenvIntegration = true;
+    nix-direnv.enable = true;
   };
 
   # Fuzzy find everything
