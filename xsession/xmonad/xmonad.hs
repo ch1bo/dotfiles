@@ -141,6 +141,9 @@ keyBindings conf@XConfig { XMonad.modMask = modMask } =
        , ((modMask, xK_w), spawn "firefox")
     -- Lock screen
        , ((controlMask .|. mod1Mask, xK_l), spawn "loginctl lock-session")
+    -- Switch language
+       , ((modMask, xK_d), spawn "setxkbmap de")
+       , ((modMask, xK_u), spawn "setxkbmap us")
        ]
     ++
     --
