@@ -184,6 +184,10 @@ visible, hide it. Otherwise, show it."
 ;; Appropriate HLS is assumed to be in scope (by nix-shell)
 (setq lsp-haskell-server-path "haskell-language-server")
 
+;; Use 'cabal-fmt' for .cabal files
+(set-formatter! 'cabal-fmt "cabal-fmt"
+  :modes 'haskell-cabal-mode)
+
 ;; TODO How to organize formatters? brittany is default, and switching using
 ;; config updates is annoying. Also, tools are not picked up from nix-shells
 
@@ -195,6 +199,10 @@ visible, hide it. Otherwise, show it."
 ;; (set-formatter! 'stylish-haskell "stylish-haskell"
 ;;   :modes 'haskell-mode)
 
+;; Use 'fourmolu' as formatter.
+(set-formatter! 'fourmolu "fourmolu"
+  :modes 'haskell-mode)
+
 ;; TODO Formatting via LSP has also problems.. at least in haskell using
 ;; brittany ("broken pipe")
 
@@ -205,8 +213,6 @@ visible, hide it. Otherwise, show it."
 ;; (setq lsp-haskell-formatting-provider "stylish-haskell")
 ;; (setq lsp-haskell-formatting-provider "brittany")
 (setq lsp-haskell-formatting-provider "fourmolu")
-;; (setq-hook! 'haskell-mode-hook
-;;   +format-with-lsp nil)
 
 ;; Purescript
 (set-formatter! 'purty "purty"
@@ -224,7 +230,8 @@ visible, hide it. Otherwise, show it."
 (setq +mu4e-backend 'offlineimap
       mu4e-maildir "~/mail"
       mml-secure-openpgp-sign-with-sender t
-      mml-secure-openpgp-encrypt-to-self t)
+      mml-secure-openpgp-encrypt-to-self t
+      mu4e-alert-interesting-mail-query "flag:unread AND NOT flag:trashed AND NOT maildir:*Trash*")
 ;; Sign mails by default
 (add-hook! 'mu4e-compose-mode-hook :append #'mml-secure-message-sign-pgpauto)
 ;; Load/Refresh main mu4e view on context change
