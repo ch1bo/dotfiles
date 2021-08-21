@@ -184,12 +184,38 @@ visible, hide it. Otherwise, show it."
 ;; Appropriate HLS is assumed to be in scope (by nix-shell)
 (setq lsp-haskell-server-path "haskell-language-server")
 
+;; Don't' use lsp for formatting
+(setq-hook! 'haskell-mode-hook +format-with-lsp nil)
+
+;; TODO(SN): this is necessary as format-all-mode / format-all-buffer--from-hook
+;; advice is not :override and had been broken the +onsave feature. So waiting
+;; for that :editor format rewrite...
+(defun add-autoformat-hook ()
+  (add-hook 'before-save-hook '+format-buffer-h nil 'local))
+(add-hook! 'haskell-mode-hook 'add-autoformat-hook)
+
+;; Configure formatter when using +format-with-lsp
+;;
+;; NOTE This is intentionally set early, as options are only picked up by the
+;; haskell LS when (re-)starting.
+;; (setq lsp-haskell-formatting-provider "stylish-haskell")
+;; (setq lsp-haskell-formatting-provider "brittany")
+;; (setq lsp-haskell-formatting-provider "fourmolu")
+
 ;; Use 'cabal-fmt' for .cabal files
 (set-formatter! 'cabal-fmt "cabal-fmt"
   :modes 'haskell-cabal-mode)
 
 ;; TODO How to organize formatters? brittany is default, and switching using
 ;; config updates is annoying. Also, tools are not picked up from nix-shells
+
+;; Use 'fourmolu' as formatter.
+(set-formatter! 'fourmolu "fourmolu"
+  :modes 'haskell-mode
+  :filter
+  (lambda (output errput)
+    (list output
+          (replace-regexp-in-string "Loaded config from:[^\n]*\n*" "" errput))))
 
 ;; Use 'stylish-haskell' as formatter.
 ;;
@@ -198,21 +224,6 @@ visible, hide it. Otherwise, show it."
 ;; latter does not pick up the projects .stylish-haskell.yaml.
 ;; (set-formatter! 'stylish-haskell "stylish-haskell"
 ;;   :modes 'haskell-mode)
-
-;; Use 'fourmolu' as formatter.
-(set-formatter! 'fourmolu "fourmolu"
-  :modes 'haskell-mode)
-
-;; TODO Formatting via LSP has also problems.. at least in haskell using
-;; brittany ("broken pipe")
-
-;; And the same when we use the LSP server.
-;;
-;; NOTE This is intentionally set early, as options are only picked up by the
-;; haskell LS when (re-)starting.
-;; (setq lsp-haskell-formatting-provider "stylish-haskell")
-;; (setq lsp-haskell-formatting-provider "brittany")
-(setq lsp-haskell-formatting-provider "fourmolu")
 
 ;; Purescript
 (set-formatter! 'purty "purty"
