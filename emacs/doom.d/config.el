@@ -231,7 +231,7 @@ visible, hide it. Otherwise, show it."
       mu4e-maildir "~/mail"
       mml-secure-openpgp-sign-with-sender t
       mml-secure-openpgp-encrypt-to-self t
-      mu4e-alert-interesting-mail-query "flag:unread AND NOT flag:trashed AND NOT maildir:*Trash*")
+      mu4e-alert-interesting-mail-query "flag:unread AND NOT flag:trashed AND maildir:*INBOX")
 ;; Sign mails by default
 (add-hook! 'mu4e-compose-mode-hook :append #'mml-secure-message-sign-pgpauto)
 ;; Load/Refresh main mu4e view on context change
