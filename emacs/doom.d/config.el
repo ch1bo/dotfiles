@@ -116,6 +116,9 @@ visible, hide it. Otherwise, show it."
           ("i" "Idea" entry
            (file+headline org-default-notes-file "Ideas")
            "* IDEA %?\n%a")
+          ("l" "Log" entry
+           (file+headline org-default-notes-file "Log")
+           "* %? %T\n%a")
           )
         org-agenda-custom-commands
         '(("n" "Full agenda"
