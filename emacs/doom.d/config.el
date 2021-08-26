@@ -229,6 +229,10 @@ visible, hide it. Otherwise, show it."
 (set-formatter! 'purty "purty"
   :modes 'purescript-mode)
 
+;; Javascript
+
+(add-to-list 'auto-mode-alist '("\\.mjs\\'" . javascript-mode))
+
 ;; MonkeyC
 
 ;; Use java-mode for "monkeyc" files, but disable auto-formatting
