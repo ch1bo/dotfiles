@@ -192,7 +192,7 @@ visible, hide it. Otherwise, show it."
 ;; for that :editor format rewrite...
 (defun add-autoformat-hook ()
   (add-hook 'before-save-hook '+format-buffer-h nil 'local))
-(add-hook! 'haskell-mode-hook 'add-autoformat-hook)
+(add-hook! (haskell-mode haskell-cabal-mode) 'add-autoformat-hook)
 
 ;; Configure formatter when using +format-with-lsp
 ;;
