@@ -5,12 +5,12 @@ A NixOS re-incarnation of my server in smaller, but more powerfull hardware.
 | Model | Fujitsu Esprimo                       |
 | CPU   | Intel Core i7 6700T - 4 cores         |
 | RAM   | 8GB                                   |
-| SSD   | Micron 1100 512G                      |
+| HD    | WDC WD10JPVX-22J 1TB                  |
 
 * Partitioning
 
-Currently only the 512G SSD is used for NixOS itself, while other disks might be
-added as a raid1-like backup soon.
+Currently only a 1TB HD is used for NixOS itself, while other spinning platters might be
+added soon.
 
 #+begin_src
    1            2048         1050623   512.0 MiB   EF00  boot
