@@ -91,6 +91,11 @@
       "f" #'with-editor-finish
       "k" #'with-editor-cancel)
 
+;; Additional agenda mode key bindings
+(map! :map org-agenda-mode-map
+      :localleader
+      "s" #'org-save-all-org-buffers)
+
 ;; Flycheck
 
 (defun +toggle-flycheck-error-list ()
@@ -118,7 +123,7 @@ visible, hide it. Otherwise, show it."
            "* IDEA %?\n%a")
           ("l" "Log" entry
            (file+headline org-default-notes-file "Log")
-           "* %? %T\n%a")
+           "* %?\n%T\n%a")
           )
         org-agenda-custom-commands
         '(("n" "Full agenda"
