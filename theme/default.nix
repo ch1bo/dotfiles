@@ -10,7 +10,7 @@
   fonts.fontconfig.enable = lib.mkDefault true;
 
   xresources.properties = {
-    "URxvt*font" = "xft:FiraCode Nerd Font Mono:style=Regular:size=12:antialias=true";
+    "URxvt*font" = "xft:FiraCode Nerd Font Mono:style=Regular:size=14:antialias=true";
   };
 
   gtk = {
@@ -40,7 +40,7 @@
 
   programs.rofi = {
     theme = "Arc-Dark";
-    font = "FiraCode Nerd Font Mono 12";
+    font = "FiraCode Nerd Font Mono 14";
   };
 
   xsession.pointerCursor = {

@@ -1,4 +1,4 @@
-Config { font =         "xft:FiraCode Nerd Font Mono:size=10:antialias=true"
+Config { font =         "xft:FiraCode Nerd Font Mono:size=12:antialias=true"
        , bgColor =      "#21242b"
        , fgColor =      "#bbc2cf"
        , position =     Top
