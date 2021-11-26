@@ -76,10 +76,14 @@ prompt_aws() {
 prompt_status() {
   local symbols
   symbols=()
-  [[ $RETVAL -ne 0 ]] && symbols+="%{$fg[red]%}✘ "
-  [[ $UID -eq 0 ]] && symbols+="%{$fg_bold[red]%}⚡ "
-  [[ $(jobs -l | wc -l) -gt 0 ]] && symbols+="%{$fg[cyan]%}⚙ "  
-  # Only print if anything to display
+  [[ $RETVAL -ne 0 ]] && symbols+="%{$fg[red]%}✘"
+  [[ $UID -eq 0 ]] && symbols+="%{$fg_bold[red]%}⚡"
+  [[ $(jobs -l | wc -l) -gt 0 ]] && symbols+="%{$fg[cyan]%}⚙"
+  if [[ $ELAPSED -gt 10000 ]]; then
+     symbols+="%{$fg[red]%}祥$((${ELAPSED}/1000))s"
+  elif [[ $ELAPSED -gt 500 ]]; then
+     symbols+="%{$fg[yellow]%}祥${ELAPSED}ms"
+  fi
   if test ${#symbols[@]} -gt 0; then
     local str=""
     str+="%{$fg_bold[black]%}[%{$reset_color%}"
@@ -95,12 +99,6 @@ collapse_prompt() {
   else
     export PROMPT_COLLAPSE=true
   fi
-  # local f="/tmp/zsh_prompt_collapse"
-  # if [ -e $collape_f ]; then
-  #   rm $collapse_f
-  # else
-  #   touch $collapse_f
-  # fi
 }
 
 set_prompt() {
@@ -112,7 +110,18 @@ set_prompt() {
   # SPROMPT='zsh: correct %F{red}%R%f to %F{green}%r%f [nyae]? '
 }
 
+preexec() {
+  export TIMER=$(($(date +%s%0N)/1000000))
+}
+
 precmd() {
+  RETVAL=$?
   title "zsh" "zsh - %n@%m" ""
+
+  if [ $TIMER ]; then
+    local now=$(($(date +%s%0N)/1000000))
+    export ELAPSED=$(($now-$TIMER))
+    unset TIMER
+  fi
   set_prompt
 }
