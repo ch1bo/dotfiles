@@ -76,7 +76,7 @@ prompt_aws() {
 prompt_status() {
   local symbols
   symbols=()
-  [[ $RETVAL -ne 0 ]] && symbols+="%{$fg[red]%}✘"
+  [[ $RETVAL -ne 0 ]] && [[ $RETVAL -ne 130 ]] && symbols+="%{$fg[red]%}✘"
   [[ $UID -eq 0 ]] && symbols+="%{$fg_bold[red]%}⚡"
   [[ $(jobs -l | wc -l) -gt 0 ]] && symbols+="%{$fg[cyan]%}⚙"
   if [[ $ELAPSED -gt 10000 ]]; then
