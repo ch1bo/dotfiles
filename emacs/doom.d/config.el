@@ -179,7 +179,8 @@ visible, hide it. Otherwise, show it."
 
 ;; LSP
 
-(setq lsp-enable-file-watchers nil)
+(setq lsp-enable-file-watchers nil
+      lsp-ui-doc-enable nil)
 
 ;; C/C++
 
