@@ -81,6 +81,10 @@
        :desc "Verify setup"         "v"   #'flycheck-verify-setup
        ))
 
+;; Set variables easily
+(map! :map help-map
+      "V" #'counsel-set-variable)
+
 ;; TODO: iedit/evil-multiedit aditional functionality: e.g. limit to line,
 ;; expand above / below
 
