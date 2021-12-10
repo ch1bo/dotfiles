@@ -47,8 +47,6 @@
     package = pkgs.numix-cursor-theme;
     name = "Numix-Cursor";
   };
-  # TODO upstream into home-manager xcursor module
-  home.file.".icons/default".source = "${pkgs.numix-cursor-theme}/share/icons/Numix-Cursor";
 
   programs.vim.extraConfig = ''
     let base16colorspace=256
