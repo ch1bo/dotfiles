@@ -253,6 +253,12 @@ visible, hide it. Otherwise, show it."
 (after! format
   (nconc +format-on-save-enabled-modes '(java-mode)))
 
+;; Rust
+
+;; Don't' use lsp for formatting
+(setq-hook! 'rustic-mode-hook +format-with-lsp nil)
+(add-hook! (rustic-mode) 'add-autoformat-hook)
+
 ;; Email
 
 (setq +mu4e-backend 'offlineimap

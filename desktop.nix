@@ -47,6 +47,7 @@
       pkgs.keepassxc # secret stuff
       pkgs.spotify # unlimited music
       pkgs.signal-desktop # connect with rl
+      pkgs.slack # comms
       pkgs.skype # old-school comms
     ];
   };
