@@ -28,7 +28,6 @@
   # Per-interface useDHCP will be mandatory in the future, so this generated config
   # replicates the default behaviour.
   networking.useDHCP = false;
-  networking.interfaces.enp6s0.useDHCP = true;
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
