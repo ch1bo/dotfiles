@@ -74,8 +74,7 @@ prompt_aws() {
 # - am I root
 # - are there background jobs?
 prompt_status() {
-  local symbols
-  symbols=()
+  local symbols=()
   [[ $RETVAL -ne 0 ]] && [[ $RETVAL -ne 130 ]] && symbols+="%{$fg[red]%}✘"
   [[ $UID -eq 0 ]] && symbols+="%{$fg_bold[red]%}⚡"
   [[ $(jobs -l | wc -l) -gt 0 ]] && symbols+="%{$fg[cyan]%}⚙"
@@ -117,11 +116,15 @@ preexec() {
 precmd() {
   RETVAL=$?
   title "zsh" "zsh - %n@%m" ""
-
   if [ $TIMER ]; then
     local now=$(($(date +%s%0N)/1000000))
-    export ELAPSED=$(($now-$TIMER))
+    ELAPSED=$(($now-$TIMER))
     unset TIMER
   fi
   set_prompt
+  unset ELAPSED
+}
+
+chpwd() {
+  unset RETVAL
 }
