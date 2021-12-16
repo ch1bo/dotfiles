@@ -37,9 +37,9 @@
     };
 
     home.packages = [
-      pkgs.chromium # a browser
       pkgs.docker-compose # docker projects
       pkgs.firefox # the browser
+      pkgs.brave # another browser
       pkgs.gnome.eog # image viewer
       pkgs.gnome.evince # pdf viewer
       # pkgs.gnome.nautilus -> see README.md#Dependencies
