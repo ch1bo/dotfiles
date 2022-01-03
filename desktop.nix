@@ -36,9 +36,18 @@
       preset = "Rode";
     };
 
+
+    # the browser
+    programs.firefox.enable = true;
+    programs.firefox.profiles.ch1bo.extraConfig = ''
+      // Allow file:// links
+      user_pref("capability.policy.policynames", "localfilelinks");
+      user_pref("capability.policy.localfilelinks.sites", "http://localhost:8080");
+      user_pref("capability.policy.localfilelinks.checkloaduri.enabled", "allAccess");
+    '';
+
     home.packages = [
       pkgs.docker-compose # docker projects
-      pkgs.firefox # the browser
       pkgs.brave # another browser
       pkgs.gnome.eog # image viewer
       pkgs.gnome.evince # pdf viewer
