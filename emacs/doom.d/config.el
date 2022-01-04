@@ -180,7 +180,8 @@ visible, hide it. Otherwise, show it."
 ;; LSP
 
 (setq lsp-enable-file-watchers nil
-      lsp-ui-doc-enable nil)
+      lsp-ui-doc-enable nil
+      lsp-treemacs-errors-position-params '((side . right)))
 
 ;; C/C++
 
