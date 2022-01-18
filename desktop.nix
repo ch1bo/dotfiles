@@ -48,6 +48,7 @@
 
     home.packages = [
       pkgs.docker-compose # docker projects
+      pkgs.docker-credential-helpers # store docker login credentials in D-Bus secrets
       pkgs.brave # another browser
       pkgs.gnome.eog # image viewer
       pkgs.gnome.evince # pdf viewer
