@@ -6,10 +6,10 @@
     userName = "Sebastian Nagel";
     userEmail = "sebastian.nagel@ncoding.at";
 
-    signing = {
-      key = "0xB2BF1EFDD95012D9";
-      signByDefault = true;
-    };
+    # signing = {
+    #   key = "0xB2BF1EFDD95012D9";
+    #   signByDefault = true;
+    # };
 
     extraConfig = {
       color.ui = true;
