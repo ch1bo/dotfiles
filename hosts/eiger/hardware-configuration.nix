@@ -11,6 +11,8 @@
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
 
+  boot.kernelParams = ["zfs.zfs_arc_max=12884901888"]; # 12GB max ARC cache
+
   fileSystems."/boot" = {
     device = "/dev/disk/by-id/nvme-Samsung_SSD_980_PRO_1TB_S5GXNF0R440049W-part1";
     fsType = "vfat";
