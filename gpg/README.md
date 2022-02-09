@@ -1,5 +1,7 @@
 # NixOS Live USB for GPG
 
+Taken from https://github.com/drduh/YubiKey-Guide#nixos
+
 ## Build and create a USB
 
 ```
