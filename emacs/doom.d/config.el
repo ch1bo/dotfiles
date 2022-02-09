@@ -197,7 +197,8 @@ visible, hide it. Otherwise, show it."
 ;; Haskell
 
 ;; Appropriate HLS is assumed to be in scope (by nix-shell)
-(setq lsp-haskell-server-path "haskell-language-server")
+(setq lsp-haskell-server-path "haskell-language-server"
+      lsp-haskell-importlens-on nil)
 
 ;; Don't' use lsp for formatting
 (setq-hook! 'haskell-mode-hook +format-with-lsp nil)
