@@ -13,10 +13,6 @@
     enableSshSupport = true;
     # Used for agent forwarding
     enableExtraSocket = true;
-    # HACK: faked time to keep using the expired keys until refreshed
-    extraConfig = ''
-      faked-system-time 20220201T151400
-    '';
   };
 
   # Manage SSH and GPG agents
