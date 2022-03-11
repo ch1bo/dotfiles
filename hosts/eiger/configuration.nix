@@ -72,6 +72,9 @@
     options snd slots=snd-hda-intel
   '';
 
+  # Enable mDNS (a.k.a bonjour)
+  services.avahi.enable = true;
+
   # Printing
   services.printing.enable = true;
   services.printing.drivers = [ pkgs.gutenprint ];
@@ -111,6 +114,15 @@
   ];
 
   ## Services
+
+  # SSH
+  services.openssh = {
+    enable = true;
+    # GPG agent forwarding
+    extraConfig = ''
+      StreamLocalBindUnlink yes
+    '';
+  };
 
   # Smartcard support
   services.pcscd.enable = true;
