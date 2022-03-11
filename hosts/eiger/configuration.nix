@@ -28,6 +28,8 @@
   # Per-interface useDHCP will be mandatory in the future, so this generated config
   # replicates the default behaviour.
   networking.useDHCP = false;
+  # Wake on lan on wired connection
+  networking.interfaces.enp7s0.wakeOnLan.enable = true;
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
