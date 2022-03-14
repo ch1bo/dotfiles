@@ -72,6 +72,12 @@
     {
       trustedUsers = users;
       allowedUsers = users;
+      # Use upcoming 'nix flake' and updated other commands
+      package = pkgs.nixUnstable;
+      extraOptions = ''
+        experimental-features = nix-command flakes
+        allow-import-from-derivation = true
+      '';
     };
 
   # This value determines the NixOS release from which the default
