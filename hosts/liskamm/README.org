@@ -1,6 +1,7 @@
 #+TITLE: Liskamm
 
-A NixOS re-incarnation of my server in smaller, but more powerfull hardware.
+A NixOS re-incarnation of my server in smaller, also old, but a bit more
+powerful hardware.
 
 | Model | Fujitsu Esprimo                       |
 | CPU   | Intel Core i7 6700T - 4 cores         |
@@ -9,8 +10,7 @@ A NixOS re-incarnation of my server in smaller, but more powerfull hardware.
 
 * Partitioning
 
-Currently only a 1TB HD is used for NixOS itself, while other spinning platters might be
-added soon.
+Currently only a 1TB HD is used for NixOS itself, while other spinning platters might be added soon.
 
 #+begin_src
    1            2048         1050623   512.0 MiB   EF00  boot

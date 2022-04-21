@@ -58,22 +58,23 @@ NOTE: For NixOS this are essentially the required parts of a host's
   mu init -m ~/mail --my-address=sebastian.nagel@ncoding.at
   mu index
   ```
-- Fetch yubikey and `gpg --receive key C906659A && gpg --card-status` (and `chmod 700 ~/.gnupg`).
+- Fetch yubikey and `gpg --receive-key 0x59FAA903C906659A && gpg --card-status` (and `chmod 700 ~/.gnupg`).
 - Sign in to Firefox sync.
 
 ## TODO / Next steps
 
 - [ ] Modularize home-manager config into proper topics and assemble host modules
+  + [ ] Re-integrate home config with system configuaration.nix
+  + [ ] Modularize system configuration properly between systems
 - [ ] Make independent of "<nixpkgs>" (using nix flakes)
 - [ ] Add tooling to "swap" dotfiles like https://github.com/hlissner/dotfiles/blob/master/bin/hey
-- [/] Tray & tune xmobar
 - [ ] Improve / new xmonad layouts
 - [ ] Theme rofi
 - [ ] New terminal emulator
 - [ ] Evaluate fish shell or fix zsh completion (+ starship prompt?)
 - [ ] Clean up with XDG and have proper mime associations
 - [ ] Get rid of the dependencies (above)
-- [ ] Set firefox settings / search engines declaratively
+- [x] Set firefox settings / search engines declaratively
 
 ## Inspired by
 

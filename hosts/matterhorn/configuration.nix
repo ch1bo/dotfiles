@@ -16,18 +16,12 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "matterhorn"; # NOTE(SN): matterhorn-specific
+  networking.hostName = "matterhorn";
+  networking.hostId = "1ff2d645";
   networking.networkmanager.enable = true;
 
   # Set your time zone.
   time.timeZone = "Europe/Berlin";
-
-  # The global useDHCP flag is deprecated, therefore explicitly set to false here.
-  # Per-interface useDHCP will be mandatory in the future, so this generated config
-  # replicates the default behaviour.
-  networking.useDHCP = false;
-  # networking.interfaces.enp57s0u1u2.useDHCP = true; # NOTE(SN): matterhorn-specific
-  networking.interfaces.wlp58s0.useDHCP = true; # NOTE(SN): matterhorn-specific
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
@@ -43,8 +37,6 @@
     manage = "desktop";
     start = ''exec $HOME/.xsession'';
   }];
-  # Use nvidia drivers NOTE(SN): removed for matterhorn
-  # services.xserver.videoDrivers = [ "nvidia" ];
 
   # Configure keymap in X11
   services.xserver.layout = "us";
@@ -139,11 +131,6 @@
     {
       trustedUsers = users;
       allowedUsers = users;
-      # Use upcoming 'nix flake' and updated other commands
-      package = pkgs.nixFlakes;
-      extraOptions = ''
-        experimental-features = nix-command flakes
-      '';
     };
 
   # This value determines the NixOS release from which the default
@@ -152,6 +139,6 @@
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "20.09"; # Did you read the comment?
+  system.stateVersion = "21.11"; # Did you read the comment?
 
 }

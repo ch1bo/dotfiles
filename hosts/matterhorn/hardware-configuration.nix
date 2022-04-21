@@ -8,29 +8,35 @@
     [ (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
-  boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usb_storage" "sd_mod" "rtsx_pci_sdmmc" ];
+  boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "usbhid" ];
   boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-intel" ];
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/2ded9e98-2b33-4c8c-bd0e-fa5d67187112";
-      fsType = "ext4";
+    { device = "rpool/safe/root";
+      fsType = "zfs";
     };
 
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/5699-7C3C";
-      fsType = "vfat";
+  fileSystems."/nix" =
+    { device = "rpool/local/nix";
+      fsType = "zfs";
     };
 
   fileSystems."/home" =
-    { device = "/dev/disk/by-uuid/9b7709cb-9404-4ebf-a18d-5280ea511ee8";
-      fsType = "ext4";
+    { device = "rpool/safe/home";
+      fsType = "zfs";
+    };
+
+  fileSystems."/boot" =
+    { device = "/dev/disk/by-uuid/7A46-F964";
+      fsType = "vfat";
     };
 
   swapDevices =
-    [ { device = "/dev/disk/by-uuid/b0116e53-9404-4bc8-bd48-6d1c02fa688e"; }
+    [ { device = "/dev/disk/by-uuid/36a85a00-69b8-438d-9c7d-62ad3c68ad68"; }
     ];
 
-  powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
+  hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }
