@@ -18,10 +18,7 @@
 
     # To sync stuff between eiger / matterhorn
     # TODO(SN) use nixos module services.syncthing.declarative instead?
-    services.syncthing = {
-      enable = true;
-      tray.enable = true;
-    };
+    services.syncthing.enable = true;
 
     # Automount removable devices
     services.udiskie = {
