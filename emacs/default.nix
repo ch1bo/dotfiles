@@ -7,7 +7,6 @@
 # distribution upstreams within the dotfiles working copy to allow for faster
 # tweaking (for now at least).
 #
-# TODO emacs-overlay with emacsGcc
 { config, pkgs, ... }:
 let
   emacsDir = "${config.dotfiles}/emacs";
@@ -39,7 +38,7 @@ in
   '';
 
   home.packages = [
-    pkgs.emacs # The editor
+    pkgs.emacsNativeComp # The editor (native branch from overlay)
 
     # Utilities
     doom
