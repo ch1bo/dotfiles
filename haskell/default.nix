@@ -26,5 +26,6 @@ in
   home.packages = [
     unstable.haskellPackages.brittany
     unstable.haskellPackages.stylish-haskell
+    unstable.haskellPackages.hp2pretty # used in bin/haskell-view-heap
   ];
 }

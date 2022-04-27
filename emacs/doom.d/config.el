@@ -196,6 +196,13 @@ visible, hide it. Otherwise, show it."
 
 ;; Haskell
 
+;; Additional haskell mode key bindings
+(map! :after haskell-mode
+      :map haskell-mode-map
+      :localleader
+      "h" #'haskell-hoogle-lookup-from-local
+      "H" #'haskell-hoogle)
+
 ;; Appropriate HLS is assumed to be in scope (by nix-shell)
 (setq lsp-haskell-server-path "haskell-language-server"
       lsp-haskell-importlens-on nil)
