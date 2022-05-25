@@ -21,23 +21,25 @@ is home to a ZFS pool:
 
 #+begin_src
 mkfs.vfat -F32 -n boot /dev/disk/by-id/nvme-WDC_PC_SN730_SDBQNTY-512G-1001_21514Q802807-part1
-zpool create -o ashift=12 -O acltype=posixacl -O xattr=sa rpool /dev/disk/by-id/nvme-WDC_PC_SN730_SDBQNTY-512G-1001_21514Q802807-part2
+
 mkswap /dev/disk/by-id/nvme-WDC_PC_SN730_SDBQNTY-512G-1001_21514Q802807-part3
+
+zpool create -o ashift=12 -O acltype=posixacl -O xattr=sa -O mountpoint=none root /dev/disk/by-id/nvme-WDC_PC_SN730_SDBQNTY-512G-1001_21514Q802807-part2
 #+end_src
 
 Currently the ZFS pool is setup with these data sets:
 
 #+begin_src
-zfs create -o mountpoint=none rpool/local
-zfs create -o mountpoint=legacy rpool/local/nix
-zfs create -o mountpoint=none rpool/safe
-zfs create -o mountpoint=legacy rpool/safe/root
-zfs create -o mountpoint=legacy rpool/safe/home
-zfs create -o refreservation=512M -o mountpoint=none rpool/reserved
+zfs create -o mountpoint=none root/local
+zfs create -o mountpoint=legacy root/local/nix
+zfs create -o mountpoint=none root/safe
+zfs create -o mountpoint=legacy root/safe/root
+zfs create -o mountpoint=legacy root/safe/home
+zfs create -o refreservation=512M -o mountpoint=none root/reserved
 #+end_src
 
-Where the =rpool/reserved= can be shrinked when space runs out (required for deletion on a COW file system) with
+Where the =root/reserved= can be shrinked when space runs out (required for deletion on a COW file system) with
 
 #+begin_src
-zfs set refreservation=none rpool/reserved
+zfs set refreservation=none root/reserved
 #+end_src

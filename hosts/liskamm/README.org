@@ -33,6 +33,7 @@ A standard FAT32 EFI boot partition and a ZFS pool:
 
 #+begin_src
 mkfs.vfat -F32 -n boot /dev/disk/by-id/ata-Samsung_SSD_840_EVO_250GB_S1DBNSAF260050K-part1
+
 zpool create -o ashift=12 -O acltype=posixacl -O xattr=sa -O mountpoint=none root /dev/disk/by-id/ata-Samsung_SSD_840_EVO_250GB_S1DBNSAF260050K-part2
 #+end_src
 
