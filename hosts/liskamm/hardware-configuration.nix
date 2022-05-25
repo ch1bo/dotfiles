@@ -14,21 +14,24 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "rpool/safe/root";
+    { device = "root/safe/root";
+      fsType = "zfs";
+    };
+
+  fileSystems."/nix" =
+    { device = "root/local/nix";
       fsType = "zfs";
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/4A54-0D35";
+    { device = "/dev/disk/by-id/ata-Samsung_SSD_840_EVO_250GB_S1DBNSAF260050K-part1";
       fsType = "vfat";
-    };
-
-  fileSystems."/nix" =
-    { device = "rpool/local/nix";
-      fsType = "zfs";
     };
 
   swapDevices = [ ];
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
+  hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+  # high-resolution display
+  hardware.video.hidpi.enable = lib.mkDefault true;
 }

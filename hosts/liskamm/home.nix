@@ -1,6 +1,7 @@
 {
   imports = [
     ../../base.nix
+    ../../gpg
   ];
 
   home.username = "ch1bo";

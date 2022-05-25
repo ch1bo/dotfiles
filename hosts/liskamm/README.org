@@ -6,36 +6,68 @@ powerful hardware.
 | Model | Fujitsu Esprimo                       |
 | CPU   | Intel Core i7 6700T - 4 cores         |
 | RAM   | 8GB                                   |
+| SSD   | Samsung Evo 840 250GB                 |
 | HD    | WDC WD10JPVX-22J 1TB                  |
 
 * Partitioning
 
-Currently only a 1TB HD is used for NixOS itself, while other spinning platters might be added soon.
+Using now an old SSD as rootfs and still looking for some spinning platters to store more data.
 
 #+begin_src
-   1            2048         1050623   512.0 MiB   EF00  boot
-   2         1050624      1000215182   476.4 GiB   8300  root
+Disk /dev/disk/by-id/ata-Samsung_SSD_840_EVO_250GB_S1DBNSAF260050K: 488397168 sectors, 232.9 GiB
+Sector size (logical/physical): 512/512 bytes
+Disk identifier (GUID): 215AF2FA-E135-4160-8CD6-0BE92304C072
+Partition table holds up to 128 entries
+Main partition table begins at sector 2 and ends at sector 33
+First usable sector is 34, last usable sector is 488397134
+Partitions will be aligned on 2048-sector boundaries
+Total free space is 2014 sectors (1007.0 KiB)
+
+Number  Start (sector)    End (sector)  Size       Code  Name
+   1         1050624       488397134   232.4 GiB   EF00  boot
+   2            2048         1050623   512.0 MiB   8300  root
+
 #+end_src
 
 A standard FAT32 EFI boot partition and a ZFS pool:
 
 #+begin_src
-mkfs.vfat -F32 -n boot /dev/sda1
-zpool create -o ashift=12 -O acltype=posixacl -O xattr=sa rpool /dev/sda2
+mkfs.vfat -F32 -n boot /dev/disk/by-id/ata-Samsung_SSD_840_EVO_250GB_S1DBNSAF260050K-part1
+zpool create -o ashift=12 -O acltype=posixacl -O xattr=sa -O mountpoint=none root /dev/disk/by-id/ata-Samsung_SSD_840_EVO_250GB_S1DBNSAF260050K-part2
 #+end_src
 
 Currently the ZFS pool is setup with these data sets:
 
 #+begin_src
-zfs create -o mountpoint=none rpool/local
-zfs create -o mountpoint=legacy rpool/local/nix
-zfs create -o mountpoint=none rpool/safe
-zfs create -o mountpoint=legacy rpool/safe/root
-zfs create -o refreservation=512M -o mountpoint=none rpool/reserved
+zfs create -o mountpoint=none root/local
+zfs create -o mountpoint=legacy root/local/nix
+zfs create -o mountpoint=none root/safe
+zfs create -o mountpoint=legacy root/safe/root
+zfs create -o refreservation=512M -o mountpoint=none root/reserved
 #+end_src
 
-Where the =rpool/reserved= can be shrinked when space runs out (required for deletion on a COW file system) with
+Where the =root/reserved= can be shrinked when space runs out (required for deletion on a COW file system) with
 
 #+begin_src
-zfs set refreservation=none rpool/reserved
+zfs set refreservation=none root/reserved
 #+end_src
+
+** Migrating rootfs from a bigger HDD into the smaller SSD using zfs
+
+Partition the disk and copy the /boot partitition:
+
+#+begin_src
+mkfs.vfat -F32 -n boot /dev/disk/by-id/ata-Samsung_SSD_840_EVO_250GB_S1DBNSAF260050K-part1
+dd if=/dev/disk/by-id/ata-WDC_WD10JPVX-22JC3T0_WD-WX11A3480983-part1 of=/dev/disk/by-id/ata-Samsung_SSD_840_EVO_250GB_S1DBNSAF260050K-part1 bs=1M status=progress
+#+end_src
+
+Create the target zpool, take a snapshot and send it to the new pool:
+#+begin_src
+zpool create -o ashift=12 -O acltype=posixacl -O xattr=sa -O mountpoint=none root /dev/disk/by-id/ata-Samsung_SSD_840_EVO_250GB_S1DBNSAF260050K-part2
+zfs snapshot -r rpool@2022-04-30
+zfs send -R rpool@2022-04-30 | zfs recv -Fdu root
+#+end_src
+
+Then, mount, =nixos-enter=, =nixos-generate-config= and =nixos-rebuild= to have a bootable system.
+
+NOTE: Actually.. only copying non-nixos stuff would have sufficed :sweat_smile:

@@ -17,9 +17,19 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.supportedFilesystems = [ "zfs" ];
 
+  # Dynamic since kernel v5.11
+  # https://github.com/torvalds/linux/commit/92890123749bafc317bbfacbe0a62ce08d78efb7
+  boot.kernel.sysctl."fs.inotify.max_user_watches" = lib.mkIf
+    (config.boot.kernelPackages.kernel.kernelOlder "5.11")
+    1048576; # instead of 8192
+
   networking.hostName = "liskamm";
   networking.hostId = "24c2d71d"; # required for ZFS
   networking.networkmanager.enable = true;
+
+  networking.firewall.enable = false;
+  # Hydra node
+  #networking.firewall.allowedTCPPorts = [ 5001 ];
 
   # Set your time zone.
   time.timeZone = "Europe/Berlin";
@@ -47,6 +57,7 @@
     git
     vim
     dconf
+    gptfdisk
   ];
 
   ## Services
@@ -58,6 +69,13 @@
     extraConfig = ''
       StreamLocalBindUnlink yes
     '';
+  };
+
+  services.syncthing = {
+    enable = true;
+    user = "ch1bo";
+    configDir = "/home/ch1bo/.config/syncthing";
+    guiAddress = "0.0.0.0:8384";
   };
 
   ## User configuration
