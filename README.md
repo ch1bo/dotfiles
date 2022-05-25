@@ -10,7 +10,19 @@ keep them maintainable, but have now migrated to
 easily update and rollback between generations of my whole user environment, as
 well as modularizing host-specific configs.
 
-## Dependencies
+## Install
+
+### On NixOS
+
+1. Follow [installation instructions](https://nixos.org/manual/nixos/stable/index.html#sec-installation-installing) until `nixos-install`
+2. Make sure you have mounted `/`, `/boot`, `/nix` and `/home` into `/mnt`.
+3. Checkout this repo into `/mnt/home/ch1bo/.dotfiles` (including submodules &
+   fix permissions!) or somewhere else and symlink `configuration.nix` and
+   `hardware-configuration.nix` with one from `hosts/` to `/mnt/etc/nixos/`.
+4. Perform `nixos-install`, set passwords using `nixos-enter` and reboot.
+5. From a vTTY, initialize home directory using `nix-shell --run 'home-manager -f hosts/<host>/home.nix switch'`.
+
+### Not on NixOS
 
 Using `home-manager` and the user profile to install things from `nixpkgs`
 usually works quite well, but applications with strong ties into the system are
@@ -28,22 +40,10 @@ usually require to be on the "system-level":
 NOTE: For NixOS this are essentially the required parts of a host's
 `configuration.nix`.
 
-## Install
-
-### On non-NixOS
+After installing these dependencies, it's just:
 
 1. Install [nix](https://nixos.org/download.html)
 2. `nix-shell --run home-manager switch -f hosts/<host>/home.nix`
-
-### On NixOS
-
-1. Follow [installation instructions](https://nixos.org/manual/nixos/stable/index.html#sec-installation-installing) until `nixos-install`
-2. Checkout this repo into `/etc/nixos/dotfiles` and symlink `configuration.nix`
-   and `hardware-configuration.nix` with one from `hosts/`.
-3. Perform `nixos-install` and reboot.
-4. From a vTTY, (optional) move `dotfiles` to `~/.dotfiles` and re-symlink
-   `configuration.nix` and `hardware-configuration.nix`, and initialize home
-   directory using `nix-shell --run 'home-manager -f hosts/<host>/home.nix switch'`.
 
 ### First steps at home
 
@@ -74,7 +74,7 @@ NOTE: For NixOS this are essentially the required parts of a host's
 - [ ] Evaluate fish shell or fix zsh completion (+ starship prompt?)
 - [ ] Clean up with XDG and have proper mime associations
 - [ ] Get rid of the dependencies (above)
-- [x] Set firefox settings / search engines declaratively
+- [ ] Set firefox settings / search engines declaratively
 
 ## Inspired by
 
