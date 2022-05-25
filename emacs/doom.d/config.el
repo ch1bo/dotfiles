@@ -75,8 +75,8 @@
       ;;; <leader> e --- errors (flycheck)
       (:prefix ("e" . "errors")
        :desc "List errors"          "l"   #'+toggle-flycheck-error-list
-       :desc "Next error"           "n"   #'next-error
-       :desc "Previous error"       "p"   #'previous-error
+       :desc "Next error"           "n"   #'flycheck-next-error
+       :desc "Previous error"       "p"   #'flycheck-previous-error
        :desc "Select checker"       "s"   #'flycheck-select-checker
        :desc "Verify setup"         "v"   #'flycheck-verify-setup
        ))
