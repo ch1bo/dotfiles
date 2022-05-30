@@ -62,6 +62,7 @@ After installing these dependencies, it's just:
   ```
 - Sign in to Firefox sync.
 - Generate `nix-index`.
+- Setup auto-type and minimization in `keepassxc`.
 
 ## TODO / Next steps
 
@@ -69,13 +70,14 @@ After installing these dependencies, it's just:
   + [ ] Re-integrate home config with system configuaration.nix
   + [ ] Modularize system configuration properly between systems
 - [ ] Make independent of "<nixpkgs>" (using nix flakes)
+- [ ] Drop dual use support (only nixos)
 - [ ] Add tooling to "swap" dotfiles like https://github.com/hlissner/dotfiles/blob/master/bin/hey
 - [ ] Improve / new xmonad layouts
 - [ ] Theme rofi
 - [ ] New terminal emulator
-- [ ] Evaluate fish shell or fix zsh completion (+ starship prompt?)
 - [ ] Clean up with XDG and have proper mime associations
 - [ ] Get rid of the dependencies (above)
+- [ ] Reduce "first steps at home" (above)
 - [ ] Set firefox settings / search engines declaratively
 
 ## Inspired by

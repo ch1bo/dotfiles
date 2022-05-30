@@ -42,7 +42,7 @@
   services.xserver.layout = "us";
   services.xserver.xkbOptions = "eurosign:e";
 
-  # Customization to emulate a 60% keyboard
+  # TODO: WIP - Customization to emulate a 60% keyboard
   services.xserver.extraLayouts.us-60percent = {
     description = "US layout with 60% keyboard layer switches";
     languages = [ "eng" ];
