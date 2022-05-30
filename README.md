@@ -47,9 +47,10 @@ After installing these dependencies, it's just:
 
 ### First steps at home
 
+- Setup syncthing / nextcloud and sync `keepass` and `org` into `~/sync`.
+- Fetch yubikey and `gpg --receive-key 0x59FAA903C906659A && gpg --card-status` (and `chmod 700 ~/.gnupg`).
 - Prepare doom emacs using `doom sync` and `all-the-icons-install-fonts` (in `emacs`).
-- Authenticate nextcloud and sync `keepass` and `org` into `~/sync`.
-- Add mail credentials to secrets service and initialize:
+- Add mail credentials to secrets service, initialize and receive mails:
   ```
   secret-tool store --label='Mail ncoding.at' \
     port 465 \
@@ -57,9 +58,10 @@ After installing these dependencies, it's just:
     user sebastian.nagel@ncoding.at
   mu init -m ~/mail --my-address=sebastian.nagel@ncoding.at
   mu index
+  offlineimap -o
   ```
-- Fetch yubikey and `gpg --receive-key 0x59FAA903C906659A && gpg --card-status` (and `chmod 700 ~/.gnupg`).
 - Sign in to Firefox sync.
+- Generate `nix-index`.
 
 ## TODO / Next steps
 
