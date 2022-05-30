@@ -8,35 +8,33 @@
     [ (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
-  boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "usbhid" ];
+  boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "usb_storage" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "rpool/safe/root";
-      fsType = "zfs";
-    };
-
-  fileSystems."/nix" =
-    { device = "rpool/local/nix";
+    { device = "root/safe/root";
       fsType = "zfs";
     };
 
   fileSystems."/home" =
-    { device = "rpool/safe/home";
+    { device = "root/safe/home";
+      fsType = "zfs";
+    };
+
+  fileSystems."/nix" =
+    { device = "root/local/nix";
       fsType = "zfs";
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/7A46-F964";
+    { device = "/dev/disk/by-uuid/BB1A-3903";
       fsType = "vfat";
     };
 
-  swapDevices =
-    [ { device = "/dev/disk/by-uuid/36a85a00-69b8-438d-9c7d-62ad3c68ad68"; }
-    ];
+  swapDevices = [ { device = "/dev/disk/by-id/nvme-WDC_PC_SN730_SDBQNTY-512G-1001_21514Q802807-part3"; } ];
 
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }

@@ -84,10 +84,6 @@
 
   ## Programs
 
-  # Including opengl fixes
-  # NOTE(SN): removed for matterhorn
-  # programs.steam.enable = true;
-
   # Android debug bridge and other tools
   programs.adb.enable = true;
 
@@ -102,7 +98,7 @@
     gnome.nautilus
     dconf
     pavucontrol
-    # ntfsprogs # NOTE(SN): removed for matterhorn
+    htop
   ];
 
   ## Services
