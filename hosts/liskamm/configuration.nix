@@ -71,8 +71,10 @@
     '';
   };
 
+  # Synchronizing things between hosts
   services.syncthing = {
     enable = true;
+    openDefaultPorts = true;
     user = "ch1bo";
     configDir = "/home/ch1bo/.config/syncthing";
     guiAddress = "0.0.0.0:8384";

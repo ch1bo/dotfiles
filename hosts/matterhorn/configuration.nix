@@ -82,6 +82,12 @@
     defaultTarget = "mobile";
   };
 
+  # Synchronizing things between hosts
+  services.syncthing = {
+    enable = true;
+    openDefaultPorts = true;
+  };
+
   ## Programs
 
   # Android debug bridge and other tools

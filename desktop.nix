@@ -16,10 +16,6 @@
     # TODO: https://github.com/NixOS/nixpkgs/issues/60012
     services.nextcloud-client.enable = true;
 
-    # To sync stuff between eiger / matterhorn
-    # TODO(SN) use nixos module services.syncthing.declarative instead?
-    services.syncthing.enable = true;
-
     # Automount removable devices
     services.udiskie = {
       enable = true;

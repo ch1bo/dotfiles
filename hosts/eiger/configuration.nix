@@ -140,6 +140,12 @@
   # Gnome secrets service
   services.gnome.gnome-keyring.enable = true;
 
+  # Synchronizing things between hosts
+  services.syncthing = {
+    enable = true;
+    openDefaultPorts = true;
+  };
+
   ## User configuration
 
   users.users.ch1bo = {
