@@ -143,6 +143,8 @@
   # Synchronizing things between hosts
   services.syncthing = {
     enable = true;
+    user = "ch1bo";
+    dataDir = "/home/ch1bo";
     openDefaultPorts = true;
   };
 
