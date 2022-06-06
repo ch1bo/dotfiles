@@ -49,7 +49,6 @@
     symbolsFile = ./symbols/us-60percent;
   };
 
-
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
@@ -85,10 +84,15 @@
   # Synchronizing things between hosts
   services.syncthing = {
     enable = true;
+    user = "ch1bo";
+    dataDir = "/home/ch1bo";
     openDefaultPorts = true;
   };
 
   ## Programs
+
+  # Games
+  programs.steam.enable = true;
 
   # Android debug bridge and other tools
   programs.adb.enable = true;
@@ -105,6 +109,7 @@
     dconf
     pavucontrol
     htop
+    discord
   ];
 
   ## Services
