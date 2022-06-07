@@ -43,9 +43,10 @@
     font = "FiraCode Nerd Font Mono 14";
   };
 
-  xsession.pointerCursor = {
+  home.pointerCursor = {
     package = pkgs.numix-cursor-theme;
     name = "Numix-Cursor";
+    x11.enable = true;
   };
 
   programs.vim.extraConfig = ''

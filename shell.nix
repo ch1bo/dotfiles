@@ -3,7 +3,7 @@ let
   home-manager = (import
     (builtins.fetchGit {
       url = "https://github.com/nix-community/home-manager.git";
-      ref = "release-21.11";
+      ref = "release-22.05";
     })
     { inherit pkgs; });
 in

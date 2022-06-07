@@ -1,5 +1,5 @@
 # TODO: use xmonad from home-manager options!
-{ pkgs ? import <unstable> { }
+{ pkgs ? import <nixpkgs> { }
 }:
 
 with pkgs;

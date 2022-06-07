@@ -51,7 +51,7 @@
       pkgs.spotify # unlimited music
       pkgs.signal-desktop # connect with rl
       pkgs.slack # comms
-      pkgs.skype # old-school comms
+      pkgs.skypeforlinux # old-school comms
     ];
   };
 }
