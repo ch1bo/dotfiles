@@ -3,36 +3,35 @@
 A NixOS re-incarnation of my server in smaller, also old, but a bit more
 powerful hardware.
 
-| Model | Fujitsu Esprimo                       |
-| CPU   | Intel Core i7 6700T - 4 cores         |
-| RAM   | 8GB                                   |
-| SSD   | Samsung Evo 840 250GB                 |
-| HD    | WDC WD10JPVX-22J 1TB                  |
+| Model | Fujitsu Esprimo               |
+| CPU   | Intel Core i7 6700T - 4 cores |
+| RAM   | 8GB                           |
+| SSD   | Samsung Evo 840 250GB         |
+| HD    | SEAGATE BarraCuda Compute 2TB |
 
 * Partitioning
 
-Using now an old SSD as rootfs and still looking for some spinning platters to store more data.
+Due to the lack of SATA portss in the small case, I'm now using two 2TB HDDs for the whole system in a ZFS Raid1 setup.
 
 #+begin_src
-Disk /dev/disk/by-id/ata-Samsung_SSD_840_EVO_250GB_S1DBNSAF260050K: 488397168 sectors, 232.9 GiB
-Sector size (logical/physical): 512/512 bytes
-Disk identifier (GUID): 215AF2FA-E135-4160-8CD6-0BE92304C072
+Disk /dev/disk/by-id/ata-ST2000LM015-2E8174_WDZV6EHY: 3907029168 sectors, 1.8 TiB
+Sector size (logical/physical): 512/4096 bytes
+Disk identifier (GUID): D11479B1-D6C1-4E64-97DC-3289DB6EE14C
 Partition table holds up to 128 entries
 Main partition table begins at sector 2 and ends at sector 33
-First usable sector is 34, last usable sector is 488397134
+First usable sector is 34, last usable sector is 3907029134
 Partitions will be aligned on 2048-sector boundaries
 Total free space is 2014 sectors (1007.0 KiB)
 
 Number  Start (sector)    End (sector)  Size       Code  Name
-   1         1050624       488397134   232.4 GiB   EF00  boot
-   2            2048         1050623   512.0 MiB   8300  root
-
+   1            2048         1050623   512.0 MiB   EF00  EFI system partition
+   2         1050624      3907029134   1.8 TiB     8300  Linux filesystem
 #+end_src
 
-A standard FAT32 EFI boot partition and a ZFS pool:
+A standard FAT32 EFI boot partition and ZFS pool:
 
 #+begin_src
-mkfs.vfat -F32 -n boot /dev/disk/by-id/ata-Samsung_SSD_840_EVO_250GB_S1DBNSAF260050K-part1
+mkfs.vfat -F32 -n boot /dev/disk/by-id/ata-ST2000LM015-2E8174_WDZV6EHY-part1
 
 zpool create -o ashift=12 -O acltype=posixacl -O xattr=sa -O mountpoint=none root /dev/disk/by-id/ata-Samsung_SSD_840_EVO_250GB_S1DBNSAF260050K-part2
 #+end_src
