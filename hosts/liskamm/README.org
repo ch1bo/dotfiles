@@ -6,13 +6,14 @@ powerful hardware.
 | Model | Fujitsu Esprimo               |
 | CPU   | Intel Core i7 6700T - 4 cores |
 | RAM   | 8GB                           |
-| SSD   | Samsung Evo 840 250GB         |
+| HD    | SEAGATE BarraCuda Compute 2TB |
 | HD    | SEAGATE BarraCuda Compute 2TB |
 
-* Partitioning
+* Disk setup
 
-Due to the lack of SATA portss in the small case, I'm now using two 2TB HDDs for the whole system in a ZFS Raid1 setup.
+Due to the lack of SATA ports in the small case, I'm now using two 2TB HDDs for the whole system in a ZFS Raid1 setup.
 
+This was the first disk, holding the EFI boot partition:
 #+begin_src
 Disk /dev/disk/by-id/ata-ST2000LM015-2E8174_WDZV6EHY: 3907029168 sectors, 1.8 TiB
 Sector size (logical/physical): 512/4096 bytes
@@ -28,7 +29,7 @@ Number  Start (sector)    End (sector)  Size       Code  Name
    2         1050624      3907029134   1.8 TiB     8300  Linux filesystem
 #+end_src
 
-A standard FAT32 EFI boot partition and ZFS pool:
+Formatting and setting up a ZFS pool:
 
 #+begin_src
 mkfs.vfat -F32 -n boot /dev/disk/by-id/ata-ST2000LM015-2E8174_WDZV6EHY-part1
@@ -52,7 +53,19 @@ Where the =root/reserved= can be shrinked when space runs out (required for dele
 zfs set refreservation=none root/reserved
 #+end_src
 
-** Migrating rootfs from a bigger HDD into the smaller SSD using zfs
+** Adding a second disk to the ZFS pool
+
+Partitioned the disk using a single partition and issued:
+#+begin_src
+zpool attach root /dev/disk/by-id/ata-ST2000LM015-2E8174_WDZV6EHY-part2 /dev/disk/by-id/ata-ST2000LM015-2E8174_WDZXFS70-part1
+#+end_src
+
+Then, zfs starts mirrorin automatically (= resilvering) where status can be seen in
+#+begin_src
+zpool status
+#+end_src
+
+** Old migration of rootfs from a bigger HDD into the smaller SSD using zfs
 
 Partition the disk and copy the /boot partitition:
 

@@ -24,7 +24,7 @@
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-id/ata-Samsung_SSD_840_EVO_250GB_S1DBNSAF260050K-part1";
+    { device = "/dev/disk/by-id/ata-ST2000LM015-2E8174_WDZV6EHY-part1";
       fsType = "vfat";
     };
 
