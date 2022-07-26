@@ -16,20 +16,20 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  # Network setup
   networking.hostName = "matterhorn";
   networking.hostId = "1ff2d645";
   networking.networkmanager.enable = true;
 
-  # Set your time zone.
+  # Time zone and internationalisation
   time.timeZone = "Europe/Berlin";
-
-  # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
   console = {
     font = "Lat2-Terminus16";
     keyMap = "us";
   };
 
+  # Use custom xsession as display manager
   services.xserver.enable = true;
   services.xserver.displayManager.defaultSession = "user-xsession";
   services.xserver.displayManager.session = [{
@@ -38,10 +38,9 @@
     start = ''exec $HOME/.xsession'';
   }];
 
-  # Configure keymap in X11
+  # Keyboard setup
   services.xserver.layout = "us";
   services.xserver.xkbOptions = "eurosign:e";
-
   # TODO: WIP - Customization to emulate a 60% keyboard
   services.xserver.extraLayouts.us-60percent = {
     description = "US layout with 60% keyboard layer switches";
@@ -75,6 +74,9 @@
   # NOTE(SN): added for matterhorn
   services.xserver.libinput.enable = true;
 
+  # Power management
+  services.tlp.enable = true;
+
   # Configuration currently in xsession/default.nix
   services.autorandr = {
     enable = true;
@@ -88,6 +90,12 @@
     dataDir = "/home/ch1bo";
     openDefaultPorts = true;
   };
+
+  # Smartcard support
+  services.pcscd.enable = true;
+
+  # Gnome secrets service
+  services.gnome.gnome-keyring.enable = true;
 
   ## Programs
 
@@ -110,21 +118,9 @@
     pavucontrol
     htop
     discord
+    xournal
+    libreoffice
   ];
-
-  ## Services
-
-  # Smartcard support
-  services.pcscd.enable = true;
-
-  # TODO(SN): move to a notebook module
-  # services.autorandr = {
-  #   enable = true;
-  #   defaultTarget = "mobile";
-  # };
-
-  # Gnome secrets service
-  services.gnome.gnome-keyring.enable = true;
 
   ## User configuration
 
