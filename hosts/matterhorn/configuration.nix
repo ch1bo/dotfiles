@@ -9,6 +9,13 @@
     ./hardware-configuration.nix
   ];
 
+  # Make nixos-unstable nixpkgs avaiable as 'pkgs.unstable'
+  nixpkgs.config.packageOverrides = pkgs: {
+    unstable = import <nixos-unstable> {
+      config = config.nixpkgs.config;
+    };
+  };
+
   # At least the nvidia drivers are proprietary
   nixpkgs.config.allowUnfree = true;
 
@@ -120,6 +127,7 @@
     discord
     xournal
     libreoffice
+    unstable.portfolio
   ];
 
   ## User configuration
