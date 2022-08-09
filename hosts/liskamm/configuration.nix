@@ -58,7 +58,8 @@
     virtualHosts."fk.ncoding.at" = {
       addSSL = true;
       enableACME = true;
-      root = "/home/ch1bo/code/ncoding.at/web/html";
+      # TODO: Move ncoding.at sources into this repository
+      root = /home/ch1bo/code/ncoding.at/web/html;
     };
   };
 
