@@ -53,18 +53,24 @@
   # ncoding.at port
   security.acme.acceptTerms = true;
   security.acme.email = "webmaster@ncoding.at";
-  services.nginx = {
-    enable = true;
-    virtualHosts."fk.ncoding.at" = {
-      addSSL = true;
-      enableACME = true;
-      # TODO: Move ncoding.at sources into this repository
-      root = /home/ch1bo/code/ncoding.at/web/html;
+  services.nginx =
+    let
+      # REVIEW: Maybe move ncoding.at sources into this repository
+      ncoding-source = builtins.fetchTarball {
+        url = https://github.com/ch1bo/ncoding.at/archive/609ac5316b233bb92ac7dfa601c8db83629f63f1.tar.gz;
+      };
+    in
+    {
+      enable = true;
+      virtualHosts."fk.ncoding.at" = {
+        addSSL = true;
+        enableACME = true;
+        root = "${ncoding-source}/web/html";
+      };
     };
-  };
 
   ## Programs
-  
+
   # Other things
   environment.systemPackages = with pkgs; [
     git
