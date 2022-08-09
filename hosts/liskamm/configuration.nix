@@ -51,6 +51,8 @@
   virtualisation.docker.enable = true;
 
   # ncoding.at port
+  security.acme.acceptTerms = true;
+  security.acme.email = "webmaster@ncoding.at";
   services.nginx = {
     enable = true;
     virtualHosts."fk.ncoding.at" = {
