@@ -76,18 +76,11 @@
         enableACME = true;
         locations."/" = {
           proxyPass = "http://127.0.0.1:2342";
-          extraConfig =
-            #   # required when the target is also TLS server with multiple hosts
-            #   "proxy_ssl_server_name on;" +
-            #   # required when the server wants to use HTTP Authentication
-            #   "proxy_pass_header Authorization;" +
-            #   proxy_buffering off;
-            #   proxy_http_version 1.1;
-            #   proxy_set_header Upgrade $http_upgrade;
-            #   proxy_set_header Connection "upgrade";
-            ''
-              client_max_body_size 500M;
-            '';
+          proxyWebsockets = true;
+          extraConfig = ''
+            proxy_buffering off;
+            client_max_body_size 500M;
+          '';
         };
       };
     };
