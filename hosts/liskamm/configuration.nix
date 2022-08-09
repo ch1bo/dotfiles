@@ -78,6 +78,7 @@
     vim
     dconf
     gptfdisk
+    htop
   ];
 
   ## Services
