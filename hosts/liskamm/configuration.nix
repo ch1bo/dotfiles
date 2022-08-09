@@ -63,6 +63,7 @@
     {
       enable = true;
       virtualHosts."fk.ncoding.at" = {
+        serverAliases = [ "www.fk.ncoding.at" ];
         addSSL = true;
         enableACME = true;
         root = "${ncoding-source}/web/html";
