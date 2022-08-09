@@ -128,6 +128,7 @@
     xournal
     libreoffice
     unstable.portfolio
+    eva
   ];
 
   ## User configuration

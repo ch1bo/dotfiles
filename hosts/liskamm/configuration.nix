@@ -50,6 +50,16 @@
   # Docker deamon
   virtualisation.docker.enable = true;
 
+  # ncoding.at port
+  services.nginx = {
+    enable = true;
+    virtualHosts."fk.ncoding.at" = {
+      addSSL = true;
+      enableACME = true;
+      root = "/home/ch1bo/code/ncoding.at/web/html";
+    };
+  };
+
   ## Programs
   
   # Other things
