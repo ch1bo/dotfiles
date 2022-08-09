@@ -99,7 +99,7 @@
       image = "photoprism/photoprism:latest";
       ports = [ "127.0.0.1:2342:2342" ];
       volumes = [
-        "/data/pictures:/photoprism/originals"
+        "/home/ch1bo/pictures:/photoprism/originals"
         "/data/photoprism-storage:/photoprism/storage"
       ];
       environment = {
