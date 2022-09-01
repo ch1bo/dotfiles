@@ -98,8 +98,9 @@
 ;; Additional agenda mode key bindings
 (map! :map org-agenda-mode-map
       :localleader
-      "s" #'org-save-all-org-buffers
-      "!" #'org-agenda-toggle-deadlines)
+      :desc "Save org buffers" "s" #'org-save-all-org-buffers
+      :desc "Reload org buffers" "r" #'org-revert-all-org-buffers
+      :desc "Toggle deadlines" "!" #'org-agenda-toggle-deadlines)
 
 ;; Flycheck
 
