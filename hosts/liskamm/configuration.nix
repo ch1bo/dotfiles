@@ -8,6 +8,7 @@
   imports = [
     ./hardware-configuration.nix
     ./photoprism.nix
+    ./hydraw.nix
   ];
 
   # At least the nvidia drivers are proprietary
