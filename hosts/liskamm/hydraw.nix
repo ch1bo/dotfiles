@@ -34,6 +34,7 @@
       DATA_DIR = "/data";
       ENVIRONMENT = "preview";
       SOCKET_PATH = "/data/node.socket";
+      USE_SNAPSHOT = "1";
     };
   };
 }
