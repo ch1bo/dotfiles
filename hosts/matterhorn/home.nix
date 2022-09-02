@@ -15,7 +15,18 @@
   programs.ssh = {
     enable = true;
     matchBlocks = {
+      "eiger" = {
+        hostname = "fk.ncoding.at";
+        port = 2201;
+        forwardAgent = true;
+        localForwards = [{ # syncthing
+          bind.port = 8385;
+          host.address = "127.0.0.1";
+          host.port = 8384;
+        }];
+      };
       "liskamm" = {
+        hostname = "fk.ncoding.at";
         forwardAgent = true;
         extraOptions = {
           "StreamLocalBindUnlink" = "yes";

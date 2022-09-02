@@ -55,8 +55,9 @@
     symbolsFile = ./symbols/us-60percent;
   };
 
-  # Enable CUPS to print documents.
+  # Printing
   services.printing.enable = true;
+  services.printing.drivers = [ pkgs.gutenprint ];
 
   # Bluetooth support (bluez)
   hardware.bluetooth.enable = true;
@@ -129,6 +130,8 @@
     libreoffice
     unstable.portfolio
     eva
+    bind.dnsutils
+    system-config-printer
   ];
 
   ## User configuration
