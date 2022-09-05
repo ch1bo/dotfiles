@@ -35,7 +35,7 @@ in
   #   };
   # };
 
-  # using entrypoint from: https://github.com/input-output-hk/cardano-world/blob/master/nix/cardano/entrypoints.nix
+  # Using entrypoint from: https://github.com/input-output-hk/cardano-world/blob/master/nix/cardano/entrypoints.nix
   virtualisation.oci-containers.containers.cardano-node = {
     image = "inputoutput/cardano-node:1.35.3-new";
     volumes = [
@@ -51,4 +51,37 @@ in
   # The 1.35.3-new cardano-node image does not contain a cli, so let's add it
   # using nix instead.
   environment.systemPackages = [ cardano-node.cardano-cli ];
+
+  # Our hydra-node instance
+  virtualisation.oci-containers.containers.hydra-node =
+    # TODO: lookup by network (preview)
+    let
+      hydraScriptsTxId = "bde2ca1f404200e78202ec37979174df9941e96fd35c05b3680d79465853a246";
+      networkMagic = "2";
+      nodeId = "314";
+    in
+    {
+      image = "ghcr.io/input-output-hk/hydra-node:0.7.0";
+      volumes = [
+        "/data/cardano-node:/cardano-node:ro"
+        "/data/hydra-node:/data:ro"
+      ];
+      ports = [
+        "4001:4001"
+        "5001:5001"
+      ];
+      cmd = [
+        "--node-id ${nodeId}"
+        "--api-host 0.0.0.0"
+        "--host 0.0.0.0"
+        "--monitoring-port 6001"
+        "--hydra-scripts-tx-id ${hydraScriptsTxId}"
+        "--hydra-signing-key /data/credentials/sebastian.hydra.sk"
+        "--cardano-signing-key /data/credentials/sebastian.cardano.sk"
+        "--ledger-genesis /cardano-node/config/preview/shelley-genesis.json"
+        "--ledger-protocol-parameters /data/protocol-parameters.json"
+        "--network-id ${networkMagic}"
+        "--node-socket /cardano-node/node.socket"
+      ];
+    };
 }
