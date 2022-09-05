@@ -56,12 +56,7 @@
 
   # Port of existing services
   security.acme.acceptTerms = true;
-  # TODO: trace: warning: The option `security.acme.email' defined in
-  # `/etc/nixos/configuration.nix' has been changed to
-  # `security.acme.defaults.email' that has a different type. Please read
-  # `security.acme.defaults.email' documentation and update your configuration
-  # accordingly.
-  security.acme.email = "webmaster@ncoding.at";
+  security.acme.defaults.email = "webmaster@ncoding.at";
   services.nginx =
     let
       # REVIEW: Maybe move ncoding.at sources into this repository
