@@ -70,18 +70,18 @@ in
         "4001:4001"
         "5001:5001"
       ];
-      cmd = [
-        "--node-id ${nodeId}"
-        "--api-host 0.0.0.0"
-        "--host 0.0.0.0"
-        "--monitoring-port 6001"
-        "--hydra-scripts-tx-id ${hydraScriptsTxId}"
-        "--hydra-signing-key /data/credentials/sebastian.hydra.sk"
-        "--cardano-signing-key /data/credentials/sebastian.cardano.sk"
-        "--ledger-genesis /cardano-node/config/preview/shelley-genesis.json"
-        "--ledger-protocol-parameters /data/protocol-parameters.json"
-        "--network-id ${networkMagic}"
-        "--node-socket /cardano-node/node.socket"
+      cmd = builtins.concatLists [
+        [ "--node-id" nodeId ]
+        [ "--api-host" "0.0.0.0" ]
+        [ "--host" "0.0.0.0" ]
+        [ "--monitoring-port" "6001" ]
+        [ "--hydra-scripts-tx-id" hydraScriptsTxId ]
+        [ "--hydra-signing-key" "/data/credentials/sebastian.hydra.sk" ]
+        [ "--cardano-signing-key" "/data/credentials/sebastian.cardano.sk" ]
+        [ "--ledger-genesis" "/cardano-node/config/preview/shelley-genesis.json" ]
+        [ "--ledger-protocol-parameters" "/data/protocol-parameters.json" ]
+        [ "--network-id" networkMagic ]
+        [ "--node-socket" "/cardano-node/node.socket" ]
       ];
     };
 }
