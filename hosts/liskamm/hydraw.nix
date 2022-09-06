@@ -84,4 +84,21 @@ in
         [ "--node-socket" "/cardano-node/node.socket" ]
       ];
     };
+
+  # The hydraw application / bridge
+  virtualisation.oci-containers.containers.hydraw = {
+    image = "ghcr.io/input-output-hk/hydraw:latest";
+    volumes = [
+      "/data/hydra-node/credentials:/credentials:ro"
+    ];
+    ports = [
+      "1337:1337"
+    ];
+    entrypoint = "hydraw";
+    environment = {
+      HYDRA_SIGNING_KEY="/credentials/sebastian.hydra.sk";
+      HYDRA_API_HOST="localhost:4001";
+    };
+    extraOptions = ["--network=host"];
+  };
 }
