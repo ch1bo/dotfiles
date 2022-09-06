@@ -22,19 +22,6 @@ in
     "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ= cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
   ];
 
-  # services.nginx.virtualHosts."hydraw.fk.ncoding.at" = {
-  #   forceSSL = true;
-  #   enableACME = true;
-  #   locations."/" = {
-  #     proxyPass = "http://127.0.0.1:2342";
-  #     proxyWebsockets = true;
-  #     extraConfig = ''
-  #       proxy_buffering off;
-  #       client_max_body_size 500M;
-  #     '';
-  #   };
-  # };
-
   # Using entrypoint from: https://github.com/input-output-hk/cardano-world/blob/master/nix/cardano/entrypoints.nix
   virtualisation.oci-containers.containers.cardano-node = {
     image = "inputoutput/cardano-node:1.35.3-new";
@@ -91,14 +78,25 @@ in
     volumes = [
       "/data/hydra-node/credentials:/credentials:ro"
     ];
-    ports = [
-      "1337:1337"
-    ];
     entrypoint = "hydraw";
     environment = {
       HYDRA_SIGNING_KEY="/credentials/sebastian.hydra.sk";
       HYDRA_API_HOST="localhost:4001";
     };
     extraOptions = ["--network=host"];
+  };
+
+  # Configure the reverse proxy to point at it
+  services.nginx.virtualHosts."hydraw.fk.ncoding.at" = {
+    forceSSL = true;
+    enableACME = true;
+    locations."/" = {
+      proxyPass = "http://127.0.0.1:1337";
+      proxyWebsockets = true;
+      extraConfig = ''
+        proxy_buffering off;
+        client_max_body_size 500M;
+      '';
+    };
   };
 }
