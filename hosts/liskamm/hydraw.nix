@@ -80,7 +80,7 @@ in
     ];
     entrypoint = "hydraw";
     environment = {
-      HYDRA_SIGNING_KEY="/credentials/sebastian.hydra.sk";
+      HYDRA_SIGNING_KEY="/credentials/sebastian.cardano.sk";
       HYDRA_API_HOST="localhost:4001";
     };
     extraOptions = ["--network=host"];
