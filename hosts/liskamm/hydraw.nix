@@ -69,6 +69,7 @@ in
         [ "--ledger-protocol-parameters" "/data/protocol-parameters.json" ]
         [ "--network-id" networkMagic ]
         [ "--node-socket" "/cardano-node/node.socket" ]
+        [ "--start-chain-from" "2457624.c1247a79867d5fee44771ddebf4d8324362d0513293aeccb0bc2458d37e42c48" ]
       ];
     };
 
