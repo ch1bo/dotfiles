@@ -70,10 +70,10 @@ in
         [ "--ledger-protocol-parameters" "/data/protocol-parameters.json" ]
         [ "--network-id" networkMagic ]
         [ "--node-socket" "/cardano-node/node.socket" ]
-        # [ "--start-chain-from" "2457624.c1247a79867d5fee44771ddebf4d8324362d0513293aeccb0bc2458d37e42c48" ]
-        [ "--peer" "35.233.17.169:5001" ] # arnaud
-        [ "--cardano-verification-key" "/data/credentials/arnaud.cardano.vk" ]
-        [ "--hydra-verification-key" "/data/credentials/arnaud.hydra.vk" ]
+        [ "--start-chain-from" "4268491.c628e6fb4e697500aa338c82d80c6b6c1e91710589f98eee2004ec2879ef3f98" ]
+        # [ "--peer" "35.233.17.169:5001" ] # arnaud
+        # [ "--cardano-verification-key" "/data/credentials/arnaud.cardano.vk" ]
+        # [ "--hydra-verification-key" "/data/credentials/arnaud.hydra.vk" ]
         [ "--peer" "13.39.80.222:5001" ] # pascal
         [ "--cardano-verification-key" "/data/credentials/pascal.cardano.vk" ]
         [ "--hydra-verification-key" "/data/credentials/pascal.hydra.vk" ]
