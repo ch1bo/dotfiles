@@ -69,7 +69,7 @@ in
         [ "--ledger-protocol-parameters" "/data/protocol-parameters.json" ]
         [ "--network-id" networkMagic ]
         [ "--node-socket" "/cardano-node/node.socket" ]
-        [ "--start-chain-from" "2457624.c1247a79867d5fee44771ddebf4d8324362d0513293aeccb0bc2458d37e42c48" ]
+        # [ "--start-chain-from" "2457624.c1247a79867d5fee44771ddebf4d8324362d0513293aeccb0bc2458d37e42c48" ]
         [ "--peer" "35.233.17.169:5001" ] # arnaud
         [ "--peer" "13.39.80.222:5001" ] # pascal
         [ "--peer" "35.180.10.126:5001" ] # sasha
