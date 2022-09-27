@@ -72,8 +72,17 @@ in
         [ "--node-socket" "/cardano-node/node.socket" ]
         # [ "--start-chain-from" "2457624.c1247a79867d5fee44771ddebf4d8324362d0513293aeccb0bc2458d37e42c48" ]
         [ "--peer" "35.233.17.169:5001" ] # arnaud
+        [ "--cardano-verification-key" "/data/credentials/arnaud.cardano.vk" ]
+        [ "--hydra-verification-key" "/data/credentials/arnaud.hydra.vk" ]
         [ "--peer" "13.39.80.222:5001" ] # pascal
-        [ "--peer" "35.180.10.126:5001" ] # sasha
+        [ "--cardano-verification-key" "/data/credentials/pascal.cardano.vk" ]
+        [ "--hydra-verification-key" "/data/credentials/pascal.hydra.vk" ]
+        [ "--peer" "13.38.49.252:5001" ] # sasha
+        [ "--cardano-verification-key" "/data/credentials/sasha.cardano.vk" ]
+        [ "--hydra-verification-key" "/data/credentials/sasha.hydra.vk" ]
+        # [ "--peer" "35.180.10.126:5001" ] # franco
+        # [ "--cardano-verification-key" "/data/credentials/franco.cardano.vk" ]
+        # [ "--hydra-verification-key" "/data/credentials/franco.hydra.vk" ]
       ];
     };
 
