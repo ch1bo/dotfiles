@@ -55,12 +55,13 @@ in
       ];
       ports = [
         "4001:4001"
-        "5001:5001"
+        "5001:5003"
       ];
       cmd = builtins.concatLists [
         [ "--node-id" nodeId ]
         [ "--api-host" "0.0.0.0" ]
         [ "--host" "0.0.0.0" ]
+        [ "--port" "5003" ]
         [ "--monitoring-port" "6001" ]
         [ "--hydra-scripts-tx-id" hydraScriptsTxId ]
         [ "--hydra-signing-key" "/data/credentials/sebastian.hydra.sk" ]
