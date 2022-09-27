@@ -80,9 +80,9 @@ in
         [ "--peer" "13.38.49.252:5001" ] # sasha
         [ "--cardano-verification-key" "/data/credentials/sasha.cardano.vk" ]
         [ "--hydra-verification-key" "/data/credentials/sasha.hydra.vk" ]
-        # [ "--peer" "35.180.10.126:5001" ] # franco
-        # [ "--cardano-verification-key" "/data/credentials/franco.cardano.vk" ]
-        # [ "--hydra-verification-key" "/data/credentials/franco.hydra.vk" ]
+        [ "--peer" "15.236.144.134:5001" ] # franco
+        [ "--cardano-verification-key" "/data/credentials/franco.cardano.vk" ]
+        [ "--hydra-verification-key" "/data/credentials/franco.hydra.vk" ]
       ];
     };
 
