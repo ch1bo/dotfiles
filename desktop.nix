@@ -52,6 +52,7 @@
       pkgs.signal-desktop # connect with rl
       pkgs.slack # comms
       pkgs.skypeforlinux # old-school comms
+      pkgs.restream # live stream remarkable
     ];
   };
 }
