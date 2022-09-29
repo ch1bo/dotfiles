@@ -23,6 +23,13 @@
           "RemoteForward" = "/run/user/1000/gnupg/S.gpg-agent /run/user/1000/gnupg/S.gpg-agent.extra";
         };
       };
+      "remarkable" = {
+        user = "root";
+        extraOptions = {
+          "PubkeyAcceptedKeyTypes" = "+ssh-rsa";
+          "HostKeyAlgorithms" = "+ssh-rsa";
+        };
+      };
     };
   };
 }
