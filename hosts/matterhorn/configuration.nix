@@ -18,6 +18,8 @@
 
   # At least the nvidia drivers are proprietary
   nixpkgs.config.allowUnfree = true;
+  # XXX: zfs is marked as broken
+  nixpkgs.config.allowBroken = true;
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;

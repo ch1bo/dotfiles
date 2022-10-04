@@ -10,7 +10,12 @@
 
   boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "usb_storage" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
-  boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
+  # TODO: override should not be necessary anymore in unstable/22.11
+  boot.kernelPackages = pkgs.linuxPackages_5_19.extend (final: prev: {
+    zfs = prev.zfs.overrideAttrs ({ NIX_CFLAGS_COMPILE ? [], ... }: {
+      NIX_CFLAGS_COMPILE = NIX_CFLAGS_COMPILE ++ [ "-Wno-error=attribute-warning" ];
+    });
+  });
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
 
