@@ -46,6 +46,7 @@ in
   # using nix instead.
   environment.systemPackages = [
     cardano-node.cardano-cli
+    hydra.hydra-tui-static
     hydra.hydra-tools-static
   ];
 
