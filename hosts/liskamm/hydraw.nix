@@ -92,7 +92,7 @@ in
         [ "--peer" "13.38.49.252:5001" ] # sasha
         [ "--cardano-verification-key" "/credentials/sasha.cardano.vk" ]
         [ "--hydra-verification-key" "/credentials/sasha.hydra.vk" ]
-        [ "--peer" "52.47.155.199:5001" ] # franco
+        [ "--peer" "13.38.189.209:5001" ] # franco
         [ "--cardano-verification-key" "/credentials/franco.cardano.vk" ]
         [ "--hydra-verification-key" "/credentials/franco.hydra.vk" ]
       ];
