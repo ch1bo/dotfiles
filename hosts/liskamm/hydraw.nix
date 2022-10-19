@@ -10,6 +10,13 @@ let
       sha256 = "020fwimsm24yblr1fmnwx240wj8r3x715p89cpjgnnd8axwf32p0";
     })
     { };
+
+  hydraSrc = pkgs.fetchgit {
+    url = "https://github.com/input-output-hk/hydra-poc.git";
+    rev = "af88801e1395b0e0194fd63e20fbc79597a78269";
+    sha256 = "0mw5l4hbwrsw2fcjb95ibdijh88icgp30ldbi1hgpn5snd5kizzb";
+  };
+  hydra = import (hydraSrc.outPath + "/release.nix") { };
 in
 {
   # Add iohk substituters
@@ -37,7 +44,10 @@ in
 
   # The 1.35.3-new cardano-node image does not contain a cli, so let's add it
   # using nix instead.
-  environment.systemPackages = [ cardano-node.cardano-cli ];
+  environment.systemPackages = [
+    cardano-node.cardano-cli
+    hydra.hydra-tools-static
+  ];
 
   # Our hydra-node instance
   virtualisation.oci-containers.containers.hydra-node =
@@ -51,7 +61,8 @@ in
       image = "ghcr.io/input-output-hk/hydra-node:latest";
       volumes = [
         "/data/cardano-node:/cardano-node:ro"
-        "/data/hydra-node:/data:ro"
+        "/data/credentials:/credentials:ro"
+        "/data/hydra-node:/data"
       ];
       ports = [
         "4001:4001"
@@ -64,25 +75,25 @@ in
         [ "--port" "5003" ]
         [ "--monitoring-port" "6001" ]
         [ "--hydra-scripts-tx-id" hydraScriptsTxId ]
-        [ "--hydra-signing-key" "/data/credentials/sebastian.hydra.sk" ]
-        [ "--cardano-signing-key" "/data/credentials/sebastian.cardano.sk" ]
+        [ "--hydra-signing-key" "/credentials/sebastian.hydra.sk" ]
+        [ "--cardano-signing-key" "/credentials/sebastian.cardano.sk" ]
         [ "--ledger-genesis" "/cardano-node/config/preview/shelley-genesis.json" ]
         [ "--ledger-protocol-parameters" "/data/protocol-parameters.json" ]
         [ "--network-id" networkMagic ]
         [ "--node-socket" "/cardano-node/node.socket" ]
         # [ "--start-chain-from" "4268491.c628e6fb4e697500aa338c82d80c6b6c1e91710589f98eee2004ec2879ef3f98" ]
         # [ "--peer" "35.233.17.169:5001" ] # arnaud
-        # [ "--cardano-verification-key" "/data/credentials/arnaud.cardano.vk" ]
-        # [ "--hydra-verification-key" "/data/credentials/arnaud.hydra.vk" ]
+        # [ "--cardano-verification-key" "/credentials/arnaud.cardano.vk" ]
+        # [ "--hydra-verification-key" "/credentials/arnaud.hydra.vk" ]
         [ "--peer" "13.39.80.222:5001" ] # pascal
-        [ "--cardano-verification-key" "/data/credentials/pascal.cardano.vk" ]
-        [ "--hydra-verification-key" "/data/credentials/pascal.hydra.vk" ]
+        [ "--cardano-verification-key" "/credentials/pascal.cardano.vk" ]
+        [ "--hydra-verification-key" "/credentials/pascal.hydra.vk" ]
         [ "--peer" "13.38.49.252:5001" ] # sasha
-        [ "--cardano-verification-key" "/data/credentials/sasha.cardano.vk" ]
-        [ "--hydra-verification-key" "/data/credentials/sasha.hydra.vk" ]
+        [ "--cardano-verification-key" "/credentials/sasha.cardano.vk" ]
+        [ "--hydra-verification-key" "/credentials/sasha.hydra.vk" ]
         [ "--peer" "52.47.155.199:5001" ] # franco
-        [ "--cardano-verification-key" "/data/credentials/franco.cardano.vk" ]
-        [ "--hydra-verification-key" "/data/credentials/franco.hydra.vk" ]
+        [ "--cardano-verification-key" "/credentials/franco.cardano.vk" ]
+        [ "--hydra-verification-key" "/credentials/franco.hydra.vk" ]
       ];
     };
 
@@ -90,14 +101,14 @@ in
   virtualisation.oci-containers.containers.hydraw = {
     image = "ghcr.io/input-output-hk/hydraw:latest";
     volumes = [
-      "/data/hydra-node/credentials:/credentials:ro"
+      "/data/credentials:/credentials:ro"
     ];
     entrypoint = "hydraw";
     environment = {
-      HYDRAW_CARDANO_SIGNING_KEY="/credentials/sebastian.cardano.sk";
-      HYDRA_API_HOST="localhost:4001";
+      HYDRAW_CARDANO_SIGNING_KEY = "/credentials/sebastian.cardano.sk";
+      HYDRA_API_HOST = "localhost:4001";
     };
-    extraOptions = ["--network=host"];
+    extraOptions = [ "--network=host" ];
   };
 
   # Configure the reverse proxy to point at it
