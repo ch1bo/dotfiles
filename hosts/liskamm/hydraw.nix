@@ -56,7 +56,7 @@ in
     let
       hydraScriptsTxId = "bde2ca1f404200e78202ec37979174df9941e96fd35c05b3680d79465853a246";
       networkMagic = "2";
-      nodeId = "314";
+      nodeId = "sebastian's node";
     in
     {
       image = "ghcr.io/input-output-hk/hydra-node:latest";
