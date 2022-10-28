@@ -127,7 +127,7 @@
     dconf
     pavucontrol
     htop
-    discord
+    unstable.discord
     xournal
     libreoffice
     unstable.portfolio
