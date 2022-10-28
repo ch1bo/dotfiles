@@ -186,7 +186,7 @@ layouts =
 
 manageHooks =
     composeAll
-        [ scratchpadManageHook (StackSet.RationalRect 0.25 0.25 0.5 0.5)
+        [ scratchpadManageHook (StackSet.RationalRect 0.10 0.25 0.8 0.5)
         , className =? "Gimp" --> doFloat
         , (className <&> isPrefixOf ".blueman") --> doFloatTopRight
         , (className <&> flip elem ["Pavucontrol", "Paprefs"]) --> doFloatTopRight
