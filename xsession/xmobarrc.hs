@@ -6,7 +6,7 @@ Config { font =         "xft:FiraCode Nerd Font Mono:size=12:antialias=true"
        -- layout
        , sepChar =  "%"   -- delineator between plugin names and straight text
        , alignSep = "}{"  -- separator between left-right alignment
-       , template = "%StdinReader% }{ %multicpu% %multicoretemp% %memory% %dynnetwork% %battery% %bright% %kbd% %date% %trayerpad%"
+       , template = "%StdinReader% }{ %dynnetwork% %multicpu% %k10temp% %memory% %battery% %kbd% %date% %trayerpad%"
 
        -- general behavior
        , lowerOnStart =     True    -- send to bottom of window stack on start
@@ -35,14 +35,13 @@ Config { font =         "xft:FiraCode Nerd Font Mono:size=12:antialias=true"
                               , "--normal"   , "#5fb3b3"
                               , "--high"     , "#ec5f67"
                               ] 10
-         , Run MultiCoreTemp  [ "--template" , " <max>°C"
-                              , "--Low"      , "50"        -- units: °C
-                              , "--High"     , "80"        -- units: °C
+         , Run K10Temp        "0000:00:18.3"
+                              [ "--template" , " <Tctl>°C"
+                              , "--Low"      , "40"        -- units: °C
+                              , "--High"     , "70"        -- units: °C
                               , "--low"      , "#99c794"
                               , "--normal"   , "#5fb3b3"
                               , "--high"     , "#ec5f67"
-                              , "--"
-                              , "--hwmon-path", "/sys/class/hwmon/hwmon2/"
                               ] 50
          , Run Memory         [ "--template" ," <usedratio>%"
                               , "--Low"      , "30"        -- units: %
@@ -73,7 +72,6 @@ Config { font =         "xft:FiraCode Nerd Font Mono:size=12:antialias=true"
          , Run Kbd            [ ("us", "US")
                               , ("de", "DE")
                               ]
-         , Run Mail [("﯍", "~/mail/ncoding.at/INBOX")] "mail"
          , Run Com "trayerpad" [] "trayerpad" 10
          ]
        }
