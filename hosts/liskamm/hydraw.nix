@@ -33,10 +33,14 @@ in
     image = "inputoutput/cardano-node:1.35.4-rc1";
     volumes = [
       "/data/cardano-node:/data"
-      "/data/cardano-node:/ipc"
     ];
+    cmd = ["run"];
     environment = {
-      NETWORK = "preview";
+      CARDANO_CONFIG="/data/config/preview/cardano-node/config.json";
+      CARDANO_TOPOLOGY="/data/config/preview/cardano-node/topology.json";
+      CARDANO_DATABASE_PATH="/data/db";
+      CARDANO_SOCKET_PATH="/data/node.socket";
+      CARDANO_LOG_DIR="/data/logs";
     };
   };
 
