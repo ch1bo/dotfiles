@@ -6,8 +6,8 @@ let
   cardano-node = import
     (pkgs.fetchgit {
       url = "https://github.com/input-output-hk/cardano-node";
-      rev = "1.35.3";
-      sha256 = "020fwimsm24yblr1fmnwx240wj8r3x715p89cpjgnnd8axwf32p0";
+      rev = "1.35.4-rc1";
+      sha256 = "1f75j85fgj4y0n0fgnm4rkk728lz3azq02pnwa2nvn53andal8gx";
     })
     { };
 
@@ -29,21 +29,18 @@ in
     "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ= cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
   ];
 
-  # Using entrypoint from: https://github.com/input-output-hk/cardano-world/blob/master/nix/cardano/entrypoints.nix
   virtualisation.oci-containers.containers.cardano-node = {
-    image = "inputoutput/cardano-node:1.35.3-new";
+    image = "inputoutput/cardano-node:1.35.4-rc1";
     volumes = [
       "/data/cardano-node:/data"
+      "/data/cardano-node:/ipc"
     ];
     environment = {
-      DATA_DIR = "/data";
-      ENVIRONMENT = "preview";
-      SOCKET_PATH = "/data/node.socket";
+      NETWORK = "preview";
     };
   };
 
-  # The 1.35.3-new cardano-node image does not contain a cli, so let's add it
-  # using nix instead.
+  # Let's add the command line tools directly for more convenience
   environment.systemPackages = [
     cardano-node.cardano-cli
     hydra.hydra-tui-static
