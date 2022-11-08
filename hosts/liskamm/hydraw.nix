@@ -76,6 +76,7 @@ in
         [ "--host" "0.0.0.0" ]
         [ "--port" "5003" ]
         [ "--monitoring-port" "6001" ]
+        [ "--persistence-dir" "/data" ]
         [ "--hydra-scripts-tx-id" hydraScriptsTxId ]
         [ "--hydra-signing-key" "/credentials/sebastian.hydra.sk" ]
         [ "--cardano-signing-key" "/credentials/sebastian.cardano.sk" ]
