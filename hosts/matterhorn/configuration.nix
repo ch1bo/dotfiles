@@ -5,20 +5,16 @@
 { config, pkgs, lib, ... }:
 
 {
-  imports = [
-    ./hardware-configuration.nix
-  ];
+  imports = [ ./hardware-configuration.nix ];
 
   # Make nixos-unstable nixpkgs avaiable as 'pkgs.unstable'
   nixpkgs.config.packageOverrides = pkgs: {
-    unstable = import <nixos-unstable> {
-      config = config.nixpkgs.config;
-    };
+    unstable = import <nixos-unstable> { config = config.nixpkgs.config; };
   };
 
   # At least the nvidia drivers are proprietary
   nixpkgs.config.allowUnfree = true;
-  # XXX: zfs is marked as broken
+  # XXX: zfs kernel module still marked as broken
   nixpkgs.config.allowBroken = true;
 
   # Use the systemd-boot EFI boot loader.
@@ -44,7 +40,7 @@
   services.xserver.displayManager.session = [{
     name = "user-xsession";
     manage = "desktop";
-    start = ''exec $HOME/.xsession'';
+    start = "exec $HOME/.xsession";
   }];
 
   # Keyboard setup
@@ -60,6 +56,9 @@
   # Printing
   services.printing.enable = true;
   services.printing.drivers = [ pkgs.gutenprint ];
+
+  # Scanning
+  hardware.sane.enable = true;
 
   # Bluetooth support (bluez)
   hardware.bluetooth.enable = true;
@@ -124,6 +123,7 @@
     vim
     gnome.gnome-disk-utility
     gnome.nautilus
+    gnome.simple-scan
     dconf
     pavucontrol
     htop
@@ -144,11 +144,16 @@
     uid = 1000;
   };
 
-  nix = let users = [ "root" "ch1bo" ]; in
-    {
-      trustedUsers = users;
-      allowedUsers = users;
-    };
+  nix = let users = [ "root" "ch1bo" ];
+  in {
+    settings.trusted-users = users;
+    settings.allowed-users = users;
+    # Use upcoming 'nix flake' and updated other commands
+    package = pkgs.nixUnstable;
+    extraOptions = ''
+      experimental-features = nix-command flakes
+    '';
+  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
