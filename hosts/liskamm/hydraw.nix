@@ -60,7 +60,7 @@ in
       nodeId = "sebastian's node";
     in
     {
-      image = "ghcr.io/input-output-hk/hydra-node:0.8.0";
+      image = "ghcr.io/input-output-hk/hydra-node:unstable";
       volumes = [
         "/data/cardano-node:/cardano-node:ro"
         "/data/credentials:/credentials:ro"
