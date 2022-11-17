@@ -13,8 +13,8 @@ let
 
   hydraSrc = pkgs.fetchgit {
     url = "https://github.com/input-output-hk/hydra-poc.git";
-    rev = "af88801e1395b0e0194fd63e20fbc79597a78269";
-    sha256 = "0mw5l4hbwrsw2fcjb95ibdijh88icgp30ldbi1hgpn5snd5kizzb";
+    rev = "759a5c0d0330dbf6b4033d4daeb89dead8bb2bf4";
+    sha256 = "1fy7673a21ih2ljkrc40wfqh6ai261304cl59avalwxs784mn6am";
   };
   hydra = import (hydraSrc.outPath + "/release.nix") { };
 in
