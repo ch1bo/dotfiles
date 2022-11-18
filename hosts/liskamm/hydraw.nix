@@ -13,8 +13,8 @@ let
 
   hydraSrc = pkgs.fetchgit {
     url = "https://github.com/input-output-hk/hydra-poc.git";
-    rev = "759a5c0d0330dbf6b4033d4daeb89dead8bb2bf4";
-    sha256 = "1fy7673a21ih2ljkrc40wfqh6ai261304cl59avalwxs784mn6am";
+    rev = "0.8.1";
+    sha256 = "1w6vdj5bsr2hhwb9f7fsrc1ykcqplkav5l4q7prx6cpbvpw1mmz1";
   };
   hydra = import (hydraSrc.outPath + "/release.nix") { };
 in
@@ -60,7 +60,7 @@ in
       nodeId = "sebastian's node";
     in
     {
-      image = "ghcr.io/input-output-hk/hydra-node:unstable";
+      image = "ghcr.io/input-output-hk/hydra-node:0.8.1";
       volumes = [
         "/data/cardano-node:/cardano-node:ro"
         "/data/credentials:/credentials:ro"
@@ -88,9 +88,9 @@ in
         # [ "--peer" "35.233.17.169:5001" ] # arnaud
         # [ "--cardano-verification-key" "/credentials/arnaud.cardano.vk" ]
         # [ "--hydra-verification-key" "/credentials/arnaud.hydra.vk" ]
-        [ "--peer" "13.39.80.222:5001" ] # pascal
-        [ "--cardano-verification-key" "/credentials/pascal.cardano.vk" ]
-        [ "--hydra-verification-key" "/credentials/pascal.hydra.vk" ]
+        # [ "--peer" "13.39.80.222:5001" ] # pascal
+        # [ "--cardano-verification-key" "/credentials/pascal.cardano.vk" ]
+        # [ "--hydra-verification-key" "/credentials/pascal.hydra.vk" ]
         [ "--peer" "13.38.49.252:5001" ] # sasha
         [ "--cardano-verification-key" "/credentials/sasha.cardano.vk" ]
         [ "--hydra-verification-key" "/credentials/sasha.hydra.vk" ]
