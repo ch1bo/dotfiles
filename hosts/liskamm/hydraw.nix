@@ -85,15 +85,15 @@ in
         [ "--network-id" networkMagic ]
         [ "--node-socket" "/cardano-node/node.socket" ]
         # [ "--start-chain-from" "4268491.c628e6fb4e697500aa338c82d80c6b6c1e91710589f98eee2004ec2879ef3f98" ]
-        [ "--peer" "35.233.17.169:5001" ] # arnaud
-        [ "--cardano-verification-key" "/credentials/arnaud.cardano.vk" ]
-        [ "--hydra-verification-key" "/credentials/arnaud.hydra.vk" ]
+        # [ "--peer" "35.233.17.169:5001" ] # arnaud
+        # [ "--cardano-verification-key" "/credentials/arnaud.cardano.vk" ]
+        # [ "--hydra-verification-key" "/credentials/arnaud.hydra.vk" ]
         # [ "--peer" "13.39.80.222:5001" ] # pascal
         # [ "--cardano-verification-key" "/credentials/pascal.cardano.vk" ]
         # [ "--hydra-verification-key" "/credentials/pascal.hydra.vk" ]
-        [ "--peer" "13.38.49.252:5001" ] # sasha
-        [ "--cardano-verification-key" "/credentials/sasha.cardano.vk" ]
-        [ "--hydra-verification-key" "/credentials/sasha.hydra.vk" ]
+        # [ "--peer" "13.38.49.252:5001" ] # sasha
+        # [ "--cardano-verification-key" "/credentials/sasha.cardano.vk" ]
+        # [ "--hydra-verification-key" "/credentials/sasha.hydra.vk" ]
         [ "--peer" "13.38.189.209:5001" ] # franco
         [ "--cardano-verification-key" "/credentials/franco.cardano.vk" ]
         [ "--hydra-verification-key" "/credentials/franco.hydra.vk" ]
