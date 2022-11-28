@@ -270,6 +270,10 @@ visible, hide it. Otherwise, show it."
 (setq-hook! 'rustic-mode-hook +format-with-lsp nil)
 (add-hook! (rustic-mode) 'add-autoformat-hook)
 
+;; Nix
+(set-formatter! 'nixpkgs-fmt "nixpkgs-fmt"
+  :modes 'nix-mode)
+
 ;; Email
 
 (setq +mu4e-backend 'offlineimap
