@@ -13,7 +13,8 @@
   boot.kernelPackages = pkgs.linuxPackages_6_0;
   # XXX: Allow unstable zfs drivers (required for 6_0 right now)
   boot.zfs.enableUnstable = true;
-  boot.kernelModules = [ "kvm-amd" ];
+  boot.kernelModules = [ "kvm-amd" "amd_pstate" ];
+  boot.blacklistedKernelModules = [ "acpi_cpufreq" ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =

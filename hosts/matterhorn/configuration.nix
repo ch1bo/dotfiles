@@ -85,6 +85,10 @@
 
   # Power management
   services.tlp.enable = true;
+  services.tlp.settings = {
+    CPU_SCALING_GOVERNOR_ON_AC = "performance";
+    CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
+  };
 
   # Configuration currently in xsession/default.nix
   services.autorandr = {
