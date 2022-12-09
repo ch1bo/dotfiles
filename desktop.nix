@@ -29,6 +29,10 @@
       preset = "Rode";
     };
 
+    # Default applications for files
+    xdg.mimeApps.defaultApplications = {
+      "application/pdf" = "firefox.desktop";
+    };
 
     # the browser
     programs.firefox.enable = true;
