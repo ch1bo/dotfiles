@@ -21,9 +21,9 @@ import XMonad.Layout.MultiToggle (Toggle (..), Transformer (..), mkToggle, singl
 import XMonad.Layout.MultiToggle.Instances (StdTransformers (SMARTBORDERS))
 import XMonad.Layout.ResizableTile (MirrorResize (..), ResizableTall (..))
 import XMonad.Layout.Spacing (Border (..), Spacing (..), spacingRaw)
-import qualified XMonad.StackSet as StackSet
+import XMonad.StackSet (RationalRect (..), focusDown, greedyView, shift, sink, swapDown)
+import XMonad.Util.NamedScratchpad (NamedScratchpad (..), customFloating, defaultFloating, namedScratchpadAction, namedScratchpadManageHook)
 import XMonad.Util.Run (spawnPipe)
-import XMonad.Util.Scratchpad (scratchpadManageHook, scratchpadManageHookDefault, scratchpadSpawnAction)
 import XMonad.Util.Types (Direction2D (..))
 
 main = tray >> xmobar config >>= xmonad . ewmh
@@ -82,7 +82,7 @@ keyBindings conf@XConfig{XMonad.modMask = modMask} =
             , spawn "xmonad --recompile; xmonad --restart"
             )
         , -- Launch terminal
-          ((modMask, xK_Return), spawn $ XMonad.terminal conf)
+          ((modMask, xK_Return), spawn $ terminal conf)
         , -- Launch programs with rofi
           ((modMask, xK_p), spawn "rofi -show run")
         , -- Switch windows with rofi
@@ -96,8 +96,8 @@ keyBindings conf@XConfig{XMonad.modMask = modMask} =
         , -- Resize viewed windows to the correct size
           ((modMask, xK_n), refresh)
         , -- Focus next/previous window in the stack
-          ((modMask, xK_Tab), windows StackSet.focusDown)
-        , ((modMask .|. shiftMask, xK_Tab), windows StackSet.swapDown)
+          ((modMask, xK_Tab), windows focusDown)
+        , ((modMask .|. shiftMask, xK_Tab), windows swapDown)
         , -- Shrink/Expand the master area
           ((modMask, xK_minus), sendMessage Shrink)
         , ((modMask, xK_equal), sendMessage Expand)
@@ -105,7 +105,7 @@ keyBindings conf@XConfig{XMonad.modMask = modMask} =
           ((modMask, xK_comma), sendMessage (IncMasterN 1))
         , ((modMask, xK_period), sendMessage (IncMasterN (-1)))
         , -- Push window back into tiling
-          ((modMask, xK_t), withFocused $ windows . StackSet.sink)
+          ((modMask, xK_t), withFocused $ windows . sink)
         , -- Switch between layers (tiled, floating)
           ((modMask .|. controlMask, xK_Tab), switchLayer)
         , -- Directional navigation of windows
@@ -133,7 +133,8 @@ keyBindings conf@XConfig{XMonad.modMask = modMask} =
         , -- Toggle gaps and spacing on layout
           ((modMask, xK_x), sendMessage $ Toggle EXPLODE)
         , -- Show/hide scratchpad
-          ((modMask, xK_s), scratchpadSpawnAction config)
+          ((modMask, xK_s), namedScratchpadAction scratchpads "terminal")
+        , ((modMask, xK_e), spawn "urxvt -name scratchpad")
         , -- Launch browser
           ((modMask, xK_w), spawn "firefox")
         , -- Lock screen
@@ -149,7 +150,7 @@ keyBindings conf@XConfig{XMonad.modMask = modMask} =
             --
             [ ((m .|. modMask, k), windows $ f i)
             | (i, k) <- zip (XMonad.workspaces conf) [xK_1 .. xK_9]
-            , (f, m) <- [(StackSet.greedyView, 0), (StackSet.shift, shiftMask)]
+            , (f, m) <- [(greedyView, 0), (shift, shiftMask)]
             ]
 
 -- Layout transformer to apply gap and spacing to layouts via MultiToggle
@@ -186,21 +187,30 @@ layouts =
 
 manageHooks =
     composeAll
-        [ scratchpadManageHookDefault
-        , className =? "Gimp" --> doFloat
+        [ className =? "Gimp" --> doFloat
         , (className <&> isPrefixOf ".blueman") --> doFloatTopRight
         , (className <&> flip elem ["Pavucontrol", "Paprefs"]) --> doFloatTopRight
         , teamsNotification
         ]
+        <+> namedScratchpadManageHook scratchpads
   where
     teamsNotification =
         title
             =? "Microsoft Teams Notification"
             --> doFloat
-            <+> doF StackSet.focusDown
+            <+> doF focusDown
 
-    doFloatTopRight = doFloatDep $ \(StackSet.RationalRect _ _ w h) ->
-        StackSet.RationalRect (1 - w) xmobarRationalHeight w 0.5
+    doFloatTopRight = doFloatDep $ \(RationalRect _ _ w h) ->
+        RationalRect (1 - w) xmobarRationalHeight w 0.5
 
--- HACK
-xmobarRationalHeight = 0.02
+    -- HACK
+    xmobarRationalHeight = 0.02
+
+scratchpads =
+    [ NS
+        { name = "terminal"
+        , cmd = terminal config <> " -name scratchpad"
+        , query = resource =? "scratchpad"
+        , hook = customFloating (RationalRect 0.10 0.25 0.8 0.5)
+        }
+    ]
