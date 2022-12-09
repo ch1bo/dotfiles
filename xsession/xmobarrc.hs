@@ -1,7 +1,7 @@
 Config { font =         "FiraCode Nerd Font Mono 14"
        , bgColor =      "#21242b"
        , fgColor =      "#bbc2cf"
-       , position =     Top
+       , position =     TopH 24
 
        -- layout
        , sepChar =  "%"   -- delineator between plugin names and straight text
