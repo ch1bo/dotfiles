@@ -67,8 +67,7 @@ Config { font =         "FiraCode Nerd Font Mono 14"
                               , "--mediums", "" -- between -H and -L
                               , "--lows", "" -- lower than -L
                               ] 50
-         --   (%F = y-m-d date, %a = day of week, %T = h:m:s time)
-         , Run Date           "%a %F %T" "date" 10
+         , Run Date           "%a %Y-%m-%d %H:%M" "date" 10
          , Run Kbd            [ ("us", "US")
                               , ("de", "DE")
                               ]
