@@ -2,6 +2,7 @@
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE TypeSynonymInstances #-}
 
+import Data.Char (toLower)
 import Data.Function ((&))
 import Data.Functor ((<&>))
 import Data.List (isPrefixOf)
@@ -10,7 +11,8 @@ import System.Exit (exitSuccess)
 import System.IO (Handle)
 import XMonad hiding (config)
 import XMonad.Actions.Navigation2D (screenGo, switchLayer, windowGo, windowSwap, withNavigation2DConfig)
-import XMonad.Hooks.DynamicLog (PP (..), filterOutWsPP, shorten, statusBar, wrap, xmobarColor)
+import XMonad.Hooks.DynamicIcons (appIcon, iconsPP)
+import XMonad.Hooks.DynamicLog (PP (..), filterOutWsPP, shorten, xmobarColor)
 import XMonad.Hooks.EwmhDesktops (ewmh)
 import XMonad.Hooks.ManageHelpers (doFloatDep)
 import XMonad.Hooks.StatusBar (StatusBarConfig, defToggleStrutsKey, statusBarProp, withEasySB)
@@ -47,15 +49,30 @@ config =
         & withEasySB xmobar defToggleStrutsKey -- mod + b
 
 xmobar :: StatusBarConfig
-xmobar = statusBarProp "xmobar" (pure prettyStatus)
+xmobar = statusBarProp "xmobar" (iconsPP statusIcons prettyStatus)
   where
     prettyStatus =
         def
-            { ppCurrent = xmobarColor "#51afef" "" . wrap "[" "]"
-            , ppTitle = xmobarColor "#51afef" "" . shorten 40
-            , ppVisible = wrap "(" ")"
+            { ppCurrent = xmobarColor "#51afef" ""
+            , ppTitle = xmobarColor "#51afef" "" . shorten 80
+            , ppVisible = xmobarColor "#ec5f67" ""
+            , ppHiddenNoWindows = const "."
             }
             & filterOutWsPP [scratchpadWorkspaceTag]
+
+    statusIcons =
+        composeAll
+            [ className =?- "urxvt" --> appIcon "\xe7a2"
+            , className =?- "emacs" --> appIcon "\xe632"
+            , className =?- "firefox" --> appIcon "\xf738"
+            , className =?- "discord" --> appIcon "\xfb6e"
+            , className =?- "slack" --> appIcon "\xf9b0"
+            , className =?- "spotify" --> appIcon "阮"
+            ]
+
+-- | Similar to `=?`, but case insensitive.
+(=?-) :: Query String -> String -> Query Bool
+(=?-) q str = q <&> \r -> (toLower <$> r) == (toLower <$> str)
 
 -- TODO(SN): process stays alive when recompiling/restarting xmonad
 tray :: IO Handle
