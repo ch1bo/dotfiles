@@ -23,7 +23,7 @@ import XMonad.Layout.ResizableTile (MirrorResize (..), ResizableTall (..))
 import XMonad.Layout.Spacing (Border (..), Spacing (..), spacingRaw)
 import qualified XMonad.StackSet as StackSet
 import XMonad.Util.Run (spawnPipe)
-import XMonad.Util.Scratchpad (scratchpadManageHook, scratchpadSpawnAction)
+import XMonad.Util.Scratchpad (scratchpadManageHook, scratchpadManageHookDefault, scratchpadSpawnAction)
 import XMonad.Util.Types (Direction2D (..))
 
 main = tray >> xmobar config >>= xmonad . ewmh
@@ -186,7 +186,7 @@ layouts =
 
 manageHooks =
     composeAll
-        [ scratchpadManageHook (StackSet.RationalRect 0.10 0.25 0.8 0.5)
+        [ scratchpadManageHookDefault
         , className =? "Gimp" --> doFloat
         , (className <&> isPrefixOf ".blueman") --> doFloatTopRight
         , (className <&> flip elem ["Pavucontrol", "Paprefs"]) --> doFloatTopRight
