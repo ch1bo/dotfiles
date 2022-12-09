@@ -2,6 +2,7 @@
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE TypeSynonymInstances #-}
 
+import Data.Function ((&))
 import Data.Functor ((<&>))
 import Data.List (isPrefixOf)
 import qualified Data.Map as Map
@@ -9,7 +10,7 @@ import Data.Ratio ((%))
 import System.Exit (ExitCode (..), exitSuccess, exitWith)
 import XMonad hiding (config)
 import XMonad.Actions.Navigation2D (screenGo, switchLayer, windowGo, windowSwap, withNavigation2DConfig)
-import XMonad.Hooks.DynamicLog (PP (..), shorten, statusBar, wrap, xmobarColor)
+import XMonad.Hooks.DynamicLog (PP (..), filterOutWsPP, shorten, statusBar, wrap, xmobarColor)
 import XMonad.Hooks.EwmhDesktops (ewmh)
 import XMonad.Hooks.ManageDocks (manageDocks)
 import XMonad.Hooks.ManageHelpers (Side (..), doFloatDep, doSideFloat)
@@ -22,7 +23,7 @@ import XMonad.Layout.MultiToggle.Instances (StdTransformers (SMARTBORDERS))
 import XMonad.Layout.ResizableTile (MirrorResize (..), ResizableTall (..))
 import XMonad.Layout.Spacing (Border (..), Spacing (..), spacingRaw)
 import XMonad.StackSet (RationalRect (..), focusDown, greedyView, shift, sink, swapDown)
-import XMonad.Util.NamedScratchpad (NamedScratchpad (..), customFloating, defaultFloating, namedScratchpadAction, namedScratchpadManageHook)
+import XMonad.Util.NamedScratchpad (NamedScratchpad (..), customFloating, defaultFloating, namedScratchpadAction, namedScratchpadManageHook, scratchpadWorkspaceTag)
 import XMonad.Util.Run (spawnPipe)
 import XMonad.Util.Types (Direction2D (..))
 
@@ -52,6 +53,7 @@ xmobar = statusBar "xmobar" pp toggleStrutsKey
             , ppTitle = xmobarColor "#51afef" "" . shorten 40
             , ppVisible = wrap "(" ")"
             }
+            & filterOutWsPP [scratchpadWorkspaceTag]
     -- Toggle display of top bar
     toggleStrutsKey XConfig{XMonad.modMask = modMask} = (modMask, xK_b)
 
@@ -134,7 +136,6 @@ keyBindings conf@XConfig{XMonad.modMask = modMask} =
           ((modMask, xK_x), sendMessage $ Toggle EXPLODE)
         , -- Show/hide scratchpad
           ((modMask, xK_s), namedScratchpadAction scratchpads "terminal")
-        , ((modMask, xK_e), spawn "urxvt -name scratchpad")
         , -- Launch browser
           ((modMask, xK_w), spawn "firefox")
         , -- Lock screen
