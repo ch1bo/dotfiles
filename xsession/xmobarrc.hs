@@ -1,4 +1,4 @@
-Config { font =         "xft:FiraCode Nerd Font Mono"
+Config { font =         "FiraCode Nerd Font Mono 14"
        , bgColor =      "#21242b"
        , fgColor =      "#bbc2cf"
        , position =     Top
