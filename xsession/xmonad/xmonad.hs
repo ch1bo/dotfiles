@@ -1,5 +1,7 @@
 {-# LANGUAGE DeriveDataTypeable #-}
+{-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE TypeSynonymInstances #-}
 
 import Data.Char (toLower)
@@ -57,8 +59,16 @@ xmobar = statusBarProp "xmobar" (iconsPP statusIcons prettyStatus)
             , ppTitle = xmobarColor "#51afef" "" . shorten 80
             , ppVisible = xmobarColor "#ec5f67" ""
             , ppHiddenNoWindows = const "."
+            , ppSep = " "
+            , ppLayout
             }
             & filterOutWsPP [scratchpadWorkspaceTag]
+
+    ppLayout = \case
+        "Full" -> "□"
+        "Maximize ResizableTall" -> "▤"
+        "Mirror Maximize ResizableTall" -> "▥"
+        l -> l
 
     statusIcons =
         composeAll
