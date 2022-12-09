@@ -8,13 +8,11 @@
     [ (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
-  boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "usb_storage" "sd_mod" ];
+  boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "usbhid" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelPackages = pkgs.linuxPackages_6_0;
-  # XXX: Allow unstable zfs drivers (required for 6_0 right now)
-  boot.zfs.enableUnstable = true;
   boot.kernelModules = [ "kvm-amd" "amd_pstate" ];
-  boot.blacklistedKernelModules = [ "acpi_cpufreq" ];
+  # boot.blacklistedKernelModules = [ "acpi_cpufreq" ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =

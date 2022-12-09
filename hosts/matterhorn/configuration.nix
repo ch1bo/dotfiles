@@ -25,6 +25,7 @@
   networking.hostName = "matterhorn";
   networking.hostId = "1ff2d645";
   networking.networkmanager.enable = true;
+  networking.enableIPv6 = false;
 
   # Time zone and internationalisation
   time.timeZone = "Europe/Berlin";
@@ -87,7 +88,7 @@
   services.tlp.enable = true;
   services.tlp.settings = {
     CPU_SCALING_GOVERNOR_ON_AC = "performance";
-    CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
+    CPU_SCALING_GOVERNOR_ON_BAT = "schedutil";
   };
 
   # Configuration currently in xsession/default.nix
