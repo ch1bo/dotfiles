@@ -6,7 +6,7 @@ Config { font =         "FiraCode Nerd Font Mono 14"
        -- layout
        , sepChar =  "%"   -- delineator between plugin names and straight text
        , alignSep = "}{"  -- separator between left-right alignment
-       , template = "%StdinReader% }{ %dynnetwork% %multicpu% %k10temp% %memory% %battery% %kbd% %date% %trayerpad%"
+       , template = "%XMonadLog% }{ %dynnetwork% %multicpu% %k10temp% %memory% %battery% %kbd% %date% %trayerpad%"
 
        -- general behavior
        , lowerOnStart =     True    -- send to bottom of window stack on start
@@ -18,7 +18,7 @@ Config { font =         "FiraCode Nerd Font Mono 14"
 
        -- plugins see http://projects.haskell.org/xmobar/#system-monitor-plugins.
        , commands =
-         [ Run StdinReader
+         [ Run XMonadLog
          -- TODO broken? always "Updating..."
          -- , Run Wireless "@wifi@" [ "--template", "<essid>" ] 10
          , Run DynNetwork     [ "--template" , " <tx>kB/s  <rx>kB/s"
