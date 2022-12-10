@@ -1,49 +1,22 @@
-# Module which installs and configures my various emacs distributions in use.
+# Module which installs and configures doom emacs.
 #
-# As I am in the process of switching between spacemacs to doom-emacs, I use the
-# chemacs profile switcher + utilty scripts to launch these two profiles.
-#
-# Furthermore, we deliberately set up emacs up to look for config and emacs
-# distribution upstreams within the dotfiles working copy to allow for faster
-# tweaking (for now at least).
-#
-{ config, pkgs, ... }:
+# This setup deliberately keeps the config and emacs distribution upstreams
+# within the dotfiles working copy to allow for faster tweaking.
+{ config, pkgs, lib, ... }:
 let
   emacsDir = "${config.dotfiles}/emacs";
-  # The 'doom' utility
-  doom = pkgs.writeScriptBin "doom" ''
-    EMACSDIR=${emacsDir}/doom.emacs.d \
-    DOOMDIR=${emacsDir}/doom.d \
-    ${emacsDir}/doom.emacs.d/bin/doom "$@"
-  '';
-  # Chemacs shortcuts
-  doom-emacs = pkgs.writeScriptBin "doom-emacs" ''
-    exec emacs --with-profile doom
-  '';
-  spacemacs = pkgs.writeScriptBin "spacemacs" ''
-    emacsclient - -alternate-editor="emacs --with-profile spacemacs" -s spacemacs -c "$@"
-  '';
 in
 {
-  # Chemacs profile switcher with user-configuration directly in working copy
-  home.file.".emacs".source = ./chemacs;
-  home.file.".emacs-profiles.el".text = ''
-    (("default" . ((user-emacs-directory . "${emacsDir}/doom.emacs.d")
-                   (env . (("DOOMDIR" . "${emacsDir}/doom.d")))))
-     ("doom" . ((user-emacs-directory . "${emacsDir}/doom.emacs.d")
-                (env . (("DOOMDIR" . "${emacsDir}/doom.d")))))
-     ("spacemacs" . ((user-emacs-directory . "${emacsDir}/spacemacs.emacs.d")
-                     (server-name . "spacemacs")
-                     (env . (("SPACEMACSDIR" . "${emacsDir}/spacemacs.d"))))))
-  '';
+  # doom binary
+  home.sessionPath = [ "${emacsDir}/bin" ];
+  # symlink config & doom emacs.d
+  home.activation.doomEmacs = lib.hm.dag.entryAfter ["writeBoundary"] ''
+      $DRY_RUN_CMD ln -sfT $VERBOSE_ARG ${emacsDir}/doom.emacs.d/ $HOME/.emacs.d
+      $DRY_RUN_CMD ln -sfT $VERBOSE_ARG ${emacsDir}/doom.d/ $HOME/.doom.d
+    '';
 
   home.packages = [
     pkgs.emacsNativeComp # The editor (native branch from overlay)
-
-    # Utilities
-    doom
-    doom-emacs
-    spacemacs
 
     # doom-emacs dependencies
     pkgs.fd
