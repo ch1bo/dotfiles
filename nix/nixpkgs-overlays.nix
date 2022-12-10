@@ -1,3 +1,4 @@
+# TODO: use a flake input and make it easier to bump this (plus use their binary cache)
 let
   emacsOverlay = import (builtins.fetchGit {
     url = "https://github.com/nix-community/emacs-overlay.git";
