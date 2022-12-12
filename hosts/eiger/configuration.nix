@@ -115,6 +115,9 @@
     pavucontrol
     ntfsprogs
     system-config-printer
+    # system monitoring
+    lm_sensors
+    htop
   ];
 
   ## Services
