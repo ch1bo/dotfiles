@@ -8,9 +8,9 @@
 
   boot.initrd.availableKernelModules = [ "nvme" "ahci" "xhci_pci" "usb_storage" "usbhid" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
+  boot.kernelPackages = pkgs.linuxPackages_6_0;
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
-
   boot.kernelParams = [ "zfs.zfs_arc_max=12884901888" ]; # 12GB max ARC cache
 
   fileSystems."/" = {
