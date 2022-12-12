@@ -29,13 +29,13 @@ usually works quite well, but applications with strong ties into the system are
 not as straight-forward to set up. The following list contains programs I
 usually require to be on the "system-level":
 
-* `slock` - requires root via setuid, maybe a wrapper similar to NixOS helps?
-* `nautilus` - uses
+- `slock` - requires root via setuid, maybe a wrapper similar to NixOS helps?
+- `nautilus` - uses
   [gvfs](https://wiki.archlinux.org/index.php/File_manager_functionality#Mounting)
   for mounting file systems, which seems not to work (out of the box) when using
   from `nixpkgs`
-* `dconf` - to configure GTK etc.
-* `pcscd` / `opensc` - for smartcard support.
+- `dconf` - to configure GTK etc.
+- `pcscd` / `opensc` - for smartcard support.
 
 NOTE: For NixOS this are essentially the required parts of a host's
 `configuration.nix`.
@@ -66,17 +66,18 @@ After installing these dependencies, it's just:
 
 ## TODO / Next steps
 
-- [ ] Modularize home-manager config into proper topics and assemble host modules
-  + [ ] Re-integrate home config with system configuaration.nix
-  + [ ] Modularize system configuration properly between systems
+- [ ] Flake-based nixos configurations (no symlinking)
 - [ ] Make independent of "<nixpkgs>" (using nix flakes)
+- [ ] Declarative syncthing setup
+- [ ] Modularize home-manager config into proper topics and assemble host modules
+  - [ ] Re-integrate home config with system configuaration.nix
+  - [ ] Modularize system configuration properly between systems
 - [ ] Drop dual use support (only nixos)
+  - [ ] Get rid of the dependencies (above)
 - [ ] Add tooling to "swap" dotfiles like https://github.com/hlissner/dotfiles/blob/master/bin/hey
-- [ ] Improve / new xmonad layouts
 - [ ] Theme rofi
 - [ ] New terminal emulator
 - [ ] Clean up with XDG and have proper mime associations
-- [ ] Get rid of the dependencies (above)
 - [ ] Reduce "first steps at home" (above)
 - [ ] Set firefox settings / search engines declaratively
 
