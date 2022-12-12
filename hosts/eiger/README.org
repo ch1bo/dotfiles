@@ -2,14 +2,14 @@
 
 My new workstation, now also water cooled :snowflake:
 
-| Case | Fractal Meshify 2                    |
-| CPU  | Ryzen 5900x, 12 cores, 64MB L3       |
-| RAM  | G.Skill Trident Z 3600, 64GB         |
-| MB   | ASUS ROG Strix B550-E                |
-| GPU  | Nvidia GTX 970 4GB                   |
-| SSD  | Samsung 980 Pro 1TB                  |
-| SSD  | Samsung 970 EVO 1TB                  |
-| SSD  | Micron 500GB                         |
+| Case | Fractal Meshify 2                  |
+| CPU  | Ryzen 7950x, 16 cores, 80MB L3     |
+| RAM  | G.Skill Trident Z5 6000 CL32, 64GB |
+| MB   | ASUS ROG Strix B650-E              |
+| GPU  | Nvidia GTX 970 4GB                 |
+| SSD  | Samsung 980 Pro 1TB                |
+| SSD  | Samsung 970 EVO 1TB                |
+| SSD  | Micron 500GB                       |
 
 * Partitioning
 I use a single 1TB SSD for NixOS itself right now:
@@ -23,24 +23,30 @@ A standard FAT32 EFI boot partition and a root partition, where the latter is ho
 
 #+begin_src
 mkfs.vfat -F32 -n boot /dev/disk/by-id/nvme-Samsung_SSD_980_PRO_1TB_S5GXNF0R440049W-part1
-zpool create -o ashift=12 -O acltype=posixacl -O xattr=sa rpool /dev/disk/by-id/nvme-Samsung_SSD_980_PRO_1TB_S5GXNF0R440049W-part2
+zpool create -o ashift=12 -O acltype=posixacl -O xattr=sa -O mountpoint=none root /dev/disk/by-id/nvme-Samsung_SSD_980_PRO_1TB_S5GXNF0R440049W-part2
 #+end_src
 
-Currently the ZFS pool is setup with these data sets:
+The ZFS pool is setup with these data sets:
 
 #+begin_src
-zfs create -o mountpoint=none rpool/local
-zfs create -o mountpoint=legacy rpool/local/nix
-zfs create -o mountpoint=none rpool/safe
-zfs create -o mountpoint=legacy rpool/safe/root
-zfs create -o mountpoint=legacy rpool/safe/home
-zfs create -o refreservation=512M -o mountpoint=none rpool/reserved
+zfs create -o mountpoint=none root/local
+zfs create -o mountpoint=legacy root/local/nix
+zfs create -o mountpoint=none root/safe
+zfs create -o mountpoint=legacy root/safe/root
+zfs create -o mountpoint=legacy root/safe/home
+zfs create -o refreservation=512M -o mountpoint=none root/reserved
 #+end_src
 
-Where the =rpool/reserved= can be shrinked when space runs out (required for deletion on a COW file system) with
+Where the =root/reserved= can be shrinked when space runs out (required for deletion on a COW file system) with
 
 #+begin_src
-zfs set refreservation=none rpool/reserved
+zfs set refreservation=none root/reserved
+#+end_src
+
+There is some swap space on the other SSD:
+
+#+begin_src
+swapon /dev/disk/by-id/nvme-Samsung_SSD_970_EVO_1TB_S5H9NS1NB18061Z-part7
 #+end_src
 
 ** Additional ZFS pool of HDs for backups and less often used storage
@@ -80,14 +86,14 @@ Copy boot files (whole file system):
 dd if=/dev/nvme1n1p1 of=/dev/nvme0n1p1 bs=1M status=progress
 #+end_src
 
-Add to rpool and re-silver (mirror):
+Add to root and re-silver (mirror):
 #+begin_src
-zpool attach rpool /dev/disk/by-id/dm-uuid-CRYPT-LUKS2-8c373901e8214b2fb21a6003d304b2c4-root /dev/disk/by-id/nvme-Samsung_SSD_980_PRO_1TB_S5GXNF0R440049W-part2
+zpool attach root /dev/disk/by-id/dm-uuid-CRYPT-LUKS2-8c373901e8214b2fb21a6003d304b2c4-root /dev/disk/by-id/nvme-Samsung_SSD_980_PRO_1TB_S5GXNF0R440049W-part2
 #+end_src
 
 #+begin_src
 λ zpool status
-  pool: rpool
+  pool: root
  state: ONLINE
 status: One or more devices is currently being resilvered.  The pool will
 	continue to function, possibly in a degraded state.
@@ -98,7 +104,7 @@ action: Wait for the resilver to complete.
 config:
 
 	NAME                                                           STATE     READ WRITE CKSUM
-	rpool                                                          ONLINE       0     0     0
+	root                                                          ONLINE       0     0     0
 	  mirror-0                                                     ONLINE       0     0     0
 	    dm-uuid-CRYPT-LUKS2-8c373901e8214b2fb21a6003d304b2c4-root  ONLINE       0     0     0
 	    nvme-Samsung_SSD_980_PRO_1TB_S5GXNF0R440049W-part2         ONLINE       0     0     0  (resilvering)

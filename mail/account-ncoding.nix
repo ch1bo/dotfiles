@@ -4,7 +4,7 @@
   accounts.email.accounts.ncoding = {
     primary = true;
     address = "sebastian.nagel@ncoding.at";
-    aliases = ".*@ncoding.at";
+    aliases = [ ".*@ncoding.at" ];
     realName = "Sebastian Nagel";
     userName = "sebastian.nagel@ncoding.at";
     passwordCommand = "secret-tool lookup user sebastian.nagel@ncoding.at host mail.ncoding.at";

@@ -128,6 +128,9 @@
     '';
   };
 
+  # Required for automount (udiskie)
+  services.udisks2.enable = true;
+
   # Smartcard support
   services.pcscd.enable = true;
 
@@ -158,8 +161,8 @@
 
   nix = let users = [ "root" "ch1bo" ]; in
     {
-      trustedUsers = users;
-      allowedUsers = users;
+      settings.trusted-users = users;
+      settings.allowed-users = users;
       # Use upcoming 'nix flake' and updated other commands
       package = pkgs.nixUnstable;
       extraOptions = ''
