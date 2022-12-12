@@ -19,6 +19,7 @@ in
   xdg.configFile."nixpkgs/config.nix".source = ./nixpkgs-config.nix;
   nixpkgs.overlays = import ./nixpkgs-overlays.nix ++ [
     (self: super: {
+      inherit unstable;
       direnv = unstable.direnv;
       nix-direnv = unstable.nix-direnv;
     })

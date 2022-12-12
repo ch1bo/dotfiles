@@ -16,7 +16,7 @@ in
     '';
 
   home.packages = [
-    pkgs.emacsNativeComp # The editor (native branch from overlay)
+    pkgs.emacsUnstable # The editor (native branch from overlay)
 
     # doom-emacs dependencies
     pkgs.fd

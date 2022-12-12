@@ -43,20 +43,21 @@
       user_pref("capability.policy.localfilelinks.checkloaduri.enabled", "allAccess");
     '';
 
-    home.packages = [
-      pkgs.docker-compose # docker projects
-      pkgs.docker-credential-helpers # store docker login credentials in D-Bus secrets
-      pkgs.brave # another browser
-      pkgs.gnome.eog # image viewer
-      pkgs.gnome.evince # pdf viewer
-      # pkgs.gnome.nautilus -> see README.md#Dependencies
-      pkgs.pandoc # convert everything
-      pkgs.keepassxc # secret stuff
-      pkgs.spotify # unlimited music
-      pkgs.signal-desktop # connect with rl
-      pkgs.slack # comms
-      pkgs.skypeforlinux # old-school comms
-      pkgs.restream # live stream remarkable
+    home.packages = with pkgs; [
+      docker-compose # docker projects
+      docker-credential-helpers # store docker login credentials in D-Bus secrets
+      brave # another browser
+      gnome.eog # image viewer
+      gnome.evince # pdf viewer
+      # gnome.nautilus -> see README.md#Dependencies
+      pandoc # convert everything
+      keepassxc # secret stuff
+      spotify # unlimited music
+      signal-desktop # connect with rl
+      slack # comms
+      unstable.discord # modern comms (unstable for most likely up-to-date)
+      skypeforlinux # old-school comms
+      restream # live stream remarkable
     ];
   };
 }
