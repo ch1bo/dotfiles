@@ -24,12 +24,13 @@
   time.timeZone = "Europe/Berlin";
   time.hardwareClockInLocalTime = true;
 
-  # The global useDHCP flag is deprecated, therefore explicitly set to false here.
-  # Per-interface useDHCP will be mandatory in the future, so this generated config
-  # replicates the default behaviour.
+  # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
+  # (the default) this is the recommended approach. When using systemd-networkd it's
+  # still possible to use this option, but it's recommended to use it in conjunction
+  # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
   networking.useDHCP = false;
-  # Wake on lan on wired connection
-  networking.interfaces.enp7s0.wakeOnLan.enable = true;
+  networking.interfaces.eno1.useDHCP = true;
+  networking.interfaces.eno1.wakeOnLan.enable = true;
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
