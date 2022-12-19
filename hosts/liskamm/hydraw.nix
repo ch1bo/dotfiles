@@ -60,7 +60,7 @@ in
       nodeId = "sebastian's node";
     in
     {
-      image = "ghcr.io/input-output-hk/hydra-node:0.8.1";
+      image = "ghcr.io/input-output-hk/hydra-node:unstable";
       volumes = [
         "/data/cardano-node:/cardano-node:ro"
         "/data/credentials:/credentials:ro"
@@ -88,10 +88,10 @@ in
         [ "--peer" "35.233.17.169:5001" ] # arnaud
         [ "--cardano-verification-key" "/credentials/arnaud.cardano.vk" ]
         [ "--hydra-verification-key" "/credentials/arnaud.hydra.vk" ]
-        # [ "--peer" "13.39.107.55:5001" ] # pascal
-        # [ "--cardano-verification-key" "/credentials/pascal.cardano.vk" ]
-        # [ "--hydra-verification-key" "/credentials/pascal.hydra.vk" ]
-        [ "--peer" "13.38.49.252:5001" ] # sasha
+        #[ "--peer" "13.37.15.211:5001" ] # pascal
+        #[ "--cardano-verification-key" "/credentials/pascal.cardano.vk" ]
+        #[ "--hydra-verification-key" "/credentials/pascal.hydra.vk" ]
+        [ "--peer" "13.37.150.125:5001" ] # sasha
         [ "--cardano-verification-key" "/credentials/sasha.cardano.vk" ]
         [ "--hydra-verification-key" "/credentials/sasha.hydra.vk" ]
         [ "--peer" "13.38.189.209:5001" ] # franco
