@@ -119,6 +119,8 @@
     # system monitoring
     lm_sensors
     htop
+    # desktop
+    inkscape
   ];
 
   ## Services
