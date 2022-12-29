@@ -7,6 +7,7 @@
 {
   imports = [
     ./hardware-configuration.nix
+    ./nextcloud.nix
     ./hydraw.nix
   ];
 
