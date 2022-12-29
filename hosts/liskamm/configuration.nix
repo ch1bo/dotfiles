@@ -7,7 +7,6 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ./photoprism.nix
     ./hydraw.nix
   ];
 
@@ -62,6 +61,7 @@
       # REVIEW: Maybe move ncoding.at sources into this repository
       ncoding-source = builtins.fetchTarball {
         url = https://github.com/ch1bo/ncoding.at/archive/609ac5316b233bb92ac7dfa601c8db83629f63f1.tar.gz;
+        sha256 = "0sfb9llgx572fndbx4h2s8gykhkcg8ap1yixhakd8js7mrykmr6i";
       };
     in
     {
