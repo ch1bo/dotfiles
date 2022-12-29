@@ -11,12 +11,18 @@ let
     })
     { };
 
-  hydraSrc = pkgs.fetchgit {
-    url = "https://github.com/input-output-hk/hydra-poc.git";
-    rev = "0.8.1";
-    sha256 = "1w6vdj5bsr2hhwb9f7fsrc1ykcqplkav5l4q7prx6cpbvpw1mmz1";
+  flake-compat = fetchTarball {
+    url = "https://github.com/edolstra/flake-compat/archive/009399224d5e398d03b22badca40a37ac85412a1.tar.gz";
+    sha256 = "0xcr9fibnapa12ywzcnlf54wrmbqqb96fmmv8043zhsycws7bpqy";
   };
-  hydra = import (hydraSrc.outPath + "/release.nix") { };
+
+  hydraSrc = pkgs.fetchgit {
+    url = "https://github.com/input-output-hk/hydra.git";
+    rev = "fafb8e5eca0f5fc615f5957ac1243e09c19f9a9f";
+    sha256 = "1vxlhsl6shmjdbx6gf5ify9r1p3sfwfb21a5ms369jh1bkkzy29j";
+  };
+
+  hydra = (import flake-compat { src = hydraSrc.outPath; }).defaultNix;
 in
 {
   # Add iohk substituters
@@ -34,21 +40,21 @@ in
     volumes = [
       "/data/cardano-node:/data"
     ];
-    cmd = ["run"];
+    cmd = [ "run" ];
     environment = {
-      CARDANO_CONFIG="/data/config/preview/cardano-node/config.json";
-      CARDANO_TOPOLOGY="/data/config/preview/cardano-node/topology.json";
-      CARDANO_DATABASE_PATH="/data/db";
-      CARDANO_SOCKET_PATH="/data/node.socket";
-      CARDANO_LOG_DIR="/data/logs";
+      CARDANO_CONFIG = "/data/config/preview/cardano-node/config.json";
+      CARDANO_TOPOLOGY = "/data/config/preview/cardano-node/topology.json";
+      CARDANO_DATABASE_PATH = "/data/db";
+      CARDANO_SOCKET_PATH = "/data/node.socket";
+      CARDANO_LOG_DIR = "/data/logs";
     };
   };
 
   # Let's add the command line tools directly for more convenience
   environment.systemPackages = [
     cardano-node.cardano-cli
-    hydra.hydra-tui-static
-    hydra.hydra-tools-static
+    hydra.packages.${pkgs.system}.hydra-tui-static
+    hydra.packages.${pkgs.system}.hydra-tools-static
   ];
 
   # Our hydra-node instance
