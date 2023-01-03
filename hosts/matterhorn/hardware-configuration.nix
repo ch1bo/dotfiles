@@ -14,6 +14,8 @@
   boot.kernelModules = [ "kvm-amd" "amd_pstate" ];
   # boot.blacklistedKernelModules = [ "acpi_cpufreq" ];
   boot.extraModulePackages = [ ];
+  boot.kernelParams = [ "zfs.zfs_arc_max=4294967296" ]; # 4GB max ARC cache
+  boot.zfs.allowHibernation = true; # safe because swap is not on zfs
 
   fileSystems."/" =
     { device = "root/safe/root";

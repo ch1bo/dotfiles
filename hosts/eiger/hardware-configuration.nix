@@ -12,6 +12,7 @@
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
   boot.kernelParams = [ "zfs.zfs_arc_max=12884901888" ]; # 12GB max ARC cache
+  boot.zfs.allowHibernation = true; # safe because swap is not on zfs
 
   fileSystems."/" = {
     device = "root/safe/root";
