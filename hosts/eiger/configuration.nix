@@ -121,6 +121,8 @@
     htop
     # desktop
     inkscape
+    usbutils
+    android-tools
   ];
 
   ## Services
