@@ -105,6 +105,9 @@
   # Screensaver / -locker (usses setuid wrapper)
   programs.slock.enable = true;
 
+  # Android tools
+  programs.adb.enable = true;
+
   # Other things
   environment.systemPackages = with pkgs; [
     git
@@ -122,10 +125,14 @@
     # desktop
     inkscape
     usbutils
-    android-tools
   ];
 
   ## Services
+
+  # Android tools
+  services.udev.packages = [
+    pkgs.android-udev-rules
+  ];
 
   # SSH
   services.openssh = {
@@ -163,7 +170,7 @@
 
   users.users.ch1bo = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" "docker" "scanner" ];
+    extraGroups = [ "wheel" "networkmanager" "docker" "scanner" "adbusers" ];
     uid = 1000;
   };
 
