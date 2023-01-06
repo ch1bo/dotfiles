@@ -30,8 +30,6 @@
   networking.networkmanager.enable = true;
 
   networking.firewall.enable = false;
-  # Hydra node
-  #networking.firewall.allowedTCPPorts = [ 5001 ];
 
   # Set your time zone.
   time.timeZone = "Europe/Berlin";

@@ -1,13 +1,17 @@
 {
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-22.11";
+    arion.url = "github:hercules-ci/arion";
   };
 
-  outputs = { self, nixpkgs, ... }: {
+  outputs = { self, nixpkgs, arion, ... }: {
     nixosConfigurations.liskamm = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       specialArgs = { inherit nixpkgs; };
-      modules = [ ./hosts/liskamm/configuration.nix ];
+      modules = [
+        arion.nixosModules.arion
+        ./hosts/liskamm/configuration.nix
+      ];
     };
   };
 
