@@ -118,6 +118,9 @@
 
   # Android debug bridge and other tools
   programs.adb.enable = true;
+  services.udev.packages = [
+    pkgs.android-udev-rules
+  ];
 
   # Screensaver / -locker (usses setuid wrapper)
   programs.slock.enable = true;
@@ -139,6 +142,7 @@
     eva
     bind.dnsutils
     system-config-printer
+    usbutils
   ];
 
   ## User configuration
