@@ -16,7 +16,7 @@ in
       proxyWebsockets = true;
       extraConfig = ''
         proxy_buffering off;
-        client_max_body_size 500M;
+        client_max_body_size 4G;
       '';
     };
   };
@@ -27,8 +27,8 @@ in
     services.nextcloud.service = {
       image = "nextcloud:19";
       environment = {
-        # REDIS_HOST = "redis";
         OVERWRITEPROTOCOL = "https";
+        OVERWRITEHOST = "nextcloud.fk.ncoding.at";
       };
       ports = [ "${nextcloudPort}:80" ];
       volumes = [
@@ -48,6 +48,7 @@ in
       image = "mariadb:10.4";
       environment = {
         MYSQL_RANDOM_ROOT_PASSWORD = "true";
+        MARIADB_AUTO_UPGRADE = "true";
       };
       volumes = [
         "/data/db:/var/lib/mysql"
