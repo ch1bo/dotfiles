@@ -4,10 +4,9 @@
 
 let
   nextcloudPort = "8001";
+  networkName = "nextcloud-back";
 in
 {
-  virtualisation.arion.backend = "docker";
-
   services.nginx.virtualHosts."nextcloud.fk.ncoding.at" = {
     forceSSL = true;
     enableACME = true;
@@ -21,14 +20,34 @@ in
     };
   };
 
-  virtualisation.arion.projects.ncoding.settings = {
-    networks.back.driver = "bridge";
+  systemd.services."init-docker-network-${networkName}" = {
+    description = "Network bridge for nextcloud.";
+    after = [ "network.target" ];
+    wantedBy = [ "multi-user.target" ];
 
-    services.nextcloud.service = {
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = "yes";
+    };
+    script =
+      let dockercli = "${config.virtualisation.docker.package}/bin/docker";
+      in ''
+        if [[ $(${dockercli} network inspect ${networkName}) == "[]" ]]; then
+          ${dockercli} network create ${networkName}
+        else
+          echo "Docker network ${networkName} already exists"
+        fi
+      '';
+  };
+
+  virtualisation.oci-containers.containers = {
+    nextcloud = {
       image = "nextcloud:19";
       environment = {
         OVERWRITEPROTOCOL = "https";
         OVERWRITEHOST = "nextcloud.fk.ncoding.at";
+        MYSQL_HOST = "db";
+        REDIS_HOST = "redis";
       };
       ports = [ "${nextcloudPort}:80" ];
       volumes = [
@@ -36,15 +55,10 @@ in
         "/data/nextcloud/config:/var/www/html/config"
         "/data/nextcloud/data:/var/www/html/data"
       ];
-      links = [
-        "db:mysql"
-        "redis:redis"
-      ];
-      networks = [ "back" ];
-      restart = "always";
+      extraOptions = [ "--network=${networkName}" ];
     };
 
-    services.db.service = {
+    db = {
       image = "mariadb:10.4";
       environment = {
         MYSQL_RANDOM_ROOT_PASSWORD = "true";
@@ -53,13 +67,12 @@ in
       volumes = [
         "/data/db:/var/lib/mysql"
       ];
-      networks = [ "back" ];
-      restart = "always";
+      extraOptions = [ "--network=${networkName}" ];
     };
 
-    services.redis.service = {
+    redis = {
       image = "redis:7";
-      networks = [ "back" ];
+      extraOptions = [ "--network=${networkName}" ];
     };
   };
 
