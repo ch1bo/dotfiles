@@ -59,7 +59,7 @@ in
     };
 
     db = {
-      image = "mariadb:10.4";
+      image = "mariadb:10.10";
       environment = {
         MYSQL_RANDOM_ROOT_PASSWORD = "true";
         MARIADB_AUTO_UPGRADE = "true";
