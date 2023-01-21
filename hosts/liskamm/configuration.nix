@@ -8,6 +8,7 @@
   imports = [
     ./hardware-configuration.nix
     ./nextcloud.nix
+    ./mailserver.nix
     ./hydraw.nix
   ];
 
