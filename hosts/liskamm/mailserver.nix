@@ -4,9 +4,10 @@
 let
   boundPort = "8002";
   networkName = "mail-back";
+  serverName = "mail-fk.ncoding.at";
 in
 {
-  services.nginx.virtualHosts."mail.fk.ncoding.at" = {
+  services.nginx.virtualHosts.${serverName} = {
     forceSSL = true;
     enableACME = true;
     locations."/" = {
@@ -21,8 +22,8 @@ in
 
   virtualisation.oci-containers.containers = {
     webmail = {
-      # TODO: check using latest version
-      image = "runningman84/rainloop:sha256:d43243b7b6f83cb5f75f1e34327d049b868cd143d44cdd3f9edf995d957155bf";
+      # TODO: check using latest version (e.g. mailu/rainloop)
+      image = "runningman84/rainloop";
       volumes = [
         "/data/rainloop:/var/www/html/data"
       ];
@@ -34,9 +35,10 @@ in
     };
 
     mailserver = {
-      image = "docker.io/mailserver/docker-mailserver:8.0.1";
+      image = "docker.io/mailserver/docker-mailserver:11.3.1";
       environment = {
-        DMS_DEBUG = "1";
+        OVERRIDE_HOSTNAME = "${serverName}";
+        LOG_LEVEL = "debug";
         ENABLE_SPAMASSASSIN = "1";
         SPAMASSASSIN_SPAM_TO_INBOX = "1";
         MOVE_SPAM_TO_JUNK = "1";
@@ -48,8 +50,8 @@ in
         # TODO: ENABLE_FAIL2BAN="0";
         ONE_DIR = "1";
         SSL_TYPE = "manual";
-        SSL_CERT_PATH=/certs/fullchain.pem;
-        SSL_KEY_PATH=/certs/key.pem;
+        SSL_CERT_PATH="/certs/fullchain.pem";
+        SSL_KEY_PATH="/certs/key.pem";
       };
       ports = [
         "25:25"
@@ -62,7 +64,7 @@ in
         "/data/mail/data:/var/mail"
         "/data/mail/state:/var/mail-state"
         "/data/mail/config:/tmp/docker-mailserver"
-        "${config.security.acme.certs.mail.directory}:/certs:ro"
+        "${config.security.acme.certs.${serverName}.directory}:/certs:ro"
       ];
       extraOptions = [
         "--cap-add=NET_ADMIN" # for fail2ban
