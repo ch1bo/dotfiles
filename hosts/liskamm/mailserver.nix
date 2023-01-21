@@ -3,7 +3,6 @@
 
 let
   boundPort = "8002";
-  networkName = "mail-back";
   serverName = "mail-fk.ncoding.at";
 in
 {
@@ -22,15 +21,10 @@ in
 
   virtualisation.oci-containers.containers = {
     webmail = {
-      # TODO: check using latest version (e.g. mailu/rainloop)
-      image = "runningman84/rainloop";
+      image = "mailu/rainloop";
       volumes = [
         "/data/rainloop:/var/www/html/data"
       ];
-      environment = {
-        PHP_MAX_POST_SIZE = "256M";
-        PHP_MAX_UPLOAD_SIZE = "128M";
-      };
       ports = [ "${boundPort}:80" ];
     };
 
@@ -39,6 +33,10 @@ in
       environment = {
         OVERRIDE_HOSTNAME = "${serverName}";
         LOG_LEVEL = "debug";
+        ONE_DIR = "1";
+        SSL_TYPE = "manual";
+        SSL_CERT_PATH="/certs/fullchain.pem";
+        SSL_KEY_PATH="/certs/key.pem";
         ENABLE_SPAMASSASSIN = "1";
         SPAMASSASSIN_SPAM_TO_INBOX = "1";
         MOVE_SPAM_TO_JUNK = "1";
@@ -48,14 +46,9 @@ in
         SA_SPAM_SUBJECT = "[SPAM]";
         ENABLE_CLAMAV = "1";
         # TODO: ENABLE_FAIL2BAN="0";
-        ONE_DIR = "1";
-        SSL_TYPE = "manual";
-        SSL_CERT_PATH="/certs/fullchain.pem";
-        SSL_KEY_PATH="/certs/key.pem";
       };
       ports = [
         "25:25"
-        "143:143"
         "465:465"
         "587:587"
         "993:993"
