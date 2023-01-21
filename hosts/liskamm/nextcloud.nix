@@ -42,7 +42,7 @@ in
 
   virtualisation.oci-containers.containers = {
     nextcloud = {
-      image = "nextcloud:20";
+      image = "nextcloud:24";
       environment = {
         OVERWRITEPROTOCOL = "https";
         OVERWRITEHOST = "nextcloud.fk.ncoding.at";
