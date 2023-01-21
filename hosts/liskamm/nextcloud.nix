@@ -5,9 +5,10 @@
 let
   nextcloudPort = "8001";
   networkName = "nextcloud-back";
+  serverName = "nextcloud.ncoding.at";
 in
 {
-  services.nginx.virtualHosts."nextcloud.fk.ncoding.at" = {
+  services.nginx.virtualHosts.${serverName} = {
     forceSSL = true;
     enableACME = true;
     locations."/" = {
@@ -42,10 +43,10 @@ in
 
   virtualisation.oci-containers.containers = {
     nextcloud = {
-      image = "nextcloud:24";
+      image = "nextcloud:25";
       environment = {
         OVERWRITEPROTOCOL = "https";
-        OVERWRITEHOST = "nextcloud.fk.ncoding.at";
+        OVERWRITEHOST = serverName;
         MYSQL_HOST = "db";
         REDIS_HOST = "redis";
       };
