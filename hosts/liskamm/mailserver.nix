@@ -3,7 +3,7 @@
 
 let
   boundPort = "8002";
-  serverName = "mail-fk.ncoding.at";
+  serverName = "mail.ncoding.at";
 in
 {
   services.nginx.virtualHosts.${serverName} = {
@@ -62,6 +62,30 @@ in
       extraOptions = [
         "--cap-add=NET_ADMIN" # for fail2ban
       ];
+    };
+  };
+
+  systemd.timers."backup-mail" = {
+    wantedBy = [ "timers.target" ];
+      timerConfig = {
+        OnCalendar = "daily";
+        Persistent = true;
+        Unit = "backup-mail.service";
+      };
+  };
+
+  systemd.services."backup-mail" = {
+    script = ''
+      set -eu
+      # Backup
+      ${pkgs.gnutar}/bin/tar -czf /backup/mail-$(date -I).tar.gz -C /data/mail config/ data/
+
+      # Rotate backups, keep 7 days
+      ${pkgs.findutils}/bin/find /backup/ -maxdepth 1 -mtime +7 -delete;
+    '';
+    serviceConfig = {
+      Type = "oneshot";
+      User = "nobody";
     };
   };
 }
