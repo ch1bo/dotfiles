@@ -76,7 +76,6 @@ in
 
   systemd.services."backup-mail" = {
     script = ''
-      set -eu
       # Backup
       ${pkgs.gnutar}/bin/tar -czf /backup/mail-$(date -I).tar.gz -C /data/mail config/ data/
 
@@ -85,7 +84,7 @@ in
     '';
     serviceConfig = {
       Type = "oneshot";
-      User = "nobody";
+      User = "root";
     };
   };
 }

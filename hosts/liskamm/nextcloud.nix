@@ -88,7 +88,6 @@ in
 
   systemd.services."backup-nextcloud" = {
     script = ''
-      set -eu
       # Backup
       ${pkgs.gnutar}/bin/tar -czf /backup/db-$(date -I).tar.gz -C /data/db .
       ${pkgs.gnutar}/bin/tar -czf /backup/nexctloud-$(date -I).tar.gz -C /data/nextcloud apps/ config/
@@ -98,7 +97,7 @@ in
     '';
     serviceConfig = {
       Type = "oneshot";
-      User = "nobody";
+      User = "root";
     };
   };
 }
