@@ -121,7 +121,7 @@ in
   };
 
   # Configure the reverse proxy to point at it
-  services.nginx.virtualHosts."hydraw.fk.ncoding.at" = {
+  services.nginx.virtualHosts."hydraw.ncoding.at" = {
     forceSSL = true;
     enableACME = true;
     locations."/" = {

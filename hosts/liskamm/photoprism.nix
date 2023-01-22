@@ -3,7 +3,7 @@
 { config, pkgs, lib, ... }:
 
 {
-  services.nginx.virtualHosts."photos.fk.ncoding.at" = {
+  services.nginx.virtualHosts."photos.ncoding.at" = {
     forceSSL = true;
     enableACME = true;
     locations."/" = {
@@ -27,7 +27,7 @@
     environment = {
       PHOTOPRISM_ADMIN_PASSWORD = "ouHTWxYXtvX1rEW"; # INITIAL PASSWORD FOR "admin" USER, MINIMUM 8 CHARACTERS
       PHOTOPRISM_AUTH_MODE = "password"; # authentication mode (public, password)
-      PHOTOPRISM_SITE_URL = "https://photos.fk.ncoding.at"; # public server URL incl http:// or https:// and /path, :port is optional
+      PHOTOPRISM_SITE_URL = "https://photos.ncoding.at"; # public server URL incl http:// or https:// and /path, :port is optional
       PHOTOPRISM_HTTP_PORT = "2342";
       PHOTOPRISM_ORIGINALS_LIMIT = "5000"; # file size limit for originals in MB (increase for high-res video)
       PHOTOPRISM_HTTP_COMPRESSION = "gzip"; # improves transfer speed and bandwidth utilization (none or gzip)
