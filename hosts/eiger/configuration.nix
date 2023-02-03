@@ -112,19 +112,21 @@
   environment.systemPackages = with pkgs; [
     git
     vim
-    gnome.gnome-disk-utility
-    gnome.nautilus
-    gnome.simple-scan
-    dconf
-    pavucontrol
-    ntfsprogs
-    system-config-printer
     # system monitoring
     lm_sensors
     htop
-    # desktop
-    inkscape
+    # tools
+    dconf
+    pavucontrol
     usbutils
+    ntfsprogs
+    # desktop
+    gnome.gnome-disk-utility
+    gnome.nautilus
+    gnome.simple-scan
+    system-config-printer
+    inkscape
+    libreoffice
   ];
 
   ## Services
