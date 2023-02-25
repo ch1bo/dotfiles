@@ -2,7 +2,6 @@
 {
   imports = [
     ./base.nix
-    ./connectiq
     ./emacs
     ./gpg
     ./haskell
@@ -55,7 +54,7 @@
       spotify # unlimited music
       signal-desktop # connect with rl
       slack # comms
-      unstable.discord # modern comms (unstable for most likely up-to-date)
+      # TODO: move this into configurations unstable.discord # modern comms
       skypeforlinux # old-school comms
       restream # live stream remarkable
       gh # github utility
