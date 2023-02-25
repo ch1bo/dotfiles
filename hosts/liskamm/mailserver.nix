@@ -20,13 +20,18 @@ in
   };
 
   virtualisation.oci-containers.containers = {
-    webmail = {
-      image = "mailu/rainloop";
-      volumes = [
-        "/data/rainloop:/var/www/html/data"
-      ];
-      ports = [ "${boundPort}:80" ];
-    };
+    # FIXME: webmail container currently broken
+    # Feb 11 20:36:04 liskamm docker-webmail-start[2795016]: Traceback (most recent call last):
+    # Feb 11 20:36:04 liskamm docker-webmail-start[2795016]:   File "/start.py", line 13, in <module>
+    # Feb 11 20:36:04 liskamm docker-webmail-start[2795016]:     os.environ["MAX_FILESIZE"] = str(int(int(os.environ.get("MESSAGE_SIZE_LIMIT"))*0.66/1048576))
+    # Feb 11 20:36:04 liskamm docker-webmail-start[2795016]: TypeError: int() argument must be a string, a bytes-like object or a number, not 'NoneType'
+    # webmail = {
+    #   image = "mailu/rainloop";
+    #   volumes = [
+    #     "/data/rainloop:/var/www/html/data"
+    #   ];
+    #   ports = [ "${boundPort}:80" ];
+    # };
 
     mailserver = {
       image = "docker.io/mailserver/docker-mailserver:11.3.1";

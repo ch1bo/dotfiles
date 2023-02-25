@@ -3,30 +3,63 @@
 A NixOS re-incarnation of my server in smaller, also old, but a bit more
 powerful hardware.
 
-| Model | Fujitsu Esprimo               |
-| CPU   | Intel Core i7 6700T - 4 cores |
-| RAM   | 8GB                           |
-| HD    | SEAGATE BarraCuda Compute 2TB |
-| HD    | SEAGATE BarraCuda Compute 2TB |
+| Model | Fujitsu Esprimo                |
+| CPU   | Intel Core i7 6700T - 4 cores  |
+| RAM   | G.Skill Ripjaws DDR4 2133 32GB |
+| SSD   | WD Blue NVMe 500GB             |
+| HD    | SEAGATE BarraCuda Compute 2TB  |
+| HD    | SEAGATE BarraCuda Compute 2TB  |
+
+* TODO
+- [X] copy rootfs (data)
+- [X] check bootloader
+- [ ] Install from live USB
+- [ ] data zpool mount
+- [ ] rebuild with hydraw enabled
+- [ ] make disk-level ZFS pools
+- [ ] Fix webmail container
 
 * Disk setup
 
-Due to the lack of SATA ports in the small case, I'm now using two 2TB HDDs for the whole system in a ZFS Raid1 setup.
+Operating system on the SSD and data on two 2TB HDDs in a separate ZFS Raid1 pool.
 
-This was the first disk, holding the EFI boot partition:
+The SSD is partitioned similar to my other NixOS hosts:
+
 #+begin_src
-Disk /dev/disk/by-id/ata-ST2000LM015-2E8174_WDZV6EHY: 3907029168 sectors, 1.8 TiB
-Sector size (logical/physical): 512/4096 bytes
-Disk identifier (GUID): D11479B1-D6C1-4E64-97DC-3289DB6EE14C
+Disk /dev/disk/by-id/nvme-WD_Blue_SN570_500GB_22051Z800497: 976773168 sectors, 465.8 GiB
+Sector size (logical/physical): 512/512 bytes
+Disk identifier (GUID): 7266E875-ED83-4182-A2A5-40D0890DB256
 Partition table holds up to 128 entries
 Main partition table begins at sector 2 and ends at sector 33
-First usable sector is 34, last usable sector is 3907029134
+First usable sector is 34, last usable sector is 976773134
 Partitions will be aligned on 2048-sector boundaries
-Total free space is 2014 sectors (1007.0 KiB)
+Total free space is 4062 sectors (2.0 MiB)
 
 Number  Start (sector)    End (sector)  Size       Code  Name
-   1            2048         1050623   512.0 MiB   EF00  EFI system partition
-   2         1050624      3907029134   1.8 TiB     8300  Linux filesystem
+   1            2048         1050623   512.0 MiB   EF00  boot
+   2         1050624       909664270   433.3 GiB   8300  root
+   3       909666304       976773119   32.0 GiB    8200  swap
+#+end_src
+
+
+A standard FAT32 EFI boot partition, swap and root partition, where the latter is home to a ZFS pool:
+
+#+begin_src
+mkfs.vfat -F32 -n boot /dev/disk/by-id/nvme-WD_Blue_SN570_500GB_22051Z800497-part1
+
+mkswap /dev/disk/by-id/nvme-WD_Blue_SN570_500GB_22051Z800497-part3
+
+zpool create -o ashift=12 -O acltype=posixacl -O xattr=sa -O mountpoint=none root /dev/disk/by-id/nvme-WD_Blue_SN570_500GB_22051Z800497-part2
+#+end_src
+
+Data sets for the new root pool:
+
+#+begin_src
+zfs create -o mountpoint=none rootos/local
+zfs create -o mountpoint=legacy rootos/local/nix
+zfs create -o mountpoint=none rootos/safe
+zfs create -o mountpoint=legacy rootos/safe/rootos
+zfs create -o refreservation=512M -o mountpoint=none rootos/reserved
 #+end_src
 
 Formatting and setting up a ZFS pool:

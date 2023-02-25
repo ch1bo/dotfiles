@@ -17,6 +17,12 @@ in
       extraConfig = ''
         proxy_buffering off;
         client_max_body_size 4G;
+        # Increase timeouts for nextcloud
+        proxy_connect_timeout 600s;
+        proxy_send_timeout 600s;
+        proxy_read_timeout 600s;
+        fastcgi_send_timeout 600s;
+        fastcgi_read_timeout 600s;
       '';
     };
   };

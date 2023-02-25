@@ -14,17 +14,17 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "root/safe/root";
+    { device = "rootos/safe/root";
       fsType = "zfs";
     };
 
   fileSystems."/nix" =
-    { device = "root/local/nix";
+    { device = "rootos/local/nix";
       fsType = "zfs";
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-id/ata-ST2000LM015-2E8174_WDZV6EHY-part1";
+    { device = "/dev/disk/by-id/nvme-WD_Blue_SN570_500GB_22051Z800497-part1";
       fsType = "vfat";
     };
 
