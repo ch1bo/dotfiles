@@ -6,21 +6,22 @@ shortcuts (git aliases, fzf, z).
 
 I used to symlink configurations from the home directory into this repository to
 keep them maintainable, but have now migrated to
-[home-manager](https://github.com/nix-community/home-manager). This allows me to
-easily update and rollback between generations of my whole user environment, as
-well as modularizing host-specific configs.
+[home-manager](https://github.com/nix-community/home-manager) on
+[NixOS](https://nixos.org) for (eventually) a full declarative experience. This
+allows me to easily update and rollback between generations of my whole user
+environment, as well as modularizing host-specific configs.
 
 ## Install
 
 ### On NixOS
 
-1. Follow [installation instructions](https://nixos.org/manual/nixos/stable/index.html#sec-installation-installing) until `nixos-install`
+1. Follow [installation
+   instructions](https://nixos.org/manual/nixos/stable/index.html#sec-installation-installing)
+   until `nixos-install`
 2. Make sure you have mounted `/`, `/boot`, `/nix` and `/home` into `/mnt`.
-3. Checkout this repo into `/mnt/home/ch1bo/.dotfiles` (including submodules &
-   fix permissions!) or somewhere else and symlink `configuration.nix` and
-   `hardware-configuration.nix` with one from `hosts/` to `/mnt/etc/nixos/`.
-4. Perform `nixos-install`, set passwords using `nixos-enter` and reboot.
-5. From a vTTY, initialize home directory using `nix-shell --run 'home-manager -f hosts/<host>/home.nix switch'`.
+3. Do a `nixos-install --flake github:ch1bo/dotfiles?submodules=1#<host>`, set
+   passwords using `nixos-enter` and reboot.
+4. Rebuild system via `nixos-rebuild --flake ".?submodules=1" switch`
 
 ### Not on NixOS
 
@@ -66,12 +67,12 @@ After installing these dependencies, it's just:
 
 ## TODO / Next steps
 
-- [ ] Flake-based nixos configurations (no symlinking)
-- [ ] Make independent of "<nixpkgs>" (using nix flakes)
+- [x] Flake-based nixos configurations (no symlinking)
+- [x] Make independent of "<nixpkgs>" (using nix flakes)
+- [ ] Modularize into proper topics
+  - [x] Re-integrate home config with system configuration.nix
+  - [ ] DRY and modularize system configuration properly between systems
 - [ ] Declarative syncthing setup
-- [ ] Modularize home-manager config into proper topics and assemble host modules
-  - [ ] Re-integrate home config with system configuaration.nix
-  - [ ] Modularize system configuration properly between systems
 - [ ] Drop dual use support (only nixos)
   - [ ] Get rid of the dependencies (above)
 - [ ] Add tooling to "swap" dotfiles like https://github.com/hlissner/dotfiles/blob/master/bin/hey
