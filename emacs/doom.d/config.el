@@ -183,6 +183,7 @@ visible, hide it. Otherwise, show it."
 
 (setq lsp-enable-file-watchers nil
       lsp-ui-doc-enable nil
+      lsp-lens-enable nil
       lsp-treemacs-errors-position-params '((side . right)))
 
 ;; C/C++
@@ -206,7 +207,11 @@ visible, hide it. Otherwise, show it."
 
 ;; Appropriate HLS is assumed to be in scope (by nix-shell)
 (setq lsp-haskell-server-path "haskell-language-server"
-      lsp-haskell-importlens-on nil)
+      lsp-haskell-importlens-on nil
+      lsp-haskell-plugin-import-lens-code-lens-on nil
+      lsp-haskell-plugin-tactics-global-on nil
+      lsp-haskell-plugin-stan-global-on nil
+      lsp-response-timeout 30)
 
 ;; Don't' use lsp for formatting
 (setq-hook! 'haskell-mode-hook +format-with-lsp nil)
