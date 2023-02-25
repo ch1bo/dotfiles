@@ -122,6 +122,9 @@
     pkgs.android-udev-rules
   ];
 
+  # Remote administration / support
+  services.teamviewer.enable = true;
+
   # Screensaver / -locker (usses setuid wrapper)
   programs.slock.enable = true;
 
