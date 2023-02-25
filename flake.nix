@@ -1,10 +1,11 @@
 {
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-22.11";
+    nixpkgs-unstable.url = "nixpkgs/nixos-unstable";
     arion.url = "github:hercules-ci/arion";
   };
 
-  outputs = { self, nixpkgs, arion, ... }: {
+  outputs = inputs@{ self, nixpkgs, arion, ... }: {
     nixosConfigurations.liskamm = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       specialArgs = { inherit nixpkgs; };
@@ -13,6 +14,9 @@
         ./hosts/liskamm/configuration.nix
       ];
     };
+
+    nixosConfigurations.matterhorn =
+      import ./hosts/matterhorn inputs;
   };
 
   nixConfig = {
