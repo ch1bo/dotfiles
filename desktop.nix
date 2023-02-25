@@ -58,6 +58,7 @@
       unstable.discord # modern comms (unstable for most likely up-to-date)
       skypeforlinux # old-school comms
       restream # live stream remarkable
+      gh # github utility
     ];
   };
 }
