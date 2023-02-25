@@ -54,7 +54,6 @@
       spotify # unlimited music
       signal-desktop # connect with rl
       slack # comms
-      # TODO: move this into configurations unstable.discord # modern comms
       skypeforlinux # old-school comms
       restream # live stream remarkable
       gh # github utility

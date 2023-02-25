@@ -5,6 +5,9 @@
     ../../mail/account-iohk.nix
   ];
 
+  # TODO: man pages are broken?
+  manual.manpages.enable = false;
+
   home.username = "ch1bo";
   # TODO(SN): make "wifi" optional
   wifi = "wlp0s0000";

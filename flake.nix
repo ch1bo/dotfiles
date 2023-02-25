@@ -10,18 +10,15 @@
     emacsOverlay.url = "github:nix-community/emacs-overlay";
   };
 
-  outputs = inputs@{ self, nixpkgs, arion, ... }: {
-    nixosConfigurations.liskamm = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
-      specialArgs = { inherit nixpkgs; };
-      modules = [
-        arion.nixosModules.arion
-        ./hosts/liskamm/configuration.nix
-      ];
-    };
+  outputs = inputs: {
+    nixosConfigurations.eiger =
+      import ./hosts/eiger inputs;
 
     nixosConfigurations.matterhorn =
       import ./hosts/matterhorn inputs;
+
+    nixosConfigurations.liskamm =
+      import ./hosts/liskamm inputs;
   };
 
   nixConfig = {
