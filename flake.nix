@@ -11,14 +11,11 @@
   };
 
   outputs = inputs: {
-    nixosConfigurations.eiger =
-      import ./hosts/eiger inputs;
-
-    nixosConfigurations.matterhorn =
-      import ./hosts/matterhorn inputs;
-
-    nixosConfigurations.liskamm =
-      import ./hosts/liskamm inputs;
+    nixosConfigurations = {
+      eiger = import ./hosts/eiger inputs;
+      matterhorn = import ./hosts/matterhorn inputs;
+      liskamm = import ./hosts/liskamm inputs;
+    };
   };
 
   nixConfig = {
