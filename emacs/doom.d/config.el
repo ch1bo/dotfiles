@@ -220,7 +220,7 @@ visible, hide it. Otherwise, show it."
 ;; advice is not :override and had been broken the +onsave feature. So waiting
 ;; for that :editor format rewrite...
 (defun add-autoformat-hook ()
-  (add-hook 'before-save-hook '+format-buffer-h nil 'local))
+  (add-hook 'before-save-hook '+format-buffer-h))
 (add-hook! (haskell-mode haskell-cabal-mode) 'add-autoformat-hook)
 
 ;; Configure formatter when using +format-with-lsp
@@ -239,7 +239,11 @@ visible, hide it. Otherwise, show it."
 ;; config updates is annoying. Also, tools are not picked up from nix-shells
 
 ;; Use 'fourmolu' as formatter.
-(set-formatter! 'fourmolu "fourmolu"
+;;
+(set-formatter!
+  'fourmolu
+  '("fourmolu"
+    ("--stdin-input-file=%S"))
   :modes 'haskell-mode
   :filter
   (lambda (output errput)
