@@ -50,6 +50,21 @@ in
     };
   };
 
+  virtualisation.oci-containers.containers.cardano-node-mainnet = {
+    image = "inputoutput/cardano-node:1.35.5";
+    volumes = [
+      "/data/cardano-node-mainnet:/data"
+    ];
+    cmd = [ "run" ];
+    environment = {
+      CARDANO_CONFIG = "/data/config/mainnet/cardano-node/config.json";
+      CARDANO_TOPOLOGY = "/data/config/mainnet/cardano-node/topology.json";
+      CARDANO_DATABASE_PATH = "/data/db";
+      CARDANO_SOCKET_PATH = "/data/node.socket";
+      CARDANO_LOG_DIR = "/data/logs";
+    };
+  };
+
   # Let's add the command line tools directly for more convenience
   environment.systemPackages = [
     cardano-node.cardano-cli
