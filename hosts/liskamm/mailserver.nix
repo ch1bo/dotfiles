@@ -69,27 +69,4 @@ in
       ];
     };
   };
-
-  systemd.timers."backup-mail" = {
-    wantedBy = [ "timers.target" ];
-      timerConfig = {
-        OnCalendar = "daily";
-        Persistent = true;
-        Unit = "backup-mail.service";
-      };
-  };
-
-  systemd.services."backup-mail" = {
-    script = ''
-      # Backup
-      ${pkgs.gnutar}/bin/tar -czf /backup/mail-$(date -I).tar.gz -C /data/mail config/ data/
-
-      # Rotate backups, keep 7 days
-      ${pkgs.findutils}/bin/find /backup/ -maxdepth 1 -mtime +7 -delete;
-    '';
-    serviceConfig = {
-      Type = "oneshot";
-      User = "root";
-    };
-  };
 }

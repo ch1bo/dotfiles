@@ -5,7 +5,7 @@
     ./hardware-configuration.nix
     ./nextcloud.nix
     ./mailserver.nix
-    #TODO: re-enable ./hydraw.nix
+    ./hydraw.nix
   ];
 
   # At least the nvidia drivers are proprietary
@@ -15,12 +15,6 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.supportedFilesystems = [ "zfs" ];
-
-  # Dynamic since kernel v5.11
-  # https://github.com/torvalds/linux/commit/92890123749bafc317bbfacbe0a62ce08d78efb7
-  boot.kernel.sysctl."fs.inotify.max_user_watches" = lib.mkIf
-    (config.boot.kernelPackages.kernel.kernelOlder "5.11")
-    1048576; # instead of 8192
 
   networking.hostName = "liskamm";
   networking.hostId = "24c2d71d"; # required for ZFS
@@ -46,6 +40,14 @@
 
   # Docker deamon
   virtualisation.docker.enable = true;
+
+  # ZFS
+  # 4GB max ARC cache
+  boot.kernelParams = ["zfs.zfs_arc_max=4294967296"];
+  services.zfs.autoScrub.enable = true;
+  # Auto-snapshot all marked datasets with: com.sun:auto-snapshot=true
+  services.zfs.autoSnapshot.enable = true;
+  services.zfs.autoSnapshot.flags = "-k -p --utc";
 
   ## ncoding.at
 
@@ -100,6 +102,11 @@
     configDir = "/home/ch1bo/.config/syncthing";
     guiAddress = "0.0.0.0:8384";
   };
+  # Increase inotify watches for syncthing - Dynamic since kernel v5.11
+  # https://github.com/torvalds/linux/commit/92890123749bafc317bbfacbe0a62ce08d78efb7
+  boot.kernel.sysctl."fs.inotify.max_user_watches" = lib.mkIf
+    (config.boot.kernelPackages.kernel.kernelOlder "5.11")
+    1048576; # instead of 8192
 
   ## User configuration
 

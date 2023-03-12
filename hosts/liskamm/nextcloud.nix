@@ -82,28 +82,4 @@ in
       extraOptions = [ "--network=${networkName}" ];
     };
   };
-
-  systemd.timers."backup-nextcloud" = {
-    wantedBy = [ "timers.target" ];
-      timerConfig = {
-        OnCalendar = "daily";
-        Persistent = true;
-        Unit = "backup-nextcloud.service";
-      };
-  };
-
-  systemd.services."backup-nextcloud" = {
-    script = ''
-      # Backup
-      ${pkgs.gnutar}/bin/tar -czf /backup/db-$(date -I).tar.gz -C /data/db .
-      ${pkgs.gnutar}/bin/tar -czf /backup/nexctloud-$(date -I).tar.gz -C /data/nextcloud apps/ config/
-
-      # Rotate backups, keep 7 days
-      ${pkgs.findutils}/bin/find /backup/ -maxdepth 1 -mtime +7 -delete;
-    '';
-    serviceConfig = {
-      Type = "oneshot";
-      User = "root";
-    };
-  };
 }
