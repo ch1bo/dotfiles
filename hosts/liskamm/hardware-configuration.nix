@@ -5,31 +5,43 @@
 
 {
   imports =
-    [ (modulesPath + "/installer/scan/not-detected.nix")
+    [
+      (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
-  boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" ];
+  boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usb_storage" "usbhid" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
+  boot.kernelParams = [ "boot.shell_on_fail" ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "root/safe/root";
+    {
+      device = "rpool/safe/root";
       fsType = "zfs";
     };
 
   fileSystems."/nix" =
-    { device = "root/local/nix";
+    {
+      device = "rpool/local/nix";
       fsType = "zfs";
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-id/nvme-WD_Blue_SN570_500GB_22051Z800497-part1";
+    {
+      device = "/dev/disk/by-id/nvme-WD_Blue_SN570_500GB_22051Z800497-part1";
       fsType = "vfat";
     };
 
+  fileSystems."/home" =
+    {
+      device = "dpool/home";
+      fsType = "zfs";
+    };
+
   fileSystems."/data" =
-    { device = "data/data";
+    {
+      device = "dpool/data";
       fsType = "zfs";
     };
 

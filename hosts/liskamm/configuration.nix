@@ -5,7 +5,7 @@
     ./hardware-configuration.nix
     ./nextcloud.nix
     ./mailserver.nix
-    ./hydraw.nix
+    #TODO: re-enable ./hydraw.nix
   ];
 
   # At least the nvidia drivers are proprietary
