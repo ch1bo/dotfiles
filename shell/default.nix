@@ -40,7 +40,7 @@ in
       eval "$(${pkgs.direnv}/bin/direnv hook zsh)"
 
       # z for jumping around
-      source ${./z/z.sh}
+      source ${./z.sh}
 
       # z as source for fzf
       fzf-z-widget() {
