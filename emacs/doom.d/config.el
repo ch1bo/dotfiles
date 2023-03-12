@@ -83,7 +83,7 @@
 
 ;; Set variables easily
 (map! :map help-map
-      "V" #'counsel-set-variable)
+      "V" #'set-variable)
 
 ;; TODO: iedit/evil-multiedit aditional functionality: e.g. limit to line,
 ;; expand above / below
@@ -239,11 +239,9 @@ visible, hide it. Otherwise, show it."
 ;; config updates is annoying. Also, tools are not picked up from nix-shells
 
 ;; Use 'fourmolu' as formatter.
-;;
 (set-formatter!
   'fourmolu
-  '("fourmolu"
-    ("--stdin-input-file=%S"))
+  '("fourmolu" "--no-cabal")
   :modes 'haskell-mode
   :filter
   (lambda (output errput)
