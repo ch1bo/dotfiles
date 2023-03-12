@@ -28,6 +28,11 @@
       fsType = "vfat";
     };
 
+  fileSystems."/data" =
+    { device = "data/data";
+      fsType = "zfs";
+    };
+
   swapDevices = [ ];
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "performance";
