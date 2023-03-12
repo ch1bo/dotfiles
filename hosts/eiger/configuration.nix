@@ -126,6 +126,9 @@ in
     pavucontrol
     usbutils
     ntfsprogs
+    atool
+    unzip
+    eva
     # desktop
     gnome.gnome-disk-utility
     gnome.nautilus
@@ -134,6 +137,8 @@ in
     inkscape
     libreoffice
     unstable.discord
+    portfolio
+    ledger-live-desktop
   ];
 
   ## Services
