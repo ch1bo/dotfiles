@@ -83,29 +83,28 @@
         [ "--ledger-protocol-parameters" "/data/protocol-parameters.json" ]
         [ "--network-id" networkMagic ]
         [ "--node-socket" "/cardano-node/node.socket" ]
-        # [ "--start-chain-from" "4268491.c628e6fb4e697500aa338c82d80c6b6c1e91710589f98eee2004ec2879ef3f98" ]
-        # [ "--peer" "35.233.17.169:5001" ] # arnaud
-        # [ "--cardano-verification-key" "/credentials/arnaud.cardano.vk" ]
-        # [ "--hydra-verification-key" "/credentials/arnaud.hydra.vk" ]
+        [ "--start-chain-from" "22686293.377eb8a7ce6825c73d5ac544d278f70067aae955b2c536e9cc95716d6299eb55" ]
+        [ "--peer" "35.233.17.169:5001" ] # arnaud
+        [ "--cardano-verification-key" "/credentials/arnaud.cardano.vk" ]
+        [ "--hydra-verification-key" "/credentials/arnaud.hydra.vk" ]
         [ "--peer" "13.37.15.211:5001" ] # pascal
         [ "--cardano-verification-key" "/credentials/pascal.cardano.vk" ]
         [ "--hydra-verification-key" "/credentials/pascal.hydra.vk" ]
         [ "--peer" "13.37.150.125:5001" ] # sasha
         [ "--cardano-verification-key" "/credentials/sasha.cardano.vk" ]
         [ "--hydra-verification-key" "/credentials/sasha.hydra.vk" ]
-        [ "--peer" "13.38.189.209:5001" ] # franco
-        [ "--cardano-verification-key" "/credentials/franco.cardano.vk" ]
-        [ "--hydra-verification-key" "/credentials/franco.hydra.vk" ]
+        # [ "--peer" "13.38.189.209:5001" ] # franco
+        # [ "--cardano-verification-key" "/credentials/franco.cardano.vk" ]
+        # [ "--hydra-verification-key" "/credentials/franco.hydra.vk" ]
       ];
     };
 
   # The hydraw application / bridge
   virtualisation.oci-containers.containers.hydraw = {
-    image = "ghcr.io/input-output-hk/hydraw:latest";
+    image = "ghcr.io/input-output-hk/hydraw:unstable";
     volumes = [
       "/data/credentials:/credentials:ro"
     ];
-    entrypoint = "hydraw";
     environment = {
       HYDRAW_CARDANO_SIGNING_KEY = "/credentials/sebastian.cardano.sk";
       HYDRA_API_HOST = "localhost:4001";
