@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, unstable, ... }:
 {
   imports = [
     ./base.nix
@@ -52,7 +52,7 @@
       pandoc # convert everything
       keepassxc # secret stuff
       spotify # unlimited music
-      signal-desktop # connect with rl
+      unstable.signal-desktop # connect with rl
       slack # comms
       skypeforlinux # old-school comms
       restream # live stream remarkable
