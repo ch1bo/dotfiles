@@ -14,12 +14,12 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "rootos/safe/root";
+    { device = "root/safe/root";
       fsType = "zfs";
     };
 
   fileSystems."/nix" =
-    { device = "rootos/local/nix";
+    { device = "root/local/nix";
       fsType = "zfs";
     };
 
