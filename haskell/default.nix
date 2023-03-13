@@ -10,12 +10,7 @@
     "${config.home.homeDirectory}/.cabal/bin" # cabal install path
   ];
 
-  # NOTE Formatters are not picked up from project nix-shells (why?); also use
-  # latest versions
   home.packages = [
-    unstable.haskellPackages.cabal-fmt
-    unstable.haskellPackages.fourmolu
-    unstable.haskellPackages.stylish-haskell
     unstable.haskellPackages.hp2pretty # used in bin/haskell-view-heap
   ];
 }

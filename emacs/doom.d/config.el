@@ -223,25 +223,17 @@ visible, hide it. Otherwise, show it."
   (add-hook 'before-save-hook '+format-buffer-h))
 (add-hook! (haskell-mode haskell-cabal-mode) 'add-autoformat-hook)
 
-;; Configure formatter when using +format-with-lsp
-;;
-;; NOTE This is intentionally set early, as options are only picked up by the
-;; haskell LS when (re-)starting.
-;; (setq lsp-haskell-formatting-provider "stylish-haskell")
-;; (setq lsp-haskell-formatting-provider "brittany")
-;; (setq lsp-haskell-formatting-provider "fourmolu")
-
 ;; Use 'cabal-fmt' for .cabal files
 (set-formatter! 'cabal-fmt "cabal-fmt"
   :modes 'haskell-cabal-mode)
 
 ;; TODO How to organize formatters? brittany is default, and switching using
-;; config updates is annoying. Also, tools are not picked up from nix-shells
+;; config updates is annoying.
 
 ;; Use 'fourmolu' as formatter.
 (set-formatter!
   'fourmolu
-  '("fourmolu" "--no-cabal")
+  '("fourmolu")
   :modes 'haskell-mode
   :filter
   (lambda (output errput)

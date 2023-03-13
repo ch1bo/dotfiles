@@ -53,6 +53,12 @@
 (package! flycheck-clang-tidy
   :recipe (:host github :repo "ch1bo/flycheck-clang-tidy"))
 
+;; NOTE: Backport inheritenv onto the ancient format-all version in use in
+;; doom-emacs. This should fix it not seing binaries from a local .envrc.
+(unpin! format-all)
+(package! format-all
+  :recipe (:host github :repo "ch1bo/emacs-format-all-the-code" :branch "backport-inheritenv"))
+
 ;; Edit text in the browser using emacs
 (package! atomic-chrome)
 
