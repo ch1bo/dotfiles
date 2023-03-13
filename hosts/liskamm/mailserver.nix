@@ -37,8 +37,8 @@ in
       image = "docker.io/mailserver/docker-mailserver:11.3.1";
       environment = {
         OVERRIDE_HOSTNAME = "${serverName}";
-        LOG_LEVEL = "debug";
-        ONE_DIR = "1";
+        LOG_LEVEL = "trace";
+        ONE_DIR = "0"; # TODO: broken? as it can't replace /var/spool/postfix?
         SSL_TYPE = "manual";
         SSL_CERT_PATH="/certs/fullchain.pem";
         SSL_KEY_PATH="/certs/key.pem";
