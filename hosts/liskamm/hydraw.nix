@@ -13,35 +13,35 @@
     "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ= cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
   ];
 
-  virtualisation.oci-containers.containers.cardano-node = {
-    image = "inputoutput/cardano-node:1.35.5";
-    volumes = [
-      "/data/cardano-node-preprod:/data"
-    ];
-    cmd = [ "run" ];
-    environment = {
-      CARDANO_CONFIG = "/data/config/preprod/cardano-node/config.json";
-      CARDANO_TOPOLOGY = "/data/config/preprod/cardano-node/topology.json";
-      CARDANO_DATABASE_PATH = "/data/db";
-      CARDANO_SOCKET_PATH = "/data/node.socket";
-      CARDANO_LOG_DIR = "/data/logs";
-    };
-  };
-
-  # virtualisation.oci-containers.containers.cardano-node-mainnet = {
+  # virtualisation.oci-containers.containers.cardano-node = {
   #   image = "inputoutput/cardano-node:1.35.5";
   #   volumes = [
-  #     "/data/cardano-node-mainnet:/data"
+  #     "/data/cardano-node-preprod:/data"
   #   ];
   #   cmd = [ "run" ];
   #   environment = {
-  #     CARDANO_CONFIG = "/data/config/mainnet/cardano-node/config.json";
-  #     CARDANO_TOPOLOGY = "/data/config/mainnet/cardano-node/topology.json";
+  #     CARDANO_CONFIG = "/data/config/preprod/cardano-node/config.json";
+  #     CARDANO_TOPOLOGY = "/data/config/preprod/cardano-node/topology.json";
   #     CARDANO_DATABASE_PATH = "/data/db";
   #     CARDANO_SOCKET_PATH = "/data/node.socket";
   #     CARDANO_LOG_DIR = "/data/logs";
   #   };
   # };
+
+  virtualisation.oci-containers.containers.cardano-node-mainnet = {
+    image = "inputoutput/cardano-node:1.35.5";
+    volumes = [
+      "/data/cardano-node-mainnet:/data"
+    ];
+    cmd = [ "run" ];
+    environment = {
+      CARDANO_CONFIG = "/data/config/mainnet/cardano-node/config.json";
+      CARDANO_TOPOLOGY = "/data/config/mainnet/cardano-node/topology.json";
+      CARDANO_DATABASE_PATH = "/data/db";
+      CARDANO_SOCKET_PATH = "/data/node.socket";
+      CARDANO_LOG_DIR = "/data/logs";
+    };
+  };
 
   # Let's add the command line tools directly for more convenience
   environment.systemPackages = [
@@ -52,16 +52,16 @@
 
   # Our hydra-node instance
   virtualisation.oci-containers.containers.hydra-node =
-    # TODO: lookup by network (preprod)
+    # TODO: lookup by network (mainnet)
     let
-      hydraScriptsTxId = "6fd13073c47411af7f3adf31f46e61f570872a832822fdc5da5b214766651bfd";
+      hydraScriptsTxId = "4a4f3e25887b40f1575a4b53815996145c994559bac1b5d85f7de0f82b8f4ed7";
       networkMagic = "1";
       nodeId = "sebastian's node";
     in
     {
-      image = "ghcr.io/input-output-hk/hydra-node:0.9.0";
+      image = "ghcr.io/input-output-hk/hydra-node:unstable";
       volumes = [
-        "/data/cardano-node-preprod:/cardano-node:ro"
+        "/data/cardano-node-mainnet:/cardano-node:ro"
         "/data/credentials:/credentials:ro"
         "/data/hydra-node:/data"
       ];
@@ -81,21 +81,21 @@
         [ "--cardano-signing-key" "/credentials/sebastian.cardano.sk" ]
         [ "--ledger-genesis" "/cardano-node/config/preview/genesis/shelley.json" ]
         [ "--ledger-protocol-parameters" "/data/protocol-parameters.json" ]
-        [ "--network-id" networkMagic ]
+        [ "--mainnet" ]
         [ "--node-socket" "/cardano-node/node.socket" ]
         # [ "--start-chain-from" "22686293.377eb8a7ce6825c73d5ac544d278f70067aae955b2c536e9cc95716d6299eb55" ]
-        # [ "--peer" "35.233.17.169:5001" ] # arnaud
-        # [ "--cardano-verification-key" "/credentials/arnaud.cardano.vk" ]
-        # [ "--hydra-verification-key" "/credentials/arnaud.hydra.vk" ]
+        [ "--peer" "cardano.hydra.bzh:5001" ] # arnaud
+        [ "--cardano-verification-key" "/credentials/arnaud.cardano.vk" ]
+        [ "--hydra-verification-key" "/credentials/arnaud.hydra.vk" ]
         [ "--peer" "13.37.15.211:5001" ] # pascal
         [ "--cardano-verification-key" "/credentials/pascal.cardano.vk" ]
         [ "--hydra-verification-key" "/credentials/pascal.hydra.vk" ]
         [ "--peer" "13.37.150.125:5001" ] # sasha
         [ "--cardano-verification-key" "/credentials/sasha.cardano.vk" ]
         [ "--hydra-verification-key" "/credentials/sasha.hydra.vk" ]
-        [ "--peer" "13.38.189.209:5001" ] # franco
-        [ "--cardano-verification-key" "/credentials/franco.cardano.vk" ]
-        [ "--hydra-verification-key" "/credentials/franco.hydra.vk" ]
+        # [ "--peer" "13.38.189.209:5001" ] # franco
+        # [ "--cardano-verification-key" "/credentials/franco.cardano.vk" ]
+        # [ "--hydra-verification-key" "/credentials/franco.hydra.vk" ]
       ];
     };
 
