@@ -10,7 +10,7 @@
     emacsOverlay.url = "github:nix-community/emacs-overlay";
 
     # hydraw
-    hydra.url = "github:input-output-hk/hydra/0.9.0";
+    hydra.url = "github:input-output-hk/hydra";
     # The workbench flake inputs have some broken recursion in cardano-node
     # https://github.com/input-output-hk/cardano-node/pull/4865
     cardano-node = {

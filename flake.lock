@@ -1516,16 +1516,15 @@
         ]
       },
       "locked": {
-        "lastModified": 1677754775,
-        "narHash": "sha256-v9Xu3MBt6zRCsCJh5nRXRIGmGgOh/uFpA5nJhUiSOBw=",
+        "lastModified": 1679325610,
+        "narHash": "sha256-1bEnQ+qiVXXniB5L/iIu8OKDhK4vhQ7prjm6YZbogto=",
         "owner": "input-output-hk",
         "repo": "hydra",
-        "rev": "0fab58f97b7ac955e8578215848e30b444cef8cb",
+        "rev": "c57b54302667908efe64f07cd716a73060b8614f",
         "type": "github"
       },
       "original": {
         "owner": "input-output-hk",
-        "ref": "0.9.0",
         "repo": "hydra",
         "type": "github"
       }
