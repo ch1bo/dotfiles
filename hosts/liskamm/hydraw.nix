@@ -79,7 +79,7 @@
         [ "--hydra-scripts-tx-id" hydraScriptsTxId ]
         [ "--hydra-signing-key" "/credentials/sebastian.hydra.sk" ]
         [ "--cardano-signing-key" "/credentials/sebastian.cardano.sk" ]
-        [ "--ledger-genesis" "/cardano-node/config/preview/genesis/shelley.json" ]
+        [ "--ledger-genesis" "/cardano-node/config/mainnet/genesis/shelley.json" ]
         [ "--ledger-protocol-parameters" "/data/protocol-parameters.json" ]
         [ "--mainnet" ]
         [ "--node-socket" "/cardano-node/node.socket" ]
@@ -87,9 +87,9 @@
         [ "--peer" "cardano.hydra.bzh:5001" ] # arnaud
         [ "--cardano-verification-key" "/credentials/arnaud.cardano.vk" ]
         [ "--hydra-verification-key" "/credentials/arnaud.hydra.vk" ]
-        [ "--peer" "13.37.15.211:5001" ] # pascal
-        [ "--cardano-verification-key" "/credentials/pascal.cardano.vk" ]
-        [ "--hydra-verification-key" "/credentials/pascal.hydra.vk" ]
+        # [ "--peer" "13.37.15.211:5001" ] # pascal
+        # [ "--cardano-verification-key" "/credentials/pascal.cardano.vk" ]
+        # [ "--hydra-verification-key" "/credentials/pascal.hydra.vk" ]
         [ "--peer" "13.37.150.125:5001" ] # sasha
         [ "--cardano-verification-key" "/credentials/sasha.cardano.vk" ]
         [ "--hydra-verification-key" "/credentials/sasha.hydra.vk" ]
