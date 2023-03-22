@@ -83,7 +83,7 @@
         [ "--ledger-protocol-parameters" "/data/protocol-parameters.json" ]
         [ "--mainnet" ]
         [ "--node-socket" "/cardano-node/node.socket" ]
-        # [ "--start-chain-from" "22686293.377eb8a7ce6825c73d5ac544d278f70067aae955b2c536e9cc95716d6299eb55" ]
+        [ "--start-chain-from" "87849765.9a1756f043d0dca3cd5b217b7b162582644e5989d815f81941156a62dd70795d" ]
         [ "--peer" "cardano.hydra.bzh:5001" ] # arnaud
         [ "--cardano-verification-key" "/credentials/arnaud.cardano.vk" ]
         [ "--hydra-verification-key" "/credentials/arnaud.hydra.vk" ]
