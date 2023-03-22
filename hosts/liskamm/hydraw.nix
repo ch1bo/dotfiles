@@ -108,6 +108,7 @@
     environment = {
       HYDRAW_CARDANO_SIGNING_KEY = "/credentials/sebastian.cardano.sk";
       HYDRA_API_HOST = "localhost:4001";
+      HYDRAW_NETWORK = "mainnet";
     };
     extraOptions = [ "--network=host" ];
   };
