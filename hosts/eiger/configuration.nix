@@ -138,7 +138,7 @@ in
     libreoffice
     unstable.discord
     portfolio
-    ledger-live-desktop
+    unstable.ledger-live-desktop
   ];
 
   ## Services

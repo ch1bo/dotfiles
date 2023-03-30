@@ -13,10 +13,12 @@ powerful hardware.
 * TODO
 - [X] copy rootfs (data)
 - [X] check bootloader
-- [ ] Install from live USB
-- [ ] data zpool mount
-- [ ] rebuild with hydraw enabled
+- [X] Install from live USB
+- [X] data zpool mount
+- [X] rebuild with hydraw enabled
 - [ ] make disk-level ZFS pools
+- [ ] off-site backups
+- [ ] Fix mail state?
 - [ ] Fix webmail container
 
 * Disk setup
