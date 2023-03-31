@@ -119,3 +119,14 @@ zfs send -R rpool@2022-04-30 | zfs recv -Fdu root
 Then, mount, =nixos-enter=, =nixos-generate-config= and =nixos-rebuild= to have a bootable system.
 
 NOTE: Actually.. only copying non-nixos stuff would have sufficed :sweat_smile:
+
+* Off-site backups
+
+The data on this NixOS server is backed up off-site to borgbase. For the
+configuration to work, the ssh keys and passpharse need to be available at
+=/run/keys/borg= for this to work.
+
+Systemd services and a wrapper script can be used to check status and recover
+files. For example, =journalctl -u borgbackup-job-pictures=, =borg-job-pictures
+list=, or =borg-job-pictures mount zp1865b5@zp1865b5.repo.borgbase.com:repo
+/mnt=.

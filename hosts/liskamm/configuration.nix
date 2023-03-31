@@ -6,6 +6,7 @@
     ./nextcloud.nix
     ./mailserver.nix
     ./hydraw.nix
+    ./backup.nix
   ];
 
   # At least the nvidia drivers are proprietary
