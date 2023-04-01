@@ -10,7 +10,7 @@
       };
       environment = { BORG_RSH = "ssh -i /run/keys/borg/id_ed25519_repo_pictures"; };
       compression = "auto,lzma";
-      startAt = "hourly";
+      startAt = "daily";
     };
   };
 }
