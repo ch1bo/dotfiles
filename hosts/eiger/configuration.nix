@@ -1,10 +1,4 @@
 { config, pkgs, lib, inputs, system, ... }:
-let
-  unstable = import inputs.nixpkgs-unstable {
-    config = config.nixpkgs.config;
-    inherit system;
-  };
-in
 {
   imports = [
     ./hardware-configuration.nix
@@ -55,6 +49,7 @@ in
 
   # Use nvidia drivers
   services.xserver.videoDrivers = [ "nvidia" ];
+  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.beta;
 
   # Disable syscalls to 32bit programs because required by some games (via wine)
   # TODO(SN): move to a gaming module
@@ -136,9 +131,9 @@ in
     system-config-printer
     inkscape
     libreoffice
-    unstable.discord
+    discord
     portfolio
-    unstable.ledger-live-desktop
+    ledger-live-desktop
   ];
 
   ## Services
