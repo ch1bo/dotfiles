@@ -69,6 +69,7 @@ After installing these dependencies, it's just:
 
 - [x] Flake-based nixos configurations (no symlinking)
 - [x] Make independent of "<nixpkgs>" (using nix flakes)
+- [ ] Do auto-upgrades from CI builds (with ways to go back)
 - [ ] Modularize into proper topics
   - [x] Re-integrate home config with system configuration.nix
   - [ ] DRY and modularize system configuration properly between systems
