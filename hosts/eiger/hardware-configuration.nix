@@ -19,6 +19,7 @@
     "pcie_port_pm=off"
     "pcie_aspm.policy=performance"
   ];
+  boot.zfs.forceImportRoot = false;
   boot.zfs.allowHibernation = true; # safe because swap is not on zfs
 
   fileSystems."/" = {
