@@ -83,25 +83,25 @@
         [ "--ledger-protocol-parameters" "/data/protocol-parameters.json" ]
         [ "--mainnet" ]
         [ "--node-socket" "/cardano-node/node.socket" ]
-        [ "--start-chain-from" "87849765.9a1756f043d0dca3cd5b217b7b162582644e5989d815f81941156a62dd70795d" ]
-        [ "--peer" "cardano.hydra.bzh:5001" ] # arnaud
-        [ "--cardano-verification-key" "/credentials/arnaud.cardano.vk" ]
-        [ "--hydra-verification-key" "/credentials/arnaud.hydra.vk" ]
-        # [ "--peer" "13.37.15.211:5001" ] # pascal
-        # [ "--cardano-verification-key" "/credentials/pascal.cardano.vk" ]
-        # [ "--hydra-verification-key" "/credentials/pascal.hydra.vk" ]
+        # [ "--start-chain-from" "87849765.9a1756f043d0dca3cd5b217b7b162582644e5989d815f81941156a62dd70795d" ]
+        # [ "--peer" "cardano.hydra.bzh:5001" ] # arnaud
+        # [ "--cardano-verification-key" "/credentials/arnaud.cardano.vk" ]
+        # [ "--hydra-verification-key" "/credentials/arnaud.hydra.vk" ]
+        [ "--peer" "13.37.15.211:5001" ] # pascal
+        [ "--cardano-verification-key" "/credentials/pascal.cardano.vk" ]
+        [ "--hydra-verification-key" "/credentials/pascal.hydra.vk" ]
         [ "--peer" "13.37.150.125:5001" ] # sasha
         [ "--cardano-verification-key" "/credentials/sasha.cardano.vk" ]
         [ "--hydra-verification-key" "/credentials/sasha.hydra.vk" ]
-        # [ "--peer" "13.38.189.209:5001" ] # franco
-        # [ "--cardano-verification-key" "/credentials/franco.cardano.vk" ]
-        # [ "--hydra-verification-key" "/credentials/franco.hydra.vk" ]
+        [ "--peer" "13.38.189.209:5001" ] # franco
+        [ "--cardano-verification-key" "/credentials/franco.cardano.vk" ]
+        [ "--hydra-verification-key" "/credentials/franco.hydra.vk" ]
       ];
     };
 
   # The hydraw application / bridge
   virtualisation.oci-containers.containers.hydraw = {
-    image = "ghcr.io/input-output-hk/hydraw:unstable";
+    image = "hydraw:read-only";
     volumes = [
       "/data/credentials:/credentials:ro"
     ];
