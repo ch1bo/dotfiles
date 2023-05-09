@@ -54,12 +54,11 @@
   virtualisation.oci-containers.containers.hydra-node =
     # TODO: lookup by network (mainnet)
     let
-      hydraScriptsTxId = "4a4f3e25887b40f1575a4b53815996145c994559bac1b5d85f7de0f82b8f4ed7";
-      networkMagic = "1";
-      nodeId = "sebastian's node";
+      hydraScriptsTxId = "09285781ab2ae4873b27a0853fdbddb0c1e06f2eaf4fb31812d4439efdf48a2c";
+      nodeId = "sebastian-node";
     in
     {
-      image = "ghcr.io/input-output-hk/hydra-node:unstable";
+      image = "ghcr.io/input-output-hk/hydra-node@sha256:c7279461f6a08ac99620c912c102845919612e1d156ec58e89b501532a731a73";
       volumes = [
         "/data/cardano-node-mainnet:/cardano-node:ro"
         "/data/credentials:/credentials:ro"
