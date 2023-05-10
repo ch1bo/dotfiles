@@ -100,7 +100,7 @@
 
   # The hydraw application / bridge
   virtualisation.oci-containers.containers.hydraw = {
-    image = "hydraw:read-only";
+    image = "ghcr.io/input-output-hk/hydraw";
     volumes = [
       "/data/credentials:/credentials:ro"
     ];
