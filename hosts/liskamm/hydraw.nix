@@ -29,7 +29,7 @@
   # };
 
   virtualisation.oci-containers.containers.cardano-node-mainnet = {
-    image = "inputoutput/cardano-node:1.35.5";
+    image = "inputoutput/cardano-node:8.0.0";
     volumes = [
       "/data/cardano-node-mainnet:/data"
     ];
