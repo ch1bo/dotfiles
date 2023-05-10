@@ -11,7 +11,14 @@
 
     # hydraw
     hydra.url = "github:input-output-hk/hydra/5642332bef2085974cf6936a47b2a406caba45d9";
-    cardano-node.url = "github:input-output-hk/cardano-node/8.0.0";
+    # The workbench flake inputs have some broken recursion in cardano-node
+    # https://github.com/input-output-hk/cardano-node/pull/4865
+    cardano-node = {
+      url = "github:input-output-hk/cardano-node/1.35.5";
+      inputs.node-measured.follows = "empty-flake";
+      inputs.cardano-node-workbench.follows = "empty-flake";
+    };
+    empty-flake.url = "github:input-output-hk/empty-flake";
   };
 
   outputs = inputs: {
