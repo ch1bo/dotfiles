@@ -158,12 +158,6 @@
   # Smartcard support
   services.pcscd.enable = true;
 
-  # TODO(SN): move to a notebook module
-  # services.autorandr = {
-  #   enable = true;
-  #   defaultTarget = "mobile";
-  # };
-
   # Gnome secrets service
   services.gnome.gnome-keyring.enable = true;
 
