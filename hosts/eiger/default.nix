@@ -1,11 +1,10 @@
-inputs@{ nixpkgs, nixpkgs-unstable, arion, home-manager, ... }:
+inputs@{ nixpkgs, nixpkgs-unstable, home-manager, ... }:
 # Build a nixos system using unstable nixpkgs
 nixpkgs-unstable.lib.nixosSystem rec {
   system = "x86_64-linux";
   specialArgs = { inherit inputs system; };
   modules = [
     # System configuration
-    arion.nixosModules.arion
     ./configuration.nix
     # The home-manager module
     home-manager.nixosModules.home-manager

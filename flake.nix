@@ -6,7 +6,6 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    arion.url = "github:hercules-ci/arion";
     emacsOverlay.url = "github:nix-community/emacs-overlay";
 
     # hydraw
