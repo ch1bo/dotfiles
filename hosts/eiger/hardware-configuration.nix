@@ -8,19 +8,14 @@
 
   boot.initrd.availableKernelModules = [ "nvme" "ahci" "xhci_pci" "usb_storage" "usbhid" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
-  boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
   boot.kernelParams = [
-    # 12GB max ARC cache
-    "zfs.zfs_arc_max=12884901888"
     # ASUS mainboards with I225-V seem to have problems with power saving
     # https://www.reddit.com/r/buildapc/comments/xypn1m/network_card_intel_ethernet_controller_i225v_igc/
     "pcie_port_pm=off"
     "pcie_aspm.policy=performance"
   ];
-  boot.zfs.forceImportRoot = false;
-  boot.zfs.allowHibernation = true; # safe because swap is not on zfs
 
   fileSystems."/" = {
     device = "root/safe/root";

@@ -16,6 +16,15 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  # Kernel configuration
+  boot.kernelPackages = pkgs.linuxPackages_6_2; # for ZFS support
+  boot.kernelParams = [
+    # 12GB max ARC cache
+    "zfs.zfs_arc_max=12884901888"
+  ];
+  boot.zfs.forceImportRoot = false;
+  boot.zfs.allowHibernation = true; # safe because swap is not on zfs
+
   networking.hostName = "eiger";
   networking.hostId = "1caa41c5"; # required for ZFS
   networking.networkmanager.enable = true;
