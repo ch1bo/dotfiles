@@ -12,9 +12,6 @@ in
   nixpkgs.config.allowUnfree = true;
   # XXX: zfs kernel module still marked as broken
   nixpkgs.config.allowBroken = true;
-  nixpkgs.overlays = [
-    inputs.emacsOverlay.overlays.emacs
-  ];
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;

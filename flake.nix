@@ -6,7 +6,6 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    emacsOverlay.url = "github:nix-community/emacs-overlay";
 
     # hydraw
     hydra.url = "github:input-output-hk/hydra/5642332bef2085974cf6936a47b2a406caba45d9";
