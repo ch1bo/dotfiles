@@ -154,7 +154,7 @@ in
       # Use upcoming 'nix flake' and updated other commands
       package = pkgs.nixUnstable;
       extraOptions = ''
-        experimental-features = nix-command flakes
+        experimental-features = nix-command flakes repl-flake
       '';
       # Prime nix registry with same nixpkgs as system built from
       registry.nixpkgs.flake = inputs.nixpkgs;
