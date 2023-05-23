@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, inputs, ... }:
 
 {
   imports = [
@@ -127,6 +127,8 @@
         experimental-features = nix-command flakes
         allow-import-from-derivation = true
       '';
+      # Prime nix registry with same nixpkgs as system built from
+      registry.nixpkgs.flake = inputs.nixpkgs;
     };
 
   # This value determines the NixOS release from which the default

@@ -156,6 +156,8 @@ in
       extraOptions = ''
         experimental-features = nix-command flakes
       '';
+      # Prime nix registry with same nixpkgs as system built from
+      registry.nixpkgs.flake = inputs.nixpkgs;
     };
 
   # This value determines the NixOS release from which the default
