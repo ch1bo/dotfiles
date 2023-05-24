@@ -1,0 +1,92 @@
+{
+  "integrations": {
+    "agent": {
+      "enabled": true,
+      "relabel_configs": [
+        {
+          "action": "replace",
+          "source_labels": [
+            "agent_hostname"
+          ],
+          "target_label": "instance"
+        },
+        {
+          "action": "replace",
+          "target_label": "job",
+          "replacement": "integrations/agent-check"
+        }
+      ],
+      "metric_relabel_configs": [
+        {
+          "action": "keep",
+          "regex": "(prometheus_target_.*|prometheus_sd_discovered_targets|agent_build.*|agent_wal_samples_appended_total|process_start_time_seconds)",
+          "source_labels": [
+            "__name__"
+          ]
+        }
+      ]
+    },
+    "prometheus_remote_write": [
+      {
+        "basic_auth": {
+          "password": "${GRAFANA_API_KEY}",
+          "username": 1003261
+        },
+        "url": "https://prometheus-prod-24-prod-eu-west-2.grafana.net/api/prom/push"
+      }
+    ]
+  },
+  "logs": {
+    "configs": [
+      {
+        "clients": [
+          {
+            "basic_auth": {
+              "password": "${GRAFANA_API_KEY}",
+              "username": 604236
+            },
+            "url": "https://logs-prod-012.grafana.net/loki/api/v1/push"
+          }
+        ],
+        "name": "integrations",
+        "positions": {
+          "filename": "/tmp/positions.yaml"
+        },
+        "scrape_configs": [
+          {
+            "job_name": "journal",
+            "journal": {
+              "json": false,
+              "max_age": "12h",
+              "path": "/var/log/journal",
+              "labels": {
+                "job": "systemd-journal"
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "metrics": {
+    "configs": [
+      {
+        "name": "integrations",
+        "remote_write": [
+          {
+            "basic_auth": {
+              "password": "${GRAFANA_API_KEY}",
+              "username": 1003261
+            },
+            "url": "https://prometheus-prod-24-prod-eu-west-2.grafana.net/api/prom/push"
+          }
+        ],
+        "scrape_configs": null
+      }
+    ],
+    "global": {
+      "scrape_interval": "60s"
+    },
+    "wal_directory": "/tmp/grafana-agent-wal"
+  }
+}

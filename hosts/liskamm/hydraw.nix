@@ -125,4 +125,13 @@
       '';
     };
   };
+
+  # Log aggregation
+  services.grafana-agent = {
+    enable = true;
+    settings = builtins.fromJSON (builtins.readFile ./grafana-agent.json);
+    credentials = {
+      GRAFANA_API_KEY = "/run/keys/grafana/api-key";
+    };
+  };
 }
