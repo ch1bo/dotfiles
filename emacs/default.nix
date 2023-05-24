@@ -8,7 +8,7 @@ let
 in
 {
   # doom binary
-  home.sessionPath = [ "${emacsDir}/bin" ];
+  home.sessionPath = [ "${emacsDir}/doom.emacs.d/bin" ];
   # symlink config & doom emacs.d
   home.activation.doomEmacs = lib.hm.dag.entryAfter ["writeBoundary"] ''
       $DRY_RUN_CMD ln -sfT $VERBOSE_ARG ${emacsDir}/doom.emacs.d/ $HOME/.emacs.d

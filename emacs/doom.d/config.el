@@ -233,7 +233,7 @@ visible, hide it. Otherwise, show it."
 ;; Use 'fourmolu' as formatter.
 (set-formatter!
   'fourmolu
-  '("fourmolu")
+  '("fourmolu" "--no-cabal")
   :modes 'haskell-mode
   :filter
   (lambda (output errput)
