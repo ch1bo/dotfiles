@@ -96,6 +96,12 @@ in
     CPU_SCALING_GOVERNOR_ON_BAT = "schedutil";
   };
 
+  # Configuration currently in xsession/default.nix
+  services.autorandr = {
+    enable = true;
+    defaultTarget = "mobile";
+  };
+
   # Synchronizing things between hosts
   services.syncthing = {
     enable = true;
