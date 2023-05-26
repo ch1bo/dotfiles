@@ -5,12 +5,8 @@
 # options here and use it in individual modules?
 { pkgs, lib, ... }:
 {
-  # TODO mkDefault because also set by home-manager/nixos. What's the proper way
-  # for this? mkMerge?
-  fonts.fontconfig.enable = lib.mkDefault true;
-
   xresources.properties = {
-    "URxvt*font" = "xft:FiraCode Nerd Font Mono:style=Regular:size=14:antialias=true";
+    "URxvt*font" = "xft:Hasklug Nerd Font:style=Regular:size=14:antialias=true";
   };
 
   gtk = {
@@ -40,7 +36,7 @@
 
   programs.rofi = {
     theme = "Arc-Dark";
-    font = "FiraCode Nerd Font Mono 14";
+    font = "Hasklug Nerd Font 14";
   };
 
   home.pointerCursor = {
