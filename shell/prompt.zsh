@@ -79,9 +79,9 @@ prompt_status() {
   [[ $UID -eq 0 ]] && symbols+="%{$fg_bold[red]%}⚡"
   [[ $(jobs -l | wc -l) -gt 0 ]] && symbols+="%{$fg[cyan]%}⚙"
   if [[ $ELAPSED -gt 10000 ]]; then
-     symbols+="%{$fg[red]%}祥$((${ELAPSED}/1000))s"
+     symbols+="%{$fg[red]%}󰁫$((${ELAPSED}/1000))s"
   elif [[ $ELAPSED -gt 500 ]]; then
-     symbols+="%{$fg[yellow]%}祥${ELAPSED}ms"
+     symbols+="%{$fg[yellow]%}󰁫${ELAPSED}ms"
   fi
   if test ${#symbols[@]} -gt 0; then
     local str=""
