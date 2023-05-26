@@ -151,6 +151,9 @@ in
     bind.dnsutils
     system-config-printer
     usbutils
+    # nix tools
+    nix-output-monitor
+    nvd
   ];
 
   fonts.fonts = [
