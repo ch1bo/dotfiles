@@ -132,7 +132,10 @@ visible, hide it. Otherwise, show it."
            "* %?\n%T\n%a")
           )
         org-agenda-custom-commands
-        '(("n" "Full agenda"
+        '(("d" agenda "Today"
+           ((org-agenda-start-day "today")
+            (org-agenda-span 'day)))
+          ("n" "Full agenda"
            ((agenda ""
                     ((org-agenda-span 'week)))
             (tags-todo "task"
@@ -142,11 +145,11 @@ visible, hide it. Otherwise, show it."
             (tags-todo "idea"
                        ((org-agenda-overriding-header "Ideas")))
             )
-           ))
-        )
+           )
+          ))
 
   ;; Inline css on org html export
-  (add-hook 'org-export-before-processing-hook
+  (add-hook 'org-export-before-processing-functions
             (lambda (exporter)
               (when (eq exporter 'html)
                 (let* ((dir (ignore-errors (file-name-directory (buffer-file-name))))
