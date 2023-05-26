@@ -54,9 +54,4 @@
     colorscheme base16-onedark
   '';
   home.file.".vim/colors".source = ./vim-colors;
-
-  home.packages = [
-    pkgs.fira-code
-    (pkgs.nerdfonts.override { fonts = [ "FiraCode" ]; })
-  ];
 }

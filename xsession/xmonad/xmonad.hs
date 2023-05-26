@@ -72,12 +72,12 @@ xmobar = statusBarProp "xmobar" (iconsPP statusIcons prettyStatus)
 
     statusIcons =
         composeAll
-            [ className =?- "urxvt" --> appIcon "\xe7a2"
+            [ className =?- "urxvt" --> appIcon "\xf120"
             , className =?- "emacs" --> appIcon "\xe632"
-            , className =?- "firefox" --> appIcon "\xf738"
-            , className =?- "discord" --> appIcon "\xfb6e"
-            , className =?- "slack" --> appIcon "\xf9b0"
-            , className =?- "spotify" --> appIcon "阮"
+            , className =?- "firefox" --> appIcon "\xf0239"
+            , className =?- "discord" --> appIcon "\xf066f"
+            , className =?- "slack" --> appIcon "\xf04b1"
+            , className =?- "spotify" --> appIcon "\xf1bc"
             ]
 
 -- | Similar to `=?`, but case insensitive.

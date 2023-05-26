@@ -6,7 +6,7 @@ Config { font =         "FiraCode Nerd Font Mono 14"
        -- layout
        , sepChar =  "%"   -- delineator between plugin names and straight text
        , alignSep = "}{"  -- separator between left-right alignment
-       , template = "%XMonadLog% }{ %dynnetwork% %multicpu% %k10temp% %memory% %battery% %kbd% %date% %trayerpad%"
+       , template = "%XMonadLog% }{ %dynnetwork%  %multicpu%  %k10temp%  %memory% %battery% %kbd% %date% %trayerpad%"
 
        -- general behavior
        , lowerOnStart =     True    -- send to bottom of window stack on start
@@ -20,15 +20,15 @@ Config { font =         "FiraCode Nerd Font Mono 14"
        , commands =
          [ Run XMonadLog
          -- TODO broken? always "Updating..."
-         -- , Run Wireless "@wifi@" [ "--template", "<essid>" ] 10
-         , Run DynNetwork     [ "--template" , " <tx>kB/s  <rx>kB/s"
+         -- , Run Wireless "wlp3s0" [ "--template", "<essid>" ] 10
+         , Run DynNetwork     [ "--template" , " <tx>k  <rx>k"
                               , "--Low"      , "1000"       -- units: kB/s
                               , "--High"     , "5000"       -- units: kB/s
                               , "--low"      , "#99c794"
                               , "--normal"   , "#5fb3b3"
                               , "--high"     , "#ec5f67"
                               ] 10
-         , Run MultiCpu       [ "--template" , "碌 <total>%"
+         , Run MultiCpu       [ "--template" , " <total>%"
                               , "--Low"      , "50"         -- units: %
                               , "--High"     , "85"         -- units: %
                               , "--low"      , "#99c794"
@@ -36,14 +36,14 @@ Config { font =         "FiraCode Nerd Font Mono 14"
                               , "--high"     , "#ec5f67"
                               ] 10
          , Run K10Temp        "0000:00:18.3"
-                              [ "--template" , " <Tctl>°C"
+                              [ "--template" , "󰏈 <Tctl>°C"
                               , "--Low"      , "40"        -- units: °C
                               , "--High"     , "70"        -- units: °C
                               , "--low"      , "#99c794"
                               , "--normal"   , "#5fb3b3"
                               , "--high"     , "#ec5f67"
                               ] 50
-         , Run Memory         [ "--template" ," <usedratio>%"
+         , Run Memory         [ "--template" ,"󰍛 <usedratio>%"
                               , "--Low"      , "30"        -- units: %
                               , "--High"     , "90"        -- units: %
                               , "--low"      , "#99c794"
@@ -58,14 +58,14 @@ Config { font =         "FiraCode Nerd Font Mono 14"
                               , "--high"     , "#99c794"
                               , "--" -- battery specific options
                               -- AC "on" status
-                              , "-O" , "<fc=#33B5E1></fc>"
+                              , "-O" , "<fc=#33B5E1>󰂄</fc>"
                               -- AC "idle" status
-                              , "-i" , "<fc=#5fb3b3></fc>"
+                              , "-i" , "<fc=#5fb3b3>󰁹</fc>"
                               -- discharging status
                               , "-o" , " <left>%"
-                              , "--highs", "" -- higher than -H
-                              , "--mediums", "" -- between -H and -L
-                              , "--lows", "" -- lower than -L
+                              , "--highs", "󰂀" -- higher than -H
+                              , "--mediums", "󰁾" -- between -H and -L
+                              , "--lows", "󰁻" -- lower than -L
                               ] 50
          , Run Date           "%a %Y-%m-%d %H:%M" "date" 10
          , Run Kbd            [ ("us", "US")

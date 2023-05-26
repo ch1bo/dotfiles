@@ -153,6 +153,12 @@ in
     usbutils
   ];
 
+  fonts.fonts = [
+    pkgs.fira-code
+    pkgs.hasklig
+    (pkgs.nerdfonts.override { fonts = [ "FiraCode" "Hasklig" ]; })
+  ];
+
   ## User configuration
 
   users.users.ch1bo = {
