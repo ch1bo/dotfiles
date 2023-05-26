@@ -17,6 +17,15 @@ in
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  # Kernel configuration
+  boot.kernelPackages = pkgs.linuxPackages_6_2; # for ZFS support
+  boot.kernelParams = [
+    # 4GB max ARC cache
+    "zfs.zfs_arc_max=4294967296"
+  ];
+  boot.zfs.forceImportRoot = false;
+  boot.zfs.allowHibernation = true; # safe because swap is not on zfs
+
   # Network setup
   networking.hostName = "matterhorn";
   networking.hostId = "1ff2d645";

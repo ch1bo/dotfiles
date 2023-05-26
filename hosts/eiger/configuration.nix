@@ -22,6 +22,7 @@
   boot.zfs.forceImportRoot = false;
   boot.zfs.allowHibernation = true; # safe because swap is not on zfs
 
+  # Network setup
   networking.hostName = "eiger";
   networking.hostId = "1caa41c5"; # required for ZFS
   networking.networkmanager.enable = true;
