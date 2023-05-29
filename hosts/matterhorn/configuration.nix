@@ -137,6 +137,10 @@ in
   environment.systemPackages = with pkgs; [
     git
     vim
+    # system monitoring
+    lm_sensors
+    htop
+    powertop
     gnome.gnome-disk-utility
     gnome.nautilus
     gnome.simple-scan

@@ -123,6 +123,7 @@
     # system monitoring
     lm_sensors
     htop
+    powertop
     # tools
     dconf
     pavucontrol
