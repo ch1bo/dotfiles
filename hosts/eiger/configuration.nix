@@ -116,6 +116,12 @@
   # Android tools
   programs.adb.enable = true;
 
+  fonts.fonts = [
+    pkgs.fira-code
+    pkgs.hasklig
+    (pkgs.nerdfonts.override { fonts = [ "FiraCode" "Hasklig" ]; })
+  ];
+
   # Other things
   environment.systemPackages = with pkgs; [
     git
@@ -143,7 +149,6 @@
     portfolio
     ledger-live-desktop
   ];
-
   ## Services
 
   # Android tools
