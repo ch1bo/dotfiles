@@ -1,4 +1,4 @@
-Config { font =         "Hasklug Nerd Font 14"
+Config { font =         "HasklugNerdFont 14"
        , bgColor =      "#21242b"
        , fgColor =      "#bbc2cf"
        , position =     TopH 24

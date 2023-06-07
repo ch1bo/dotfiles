@@ -6,7 +6,7 @@
 { pkgs, lib, ... }:
 {
   xresources.properties = {
-    "URxvt*font" = "xft:Hasklug Nerd Font:style=Regular:size=14:antialias=true";
+    "URxvt*font" = "xft:HasklugNerdFont:style=Regular:size=14:antialias=true";
   };
 
   gtk = {
