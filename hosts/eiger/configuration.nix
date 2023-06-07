@@ -14,7 +14,7 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   # Kernel configuration
-  boot.kernelPackages = pkgs.linuxPackages_6_2; # for ZFS support
+  boot.kernelPackages = pkgs.zfs.latestCompatibleLinuxPackages;
   boot.kernelParams = [
     # 12GB max ARC cache
     "zfs.zfs_arc_max=12884901888"
@@ -148,6 +148,9 @@
     discord
     portfolio
     ledger-live-desktop
+    # nix tools
+    nix-output-monitor
+    nvd
   ];
   ## Services
 
