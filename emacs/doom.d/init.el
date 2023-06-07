@@ -32,7 +32,7 @@
        doom                ; what makes DOOM look the way it does
        doom-dashboard      ; a nifty splash screen for Emacs
        doom-quit           ; DOOM quit-message prompts when you quit Emacs
-       ;;(emoji +unicode)  ; 🙂
+       (emoji +github)     ; 🙂
        hl-todo             ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
        ;;hydra
        ;;indent-guides     ; highlighted indent columns
@@ -100,7 +100,7 @@
        magit               ; a git porcelain for Emacs
        make                ; run make tasks from Emacs
        ;;pass              ; password manager for nerds
-       ;;pdf               ; pdf enhancements
+       pdf                 ; pdf enhancements
        ;;prodigy           ; FIXME managing external services & code builders
        ;;rgb               ; creating color strings
        ;;taskrunner        ; taskrunner for all your projects
@@ -110,7 +110,6 @@
        ;;upload            ; map local to remote projects via ssh/ftp
        :lang
        (agda +local)       ; types of types of types of types...
-       ;;agda              ; types of types of types of types...
        ;;beancount         ; mind the GAAP
        (cc +lsp)           ; C > C++ == 1
        ;;clojure           ; java with a lisp
