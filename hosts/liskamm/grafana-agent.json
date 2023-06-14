@@ -60,7 +60,8 @@
               "max_age": "12h",
               "path": "/var/log/journal",
               "labels": {
-                "job": "systemd-journal"
+                "job": "systemd-journal",
+                "instance": "liskamm"
               }
             }
           }
