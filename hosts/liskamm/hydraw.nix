@@ -13,20 +13,68 @@
     "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ= cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
   ];
 
-  # virtualisation.oci-containers.containers.cardano-node = {
-  #   image = "inputoutput/cardano-node:1.35.5";
-  #   volumes = [
-  #     "/data/cardano-node-preprod:/data"
-  #   ];
-  #   cmd = [ "run" ];
-  #   environment = {
-  #     CARDANO_CONFIG = "/data/config/preprod/cardano-node/config.json";
-  #     CARDANO_TOPOLOGY = "/data/config/preprod/cardano-node/topology.json";
-  #     CARDANO_DATABASE_PATH = "/data/db";
-  #     CARDANO_SOCKET_PATH = "/data/node.socket";
-  #     CARDANO_LOG_DIR = "/data/logs";
-  #   };
-  # };
+  virtualisation.oci-containers.containers.cardano-node-preview = {
+    image = "inputoutput/cardano-node:1.35.7";
+    volumes = [
+      "/data/cardano-node-preview:/data"
+    ];
+    cmd = [ "run" ];
+    environment = {
+      CARDANO_CONFIG = "/data/config/preview/cardano-node/config.json";
+      CARDANO_TOPOLOGY = "/data/config/preview/cardano-node/topology.json";
+      CARDANO_DATABASE_PATH = "/data/db";
+      CARDANO_SOCKET_PATH = "/data/node.socket";
+      CARDANO_LOG_DIR = "/data/logs";
+    };
+  };
+
+  virtualisation.oci-containers.containers.hydra-node-preview =
+    # TODO: lookup by network (mainnet)
+    let
+      hydraScriptsTxId = "ebce14e29396e9bfbeb182334d1b098a9af27eb4875de64ab69f2ce79e978edb";
+      nodeId = "sebastian@preview";
+    in
+    {
+      image = "ghcr.io/input-output-hk/hydra-node@sha256:8fd019de768fc9928f243ceadf92941a9526e7c49a77bddce13aa95b697e84ef";
+      volumes = [
+        "/data/cardano-node-preview:/cardano-node:ro"
+        "/data/credentials:/credentials:ro"
+        "/data/hydra-node-preview:/data"
+      ];
+      ports = [
+        "4101:4001"
+        "5101:5003"
+      ];
+      cmd = builtins.concatLists [
+        [ "--node-id" nodeId ]
+        [ "--api-host" "0.0.0.0" ]
+        [ "--host" "0.0.0.0" ]
+        [ "--port" "5003" ]
+        [ "--monitoring-port" "6001" ]
+        [ "--persistence-dir" "/data" ]
+        [ "--hydra-scripts-tx-id" hydraScriptsTxId ]
+        [ "--hydra-signing-key" "/credentials/sebastian.hydra.sk" ]
+        [ "--cardano-signing-key" "/credentials/sebastian.cardano.sk" ]
+        [ "--ledger-protocol-parameters" "/data/protocol-parameters.json" ]
+        [ "--testnet-magic" "2" ]
+        [ "--node-socket" "/cardano-node/node.socket" ]
+        # [ "--start-chain-from" "92679263.9a7bcacdf4c862e4df776ad54eca51dbd4bf1a8ee036d9d10d41f81e84020028" ]
+        [ "--peer" "www.punkachien.net:5001" ] # arnaud
+        [ "--cardano-verification-key" "/credentials/arnaud.cardano.vk" ]
+        [ "--hydra-verification-key" "/credentials/arnaud.hydra.vk" ]
+        [ "--peer" "13.37.15.211:5001" ] # pascal
+        [ "--cardano-verification-key" "/credentials/pascal.cardano.vk" ]
+        [ "--hydra-verification-key" "/credentials/pascal.hydra.vk" ]
+        # [ "--peer" "13.37.150.125:5001" ] # sasha
+        # [ "--cardano-verification-key" "/credentials/sasha.cardano.vk" ]
+        # [ "--hydra-verification-key" "/credentials/sasha.hydra.vk" ]
+        [ "--peer" "13.38.189.209:5001" ] # franco
+        [ "--cardano-verification-key" "/credentials/franco.cardano.vk" ]
+        [ "--hydra-verification-key" "/credentials/franco.hydra.vk" ]
+      ];
+    };
+
+  ## MAINNET deployment
 
   virtualisation.oci-containers.containers.cardano-node-mainnet = {
     image = "inputoutput/cardano-node:1.35.5";
@@ -82,7 +130,7 @@
         [ "--ledger-protocol-parameters" "/data/protocol-parameters.json" ]
         [ "--mainnet" ]
         [ "--node-socket" "/cardano-node/node.socket" ]
-        [ "--start-chain-from" "91712195.86302487af13b92b0f1e7536172b3d49f33ca609580174c6dcda8fb75514fbb4" ]
+        [ "--start-chain-from" "92679263.9a7bcacdf4c862e4df776ad54eca51dbd4bf1a8ee036d9d10d41f81e84020028" ]
         [ "--peer" "cardano.hydra.bzh:5001" ] # arnaud
         [ "--cardano-verification-key" "/credentials/arnaud.cardano.vk" ]
         [ "--hydra-verification-key" "/credentials/arnaud.hydra.vk" ]
