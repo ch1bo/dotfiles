@@ -7,6 +7,7 @@ My new workstation, now also water cooled :snowflake:
 | RAM  | G.Skill Trident Z5 6000 CL32, 64GB |
 | MB   | ASUS ROG Strix B650-E              |
 | GPU  | Nvidia GTX 970 4GB                 |
+| SSD  | Samsung 990 Pro 1TB                |
 | SSD  | Samsung 980 Pro 1TB                |
 | SSD  | Samsung 970 EVO 1TB                |
 | SSD  | Micron 500GB                       |
@@ -22,8 +23,8 @@ I use a single 1TB SSD for NixOS itself right now:
 A standard FAT32 EFI boot partition and a root partition, where the latter is home to a ZFS pool:
 
 #+begin_src
-mkfs.vfat -F32 -n boot /dev/disk/by-id/nvme-Samsung_SSD_980_PRO_1TB_S5GXNF0R440049W-part1
-zpool create -o ashift=12 -O acltype=posixacl -O xattr=sa -O mountpoint=none root /dev/disk/by-id/nvme-Samsung_SSD_980_PRO_1TB_S5GXNF0R440049W-part2
+mkfs.vfat -F32 -n boot /dev/disk/by-id/nvme-Samsung_SSD_990_PRO_1TB_S6Z1NJ0W516829M-part1
+zpool create -o ashift=12 -O acltype=posixacl -O xattr=sa -O mountpoint=none root /dev/disk/by-id/nvme-Samsung_SSD_990_PRO_1TB_S6Z1NJ0W516829M-part2
 #+end_src
 
 The ZFS pool is setup with these data sets:
@@ -49,7 +50,59 @@ There is some swap space on the other SSD:
 swapon /dev/disk/by-id/nvme-Samsung_SSD_970_EVO_1TB_S5H9NS1NB18061Z-part7
 #+end_src
 
-** Additional ZFS pool of HDs for backups and less often used storage
+** Migrating RootFS to new SSD
+Keeping / extending swap on old SSD and only moving boot/root (non-encrypted
+now). Replicate partitions and generate new UUIDs with sgdisk:
+
+#+begin_src
+export OLD=/dev/disk/by-id/nvme-Samsung_SSD_980_PRO_1TB_S5GXNF0R440049W
+export NEW=/dev/disk/by-id/nvme-Samsung_SSD_990_PRO_1TB_S6Z1NJ0W516829M
+sgdisk ${OLD} -R ${NEW}
+sgdisk -G ${NEW}
+#+end_src
+
+Copy boot files (whole file system):
+#+begin_src
+dd if=${OLD}-part1 of=${NEW}-part1 bs=1M status=progress
+#+end_src
+
+Add to root and re-silver (mirror):
+#+begin_src
+zpool attach root ${OLD}-part2 ${NEW}-part2
+#+end_src
+
+#+begin_src
+zpool status
+#+end_src
+
+#+begin_src
+  pool: root
+ state: ONLINE
+status: One or more devices is currently being resilvered.  The pool will
+        continue to function, possibly in a degraded state.
+action: Wait for the resilver to complete.
+  scan: resilver in progress since Sat Jul 29 13:39:46 2023
+        696G scanned at 3.70G/s, 312G issued at 1.66G/s, 696G total
+        320G resilvered, 44.86% done, 00:03:51 to go
+config:
+
+        NAME                                                    STATE     READ WRITE CKSUM
+        root                                                    ONLINE       0     0     0
+          mirror-0                                              ONLINE       0     0     0
+            nvme-Samsung_SSD_980_PRO_1TB_S5GXNF0R440049W-part2  ONLINE       0     0     0
+            nvme-Samsung_SSD_990_PRO_1TB_S6Z1NJ0W516829M-part2  ONLINE       0     0     0  (resilvering)
+
+errors: No known data errors
+#+end_src
+
+Ohh that speed :heart_eyes:
+
+Then, migrating =NixOS= to the new harddisk is a simple update on
+=fileSystems."/boot".device= to
+="nvme-Samsung_SSD_990_PRO_1TB_S6Z1NJ0W516829M-part1"= with a =nixos-rebuild
+switch --install-bootloader=.
+
+** (Legacy) Additional ZFS pool of HDs for backups and less often used storage
 
 #+begin_src
 cryptsetup luksFormat /dev/disk/by-id/ata-WDC_WD1001FALS-00J7B1_WD-WMATV2660055
@@ -72,46 +125,3 @@ To replace the =/dev/mapper/backup2= with the =by-id= variants of the LUKS conta
 zpool export backup
 zpool import backup -d /dev/disk/by-id
 #+end_src
-
-** Migrating RootFS to new SSD
-Keeping / extending swap on 970 EVO and only moving boot/root (non-encrypted now). Partition with gdisk:
-
-#+begin_src
-   1            2048         1050623   512.0 MiB   EF00  EFI system partition
-   2         1050624      1953525134   931.0 GiB   8300  Linux filesystem
-#+end_src
-
-Copy boot files (whole file system):
-#+begin_src
-dd if=/dev/nvme1n1p1 of=/dev/nvme0n1p1 bs=1M status=progress
-#+end_src
-
-Add to root and re-silver (mirror):
-#+begin_src
-zpool attach root /dev/disk/by-id/dm-uuid-CRYPT-LUKS2-8c373901e8214b2fb21a6003d304b2c4-root /dev/disk/by-id/nvme-Samsung_SSD_980_PRO_1TB_S5GXNF0R440049W-part2
-#+end_src
-
-#+begin_src
-λ zpool status
-  pool: root
- state: ONLINE
-status: One or more devices is currently being resilvered.  The pool will
-	continue to function, possibly in a degraded state.
-action: Wait for the resilver to complete.
-  scan: resilver in progress since Mon Jul 19 13:02:28 2021
-	591G scanned at 4.65G/s, 192G issued at 1.51G/s, 591G total
-	195G resilvered, 32.54% done, 00:04:23 to go
-config:
-
-	NAME                                                           STATE     READ WRITE CKSUM
-	root                                                          ONLINE       0     0     0
-	  mirror-0                                                     ONLINE       0     0     0
-	    dm-uuid-CRYPT-LUKS2-8c373901e8214b2fb21a6003d304b2c4-root  ONLINE       0     0     0
-	    nvme-Samsung_SSD_980_PRO_1TB_S5GXNF0R440049W-part2         ONLINE       0     0     0  (resilvering)
-#+end_src
-
-Ohh that speed :heart_eyes:
-
-Then, migrating =NixOS= to the new harddisk is a simple update on
-=fileSystems."/boot".device= to
-="/dev/disk/by-id/nvme-Samsung_SSD_980_PRO_1TB_S5GXNF0R440049W-part1"=
