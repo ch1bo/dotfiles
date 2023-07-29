@@ -1,16 +1,15 @@
 #+TITLE: Eiger
 
-My new workstation, now also water cooled :snowflake:
+My workstation, open loop water cooled :snowflake:
 
 | Case | Fractal Meshify 2                  |
 | CPU  | Ryzen 7950x, 16 cores, 80MB L3     |
 | RAM  | G.Skill Trident Z5 6000 CL32, 64GB |
 | MB   | ASUS ROG Strix B650-E              |
-| GPU  | Nvidia GTX 970 4GB                 |
+| GPU  | RTX 4070Ti 12GB                    |
 | SSD  | Samsung 990 Pro 1TB                |
 | SSD  | Samsung 980 Pro 1TB                |
 | SSD  | Samsung 970 EVO 1TB                |
-| SSD  | Micron 500GB                       |
 
 * Partitioning
 I use a single 1TB SSD for NixOS itself right now:
@@ -47,7 +46,7 @@ zfs set refreservation=none root/reserved
 There is some swap space on the other SSD:
 
 #+begin_src
-swapon /dev/disk/by-id/nvme-Samsung_SSD_970_EVO_1TB_S5H9NS1NB18061Z-part7
+swapon /dev/disk/by-id/nvme-Samsung_SSD_980_PRO_1TB_S5GXNF0R440049W-part2
 #+end_src
 
 ** Migrating RootFS to new SSD

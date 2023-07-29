@@ -43,7 +43,7 @@
   };
 
   swapDevices = [{
-    device = "/dev/disk/by-id/nvme-Samsung_SSD_970_EVO_1TB_S5H9NS1NB18061Z-part7";
+    device = "/dev/disk/by-id/nvme-Samsung_SSD_980_PRO_1TB_S5GXNF0R440049W_1-part2";
   }];
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";

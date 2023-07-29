@@ -16,8 +16,8 @@ powerful hardware.
 - [X] Install from live USB
 - [X] data zpool mount
 - [X] rebuild with hydraw enabled
+- [X] off-site backups
 - [ ] make disk-level ZFS pools
-- [ ] off-site backups
 - [ ] Fix mail state?
 - [ ] Fix webmail container
 
