@@ -13,33 +13,33 @@
     "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ= cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
   ];
 
-  virtualisation.oci-containers.containers.cardano-node-preview = {
+  virtualisation.oci-containers.containers.cardano-node-preprod = {
     image = "inputoutput/cardano-node:1.35.7";
     volumes = [
-      "/data/cardano-node-preview:/data"
+      "/data/cardano-node-preprod:/data"
     ];
     cmd = [ "run" ];
     environment = {
-      CARDANO_CONFIG = "/data/config/preview/cardano-node/config.json";
-      CARDANO_TOPOLOGY = "/data/config/preview/cardano-node/topology.json";
+      CARDANO_CONFIG = "/data/config/preprod/cardano-node/config.json";
+      CARDANO_TOPOLOGY = "/data/config/preprod/cardano-node/topology.json";
       CARDANO_DATABASE_PATH = "/data/db";
       CARDANO_SOCKET_PATH = "/data/node.socket";
       CARDANO_LOG_DIR = "/data/logs";
     };
   };
 
-  virtualisation.oci-containers.containers.hydra-node-preview =
-    # TODO: lookup by network (mainnet)
+  virtualisation.oci-containers.containers.hydra-node-preprod =
     let
-      hydraScriptsTxId = "ebce14e29396e9bfbeb182334d1b098a9af27eb4875de64ab69f2ce79e978edb";
-      nodeId = "sebastian@preview";
+      networkMagic = "1"; # preprod
+      hydraScriptsTxId = "fad1d233c37d64f3276dcebd6d10d4ecc8935c504e73d78a7285acc22ff534d4";
+      nodeId = "sebastian@preprod";
     in
     {
-      image = "ghcr.io/input-output-hk/hydra-node@sha256:056fabd3f09d5b30c5a61961529ecd829778a9fc53531ffebd9d5d0c201bfa48";
+      image = "ghcr.io/input-output-hk/hydra-node@sha256:3b7f78962ff8fc212644e1ef4faf8742ead6f7c31353cdf5cc251d4d825edac7";
       volumes = [
-        "/data/cardano-node-preview:/cardano-node:ro"
+        "/data/cardano-node-preprod:/cardano-node:ro"
         "/data/credentials:/credentials:ro"
-        "/data/hydra-node-preview:/data"
+        "/data/hydra-node-preprod:/data"
       ];
       ports = [
         "4101:4001"
@@ -56,18 +56,18 @@
         [ "--hydra-signing-key" "/credentials/sebastian.hydra.sk" ]
         [ "--cardano-signing-key" "/credentials/sebastian.cardano.sk" ]
         [ "--ledger-protocol-parameters" "/data/protocol-parameters.json" ]
-        [ "--testnet-magic" "2" ]
+        [ "--testnet-magic" networkMagic ]
         [ "--node-socket" "/cardano-node/node.socket" ]
         # [ "--start-chain-from" "92679263.9a7bcacdf4c862e4df776ad54eca51dbd4bf1a8ee036d9d10d41f81e84020028" ]
-        [ "--peer" "www.punkachien.net:5001" ] # arnaud
-        [ "--cardano-verification-key" "/credentials/arnaud.cardano.vk" ]
-        [ "--hydra-verification-key" "/credentials/arnaud.hydra.vk" ]
-        [ "--peer" "13.37.15.211:5001" ] # pascal
-        [ "--cardano-verification-key" "/credentials/pascal.cardano.vk" ]
-        [ "--hydra-verification-key" "/credentials/pascal.hydra.vk" ]
-        # [ "--peer" "13.37.150.125:5001" ] # sasha
-        # [ "--cardano-verification-key" "/credentials/sasha.cardano.vk" ]
-        # [ "--hydra-verification-key" "/credentials/sasha.hydra.vk" ]
+        # [ "--peer" "www.punkachien.net:5001" ] # arnaud
+        # [ "--cardano-verification-key" "/credentials/arnaud.cardano.vk" ]
+        # [ "--hydra-verification-key" "/credentials/arnaud.hydra.vk" ]
+        # [ "--peer" "13.37.15.211:5001" ] # pascal
+        # [ "--cardano-verification-key" "/credentials/pascal.cardano.vk" ]
+        # [ "--hydra-verification-key" "/credentials/pascal.hydra.vk" ]
+        [ "--peer" "13.37.150.125:5001" ] # sasha
+        [ "--cardano-verification-key" "/credentials/sasha.cardano.vk" ]
+        [ "--hydra-verification-key" "/credentials/sasha.hydra.vk" ]
         [ "--peer" "13.38.189.209:5002" ] # franco
         [ "--cardano-verification-key" "/credentials/franco.cardano.vk" ]
         [ "--hydra-verification-key" "/credentials/franco.hydra.vk" ]
