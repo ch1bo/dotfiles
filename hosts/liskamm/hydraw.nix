@@ -13,6 +13,43 @@
     "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ= cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
   ];
 
+  # Let's add the command line tools directly for more convenience
+  environment.systemPackages = [
+    inputs.cardano-node.packages.${system}.cardano-cli
+    inputs.hydra.packages.${system}.hydra-tui-static
+    inputs.hydra.packages.${system}.hydra-tools-static
+  ];
+
+  # The hydraw application / bridge
+  virtualisation.oci-containers.containers.hydraw = {
+    image = "ghcr.io/input-output-hk/hydraw";
+    volumes = [
+      "/data/credentials:/credentials:ro"
+    ];
+    environment = {
+      HYDRAW_CARDANO_SIGNING_KEY = "/credentials/wallet.sk";
+      HYDRA_API_HOST = "localhost:4101";
+      HYDRAW_NETWORK = "1";
+    };
+    extraOptions = [ "--network=host" ];
+  };
+
+  # Configure the reverse proxy to point at it
+  services.nginx.virtualHosts."hydraw.ncoding.at" = {
+    forceSSL = true;
+    enableACME = true;
+    locations."/" = {
+      proxyPass = "http://127.0.0.1:1337";
+      proxyWebsockets = true;
+      extraConfig = ''
+        proxy_buffering off;
+        client_max_body_size 500M;
+      '';
+    };
+  };
+
+  ## Testnet deployment
+
   virtualisation.oci-containers.containers.cardano-node-preprod = {
     image = "inputoutput/cardano-node:1.35.7";
     volumes = [
@@ -58,7 +95,7 @@
         [ "--ledger-protocol-parameters" "/data/protocol-parameters.json" ]
         [ "--testnet-magic" networkMagic ]
         [ "--node-socket" "/cardano-node/node.socket" ]
-        # [ "--start-chain-from" "92679263.9a7bcacdf4c862e4df776ad54eca51dbd4bf1a8ee036d9d10d41f81e84020028" ]
+        [ "--start-chain-from" "35819567.abf6e1083ec8b542173a811ae16b939cc26f8cedeae8123464887512cccca4e0" ]
         # [ "--peer" "www.punkachien.net:5001" ] # arnaud
         # [ "--cardano-verification-key" "/credentials/arnaud.cardano.vk" ]
         # [ "--hydra-verification-key" "/credentials/arnaud.hydra.vk" ]
@@ -93,13 +130,6 @@
       CARDANO_LOG_DIR = "/data/logs";
     };
   };
-
-  # Let's add the command line tools directly for more convenience
-  environment.systemPackages = [
-    inputs.cardano-node.packages.${system}.cardano-cli
-    inputs.hydra.packages.${system}.hydra-tui-static
-    inputs.hydra.packages.${system}.hydra-tools-static
-  ];
 
   # Our hydra-node instance
   virtualisation.oci-containers.containers.hydra-node =
@@ -148,34 +178,6 @@
         [ "--hydra-verification-key" "/credentials/franco.hydra.vk" ]
       ];
     };
-
-  # The hydraw application / bridge
-  virtualisation.oci-containers.containers.hydraw = {
-    image = "ghcr.io/input-output-hk/hydraw";
-    volumes = [
-      "/data/credentials:/credentials:ro"
-    ];
-    environment = {
-      HYDRAW_CARDANO_SIGNING_KEY = "/credentials/sebastian.cardano.sk";
-      HYDRA_API_HOST = "localhost:4001";
-      HYDRAW_NETWORK = "mainnet";
-    };
-    extraOptions = [ "--network=host" ];
-  };
-
-  # Configure the reverse proxy to point at it
-  services.nginx.virtualHosts."hydraw.ncoding.at" = {
-    forceSSL = true;
-    enableACME = true;
-    locations."/" = {
-      proxyPass = "http://127.0.0.1:1337";
-      proxyWebsockets = true;
-      extraConfig = ''
-        proxy_buffering off;
-        client_max_body_size 500M;
-      '';
-    };
-  };
 
   # Log aggregation
   services.grafana-agent = {
