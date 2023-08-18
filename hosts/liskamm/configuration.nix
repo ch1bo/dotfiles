@@ -44,7 +44,7 @@
 
   # ZFS
   # 4GB max ARC cache
-  boot.kernelParams = ["zfs.zfs_arc_max=4294967296"];
+  boot.kernelParams = [ "zfs.zfs_arc_max=4294967296" ];
   services.zfs.autoScrub.enable = true;
   # Auto-snapshot all marked datasets with: com.sun:auto-snapshot=true
   services.zfs.autoSnapshot.enable = true;
@@ -82,6 +82,9 @@
     dconf
     gptfdisk
     htop
+    # nix tools
+    nix-output-monitor
+    nvd
   ];
 
   ## Services
