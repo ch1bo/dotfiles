@@ -6,7 +6,10 @@ let
   };
 in
 {
-  imports = [ ./hardware-configuration.nix ];
+  imports = [
+    ./mithril-mock-aggregator.nix
+    ./hardware-configuration.nix
+  ];
 
   # At least the nvidia drivers are proprietary
   nixpkgs.config.allowUnfree = true;
