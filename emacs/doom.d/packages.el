@@ -67,3 +67,7 @@
 
 ;; TODO: temporary fix for new mu4e 1.10
 (unpin! evil-collection)
+
+;; Aiken (Cardano)
+(package! aiken-mode
+  :recipe (:local-repo "~/code/aiken-mode"))

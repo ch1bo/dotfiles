@@ -273,8 +273,22 @@ visible, hide it. Otherwise, show it."
 (add-hook! (rustic-mode) 'add-autoformat-hook)
 
 ;; Nix
+
 (set-formatter! 'nixpkgs-fmt "nixpkgs-fmt"
   :modes 'nix-mode)
+
+;; Aiken (Cardano)
+
+(use-package! aiken-mode)
+
+(with-eval-after-load 'lsp-mode
+  (add-to-list 'lsp-language-id-configuration
+               '("\\.ak\\'" . "aiken"))
+
+  (lsp-register-client
+   (make-lsp-client :new-connection (lsp-stdio-connection "aiken lsp")
+                    :activation-fn (lsp-activate-on "aiken")
+                    :server-id 'aiken-lsp)))
 
 ;; Email
 
