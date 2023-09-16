@@ -189,6 +189,9 @@ visible, hide it. Otherwise, show it."
       lsp-lens-enable nil
       lsp-treemacs-errors-position-params '((side . right)))
 
+;; Generally not format with LSP
+(setq +format-with-lsp nil)
+
 ;; C/C++
 
 (after! flycheck
@@ -216,44 +219,21 @@ visible, hide it. Otherwise, show it."
       lsp-haskell-plugin-stan-global-on nil
       lsp-response-timeout 30)
 
-;; Don't' use lsp for formatting
-(setq-hook! 'haskell-mode-hook +format-with-lsp nil)
-
-;; TODO(SN): this is necessary as format-all-mode / format-all-buffer--from-hook
-;; advice is not :override and had been broken the +onsave feature. So waiting
-;; for that :editor format rewrite...
-(defun add-autoformat-hook ()
-  (add-hook 'before-save-hook '+format-buffer-h))
-(add-hook! (haskell-mode haskell-cabal-mode) 'add-autoformat-hook)
-
 ;; Use 'cabal-fmt' for .cabal files
-(set-formatter! 'cabal-fmt "cabal-fmt"
-  :modes 'haskell-cabal-mode)
+(set-formatter! 'cabal-fmt "cabal-fmt" :modes '(haskell-cabal-mode))
+
+;; Add 'stylish-haskell' as formatter.
+(set-formatter! 'stylish-haskell "stylish-haskell" :modes '(haskell-mode))
+
+;; Use 'fourmolu' as formatter (keep this the last one)
+(set-formatter! 'fourmolu '("fourmolu" "--no-cabal") :modes '(haskell-mode))
 
 ;; TODO How to organize formatters? brittany is default, and switching using
 ;; config updates is annoying.
 
-;; Use 'fourmolu' as formatter.
-(set-formatter!
-  'fourmolu
-  '("fourmolu" "--no-cabal")
-  :modes 'haskell-mode
-  :filter
-  (lambda (output errput)
-    (list output
-          (replace-regexp-in-string "Loaded config from:[^\n]*\n*" "" errput))))
-
-;; Use 'stylish-haskell' as formatter.
-;;
-;; NOTE Call stylish-haskell directly instead of the
-;; 'haskell-mode-stylish-buffer command as I am still a bit puzzled why the
-;; latter does not pick up the projects .stylish-haskell.yaml.
-;; (set-formatter! 'stylish-haskell "stylish-haskell"
-;;   :modes 'haskell-mode)
-
 ;; Purescript
-(set-formatter! 'purty "purty"
-  :modes 'purescript-mode)
+
+(set-formatter! 'purty "purty" :modes '(purescript-mode))
 
 ;; Javascript
 
@@ -263,19 +243,10 @@ visible, hide it. Otherwise, show it."
 
 ;; Use java-mode for "monkeyc" files, but disable auto-formatting
 (add-to-list 'auto-mode-alist '("\\.mc\\'" . java-mode))
-(after! format
-  (nconc +format-on-save-enabled-modes '(java-mode)))
-
-;; Rust
-
-;; Don't' use lsp for formatting
-(setq-hook! 'rustic-mode-hook +format-with-lsp nil)
-(add-hook! (rustic-mode) 'add-autoformat-hook)
 
 ;; Nix
 
-(set-formatter! 'nixpkgs-fmt "nixpkgs-fmt"
-  :modes 'nix-mode)
+(set-formatter! 'nixpkgs-fmt "nixpkgs-fmt" :modes '(nix-mode))
 
 ;; Aiken (Cardano)
 
