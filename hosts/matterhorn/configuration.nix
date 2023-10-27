@@ -7,7 +7,6 @@ let
 in
 {
   imports = [
-    ./mithril-mock-aggregator.nix
     ./hardware-configuration.nix
   ];
 
