@@ -71,3 +71,7 @@
 ;; Aiken (Cardano)
 (package! aiken-mode
   :recipe (:local-repo "~/code/aiken-mode"))
+
+;; Mermaid
+;; TODO: upstream as doom module
+(package! ob-mermaid)

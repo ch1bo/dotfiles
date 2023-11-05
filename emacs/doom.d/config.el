@@ -263,9 +263,12 @@ visible, hide it. Otherwise, show it."
 
 ;; Mermaid
 ;; TODO: upstream as doom module
-;; (org-babel-do-load-languages
-;;    'org-babel-load-languages
-;;    '((mermaid . t)))
+(use-package! ob-mermaid
+  :config
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((mermaid . t)))
+  )
 
 ;; Email
 
