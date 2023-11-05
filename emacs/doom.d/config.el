@@ -220,20 +220,20 @@ visible, hide it. Otherwise, show it."
       lsp-response-timeout 30)
 
 ;; Use 'cabal-fmt' for .cabal files
-(set-formatter! 'cabal-fmt "cabal-fmt" :modes '(haskell-cabal-mode))
+(set-formatter! 'cabal-fmt '("cabal-fmt") :modes '(haskell-cabal-mode))
 
 ;; Add 'stylish-haskell' as formatter.
-(set-formatter! 'stylish-haskell "stylish-haskell" :modes '(haskell-mode))
+(set-formatter! 'stylish-haskell '("stylish-haskell") :modes '(haskell-mode))
 
 ;; Use 'fourmolu' as formatter (keep this the last one)
-(set-formatter! 'fourmolu '("fourmolu" "--no-cabal") :modes '(haskell-mode))
+(set-formatter! 'fourmolu '("fourmolu" "--stdin-input-file" filepath) :modes '(haskell-mode))
 
 ;; TODO How to organize formatters? brittany is default, and switching using
 ;; config updates is annoying.
 
 ;; Purescript
 
-(set-formatter! 'purty "purty" :modes '(purescript-mode))
+(set-formatter! 'purty '("purty") :modes '(purescript-mode))
 
 ;; Javascript
 
@@ -246,7 +246,7 @@ visible, hide it. Otherwise, show it."
 
 ;; Nix
 
-(set-formatter! 'nixpkgs-fmt "nixpkgs-fmt" :modes '(nix-mode))
+(set-formatter! 'nixpkgs-fmt '("nixpkgs-fmt") :modes '(nix-mode))
 
 ;; Aiken (Cardano)
 
@@ -260,6 +260,12 @@ visible, hide it. Otherwise, show it."
    (make-lsp-client :new-connection (lsp-stdio-connection "aiken lsp")
                     :activation-fn (lsp-activate-on "aiken")
                     :server-id 'aiken-lsp)))
+
+;; Mermaid
+;; TODO: upstream as doom module
+;; (org-babel-do-load-languages
+;;    'org-babel-load-languages
+;;    '((mermaid . t)))
 
 ;; Email
 
