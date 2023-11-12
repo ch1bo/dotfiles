@@ -119,7 +119,13 @@
   fonts.fonts = [
     pkgs.fira-code
     pkgs.hasklig
-    (pkgs.nerdfonts.override { fonts = [ "FiraCode" "Hasklig" ]; })
+    (pkgs.nerdfonts.override {
+      fonts = [
+        "FiraCode"
+        "Hasklig"
+        "NerdFontsSymbolsOnly"
+      ];
+    })
   ];
 
   # Other things
