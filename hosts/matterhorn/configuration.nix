@@ -172,6 +172,7 @@ in
         "NerdFontsSymbolsOnly"
       ];
     })
+    pkgs.roboto
   ];
 
   ## User configuration
