@@ -8,8 +8,8 @@
     };
 
     # hydraw
-    hydra.url = "github:input-output-hk/hydra/5642332bef2085974cf6936a47b2a406caba45d9";
-    cardano-node.url = "github:input-output-hk/cardano-node/1.35.7";
+    hydra.url = "github:input-output-hk/hydra/9abb099675324fb3c0d7de6cfd68962ff10283c2";
+    cardano-node.url = "github:input-output-hk/cardano-node/8.1.2";
   };
 
   outputs = inputs: {

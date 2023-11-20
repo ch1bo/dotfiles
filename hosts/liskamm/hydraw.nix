@@ -17,7 +17,6 @@
   environment.systemPackages = [
     inputs.cardano-node.packages.${system}.cardano-cli
     inputs.hydra.packages.${system}.hydra-tui-static
-    inputs.hydra.packages.${system}.hydra-tools-static
   ];
 
   # The hydraw application / bridge
