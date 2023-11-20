@@ -138,7 +138,7 @@
       nodeId = "sebastian-node";
     in
     {
-      image = "ghcr.io/input-output-hk/hydra-node@sha256:8848ee58d66bca536b4f23f5ecefef821c13d22faeca23271ca788724604430f";
+      image = "ghcr.io/input-output-hk/hydra-node@sha256:4639701faae382d8be44a832d3196d1320c26203a196aa708f337e8cfdd5ea88";
       volumes = [
         "/data/cardano-node-mainnet:/cardano-node:ro"
         "/data/credentials:/credentials:ro"
