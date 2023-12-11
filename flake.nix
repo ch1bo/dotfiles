@@ -8,7 +8,7 @@
     };
 
     # hydraw
-    hydra.url = "github:input-output-hk/hydra/9abb099675324fb3c0d7de6cfd68962ff10283c2";
+    hydra.url = "github:input-output-hk/hydra/8f4aedc3b3183d3edd5a9d0ea8b7023ba7e5bf7e";
     cardano-node.url = "github:input-output-hk/cardano-node/8.1.2";
   };
 
@@ -24,7 +24,6 @@
     extra-substituters = [
       "https://nix-community.cachix.org"
       "https://cache.iog.io"
-      "https://cache.zw3rk.com"
       "https://hydra-node.cachix.org"
       "https://cardano-scaling.cachix.org"
     ];

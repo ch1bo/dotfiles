@@ -28,7 +28,7 @@
     environment = {
       HYDRAW_CARDANO_SIGNING_KEY = "/credentials/wallet.sk";
       HYDRA_API_HOST = "localhost:4001";
-      HYDRAW_NETWORK = "1";
+      HYDRAW_NETWORK = "mainnet";
     };
     extraOptions = [ "--network=host" ];
   };
@@ -134,11 +134,11 @@
   virtualisation.oci-containers.containers.hydra-node =
     # TODO: lookup by network (mainnet)
     let
-      hydraScriptsTxId = "8de073d8429b16684b2e6b76371462fdedc07bbecfcb32c810fee1194c350e34";
+      hydraScriptsTxId = "4f9090ecf049cf43ac09138eefbb91d285b0deac61bdae9539df68f43b4e5d20";
       nodeId = "sebastian-node";
     in
     {
-      image = "ghcr.io/input-output-hk/hydra-node@sha256:4639701faae382d8be44a832d3196d1320c26203a196aa708f337e8cfdd5ea88";
+      image = "ghcr.io/input-output-hk/hydra-node@sha256:87451e56343dce254b44b87f3fa77af569f2fe6f6fa79c850b3ddedfa5a7ebe7";
       volumes = [
         "/data/cardano-node-mainnet:/cardano-node:ro"
         "/data/credentials:/credentials:ro"
@@ -172,8 +172,8 @@
         [ "--cardano-verification-key" "/credentials/franco.cardano.vk" ]
         [ "--hydra-verification-key" "/credentials/franco.hydra.vk" ]
         [ "--peer" "hydra.horizon-haskell.net:5005" ] # dan
-        [ "--cardano-verification-key" "/credentials/daniel.cardano.vk" ]
-        [ "--hydra-verification-key" "/credentials/daniel.hydra.vk" ]
+        [ "--cardano-verification-key" "/credentials/dan.cardano.vk" ]
+        [ "--hydra-verification-key" "/credentials/dan.hydra.vk" ]
       ];
     };
 
