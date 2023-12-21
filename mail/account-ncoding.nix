@@ -1,5 +1,5 @@
 {
-  # Corresponding secrets API entry (as also used by emacs)
+  # NOTE: Corresponding secrets API entry (as also used by emacs)
   # secret-tool store --label='Mail ncoding.at' sebastian.nagel@ncoding.at host mail.ncoding.at port 465
   accounts.email.accounts.ncoding = {
     primary = true;

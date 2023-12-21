@@ -277,6 +277,9 @@ visible, hide it. Otherwise, show it."
       mml-secure-openpgp-sign-with-sender t
       mml-secure-openpgp-encrypt-to-self t
       mu4e-alert-interesting-mail-query "flag:unread AND NOT flag:trashed AND maildir:*INBOX")
+;; use msmtp
+(setq message-send-mail-function 'message-send-mail-with-sendmail
+      sendmail-program "msmtp")
 ;; Sign mails by default
 (add-hook! 'mu4e-compose-mode-hook :append #'mml-secure-message-sign-pgpauto)
 ;; Load/Refresh main mu4e view on context change
@@ -306,7 +309,7 @@ visible, hide it. Otherwise, show it."
  "iohk.io"
  '((user-mail-address . "sebastian.nagel@iohk.io")
    (mu4e-trash-folder . "/iohk.io/[Gmail].Trash")
-   (mu4e-refile-folder  . "/iohk.io/[Gmail].All Mail") ;; TODO no archive?
+   (mu4e-refile-folder  . "/iohk.io/[Gmail].All Mail")
    (mu4e-sent-folder . "/iohk.io/[Gmail].Sent Mail")
    (mu4e-drafts-folder . "/iohk.io/[Gmail].Drafts")
    (smtpmail-smtp-user . "sebastian.nagel@iohk.io")
@@ -321,6 +324,26 @@ visible, hide it. Otherwise, show it."
                       (:name "Archive" :query "maildir:\"/iohk.io/[Gmail].All Mail\"" :key ?a)
                       ))
    (mu4e-compose-signature . (with-temp-buffer (insert-file-contents "~/.dotfiles/mail/iohk.sig") (buffer-string)))
+   ))
+;; TODO DRY with mail/accounts-book.nix
+(set-email-account!
+ "book.io"
+ '((user-mail-address . "sebastian@book.io")
+   (mu4e-trash-folder . "/book.io/[Gmail].Trash")
+   (mu4e-refile-folder  . "/book.io/[Gmail].All Mail")
+   (mu4e-sent-folder . "/book.io/[Gmail].Sent Mail")
+   (mu4e-drafts-folder . "/book.io/[Gmail].Drafts")
+   (smtpmail-smtp-user . "sebastian@book.io")
+   (smtpmail-smtp-server . "smtp.gmail.com")
+   (smtpmail-smtp-service . 465)
+   (smtpmail-stream-type . ssl)
+   (mu4e-update-interval . 120)
+   (mu4e-bookmarks . ((:name "Inbox" :query "maildir:/book.io/INBOX" :key ?i)
+                      (:name "Today" :query "maildir:/book.io/INBOX AND date:today..now" :key ?t)
+                      (:name "Flagged" :query "maildir:/book.io/* AND flag:flagged" :key ?f)
+                      (:name "Archive" :query "maildir:\"/book.io/[Gmail].All Mail\"" :key ?a)
+                      ))
+   (mu4e-compose-signature . nil)
    ))
 
 ;; Git auto-commit

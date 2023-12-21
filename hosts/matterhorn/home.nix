@@ -3,6 +3,7 @@
     ../../desktop.nix
     ../../mail/account-ncoding.nix
     ../../mail/account-iohk.nix
+    ../../mail/account-book.nix
   ];
 
   # TODO: man pages are broken?
@@ -22,7 +23,8 @@
         hostname = "fk.ncoding.at";
         port = 2201;
         forwardAgent = true;
-        localForwards = [{ # syncthing
+        localForwards = [{
+          # syncthing
           bind.port = 8385;
           host.address = "127.0.0.1";
           host.port = 8384;

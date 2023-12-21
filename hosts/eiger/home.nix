@@ -3,6 +3,7 @@
     ../../desktop.nix
     ../../mail/account-ncoding.nix
     ../../mail/account-iohk.nix
+    ../../mail/account-book.nix
   ];
 
   # TODO: man pages are broken?
