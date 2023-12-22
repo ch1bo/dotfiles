@@ -84,7 +84,10 @@ in
   '';
 
   # Docker deamon
-  virtualisation.docker.enable = true;
+  virtualisation.docker = {
+    enable = true;
+    storageDriver = "zfs";
+  };
 
   # Enable touchpad support (enabled default in most desktopManager).
   # TODO(SN): move to a notebook module
@@ -139,6 +142,16 @@ in
   environment.systemPackages = with pkgs; [
     git
     vim
+    atool
+    unzip
+    websocat
+    pdftk
+    imagemagick
+    inkscape
+    gimp
+    obs-studio
+    ledger-live-desktop
+    telegram-desktop
     # system monitoring
     lm_sensors
     htop
@@ -162,7 +175,7 @@ in
     nvd
   ];
 
-  fonts.fonts = [
+  fonts.packages = [
     pkgs.fira-code
     pkgs.hasklig
     (pkgs.nerdfonts.override {
