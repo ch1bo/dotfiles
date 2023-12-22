@@ -8,6 +8,7 @@ in
 {
   imports = [
     ./hardware-configuration.nix
+    ../../modules/obsidian.nix
   ];
 
   # At least the nvidia drivers are proprietary
