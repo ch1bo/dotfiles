@@ -116,7 +116,7 @@
   # Android tools
   programs.adb.enable = true;
 
-  fonts.fonts = [
+  fonts.packages = [
     pkgs.fira-code
     pkgs.hasklig
     (pkgs.nerdfonts.override {

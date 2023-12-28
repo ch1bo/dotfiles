@@ -15,10 +15,15 @@ in
     $DRY_RUN_CMD ln -sfT $VERBOSE_ARG ${emacsDir}/doom.d/ $HOME/.doom.d
   '';
 
-  home.packages = [
-    pkgs.emacsNativeComp # The editor (native branch)
+  programs.emacs = {
+    enable = true;
+    package = pkgs.emacsNativeComp;
+    # NOTE: other packages installed by doom-emacs
+    extraPackages = epkgs: [ epkgs.mu4e ];
+  };
 
-    # doom-emacs dependencies
+  # Dependencies
+  home.packages = [
     pkgs.fd
     pkgs.git
     pkgs.ripgrep
