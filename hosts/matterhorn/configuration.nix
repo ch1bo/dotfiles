@@ -28,6 +28,10 @@ in
   ];
   boot.zfs.forceImportRoot = false;
   boot.zfs.allowHibernation = true; # safe because swap is not on zfs
+  # Auto-snapshot all marked datasets, e.g
+  # zfs set com.sun:auto-snapshot=true root/safe/home
+  services.zfs.autoSnapshot.enable = true;
+  services.zfs.autoSnapshot.flags = "-k -p --utc";
 
   # Network setup
   networking.hostName = "matterhorn";

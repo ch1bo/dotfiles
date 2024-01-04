@@ -46,7 +46,8 @@
   # 4GB max ARC cache
   boot.kernelParams = [ "zfs.zfs_arc_max=4294967296" ];
   services.zfs.autoScrub.enable = true;
-  # Auto-snapshot all marked datasets with: com.sun:auto-snapshot=true
+  # Auto-snapshot all marked datasets, e.g
+  # zfs set com.sun:auto-snapshot=true root/safe/home
   services.zfs.autoSnapshot.enable = true;
   services.zfs.autoSnapshot.flags = "-k -p --utc";
 
