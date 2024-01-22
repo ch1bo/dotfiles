@@ -122,8 +122,8 @@
     ];
     cmd = [ "run" ];
     environment = {
-      CARDANO_CONFIG = "/data/config/mainnet/cardano-node/config.json";
-      CARDANO_TOPOLOGY = "/data/config/mainnet/cardano-node/topology.json";
+      CARDANO_CONFIG = "/data/config/mainnet_p2p/cardano-node/config.json";
+      CARDANO_TOPOLOGY = "/data/config/mainnet_p2p/cardano-node/topology.json";
       CARDANO_DATABASE_PATH = "/data/db";
       CARDANO_SOCKET_PATH = "/data/node.socket";
       CARDANO_LOG_DIR = "/data/logs";
