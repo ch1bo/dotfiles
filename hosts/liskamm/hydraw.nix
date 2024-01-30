@@ -17,6 +17,7 @@
   environment.systemPackages = [
     inputs.cardano-node.packages.${system}.cardano-cli
     inputs.hydra.packages.${system}.hydra-tui-static
+    inputs.mithril.packages.${system}.mithril-client-cli
   ];
 
   # The hydraw application / bridge
@@ -127,7 +128,7 @@
     };
   };
 
-  virtualisation.oci-containers.containers.hydra-node =
+  virtualisation.oci-containers.containers.hydra-node-mainnet =
     let
       hydraScriptsTxId = "7d998b617526d827dd69a495f5d5dc2c5e293b86a62ad61cb2fb5f2503cd87f0";
       nodeId = "sebastian@mainnet";
