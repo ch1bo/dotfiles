@@ -28,8 +28,8 @@
     ];
     environment = {
       HYDRAW_CARDANO_SIGNING_KEY = "/credentials/wallet.sk";
-      HYDRA_API_HOST = "localhost:4001";
-      HYDRAW_NETWORK = "mainnet";
+      HYDRA_API_HOST = "localhost:4002";
+      HYDRAW_NETWORK = "preview";
     };
     extraOptions = [ "--network=host" ];
   };
