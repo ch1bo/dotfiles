@@ -295,8 +295,9 @@ visible, hide it. Otherwise, show it."
    (smtpmail-stream-type . ssl)
    (mu4e-update-interval . 120)
    (mu4e-bookmarks . ((:name "Inbox" :query "maildir:/ncoding.at/INBOX" :key ?i)
-                      (:name "Today's messages" :query "maildir:/ncoding.at/INBOX AND date:today..now" :key ?t)
-                      (:name "Flagged messages" :query "maildir:/ncoding.at/* AND flag:flagged" :key ?f)
+                      (:name "Today" :query "maildir:/ncoding.at/INBOX AND date:today..now" :key ?t)
+                      (:name "Flagged" :query "maildir:/ncoding.at/* AND flag:flagged" :key ?f)
+                      (:name "Archive" :query "maildir:/ncoding.at/Archive" :key ?a)
                       ))
    (mu4e-compose-signature . nil)
    ))
@@ -314,9 +315,10 @@ visible, hide it. Otherwise, show it."
    (smtpmail-stream-type . ssl)
    (mu4e-update-interval . 120)
    (mu4e-bookmarks . ((:name "Inbox" :query "maildir:/iohk.io/INBOX" :key ?i)
-                      (:name "Today's messages" :query "maildir:/iohk.io/INBOX AND date:today..now" :key ?t)
-                      (:name "Flagged messages" :query "maildir:/iohk.io/* AND flag:flagged" :key ?f)
+                      (:name "Today" :query "maildir:/iohk.io/INBOX AND date:today..now" :key ?t)
+                      (:name "Flagged" :query "maildir:/iohk.io/* AND flag:flagged" :key ?f)
                       (:name "Meetings" :query "maildir:/iohk.io/meetings" :key ?m)
+                      (:name "Archive" :query "maildir:\"/iohk.io/[Gmail].All Mail\"" :key ?a)
                       ))
    (mu4e-compose-signature . (with-temp-buffer (insert-file-contents "~/.dotfiles/mail/iohk.sig") (buffer-string)))
    ))
@@ -324,3 +326,16 @@ visible, hide it. Otherwise, show it."
 ;; Git auto-commit
 (after! git-auto-commit-mode
   (setq gac-debounce-interval 5.0))
+
+;; Unfill paragraph
+
+;;; Stefan Monnier <foo at acm.org>. It is the opposite of fill-paragraph
+(defun unfill-paragraph (&optional region)
+  "Takes a multi-line paragraph and makes it into a single line of text."
+  (interactive (progn (barf-if-buffer-read-only) '(t)))
+  (let ((fill-column (point-max))
+        ;; This would override `fill-column' if it's an integer.
+        (emacs-lisp-docstring-fill-column t))
+    (fill-paragraph nil region)))
+
+(map! :desc "Undo fill-paragraph" "C-q" #'unfill-paragraph)
