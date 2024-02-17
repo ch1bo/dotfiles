@@ -15,6 +15,7 @@
       color.ui = true;
       diff.submodule = "log";
       fetch.recurseSubmodules = "on-demand";
+      fetch.writeCommitGraph = true;
       pull.rebase = "merges";
       push.default = "simple";
       rerere = {
