@@ -7,8 +7,8 @@ powerful hardware.
 | CPU   | Intel Core i7 6700T - 4 cores  |
 | RAM   | G.Skill Ripjaws DDR4 2133 32GB |
 | SSD   | WD Blue NVMe 500GB             |
-| HD    | SEAGATE BarraCuda Compute 2TB  |
-| HD    | SEAGATE BarraCuda Compute 2TB  |
+| SDD   | Intenso TOP SATA 2TB           |
+| SDD   | Intenso TOP SATA 2TB           |
 
 * TODO
 - [X] copy rootfs (data)
@@ -17,13 +17,14 @@ powerful hardware.
 - [X] data zpool mount
 - [X] rebuild with hydraw enabled
 - [X] off-site backups
-- [ ] make disk-level ZFS pools
+- [X] make disk-level ZFS pools
 - [ ] Fix mail state?
 - [ ] Fix webmail container
 
 * Disk setup
 
-Operating system on the SSD and data on two 2TB HDDs in a separate ZFS Raid1 pool.
+Operating system on the NVMe SSD and data on two 2TB SATA SSDs in a separate ZFS
+Raid1 pool.
 
 The SSD is partitioned similar to my other NixOS hosts:
 
@@ -43,7 +44,6 @@ Number  Start (sector)    End (sector)  Size       Code  Name
    3       909666304       976773119   32.0 GiB    8200  swap
 #+end_src
 
-
 A standard FAT32 EFI boot partition, swap and root partition, where the latter is home to a ZFS pool:
 
 #+begin_src
@@ -51,51 +51,45 @@ mkfs.vfat -F32 -n boot /dev/disk/by-id/nvme-WD_Blue_SN570_500GB_22051Z800497-par
 
 mkswap /dev/disk/by-id/nvme-WD_Blue_SN570_500GB_22051Z800497-part3
 
-zpool create -o ashift=12 -O acltype=posixacl -O xattr=sa -O mountpoint=none root /dev/disk/by-id/nvme-WD_Blue_SN570_500GB_22051Z800497-part2
+zpool create -o ashift=12 -O acltype=posixacl -O xattr=sa -O mountpoint=none rpool /dev/disk/by-id/nvme-WD_Blue_SN570_500GB_22051Z800497-part2
 #+end_src
 
 Data sets for the new root pool:
 
 #+begin_src
-zfs create -o mountpoint=none rootos/local
-zfs create -o mountpoint=legacy rootos/local/nix
-zfs create -o mountpoint=none rootos/safe
-zfs create -o mountpoint=legacy rootos/safe/rootos
-zfs create -o refreservation=512M -o mountpoint=none rootos/reserved
+zfs create -o mountpoint=none rpool/local
+zfs create -o mountpoint=legacy rpool/local/nix
+zfs create -o mountpoint=none rpool/safe
+zfs create -o mountpoint=legacy rpool/safe/rpool
+zfs create -o refreservation=512M -o mountpoint=none rpool/reserved
 #+end_src
 
-Formatting and setting up a ZFS pool:
+** Shrink reserved data set
+Where the =rpool/reserved= can be shrinked when space runs out (required for deletion on a COW file system) with
 
 #+begin_src
-mkfs.vfat -F32 -n boot /dev/disk/by-id/ata-ST2000LM015-2E8174_WDZV6EHY-part1
-
-zpool create -o ashift=12 -O acltype=posixacl -O xattr=sa -O mountpoint=none root /dev/disk/by-id/ata-Samsung_SSD_840_EVO_250GB_S1DBNSAF260050K-part2
+zfs set refreservation=none rpool/reserved
 #+end_src
 
-Currently the ZFS pool is setup with these data sets:
-
-#+begin_src
-zfs create -o mountpoint=none root/local
-zfs create -o mountpoint=legacy root/local/nix
-zfs create -o mountpoint=none root/safe
-zfs create -o mountpoint=legacy root/safe/root
-zfs create -o refreservation=512M -o mountpoint=none root/reserved
-#+end_src
-
-Where the =root/reserved= can be shrinked when space runs out (required for deletion on a COW file system) with
-
-#+begin_src
-zfs set refreservation=none root/reserved
-#+end_src
-
-** Adding a second disk to the ZFS pool
+** Adding a disk to the ZFS pool
 
 Partitioned the disk using a single partition and issued:
 #+begin_src
-zpool attach root /dev/disk/by-id/ata-ST2000LM015-2E8174_WDZV6EHY-part2 /dev/disk/by-id/ata-ST2000LM015-2E8174_WDZXFS70-part1
+zpool attach rpool /dev/disk/by-id/ata-ST2000LM015-2E8174_WDZV6EHY-part2 /dev/disk/by-id/ata-ST2000LM015-2E8174_WDZXFS70-part1
 #+end_src
 
-Then, zfs starts mirrorin automatically (= resilvering) where status can be seen in
+Then, zfs starts mirroring automatically (= resilvering) where status can be seen in
+#+begin_src
+zpool status
+#+end_src
+
+** Replacing a disk in the ZFS pool (e.g. SDD upgrade)
+
+#+begin_src
+zpool replace dpool /dev/disk/by-id/ata-ST2000LM015-2E8174_WDZXFS70-part1 /dev/disk/by-id/ata-INTENSO_SSD_AA000000000000001966
+#+end_src
+
+Then, zfs starts mirroring automatically (= resilvering) where status can be seen in
 #+begin_src
 zpool status
 #+end_src
@@ -123,8 +117,24 @@ NOTE: Actually.. only copying non-nixos stuff would have sufficed :sweat_smile:
 * Off-site backups
 
 The data on this NixOS server is backed up off-site to borgbase. For the
-configuration to work, the ssh keys and passpharse need to be available at
+configuration to work, the ssh keys and passphrase need to be available at
 =/run/keys/borg= for this to work.
+
+To generate ssh keys:
+#+begin_src
+ssh-keygen -f id_ed25519 -t ed25519 -C "Borg Backup"
+#+end_src
+
+As =/run/keys= is a =ramfs=, the keys need to be copied there from keepass after
+each server reboot.
+
+#+begin_src
+mkdir -p /run/keys/borg
+keepassxc-cli attachment-export /home/ch1bo/keepass/keepass.kdbx BorgBase id_ed25519 /run/keys/borg/id_ed25519
+chmod 0400 /run/keys/borg/id_ed25519
+keepassxc-cli show /home/ch1bo/keepass/keepass.kdbx BorgBase -a "nextcloud-ch1bo passphrase" > /run/keys/borg/nextcloud-ch1bo.pass
+keepassxc-cli show /home/ch1bo/keepass/keepass.kdbx BorgBase -a "nextcloud-veronika passphrase" > /run/keys/borg/nextcloud-veronika.pass
+#+end_src
 
 Systemd services and a wrapper script can be used to check status and recover
 files. For example, =journalctl -u borgbackup-job-pictures=, =borg-job-pictures
