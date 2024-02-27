@@ -159,6 +159,7 @@
     discord
     portfolio
     ledger-live-desktop
+    element-desktop
     # nix tools
     nix-output-monitor
     nvd
