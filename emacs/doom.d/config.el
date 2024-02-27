@@ -329,7 +329,7 @@ visible, hide it. Otherwise, show it."
 
 ;; Unfill paragraph
 
-;;; Stefan Monnier <foo at acm.org>. It is the opposite of fill-paragraph
+;; Stefan Monnier <foo at acm.org>. It is the opposite of fill-paragraph
 (defun unfill-paragraph (&optional region)
   "Takes a multi-line paragraph and makes it into a single line of text."
   (interactive (progn (barf-if-buffer-read-only) '(t)))
@@ -339,3 +339,15 @@ visible, hide it. Otherwise, show it."
     (fill-paragraph nil region)))
 
 (map! :desc "Undo fill-paragraph" "C-q" #'unfill-paragraph)
+
+;; Copilot
+
+;; From https://github.com/copilot-emacs/copilot.el
+;; Accept completion from copilot and fallback to company
+(use-package! copilot
+  :hook (prog-mode . copilot-mode)
+  :bind (:map copilot-completion-map
+              ("<tab>" . 'copilot-accept-completion)
+              ("TAB" . 'copilot-accept-completion)
+              ("C-TAB" . 'copilot-accept-completion-by-word)
+              ("C-<tab>" . 'copilot-accept-completion-by-word)))

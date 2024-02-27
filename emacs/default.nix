@@ -27,6 +27,8 @@ in
     pkgs.fd
     pkgs.git
     pkgs.ripgrep
+    # Needed for copilot
+    pkgs.nodejs
     # Using unstable for most experimental diagram support
     unstable.nodePackages.mermaid-cli
   ];

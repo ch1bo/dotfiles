@@ -75,3 +75,8 @@
 ;; Mermaid
 ;; TODO: upstream as doom module
 (package! ob-mermaid)
+
+;; Copilot
+;; TODO: upstream as doom module
+(package! copilot
+  :recipe (:host github :repo "copilot-emacs/copilot.el" :files ("*.el" "dist")))
