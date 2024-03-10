@@ -7,6 +7,7 @@
     ./mailserver.nix
     ./hydraw.nix
     ./backup.nix
+    ./home-assistant.nix
   ];
 
   # At least the nvidia drivers are proprietary
