@@ -132,6 +132,7 @@ each server reboot.
 mkdir -p /run/keys/borg
 keepassxc-cli attachment-export /home/ch1bo/keepass/keepass.kdbx BorgBase id_ed25519 /run/keys/borg/id_ed25519
 chmod 0400 /run/keys/borg/id_ed25519
+keepassxc-cli show /home/ch1bo/keepass/keepass.kdbx BorgBase -a "mail passphrase" > /run/keys/borg/mail.pass
 keepassxc-cli show /home/ch1bo/keepass/keepass.kdbx BorgBase -a "nextcloud-ch1bo passphrase" > /run/keys/borg/nextcloud-ch1bo.pass
 keepassxc-cli show /home/ch1bo/keepass/keepass.kdbx BorgBase -a "nextcloud-veronika passphrase" > /run/keys/borg/nextcloud-veronika.pass
 #+end_src
