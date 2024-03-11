@@ -160,6 +160,7 @@
     portfolio
     ledger-live-desktop
     element-desktop
+    obs-studio
     # nix tools
     nix-output-monitor
     nvd
