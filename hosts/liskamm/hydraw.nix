@@ -102,7 +102,7 @@
         [ "--peer" "13.37.150.125:5001" ] # sasha
         [ "--cardano-verification-key" "/credentials/sasha.cardano.vk" ]
         [ "--hydra-verification-key" "/credentials/sasha.hydra.vk" ]
-        [ "--peer" "13.39.83.131:5001" ] # franco
+        [ "--peer" "13.39.44.251:5001" ] # franco
         [ "--cardano-verification-key" "/credentials/franco.cardano.vk" ]
         [ "--hydra-verification-key" "/credentials/franco.hydra.vk" ]
         [ "--peer" "hydra.horizon-haskell.net:5005" ] # dan
