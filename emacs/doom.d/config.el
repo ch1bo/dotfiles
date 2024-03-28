@@ -58,7 +58,10 @@
 ;; Don't follow symlinks by default
 (setq find-file-visit-truename nil)
 
-;; Keybindings .. mostly reminiscent of spacemacs muscle memory.
+;; No mixed pitch fonts
+(setq +zen-mixed-pitch-modes nil)
+
+;; Keybindings
 ;;
 ;; Typically overrides of ../doom.emacs.d/modules/config/default/+evil-bindings.el
 ;; TODO: use :map to override only specifics
