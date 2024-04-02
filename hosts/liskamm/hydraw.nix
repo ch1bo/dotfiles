@@ -29,7 +29,7 @@
     environment = {
       HYDRAW_CARDANO_SIGNING_KEY = "/credentials/wallet.sk";
       HYDRA_API_HOST = "localhost:4002";
-      HYDRAW_NETWORK = "preview";
+      HYDRAW_NETWORK = "2";
     };
     extraOptions = [ "--network=host" ];
   };
@@ -68,11 +68,11 @@
   virtualisation.oci-containers.containers.hydra-node-preview =
     let
       networkMagic = "2"; # preview
-      hydraScriptsTxId = "c21b70a719112f76d318abcfee95499a27556ef4a18b1c62bc38e4b9c07ae3a6";
+      hydraScriptsTxId = "68011efe6c95d033db263a58612b061868652a084534e5fff890c81a1d94fa85";
       nodeId = "sebastian@preview";
     in
     {
-      image = "ghcr.io/input-output-hk/hydra-node:0.15.0";
+      image = "ghcr.io/input-output-hk/hydra-node@sha256:cd3d3513e17ee946b75b4375e03e8a1994479d1a09a1cd8ad73e88dd7c0331f1";
       volumes = [
         "/data/cardano-node-preview:/cardano-node:ro"
         "/data/credentials:/credentials:ro"
