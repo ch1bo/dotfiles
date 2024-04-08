@@ -114,14 +114,14 @@
   ## MAINNET deployment
 
   virtualisation.oci-containers.containers.cardano-node-mainnet = {
-    image = "ghcr.io/intersectmbo/cardano-node:8.7.3";
+    image = "ghcr.io/intersectmbo/cardano-node:8.9.1";
     volumes = [
       "/data/cardano-node-mainnet:/data"
     ];
     cmd = [ "run" ];
     environment = {
-      CARDANO_CONFIG = "/data/config/mainnet_p2p/cardano-node/config.json";
-      CARDANO_TOPOLOGY = "/data/config/mainnet_p2p/cardano-node/topology.json";
+      CARDANO_CONFIG = "/data/config/cardano-node/config.json";
+      CARDANO_TOPOLOGY = "/data/config/cardano-node/topology.json";
       CARDANO_DATABASE_PATH = "/data/db";
       CARDANO_SOCKET_PATH = "/data/node.socket";
       CARDANO_LOG_DIR = "/data/logs";
@@ -130,11 +130,11 @@
 
   virtualisation.oci-containers.containers.hydra-node-mainnet =
     let
-      hydraScriptsTxId = "7d998b617526d827dd69a495f5d5dc2c5e293b86a62ad61cb2fb5f2503cd87f0";
+      hydraScriptsTxId = "2d52e5787b198daeb280f9de63e5dec126b1843b050e85b1642ff8e47cb6de73";
       nodeId = "sebastian@mainnet";
     in
     {
-      image = "ghcr.io/input-output-hk/hydra-node:0.15.0";
+      image = "ghcr.io/input-output-hk/hydra-node:0.16.0";
       volumes = [
         "/data/cardano-node-mainnet:/cardano-node:ro"
         "/data/credentials:/credentials:ro"
@@ -158,18 +158,18 @@
         [ "--mainnet" ]
         [ "--node-socket" "/cardano-node/node.socket" ]
         # [ "--start-chain-from" "92679263.9a7bcacdf4c862e4df776ad54eca51dbd4bf1a8ee036d9d10d41f81e84020028" ]
-        [ "--peer" "cardano.hydra.bzh:5001" ] # arnaud
-        [ "--cardano-verification-key" "/credentials/arnaud.cardano.vk" ]
-        [ "--hydra-verification-key" "/credentials/arnaud.hydra.vk" ]
-        [ "--peer" "13.37.150.125:5001" ] # sasha
-        [ "--cardano-verification-key" "/credentials/sasha.cardano.vk" ]
-        [ "--hydra-verification-key" "/credentials/sasha.hydra.vk" ]
-        [ "--peer" "13.39.83.131:5001" ] # franco
-        [ "--cardano-verification-key" "/credentials/franco.cardano.vk" ]
-        [ "--hydra-verification-key" "/credentials/franco.hydra.vk" ]
-        [ "--peer" "hydra.horizon-haskell.net:5005" ] # dan
-        [ "--cardano-verification-key" "/credentials/dan.cardano.vk" ]
-        [ "--hydra-verification-key" "/credentials/dan.hydra.vk" ]
+        # [ "--peer" "cardano.hydra.bzh:5001" ] # arnaud
+        # [ "--cardano-verification-key" "/credentials/arnaud.cardano.vk" ]
+        # [ "--hydra-verification-key" "/credentials/arnaud.hydra.vk" ]
+        # [ "--peer" "13.37.150.125:5001" ] # sasha
+        # [ "--cardano-verification-key" "/credentials/sasha.cardano.vk" ]
+        # [ "--hydra-verification-key" "/credentials/sasha.hydra.vk" ]
+        # [ "--peer" "13.39.83.131:5001" ] # franco
+        # [ "--cardano-verification-key" "/credentials/franco.cardano.vk" ]
+        # [ "--hydra-verification-key" "/credentials/franco.hydra.vk" ]
+        # [ "--peer" "hydra.horizon-haskell.net:5005" ] # dan
+        # [ "--cardano-verification-key" "/credentials/dan.cardano.vk" ]
+        # [ "--hydra-verification-key" "/credentials/dan.hydra.vk" ]
       ];
     };
 
