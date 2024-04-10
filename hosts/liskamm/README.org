@@ -118,23 +118,22 @@ NOTE: Actually.. only copying non-nixos stuff would have sufficed :sweat_smile:
 
 The data on this NixOS server is backed up off-site to borgbase. For the
 configuration to work, the ssh keys and passphrase need to be available at
-=/run/keys/borg= for this to work.
+=/root/keys/borg= for this to work.
 
 To generate ssh keys:
 #+begin_src
 ssh-keygen -f id_ed25519 -t ed25519 -C "Borg Backup"
 #+end_src
 
-As =/run/keys= is a =ramfs=, the keys need to be copied there from keepass after
-each server reboot.
+Keys are kept in keepass and need to be installed once:
 
 #+begin_src
-mkdir -p /run/keys/borg
-keepassxc-cli attachment-export /home/ch1bo/keepass/keepass.kdbx BorgBase id_ed25519 /run/keys/borg/id_ed25519
-chmod 0400 /run/keys/borg/id_ed25519
-keepassxc-cli show /home/ch1bo/keepass/keepass.kdbx BorgBase -a "mail passphrase" > /run/keys/borg/mail.pass
-keepassxc-cli show /home/ch1bo/keepass/keepass.kdbx BorgBase -a "nextcloud-ch1bo passphrase" > /run/keys/borg/nextcloud-ch1bo.pass
-keepassxc-cli show /home/ch1bo/keepass/keepass.kdbx BorgBase -a "nextcloud-veronika passphrase" > /run/keys/borg/nextcloud-veronika.pass
+mkdir -p /root/keys/borg
+keepassxc-cli attachment-export /home/ch1bo/keepass/keepass.kdbx BorgBase id_ed25519 /root/keys/borg/id_ed25519
+chmod 0400 /root/keys/borg/id_ed25519
+keepassxc-cli show /home/ch1bo/keepass/keepass.kdbx BorgBase -a "mail passphrase" > /root/keys/borg/mail.pass
+keepassxc-cli show /home/ch1bo/keepass/keepass.kdbx BorgBase -a "nextcloud-ch1bo passphrase" > /root/keys/borg/nextcloud-ch1bo.pass
+keepassxc-cli show /home/ch1bo/keepass/keepass.kdbx BorgBase -a "nextcloud-veronika passphrase" > /root/keys/borg/nextcloud-veronika.pass
 #+end_src
 
 Systemd services and a wrapper script can be used to check status and recover
