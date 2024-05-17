@@ -80,3 +80,9 @@
 ;; TODO: upstream as doom module
 (package! copilot
   :recipe (:host github :repo "copilot-emacs/copilot.el" :files ("*.el" "dist")))
+
+;; Github-like markdown preview
+;; TODO: upstream as doom module
+;; https://blog.bitsandbobs.net/blog/emacs-markdown-live-preview/
+(package! simple-httpd)
+(package! impatient-mode)
