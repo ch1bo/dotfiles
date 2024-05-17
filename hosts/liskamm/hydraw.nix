@@ -72,7 +72,7 @@
       nodeId = "sebastian@preview";
     in
     {
-      image = "ghcr.io/input-output-hk/hydra-node@sha256:cd3d3513e17ee946b75b4375e03e8a1994479d1a09a1cd8ad73e88dd7c0331f1";
+      image = "hydra-node:spike-query";
       volumes = [
         "/data/cardano-node-preview:/cardano-node:ro"
         "/data/credentials:/credentials:ro"
