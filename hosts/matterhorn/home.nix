@@ -20,7 +20,7 @@
     enable = true;
     matchBlocks = {
       "eiger" = {
-        hostname = "fk.ncoding.at";
+        hostname = "ncoding.at";
         port = 2201;
         forwardAgent = true;
         localForwards = [{
@@ -31,11 +31,18 @@
         }];
       };
       "liskamm" = {
-        hostname = "fk.ncoding.at";
+        hostname = "ncoding.at";
         forwardAgent = true;
         extraOptions = {
           "StreamLocalBindUnlink" = "yes";
           "RemoteForward" = "/run/user/1000/gnupg/S.gpg-agent /run/user/1000/gnupg/S.gpg-agent.extra";
+        };
+      };
+      "ambicam" = {
+        user = "pi";
+        forwardAgent = true;
+        extraOptions = {
+          "PubkeyAcceptedAlgorithms" = "+ssh-rsa";
         };
       };
     };

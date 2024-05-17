@@ -155,6 +155,8 @@ in
     inkscape
     gimp
     obs-studio
+    ffmpeg
+    mplayer
     ledger-live-desktop
     telegram-desktop
     # system monitoring
