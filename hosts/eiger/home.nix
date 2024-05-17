@@ -34,6 +34,13 @@
           "HostKeyAlgorithms" = "+ssh-rsa";
         };
       };
+      "ambicam" = {
+        user = "pi";
+        forwardAgent = true;
+        extraOptions = {
+          "PubkeyAcceptedAlgorithms" = "+ssh-rsa";
+        };
+      };
     };
   };
 }

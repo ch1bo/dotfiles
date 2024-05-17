@@ -161,6 +161,8 @@
     ledger-live-desktop
     element-desktop
     obs-studio
+    ffmpeg
+    mplayer
     # nix tools
     nix-output-monitor
     nvd
