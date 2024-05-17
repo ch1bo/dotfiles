@@ -6,7 +6,7 @@
 {
   networking.firewall.allowedTCPPorts = [ 8123 ];
   virtualisation.oci-containers.containers.home-assistant = {
-    image = "ghcr.io/home-assistant/home-assistant:stable";
+    image = "ghcr.io/home-assistant/home-assistant:2024.5.0b1";
     volumes = [
       # TODO: Backup config + databases
       "/data/home-assistant:/config"
