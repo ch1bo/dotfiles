@@ -51,7 +51,7 @@
   ## Testnet deployment
 
   virtualisation.oci-containers.containers.cardano-node-preview = {
-    image = "ghcr.io/intersectmbo/cardano-node:8.7.3";
+    image = "ghcr.io/intersectmbo/cardano-node:8.9.2";
     volumes = [
       "/data/cardano-node-preview:/data"
     ];
@@ -114,7 +114,7 @@
   ## MAINNET deployment
 
   virtualisation.oci-containers.containers.cardano-node-mainnet = {
-    image = "ghcr.io/intersectmbo/cardano-node:8.9.1";
+    image = "ghcr.io/intersectmbo/cardano-node:8.9.2";
     volumes = [
       "/data/cardano-node-mainnet:/data"
     ];
