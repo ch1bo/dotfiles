@@ -20,15 +20,15 @@
     enable = true;
     matchBlocks = {
       "eiger" = {
-        hostname = "ncoding.at";
-        port = 2201;
+        # hostname = "ncoding.at";
+        # port = 2201;
         forwardAgent = true;
-        localForwards = [{
-          # syncthing
-          bind.port = 8385;
-          host.address = "127.0.0.1";
-          host.port = 8384;
-        }];
+        # localForwards = [{
+        #   # syncthing
+        #   bind.port = 8385;
+        #   host.address = "127.0.0.1";
+        #   host.port = 8384;
+        # }];
       };
       "liskamm" = {
         hostname = "ncoding.at";

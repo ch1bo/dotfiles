@@ -131,6 +131,7 @@
       extraOptions = ''
         experimental-features = nix-command flakes repl-flake
         allow-import-from-derivation = true
+        accept-flake-config = true
       '';
       # Prime nix registry with same nixpkgs as system built from
       registry.nixpkgs.flake = inputs.nixpkgs;
