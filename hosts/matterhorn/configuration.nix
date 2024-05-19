@@ -161,6 +161,7 @@ in
     telegram-desktop
     # system monitoring
     lm_sensors
+    btop
     htop
     powertop
     gnome.gnome-disk-utility
@@ -168,7 +169,6 @@ in
     gnome.simple-scan
     dconf
     pavucontrol
-    htop
     unstable.discord
     xournal
     libreoffice
