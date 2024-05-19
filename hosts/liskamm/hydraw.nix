@@ -142,7 +142,7 @@
       volumes = [
         "/data/cardano-node-mainnet:/cardano-node:ro"
         "/data/credentials:/credentials:ro"
-        "/data/hydra-node:/data"
+        "/data/hydra-node-mainnet:/data"
       ];
       ports = [
         "4001:4001"
