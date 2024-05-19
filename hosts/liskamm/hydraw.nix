@@ -6,11 +6,13 @@
   # Add iohk substituters
   nix.settings.substituters = [
     "https://cache.nixos.org"
-    "https://hydra.iohk.io"
+    "https://cache.iog.io"
+    "https://cardano-scaling.cachix.org"
   ];
   nix.settings.trusted-public-keys = [
     "iohk.cachix.org-1:DpRUyj7h7V830dp/i6Nti+NEO2/nhblbov/8MW7Rqoo="
     "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ= cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+    "cardano-scaling.cachix.org-1:RKvHKhGs/b6CBDqzKbDk0Rv6sod2kPSXLwPzcUQg9lY="
   ];
 
   # Let's add the command line tools directly for more convenience
@@ -53,12 +55,13 @@
   virtualisation.oci-containers.containers.cardano-node-preview = {
     image = "ghcr.io/intersectmbo/cardano-node:8.9.2";
     volumes = [
+      "/data/cardano-configurations/network/preview:/config"
       "/data/cardano-node-preview:/data"
     ];
     cmd = [ "run" ];
     environment = {
-      CARDANO_CONFIG = "/data/config/preview_p2p/cardano-node/config.json";
-      CARDANO_TOPOLOGY = "/data/config/preview_p2p/cardano-node/topology.json";
+      CARDANO_CONFIG = "/config/cardano-node/config.json";
+      CARDANO_TOPOLOGY = "/config/cardano-node/topology.json";
       CARDANO_DATABASE_PATH = "/data/db";
       CARDANO_SOCKET_PATH = "/data/node.socket";
       CARDANO_LOG_DIR = "/data/logs";
@@ -116,12 +119,13 @@
   virtualisation.oci-containers.containers.cardano-node-mainnet = {
     image = "ghcr.io/intersectmbo/cardano-node:8.9.2";
     volumes = [
+      "/data/cardano-configurations/network/mainnet:/config"
       "/data/cardano-node-mainnet:/data"
     ];
     cmd = [ "run" ];
     environment = {
-      CARDANO_CONFIG = "/data/config/cardano-node/config.json";
-      CARDANO_TOPOLOGY = "/data/config/cardano-node/topology.json";
+      CARDANO_CONFIG = "/config/cardano-node/config.json";
+      CARDANO_TOPOLOGY = "/config/cardano-node/topology.json";
       CARDANO_DATABASE_PATH = "/data/db";
       CARDANO_SOCKET_PATH = "/data/node.socket";
       CARDANO_LOG_DIR = "/data/logs";

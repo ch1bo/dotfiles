@@ -33,11 +33,12 @@
       fsType = "vfat";
     };
 
-  fileSystems."/home" =
-    {
-      device = "dpool/home";
-      fsType = "zfs";
-    };
+  # TODO: /home not on dpool?
+  # fileSystems."/home" =
+  #   {
+  #     device = "dpool/home";
+  #     fsType = "zfs";
+  #   };
 
   fileSystems."/data" =
     {

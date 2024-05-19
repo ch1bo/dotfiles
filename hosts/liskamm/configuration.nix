@@ -83,7 +83,10 @@
     vim
     dconf
     gptfdisk
+    # monitoring
     htop
+    btop
+    smartmontools
     # nix tools
     nix-output-monitor
     nvd
