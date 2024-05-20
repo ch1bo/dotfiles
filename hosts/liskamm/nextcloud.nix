@@ -51,6 +51,8 @@ in
     nextcloud = {
       image = "nextcloud:29";
       environment = {
+        TRUSTED_PROXIES = "172.18.0.1";
+        APACHE_DISABLE_REWRITE_IP = "1";
         OVERWRITEPROTOCOL = "https";
         OVERWRITEHOST = serverName;
         MYSQL_HOST = "db";
