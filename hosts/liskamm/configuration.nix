@@ -57,7 +57,9 @@
   # Port of existing services
   security.acme.acceptTerms = true;
   security.acme.defaults.email = "webmaster@ncoding.at";
-  services.nginx =
+  services.nginx.enable = true;
+  services.nginx.recommendedProxySettings = true;
+  services.nginx.virtualHosts."www.ncoding.at" =
     let
       # REVIEW: Maybe move ncoding.at sources into this repository
       ncoding-source = builtins.fetchTarball {
@@ -66,13 +68,10 @@
       };
     in
     {
-      enable = true;
-      virtualHosts."www.ncoding.at" = {
-        serverAliases = [ "ncoding.at" ];
-        forceSSL = true;
-        enableACME = true;
-        root = "${ncoding-source}/web/html";
-      };
+      serverAliases = [ "ncoding.at" ];
+      forceSSL = true;
+      enableACME = true;
+      root = "${ncoding-source}/web/html";
     };
 
   ## Programs
