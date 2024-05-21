@@ -71,11 +71,11 @@
   virtualisation.oci-containers.containers.hydra-node-preview =
     let
       networkMagic = "2"; # preview
-      hydraScriptsTxId = "68011efe6c95d033db263a58612b061868652a084534e5fff890c81a1d94fa85";
+      hydraScriptsTxId = "6d3f02bc648c1b62bb90fc221a8476fc47d4faaea4a293b00e58ac40c3377b85";
       nodeId = "sebastian@preview";
     in
     {
-      image = "hydra-node:spike-query";
+      image = "ghcr.io/input-output-hk/hydra-node:0.17.0";
       volumes = [
         "/data/cardano-node-preview:/cardano-node:ro"
         "/data/credentials:/credentials:ro"
@@ -134,11 +134,11 @@
 
   virtualisation.oci-containers.containers.hydra-node-mainnet =
     let
-      hydraScriptsTxId = "2d52e5787b198daeb280f9de63e5dec126b1843b050e85b1642ff8e47cb6de73";
+      hydraScriptsTxId = "0d2eca8c8daf23061f5ba24a8f3113afba52a2e26318dc78c5583d9fc86b7b85";
       nodeId = "sebastian@mainnet";
     in
     {
-      image = "ghcr.io/input-output-hk/hydra-node:0.16.0";
+      image = "ghcr.io/input-output-hk/hydra-node:0.17.0";
       volumes = [
         "/data/cardano-node-mainnet:/cardano-node:ro"
         "/data/credentials:/credentials:ro"
