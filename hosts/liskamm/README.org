@@ -132,11 +132,8 @@ mkdir -p /root/keys/borg
 keepassxc-cli attachment-export /home/ch1bo/keepass/keepass.kdbx BorgBase id_ed25519 /root/keys/borg/id_ed25519
 chmod 0400 /root/keys/borg/id_ed25519
 keepassxc-cli show /home/ch1bo/keepass/keepass.kdbx BorgBase -a "mail passphrase" > /root/keys/borg/mail.pass
-keepassxc-cli show /home/ch1bo/keepass/keepass.kdbx BorgBase -a "nextcloud-ch1bo passphrase" > /root/keys/borg/nextcloud-ch1bo.pass
-keepassxc-cli show /home/ch1bo/keepass/keepass.kdbx BorgBase -a "nextcloud-veronika passphrase" > /root/keys/borg/nextcloud-veronika.pass
+keepassxc-cli show /home/ch1bo/keepass/keepass.kdbx BorgBase -a "nextcloud passphrase" > /root/keys/borg/nextcloud-ch1bo.pass
 #+end_src
 
-Systemd services and a wrapper script can be used to check status and recover
-files. For example, =journalctl -u borgbackup-job-pictures=, =borg-job-pictures
-list=, or =borg-job-pictures mount zp1865b5@zp1865b5.repo.borgbase.com:repo
-/mnt=.
+=borgmatic= used to check status and recover files. For example, =journalctl -u
+borgmatic=, =borgmatic list=, etc.

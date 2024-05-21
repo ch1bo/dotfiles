@@ -2395,16 +2395,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1712149233,
-        "narHash": "sha256-dyP79lK6B2ueLJxCH6GrZiWQ5hfUOMHyFOfBqiwDJaQ=",
+        "lastModified": 1716201419,
+        "narHash": "sha256-f8gcYRLemaAkv4PCtSPKgsRAmsVn39fS9fvY3OyNCXA=",
         "owner": "input-output-hk",
         "repo": "hydra",
-        "rev": "4e1e1ed67b0da8aad442c235fa151f752dbf78de",
+        "rev": "dce60413d3a731a18b7025f54fab50dfa37cf59e",
         "type": "github"
       },
       "original": {
         "owner": "input-output-hk",
-        "ref": "0.16.0",
+        "ref": "0.17.0",
         "repo": "hydra",
         "type": "github"
       }
@@ -2754,16 +2754,16 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1711106908,
-        "narHash": "sha256-uaMHVdqo07q+D03/wgN0T21X6kRhxt/dxoApV5NjkIU=",
+        "lastModified": 1714464175,
+        "narHash": "sha256-DQVuHnDg9FdOlFPGK9KSNXCVl1vxYcYCKk/cBN/JEdo=",
         "owner": "input-output-hk",
         "repo": "mithril",
-        "rev": "2e462c013abff0504f5ee53452b4edf6c20acf33",
+        "rev": "512fe8d0b72e27f38b76cddca3d22877505156b0",
         "type": "github"
       },
       "original": {
         "owner": "input-output-hk",
-        "ref": "2412.0",
+        "ref": "2418.1",
         "repo": "mithril",
         "type": "github"
       }
