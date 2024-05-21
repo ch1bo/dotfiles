@@ -32,7 +32,11 @@
     keep_daily = 7; # Keep 7 daily archives
     keep_weekly = 4; # Keep 4 weekly archives
     keep_monthly = -1; # Keep at least one archive for each month
-
-    # TODO: backup database
+    maridb_databases = {
+      name = "nextcloud";
+      # mariadb_command = ''
+      #   docker exec -it db mariadb -D nextcloud -u oc_ch1bo -p $(grep dbpassword /data/nextcloud/config/config.php | sed "s/.*dbpassword.*=>.*'\(.*\)',/\1/")
+      # '';
+    };
   };
 }
