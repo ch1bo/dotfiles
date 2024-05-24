@@ -13,6 +13,8 @@
     ssh_command = "${pkgs.openssh}/bin/ssh -i /root/keys/borg/id_ed25519";
     encryption_passcommand = "${pkgs.coreutils}/bin/cat /root/keys/borg/mail.pass";
     source_directories_must_exist = true;
+    # Backed up daily
+    archive_name_format = "{hostname}-mail-{now:%Y-%m-%d}";
     keep_daily = 7; # Keep 7 daily archives
     keep_weekly = 4; # Keep 4 weekly archives
     keep_monthly = -1; # Keep at least one archive for each month
@@ -30,6 +32,8 @@
     ssh_command = "${pkgs.openssh}/bin/ssh -i /root/keys/borg/id_ed25519";
     encryption_passcommand = "${pkgs.coreutils}/bin/cat /root/keys/borg/nextcloud.pass";
     source_directories_must_exist = true;
+    # Backed up daily
+    archive_name_format = "{hostname}-nextcloud-{now:%Y-%m-%d}";
     keep_daily = 7; # Keep 7 daily archives
     keep_weekly = 4; # Keep 4 weekly archives
     keep_monthly = -1; # Keep at least one archive for each month
