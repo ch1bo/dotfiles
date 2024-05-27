@@ -1,10 +1,4 @@
-{ config, pkgs, lib, inputs, system, ... }:
-let
-  unstable = import inputs.nixpkgs-unstable {
-    config = config.nixpkgs.config;
-    inherit system;
-  };
-in
+{ config, pkgs, pkgs-unstable, inputs, system, ... }:
 {
   imports = [
     ./hardware-configuration.nix
@@ -169,10 +163,10 @@ in
     gnome.simple-scan
     dconf
     pavucontrol
-    unstable.discord
+    pkgs-unstable.discord
     xournal
     libreoffice
-    unstable.portfolio
+    pkgs-unstable.portfolio
     eva
     bind.dnsutils
     system-config-printer

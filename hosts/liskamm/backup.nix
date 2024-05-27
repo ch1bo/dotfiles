@@ -1,6 +1,8 @@
-{ pkgs, ... }:
+{ pkgs, pkgs-unstable, ... }:
 {
   services.borgmatic.enable = true;
+  # NOTE: Unstable borgmatic for mariadb_databases
+  environment.systemPackages = [ pkgs-unstable.borgmatic ];
 
   services.borgmatic.configurations.mail = {
     source_directories = [ "/data/mail" ];
@@ -38,12 +40,11 @@
     keep_weekly = 4; # Keep 4 weekly archives
     keep_monthly = -1; # Keep at least one archive for each month
 
-    # TODO: backup databases
-    # mariadb_databases = [{
-    #   name = "nextcloud";
-    #   # mariadb_command = ''
-    #   #   docker exec -it db mariadb -D nextcloud -u oc_ch1bo -p $(grep dbpassword /data/nextcloud/config/config.php | sed "s/.*dbpassword.*=>.*'\(.*\)',/\1/")
-    #   # '';
-    # }];
+    mariadb_databases = [{
+      name = "nextcloud";
+      mariadb_command = ''
+        docker exec -it db mariadb -D nextcloud -u oc_ch1bo -p $(grep dbpassword /data/nextcloud/config/config.php | sed "s/.*dbpassword.*=>.*'\(.*\)',/\1/")
+      '';
+    }];
   };
 }
