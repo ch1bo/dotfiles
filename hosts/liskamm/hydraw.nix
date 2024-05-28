@@ -98,10 +98,10 @@
         [ "--ledger-protocol-parameters" "/data/protocol-parameters.json" ]
         [ "--testnet-magic" networkMagic ]
         [ "--node-socket" "/cardano-node/node.socket" ]
-        # [ "--start-chain-from" "35819567.abf6e1083ec8b542173a811ae16b939cc26f8cedeae8123464887512cccca4e0" ]
-        [ "--peer" "cardano.hydra.bzh:5001" ] # arnaud
-        [ "--cardano-verification-key" "/credentials/arnaud.cardano.vk" ]
-        [ "--hydra-verification-key" "/credentials/arnaud.hydra.vk" ]
+        [ "--start-chain-from" "49533501.e364500a42220ea47314215679b7e42e9bbb81fa69d1366fe738d8aef900f7ee" ]
+        # [ "--peer" "cardano.hydra.bzh:5001" ] # arnaud
+        # [ "--cardano-verification-key" "/credentials/arnaud.cardano.vk" ]
+        # [ "--hydra-verification-key" "/credentials/arnaud.hydra.vk" ]
         [ "--peer" "13.37.150.125:5001" ] # sasha
         [ "--cardano-verification-key" "/credentials/sasha.cardano.vk" ]
         [ "--hydra-verification-key" "/credentials/sasha.hydra.vk" ]
@@ -111,6 +111,9 @@
         [ "--peer" "hydra.horizon-haskell.net:5005" ] # dan
         [ "--cardano-verification-key" "/credentials/dan.cardano.vk" ]
         [ "--hydra-verification-key" "/credentials/dan.hydra.vk" ]
+        [ "--peer" "87.212.22.225:5551" ] # reza
+        [ "--cardano-verification-key" "/credentials/reza.cardano.vk" ]
+        [ "--hydra-verification-key" "/credentials/reza.hydra.vk" ]
       ];
     };
 
