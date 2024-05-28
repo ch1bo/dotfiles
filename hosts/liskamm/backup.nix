@@ -1,8 +1,6 @@
-{ pkgs, pkgs-unstable, ... }:
+{ pkgs, ... }:
 {
   services.borgmatic.enable = true;
-  # NOTE: Unstable borgmatic for mariadb_databases
-  environment.systemPackages = [ pkgs-unstable.borgmatic ];
 
   services.borgmatic.configurations.mail = {
     source_directories = [ "/data/mail" ];
@@ -40,11 +38,12 @@
     keep_weekly = 4; # Keep 4 weekly archives
     keep_monthly = -1; # Keep at least one archive for each month
 
-    mariadb_databases = [{
-      name = "nextcloud";
-      mariadb_command = ''
-        docker exec -it db mariadb -D nextcloud -u oc_ch1bo -p $(grep dbpassword /data/nextcloud/config/config.php | sed "s/.*dbpassword.*=>.*'\(.*\)',/\1/")
-      '';
-    }];
+    # TODO: enable this with nixos-24.05 which contains borgmatic 1.8.11
+    # mariadb_databases = [{
+    #   name = "nextcloud";
+    #   mariadb_command = ''
+    #     docker exec -it db mariadb -D nextcloud -u oc_ch1bo -p $(grep dbpassword /data/nextcloud/config/config.php | sed "s/.*dbpassword.*=>.*'\(.*\)',/\1/")
+    #   '';
+    # }];
   };
 }
