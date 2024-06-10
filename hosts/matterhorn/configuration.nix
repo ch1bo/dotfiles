@@ -1,4 +1,4 @@
-{ config, pkgs, pkgs-unstable, inputs, system, ... }:
+{ config, pkgs, inputs, system, lib, ... }:
 {
   imports = [
     ./hardware-configuration.nix
@@ -43,7 +43,7 @@
 
   # Use custom xsession as display manager
   services.xserver.enable = true;
-  services.xserver.displayManager.defaultSession = "user-xsession";
+  services.displayManager.defaultSession = "user-xsession";
   services.xserver.displayManager.session = [{
     name = "user-xsession";
     manage = "desktop";
@@ -51,10 +51,10 @@
   }];
 
   # Keyboard setup
-  services.xserver.layout = "us";
-  services.xserver.xkbOptions = "eurosign:e";
+  services.xserver.xkb.layout = "us";
+  services.xserver.xkb.options = "eurosign:e";
   # TODO: WIP - Customization to emulate a 60% keyboard
-  services.xserver.extraLayouts.us-60percent = {
+  services.xserver.xkb.extraLayouts.us-60percent = {
     description = "US layout with 60% keyboard layer switches";
     languages = [ "eng" ];
     symbolsFile = ./symbols/us-60percent;
@@ -90,8 +90,7 @@
 
   # Enable touchpad support (enabled default in most desktopManager).
   # TODO(SN): move to a notebook module
-  # NOTE(SN): added for matterhorn
-  services.xserver.libinput.enable = true;
+  services.libinput.enable = true;
 
   # Power management
   services.tlp.enable = true;
@@ -163,10 +162,11 @@
     gnome.simple-scan
     dconf
     pavucontrol
-    pkgs-unstable.discord
+    discord
+    element-desktop
     xournal
     libreoffice
-    pkgs-unstable.portfolio
+    portfolio
     eva
     bind.dnsutils
     system-config-printer
@@ -202,10 +202,10 @@
     in {
       settings.trusted-users = users;
       settings.allowed-users = users;
-      # Use upcoming 'nix flake' and updated other commands
-      package = pkgs.nixUnstable;
       extraOptions = ''
         experimental-features = nix-command flakes repl-flake
+        allow-import-from-derivation = true
+        accept-flake-config = true
       '';
       # Prime nix registry with same nixpkgs as system built from
       registry.nixpkgs.flake = inputs.nixpkgs;

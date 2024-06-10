@@ -52,7 +52,7 @@
   };
 
   services.xserver.enable = true;
-  services.xserver.displayManager.defaultSession = "user-xsession";
+  services.displayManager.defaultSession = "user-xsession";
   services.xserver.displayManager.session = [{
     name = "user-xsession";
     manage = "desktop";
@@ -70,8 +70,8 @@
   };
 
   # Configure keymap in X11
-  services.xserver.layout = "us";
-  services.xserver.xkbOptions = "eurosign:e";
+  services.xserver.xkb.layout = "us";
+  services.xserver.xkb.options = "eurosign:e";
 
   # Bluetooth support (bluez)
   hardware.bluetooth.enable = true;
@@ -167,6 +167,7 @@
     nix-output-monitor
     nvd
   ];
+
   ## Services
 
   # Android tools
@@ -212,11 +213,10 @@
     {
       settings.trusted-users = users;
       settings.allowed-users = users;
-      # Use upcoming 'nix flake' and updated other commands
-      package = pkgs.nixUnstable;
       extraOptions = ''
         experimental-features = nix-command flakes repl-flake
         allow-import-from-derivation = true
+        accept-flake-config = true
       '';
       # Prime nix registry with same nixpkgs as system built from
       registry.nixpkgs.flake = inputs.nixpkgs;

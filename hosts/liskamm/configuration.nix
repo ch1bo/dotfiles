@@ -128,8 +128,6 @@
     {
       settings.trusted-users = users;
       settings.allowed-users = users;
-      # Use upcoming 'nix flake' and updated other commands
-      package = pkgs.nixUnstable;
       extraOptions = ''
         experimental-features = nix-command flakes repl-flake
         allow-import-from-derivation = true
