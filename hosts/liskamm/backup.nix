@@ -14,7 +14,7 @@
     encryption_passcommand = "${pkgs.coreutils}/bin/cat /root/keys/borg/mail.pass";
     source_directories_must_exist = true;
     # Backed up daily
-    archive_name_format = "{hostname}-mail-{now:%Y-%m-%d}";
+    archive_name_format = "{hostname}-nextcloud-{now:%Y-%m-%dT%H:%M:%S}";
     keep_daily = 7; # Keep 7 daily archives
     keep_weekly = 4; # Keep 4 weekly archives
     keep_monthly = -1; # Keep at least one archive for each month
@@ -33,17 +33,29 @@
     encryption_passcommand = "${pkgs.coreutils}/bin/cat /root/keys/borg/nextcloud.pass";
     source_directories_must_exist = true;
     # Backed up daily
-    archive_name_format = "{hostname}-nextcloud-{now:%Y-%m-%d}";
+    archive_name_format = "{hostname}-nextcloud-{now:%Y-%m-%dT%H:%M:%S}";
     keep_daily = 7; # Keep 7 daily archives
     keep_weekly = 4; # Keep 4 weekly archives
     keep_monthly = -1; # Keep at least one archive for each month
 
-    # TODO: enable this with nixos-24.05 which contains borgmatic 1.8.11
-    # mariadb_databases = [{
-    #   name = "nextcloud";
-    #   mariadb_command = ''
-    #     docker exec -it db mariadb -D nextcloud -u oc_ch1bo -p $(grep dbpassword /data/nextcloud/config/config.php | sed "s/.*dbpassword.*=>.*'\(.*\)',/\1/")
-    #   '';
-    # }];
+    # Backup nextcloud database
+
+    # Borgmatic's maridadb_databases requires mariadb-dump to write to
+    # /root/.borgmatic directly which is incompatible with docker setup.
+    before_backup = [
+      (pkgs.writeShellScript "before-backup" ''
+        set -eo pipefail
+
+        ${pkgs.coreutils}/bin/mkdir -p /root/.borgmatic/mariadb_databases/localhost
+
+        MYSQL_PWD=$(${pkgs.gnugrep}/bin/grep dbpassword /data/nextcloud/config/config.php | ${pkgs.gnused}/bin/sed "s/.*dbpassword.*=>.*'\(.*\)',/\1/")
+        ${pkgs.docker}/bin/docker exec -e MYSQL_PWD=$MYSQL_PWD db mariadb-dump nextcloud -u oc_ch1bo > /root/.borgmatic/mariadb_databases/localhost/nextcloud
+      '')
+    ];
+    after_backup = [
+      (pkgs.writeShellScript "after-backup" ''
+        rm -rf /root/.borgmatic/mariadb_databases/localhost/nextcloud
+      '')
+    ];
   };
 }
