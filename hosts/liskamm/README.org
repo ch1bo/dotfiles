@@ -7,7 +7,7 @@ powerful hardware.
 | CPU   | Intel Core i7 6700T - 4 cores  |
 | RAM   | G.Skill Ripjaws DDR4 2133 32GB |
 | SSD   | WD Blue NVMe 500GB             |
-| SDD   | Intenso TOP SATA 2TB           |
+| SSD   | SanDisk Plus SATA 2TB          |
 | SDD   | Intenso TOP SATA 2TB           |
 
 * TODO

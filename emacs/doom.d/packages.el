@@ -65,7 +65,7 @@
 ;; Auto-commit and push files, useful for wikis
 (package! git-auto-commit-mode)
 
-;; TODO: temporary fix for new mu4e 1.10
+;; Use latest evil key binds, needed for mu4e
 (unpin! evil-collection)
 
 ;; Aiken (Cardano)

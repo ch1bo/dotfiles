@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, pkgs-2311, ... }:
 {
   # TODO use options / mkIf instead? also, how to deduplicate with emacs config?
   # Include any of the ./account-xxx.nix modules
@@ -11,6 +11,9 @@
   accounts.email.maildirBasePath = "mail";
 
   programs.mu.enable = true;
+  # Use mu 1.10 as doom-emacs has still problems with latest 1.12
+  programs.mu.package = pkgs-2311.mu;
+
   programs.msmtp.enable = true;
   programs.offlineimap = {
     enable = true;

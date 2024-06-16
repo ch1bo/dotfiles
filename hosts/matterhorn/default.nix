@@ -1,4 +1,4 @@
-inputs@{ nixpkgs, nixpkgs-unstable, home-manager, ... }:
+inputs@{ nixpkgs, nixpkgs-unstable, nixpkgs-2311, home-manager, ... }:
 # Build a nixos system using given nixpkgs
 nixpkgs.lib.nixosSystem rec {
   system = "x86_64-linux";
@@ -17,6 +17,10 @@ nixpkgs.lib.nixosSystem rec {
       # Additional arguments used in home.nix
       home-manager.extraSpecialArgs = {
         unstable = import nixpkgs-unstable {
+          config = config.nixpkgs.config;
+          inherit system;
+        };
+        pkgs-2311 = import nixpkgs-2311 {
           config = config.nixpkgs.config;
           inherit system;
         };

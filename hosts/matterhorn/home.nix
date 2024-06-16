@@ -45,6 +45,10 @@
           "PubkeyAcceptedAlgorithms" = "+ssh-rsa";
         };
       };
+      "ambilight" = {
+        user = "root";
+        forwardAgent = true;
+      };
     };
   };
 }

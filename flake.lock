@@ -3695,6 +3695,21 @@
         "type": "github"
       }
     },
+    "nixpkgs-2311_4": {
+      "locked": {
+        "lastModified": 1718229064,
+        "narHash": "sha256-ZFav8A9zPNfjZg/wrxh1uZeMJHELRfRgFP+meq01XYk=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "5c2ec3a5c2ee9909904f860dadc19bc12cd9cc44",
+        "type": "github"
+      },
+      "original": {
+        "id": "nixpkgs",
+        "ref": "nixos-23.11",
+        "type": "indirect"
+      }
+    },
     "nixpkgs-lib": {
       "locked": {
         "dir": "lib",
@@ -4716,6 +4731,7 @@
         "hydra": "hydra_2",
         "mithril": "mithril_2",
         "nixpkgs": "nixpkgs_24",
+        "nixpkgs-2311": "nixpkgs-2311_4",
         "nixpkgs-unstable": "nixpkgs-unstable_4"
       }
     },
