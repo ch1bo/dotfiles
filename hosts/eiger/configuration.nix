@@ -1,4 +1,4 @@
-{ config, pkgs, lib, inputs, system, ... }:
+{ config, pkgs, pkgs-unstable, lib, inputs, system, ... }:
 {
   imports = [
     ./hardware-configuration.nix
@@ -176,6 +176,7 @@
   ];
 
   # SSH
+  programs.ssh.package = pkgs-unstable.openssh;
   services.openssh = {
     enable = true;
     # GPG agent forwarding

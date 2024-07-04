@@ -4,6 +4,7 @@ nixpkgs.lib.nixosSystem rec {
   system = "x86_64-linux";
   specialArgs = {
     inherit inputs system;
+    pkgs-unstable = nixpkgs-unstable.legacyPackages.${system};
   };
   modules = [
     # System configuration

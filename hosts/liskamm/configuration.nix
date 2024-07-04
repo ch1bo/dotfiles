@@ -1,4 +1,4 @@
-{ config, pkgs, lib, inputs, ... }:
+{ config, pkgs, pkgs-unstable, lib, inputs, ... }:
 
 {
   imports = [
@@ -94,6 +94,7 @@
   ## Services
 
   # SSH
+  programs.ssh.package = pkgs-unstable.openssh;
   services.openssh = {
     enable = true;
     # GPG agent forwarding
