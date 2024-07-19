@@ -53,7 +53,7 @@
   ## Testnet deployment
 
   virtualisation.oci-containers.containers.cardano-node-preview = {
-    image = "ghcr.io/intersectmbo/cardano-node:8.9.2";
+    image = "ghcr.io/intersectmbo/cardano-node:9.0.0";
     volumes = [
       "/data/cardano-configurations/network/preview:/config"
       "/data/cardano-node-preview:/data"
@@ -71,11 +71,11 @@
   virtualisation.oci-containers.containers.hydra-node-preview =
     let
       networkMagic = "2"; # preview
-      hydraScriptsTxId = "6d3f02bc648c1b62bb90fc221a8476fc47d4faaea4a293b00e58ac40c3377b85";
+      hydraScriptsTxId = "18db4e6639c864250e5b0e6ef952d5262cb5873ae9268208c9b9411414c658a8";
       nodeId = "sebastian@preview";
     in
     {
-      image = "ghcr.io/input-output-hk/hydra-node:0.17.0";
+      image = "ghcr.io/cardano-scaling/hydra-node@sha256:c667730f306d3f4eab8b2a1c149d0ceae8674ff61e2ff23a482646cfc531ec3e";
       volumes = [
         "/data/cardano-node-preview:/cardano-node:ro"
         "/data/credentials:/credentials:ro"
@@ -98,7 +98,7 @@
         [ "--ledger-protocol-parameters" "/data/protocol-parameters.json" ]
         [ "--testnet-magic" networkMagic ]
         [ "--node-socket" "/cardano-node/node.socket" ]
-        [ "--start-chain-from" "49533501.e364500a42220ea47314215679b7e42e9bbb81fa69d1366fe738d8aef900f7ee" ]
+        [ "--start-chain-from" "54646384.1d7ce81b5b2ba42f83adf39db7755819a419a3883d1bf984b8b5b9c88956b954" ]
         # [ "--peer" "cardano.hydra.bzh:5001" ] # arnaud
         # [ "--cardano-verification-key" "/credentials/arnaud.cardano.vk" ]
         # [ "--hydra-verification-key" "/credentials/arnaud.hydra.vk" ]
@@ -111,16 +111,19 @@
         [ "--peer" "hydra.horizon-haskell.net:5005" ] # dan
         [ "--cardano-verification-key" "/credentials/dan.cardano.vk" ]
         [ "--hydra-verification-key" "/credentials/dan.hydra.vk" ]
-        [ "--peer" "87.212.22.225:5551" ] # reza
-        [ "--cardano-verification-key" "/credentials/reza.cardano.vk" ]
-        [ "--hydra-verification-key" "/credentials/reza.hydra.vk" ]
+        # [ "--peer" "87.212.22.225:5551" ] # reza
+        # [ "--cardano-verification-key" "/credentials/reza.cardano.vk" ]
+        # [ "--hydra-verification-key" "/credentials/reza.hydra.vk" ]
+        [ "--peer" "35.214.9.104:5005" ] # noon
+        [ "--cardano-verification-key" "/credentials/noon.cardano.vk" ]
+        [ "--hydra-verification-key" "/credentials/noon.hydra.vk" ]
       ];
     };
 
   ## MAINNET deployment
 
   virtualisation.oci-containers.containers.cardano-node-mainnet = {
-    image = "ghcr.io/intersectmbo/cardano-node:8.9.2";
+    image = "ghcr.io/intersectmbo/cardano-node:9.0.0";
     volumes = [
       "/data/cardano-configurations/network/mainnet:/config"
       "/data/cardano-node-mainnet:/data"
