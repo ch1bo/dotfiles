@@ -10,7 +10,7 @@
 
     # hydraw
     hydra.url = "github:input-output-hk/hydra/0.17.0";
-    cardano-node.url = "github:intersectmbo/cardano-node/8.9.2";
+    cardano-node.url = "github:intersectmbo/cardano-node/9.1.0";
     mithril.url = "github:input-output-hk/mithril/2418.1";
   };
 
