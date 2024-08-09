@@ -24,7 +24,7 @@
 
   # The hydraw application / bridge
   virtualisation.oci-containers.containers.hydraw = {
-    image = "ghcr.io/input-output-hk/hydraw";
+    image = "ghcr.io/cardano-scaling/hydraw";
     volumes = [
       "/data/credentials:/credentials:ro"
     ];
@@ -71,11 +71,11 @@
   virtualisation.oci-containers.containers.hydra-node-preview =
     let
       networkMagic = "2"; # preview
-      hydraScriptsTxId = "18db4e6639c864250e5b0e6ef952d5262cb5873ae9268208c9b9411414c658a8";
+      hydraScriptsTxId = "19d25f489ffa66ba3568342657fe441f47a417d4e31585b5f0278ebe619ecf41";
       nodeId = "sebastian@preview";
     in
     {
-      image = "ghcr.io/cardano-scaling/hydra-node@sha256:c667730f306d3f4eab8b2a1c149d0ceae8674ff61e2ff23a482646cfc531ec3e";
+      image = "ghcr.io/cardano-scaling/hydra-node:0.18.0";
       volumes = [
         "/data/cardano-node-preview:/cardano-node:ro"
         "/data/credentials:/credentials:ro"
@@ -98,7 +98,7 @@
         [ "--ledger-protocol-parameters" "/data/protocol-parameters.json" ]
         [ "--testnet-magic" networkMagic ]
         [ "--node-socket" "/cardano-node/node.socket" ]
-        [ "--start-chain-from" "54646384.1d7ce81b5b2ba42f83adf39db7755819a419a3883d1bf984b8b5b9c88956b954" ]
+        [ "--start-chain-from" "56465662.f257db514ed2900a6502998befb45977f207b05c76defb4a3835fb5098742b9c" ]
         # [ "--peer" "cardano.hydra.bzh:5001" ] # arnaud
         # [ "--cardano-verification-key" "/credentials/arnaud.cardano.vk" ]
         # [ "--hydra-verification-key" "/credentials/arnaud.hydra.vk" ]
@@ -140,11 +140,11 @@
 
   virtualisation.oci-containers.containers.hydra-node-mainnet =
     let
-      hydraScriptsTxId = "0d2eca8c8daf23061f5ba24a8f3113afba52a2e26318dc78c5583d9fc86b7b85";
+      hydraScriptsTxId = "747c39eb53a4092fd46e10b417beef9781bf336a4fc1fd439e7492fe3876a1ba";
       nodeId = "sebastian@mainnet";
     in
     {
-      image = "ghcr.io/input-output-hk/hydra-node:0.17.0";
+      image = "ghcr.io/cardano-scaling/hydra-node:0.18.0";
       volumes = [
         "/data/cardano-node-mainnet:/cardano-node:ro"
         "/data/credentials:/credentials:ro"
@@ -167,7 +167,7 @@
         [ "--ledger-protocol-parameters" "/data/protocol-parameters.json" ]
         [ "--mainnet" ]
         [ "--node-socket" "/cardano-node/node.socket" ]
-        # [ "--start-chain-from" "92679263.9a7bcacdf4c862e4df776ad54eca51dbd4bf1a8ee036d9d10d41f81e84020028" ]
+        [ "--start-chain-from" "131547227.8a3dbf7df13abbf2a840d07223785f59283aed800e3aea70ee9d726f59bb825a" ]
         # [ "--peer" "cardano.hydra.bzh:5001" ] # arnaud
         # [ "--cardano-verification-key" "/credentials/arnaud.cardano.vk" ]
         # [ "--hydra-verification-key" "/credentials/arnaud.hydra.vk" ]
