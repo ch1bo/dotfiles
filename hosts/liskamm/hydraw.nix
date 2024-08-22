@@ -122,11 +122,11 @@
 
   ## MAINNET deployment
 
-  virtualisation.oci-containers.containers.cardano-node-mainnet = {
+  virtualisation.oci-containers.containers.cardano-node-preprod = {
     image = "ghcr.io/intersectmbo/cardano-node:9.1.0";
     volumes = [
-      "/data/cardano-configurations/network/mainnet:/config"
-      "/data/cardano-node-mainnet:/data"
+      "/data/cardano-configurations/network/preprod:/config"
+      "/data/cardano-node-preprod:/data"
     ];
     cmd = [ "run" ];
     environment = {
@@ -138,17 +138,18 @@
     };
   };
 
-  virtualisation.oci-containers.containers.hydra-node-mainnet =
+  virtualisation.oci-containers.containers.hydra-node-preprod =
     let
-      hydraScriptsTxId = "747c39eb53a4092fd46e10b417beef9781bf336a4fc1fd439e7492fe3876a1ba";
-      nodeId = "sebastian@mainnet";
+      networkMagic = "1"; # preprod
+      hydraScriptsTxId = "976b28bc716490fbaa4e17d7bf33b04f27fcfafef58c436c4f2644adeeb48829";
+      nodeId = "sebastian@preprod";
     in
     {
-      image = "ghcr.io/cardano-scaling/hydra-node:0.18.0";
+      image = "ghcr.io/cardano-scaling/hydra-node:0.18.1";
       volumes = [
-        "/data/cardano-node-mainnet:/cardano-node:ro"
+        "/data/cardano-node-preprod:/cardano-node:ro"
         "/data/credentials:/credentials:ro"
-        "/data/hydra-node-mainnet:/data"
+        "/data/hydra-node-preprod:/data"
       ];
       ports = [
         "4001:4001"
@@ -165,9 +166,9 @@
         [ "--hydra-signing-key" "/credentials/sebastian.hydra.sk" ]
         [ "--cardano-signing-key" "/credentials/sebastian.cardano.sk" ]
         [ "--ledger-protocol-parameters" "/data/protocol-parameters.json" ]
-        [ "--mainnet" ]
+        [ "--testnet-magic" networkMagic ]
         [ "--node-socket" "/cardano-node/node.socket" ]
-        [ "--start-chain-from" "131547227.8a3dbf7df13abbf2a840d07223785f59283aed800e3aea70ee9d726f59bb825a" ]
+        # [ "--start-chain-from" "131547227.8a3dbf7df13abbf2a840d07223785f59283aed800e3aea70ee9d726f59bb825a" ]
         # [ "--peer" "cardano.hydra.bzh:5001" ] # arnaud
         # [ "--cardano-verification-key" "/credentials/arnaud.cardano.vk" ]
         # [ "--hydra-verification-key" "/credentials/arnaud.hydra.vk" ]
