@@ -1,0 +1,169 @@
+@import url('https://fonts.googleapis.com/css?family=Fira+Sans');
+
+* {
+  box-sizing: border-box;
+  font-family: 'Fira Sans', sans-serif;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+body::after {
+  content: '';
+  background: hsla(227, 17%, 38%, 0.75);
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+}
+
+.bg {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  background: #344557 url(wallis-64.jpg) 0 0 no-repeat;
+  background-size: cover;
+  background-position: center center;
+  filter: blur(20px);
+}
+
+
+h2, h3, h4 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+h3 {
+  margin-bottom: 20px;
+}
+
+h4 {
+  margin-top: 20px;
+}
+
+svg {
+  height: 100%;
+  width: auto;
+}
+
+.content {
+  width: 100%;
+  max-width: 450px;
+  padding: 30px;
+  color: #e4e0ff;
+  z-index: 1;
+  position: relative;
+  border-radius: 5px;
+
+  /* Frosted glass effect */
+  background-color: rgba(255, 255, 255, .15);
+  backdrop-filter: blur(10px);
+}
+
+.profiles {
+  display: flex;
+  justify-content: space-between;
+}
+
+.profiles img {
+  height: 24px;
+}
+
+.profiles button {
+  background: none;
+  border: 0;
+  height: 50px;
+  width: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+.profiles button a {
+  flex: 1;
+  text-decoration: none;
+  font-size: 20px;
+  color: #e4e0ff;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.profiles button a:hover {
+  color: #6559ae;
+  animation: color 1.5s ease-in-out infinite;
+}
+.profiles button a i {
+  margin-right: 5px;
+}
+.profiles button:hover::after {
+  content: '';
+  position: absolute;
+  height: 50px;
+  width: 100px;
+  background: linear-gradient(120deg, #6559ae, #ff7159, #6559ae);
+  background-size: 400% 400%;
+  -webkit-clip-path: polygon(0% 100%, 4px 100%, 4px 4px, 96px 4px, 96px 46px, 4px 46px, 4px 100%, 100% 100%, 100% 0%, 0% 0%);
+  -moz-animation: gradient 3s ease-in-out infinite, button-border 0.5s forwards ease-in-out reverse;
+  -webkit-animation: gradient 3s ease-in-out infinite, button-border 0.5s forwards ease-in-out reverse;
+  animation: gradient 3s ease-in-out infinite, button-border 0.5s forwards ease-in-out reverse;
+}
+@keyframes sharpen {
+  from {
+    background-image: filter(austria-tyrol.jpg), blur(20px));
+  }
+  to {
+    background-image: filter(austria-tyrol.jpg), blur(0px));
+  }
+}
+@keyframes gradient {
+  0% {
+    background-position: 14% 0%;
+  }
+  50% {
+    background-position: 87% 100%;
+  }
+  100% {
+    background-position: 14% 0%;
+  }
+}
+@keyframes color {
+  0% {
+    color: #8c5f98;
+  }
+  50% {
+    color: #f06f62;
+  }
+  100% {
+    color: #8c5f98;
+  }
+}
+@keyframes button-border {
+  0% {
+    clip-path: polygon(0% 100%, 4px 100%, 4px 4px, 96px 4px, 96px 46px, 4px 46px, 4px 100%, 100% 100%, 100% 0%, 0% 0%);
+  }
+  25% {
+    clip-path: polygon(0% 100%, 4px 100%, 4px 4px, 96px 4px, 96px 46px, 96px 46px, 96px 100%, 100% 100%, 100% 0%, 0% 0%);
+  }
+  50% {
+    clip-path: polygon(0% 100%, 4px 100%, 4px 4px, 96px 4px, 96px 4px, 96px 4px, 96px 4px, 96px 4px, 100% 0%, 0% 0%);
+  }
+  75% {
+    clip-path: polygon(0% 100%, 4px 100%, 4px 4px, 4px 4px, 4px 4px, 4px 4px, 4px 4px, 4px 4px, 4px 0%, 0% 0%);
+  }
+  100% {
+    clip-path: polygon(0% 100%, 4px 100%, 4px 100%, 4px 100%, 4px 100%, 4px 100%, 4px 100%, 4px 100%, 4px 100%, 0% 100%);
+  }
+}

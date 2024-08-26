@@ -3,6 +3,7 @@
 {
   imports = [
     ./hardware-configuration.nix
+    ./ncoding.nix
     ./nextcloud.nix
     ./mailserver.nix
     ./hydraw.nix
@@ -51,28 +52,6 @@
   # zfs set com.sun:auto-snapshot=true root/safe/home
   services.zfs.autoSnapshot.enable = true;
   services.zfs.autoSnapshot.flags = "-k -p --utc";
-
-  ## ncoding.at
-
-  # Port of existing services
-  security.acme.acceptTerms = true;
-  security.acme.defaults.email = "webmaster@ncoding.at";
-  services.nginx.enable = true;
-  services.nginx.recommendedProxySettings = true;
-  services.nginx.virtualHosts."www.ncoding.at" =
-    let
-      # REVIEW: Maybe move ncoding.at sources into this repository
-      ncoding-source = builtins.fetchTarball {
-        url = https://github.com/ch1bo/ncoding.at/archive/609ac5316b233bb92ac7dfa601c8db83629f63f1.tar.gz;
-        sha256 = "0sfb9llgx572fndbx4h2s8gykhkcg8ap1yixhakd8js7mrykmr6i";
-      };
-    in
-    {
-      serverAliases = [ "ncoding.at" ];
-      forceSSL = true;
-      enableACME = true;
-      root = "${ncoding-source}/web/html";
-    };
 
   ## Programs
 

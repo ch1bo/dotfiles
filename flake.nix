@@ -8,6 +8,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # ncoding
+    cv.url = "github:ch1bo/cv";
+
     # hydraw
     hydra.url = "github:input-output-hk/hydra/0.18.0";
     cardano-node.url = "github:intersectmbo/cardano-node/9.1.0";
