@@ -100,8 +100,7 @@
 
   # Docker deamon
   virtualisation.docker.enable = true;
-  virtualisation.docker.storageDriver = "devicemapper";
-  virtualisation.docker.extraOptions = "--storage-opt dm.basesize=20G";
+  virtualisation.docker.storageDriver = "zfs";
 
   # Access cryptos
   hardware.ledger.enable = true;
