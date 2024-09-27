@@ -63,6 +63,9 @@
   # Printing
   services.printing.enable = true;
   services.printing.drivers = [ pkgs.gutenprint ];
+  # Prevent CVE-2024-47176
+  # https://www.evilsocket.net/2024/09/26/Attacking-UNIX-systems-via-CUPS-Part-I/
+  systemd.services.cups-browsed.enable = false;
 
   # Scanning
   hardware.sane.enable = true;
