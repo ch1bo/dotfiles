@@ -260,7 +260,7 @@ visible, hide it. Otherwise, show it."
                '("\\.ak\\'" . "aiken"))
 
   (lsp-register-client
-   (make-lsp-client :new-connection (lsp-stdio-connection "aiken lsp")
+   (make-lsp-client :new-connection (lsp-stdio-connection '("aiken" "lsp"))
                     :activation-fn (lsp-activate-on "aiken")
                     :server-id 'aiken-lsp)))
 
