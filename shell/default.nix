@@ -25,7 +25,7 @@ in
       save = 10000000;
       share = false;
     };
-    enableAutosuggestions = true;
+    autosuggestion.enable = true;
     initExtra = ''
       source ${./colors.zsh};
       source ${./completion.zsh};

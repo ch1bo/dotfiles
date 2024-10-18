@@ -12,11 +12,7 @@
     cv.url = "github:ch1bo/cv";
 
     # hydraw
-    hydra = {
-      url = "github:input-output-hk/hydra/0.19.0";
-      inputs.cardano-node.follows = "cardano-node";
-      inputs.mithril.follows = "mithril";
-    };
+    hydra.url = "github:input-output-hk/hydra/0.19.0";
     cardano-node.url = "github:intersectmbo/cardano-node/9.1.1";
     mithril.url = "github:input-output-hk/mithril/2430.0";
   };
