@@ -4,6 +4,7 @@
 
 let
   nextcloudPort = "8001";
+  # TODO: rename to nextcloud
   networkName = "nextcloud-back";
   serverName = "nextcloud.ncoding.at";
 in
@@ -27,6 +28,7 @@ in
     };
   };
 
+  # XXX: DRY with other docker stacks
   systemd.services."init-docker-network-${networkName}" = {
     description = "Network bridge for nextcloud.";
     after = [ "network.target" ];
@@ -67,6 +69,7 @@ in
       extraOptions = [ "--network=${networkName}" ];
     };
 
+    # TODO: rename to nextcloud-db
     db = {
       image = "mariadb:10.10";
       environment = {
@@ -74,11 +77,13 @@ in
         MARIADB_AUTO_UPGRADE = "true";
       };
       volumes = [
+        # TODO: move to /data/nextcloud/db
         "/data/db:/var/lib/mysql"
       ];
       extraOptions = [ "--network=${networkName}" ];
     };
 
+    # TODO: rename to nextcloud-redis
     redis = {
       image = "redis:7";
       extraOptions = [ "--network=${networkName}" ];

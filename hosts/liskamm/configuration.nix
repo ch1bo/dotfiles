@@ -9,6 +9,7 @@
     ./hydraw.nix
     ./backup.nix
     ./home-assistant.nix
+    ./immich.nix
   ];
 
   # At least the nvidia drivers are proprietary
