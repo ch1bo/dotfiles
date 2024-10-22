@@ -2,6 +2,7 @@
 {
   services.borgmatic.enable = true;
 
+  # TODO: convert back to services.borgbackup.jobs and move to mailserver.nix
   services.borgmatic.configurations.mail = {
     source_directories = [ "/data/mail" ];
     repositories = [{
@@ -20,6 +21,7 @@
     keep_monthly = -1; # Keep at least one archive for each month
   };
 
+  # TODO: convert back to services.borgbackup.jobs and move to nextcloud.nix
   services.borgmatic.configurations.nextcloud = {
     source_directories = [
       "/data/nextcloud/config"

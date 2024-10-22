@@ -114,26 +114,48 @@ Then, mount, =nixos-enter=, =nixos-generate-config= and =nixos-rebuild= to have 
 
 NOTE: Actually.. only copying non-nixos stuff would have sufficed :sweat_smile:
 
-* Off-site backups
-
-The data on this NixOS server is backed up off-site to borgbase. For the
-configuration to work, the ssh keys and passphrase need to be available at
-=/root/keys/borg= for this to work.
-
-To generate ssh keys:
+** Snapshots
+The =dpool= zfs pool and its datasets are snapshotted every 15 minutes. To list snapshots:
 #+begin_src
-ssh-keygen -f id_ed25519 -t ed25519 -C "Borg Backup"
+zfs list -t snapshot dpool/data
 #+end_src
 
-Keys are kept in keepass and need to be installed once:
+Snapshots are also available on the mounted filestem in =.zfs=, from which files can be copied to recover:
+#+begin_src
+ls /data/.zfs/snapshot
+rsync -ahz --delete --info=progress2 /data/.zfs/snapshot/zfs-auto-snap_hourly-2024-10-23-08h00U/immich/ /data/immich/
+#+end_src
 
+* Off-site backups
+
+The data on this NixOS server is backed up off-site to borgbase. For the configuration to work, the ssh keys and passphrase need to be available at =/root/keys/borg= for this to work. Keys are kept in keepass and need to be installed once:
 #+begin_src
 mkdir -p /root/keys/borg
 keepassxc-cli attachment-export /home/ch1bo/keepass/keepass.kdbx BorgBase id_ed25519 /root/keys/borg/id_ed25519
 chmod 0400 /root/keys/borg/id_ed25519
 keepassxc-cli show /home/ch1bo/keepass/keepass.kdbx BorgBase -a "mail passphrase" > /root/keys/borg/mail.pass
-keepassxc-cli show /home/ch1bo/keepass/keepass.kdbx BorgBase -a "nextcloud passphrase" > /root/keys/borg/nextcloud-ch1bo.pass
+keepassxc-cli show /home/ch1bo/keepass/keepass.kdbx BorgBase -a "nextcloud passphrase" > /root/keys/borg/nextcloud.pass
+keepassxc-cli show /home/ch1bo/keepass/keepass.kdbx BorgBase -a "immich passphrase" > /root/keys/borg/immich.pass
 #+end_src
 
-=borgmatic= used to check status and recover files. For example, =journalctl -u
-borgmatic=, =borgmatic list=, etc.
+Systemd services run every day to do backups. Check their status with:
+#+begin_src
+journalctl -u borgbackup-job-immich
+#+end_src
+
+Wrapper scripts can be used to list backups:
+#+begin_src
+borg-job-immich list
+#+end_src
+
+To recover, mount an archive and copy files from it:
+#+begin_src
+borg-job-immich mount :: /mnt
+rsync -ahz --delete --info=progress2 /mnt/liskamm-immich-2024-10-23T00:00:04/data/immich/ /data/immich/
+#+end_src
+
+Or use =borg extract= (faster):
+#+begin_src
+cd /data/immich
+borg-job-immich extract --list --strip-components 2 ::liskamm-immich-2024-10-23T00:00:04
+#+end_src

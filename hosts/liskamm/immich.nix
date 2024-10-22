@@ -2,6 +2,11 @@
 #
 # Container config ported from
 # https://github.com/immich-app/immich/releases/latest/download/docker-compose.yml
+#
+# Uses a private network to connect server, machine learning, db and redis
+# instances together.
+#
+# Off-site backups using borgbase.
 
 { config, pkgs, lib, ... }:
 
@@ -12,7 +17,7 @@ let
   # NOTE: Database only reachable from local, bridged network
   DB_DATABASE_NAME = "immich";
   DB_USERNAME = "postgres";
-  DB_PASSWORD = "postgres";
+  DB_PASSWORD = "postgres"; # FIXME: generate a random password
 in
 {
   services.nginx.virtualHosts."photos.ncoding.at" = {
@@ -86,7 +91,6 @@ in
       };
       volumes = [
         "/data/immich/db:/var/lib/postgresql/data"
-        "/data/immich/db.socket:/var/run/postgresql"
       ];
       cmd =
         [
@@ -113,4 +117,43 @@ in
     };
   };
 
+  # Backup to borgbase
+
+  services.borgbackup.jobs.immich = {
+    paths = [
+      "/data/immich/files"
+      "/data/immich/immich.sql.gz"
+    ];
+    doInit = true;
+    repo = "o94wbu5s@o94wbu5s.repo.borgbase.com:repo";
+    encryption = {
+      mode = "repokey-blake2";
+      passCommand = "cat /root/keys/borg/immich.pass";
+    };
+    environment.BORG_RSH = "ssh -i /root/keys/borg/id_ed25519";
+    compression = "auto,lzma";
+    startAt = "daily";
+    prune.keep = {
+      daily = 7; # Keep 7 daily archives
+      weekly = 4; # Keep 4 weekly archives
+      monthly = -1; # Keep at least one archive for each month
+    };
+    # Backup immich database
+    readWritePaths = [
+      "/data/immich"
+    ];
+    preHook = ''
+      ${pkgs.docker}/bin/docker exec immich-db pg_dumpall --clean --if-exists --username=${DB_USERNAME} \
+        | ${pkgs.gzip}/bin/gzip > /data/immich/immich.sql.gz
+    '';
+  };
+
+  environment.systemPackages = [
+    (pkgs.writeShellScriptBin
+      "restore-immich-db"
+      ''
+        ${pkgs.gzip}/bin/gunzip < /data/immich/immich.sql.gz \
+        | ${pkgs.docker}/bin/docker exec -i immich-db psql --username=${DB_USERNAME}
+      '')
+  ];
 }
