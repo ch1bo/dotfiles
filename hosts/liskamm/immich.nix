@@ -2,22 +2,19 @@
 #
 # Container config ported from
 # https://github.com/immich-app/immich/releases/latest/download/docker-compose.yml
-#
-# TODO: Add machine learning?
 
 { config, pkgs, lib, ... }:
 
 let
-  port = 2283;
+  version = "v1.118.2";
+  port = 2283; # not exposed
   networkName = "immich";
+  # NOTE: Database only reachable from local, bridged network
   DB_DATABASE_NAME = "immich";
-  # FIXME: use a domain socket without auth instead (no network access)
   DB_USERNAME = "postgres";
   DB_PASSWORD = "postgres";
 in
 {
-  networking.firewall.allowedTCPPorts = [ port ];
-
   services.nginx.virtualHosts."photos.ncoding.at" = {
     forceSSL = true;
     enableACME = true;
@@ -55,7 +52,7 @@ in
 
   virtualisation.oci-containers.containers = {
     immich-server = {
-      image = "ghcr.io/immich-app/immich-server:v1.118.2";
+      image = "ghcr.io/immich-app/immich-server:${version}";
       environment = {
         TZ = "Europe/Vienna";
         DB_HOSTNAME = "immich-db";
@@ -71,8 +68,15 @@ in
       extraOptions = [ "--network=${networkName}" ];
     };
 
+    immich-machine-learning = {
+      image = "ghcr.io/immich-app/immich-machine-learning:${version}";
+      volumes = [
+        "/data/immich/cache:/cache"
+      ];
+      extraOptions = [ "--network=${networkName}" ];
+    };
+
     immich-db = {
-      # NOTE: Special versin of postgres
       image = "docker.io/tensorchord/pgvecto-rs:pg14-v0.2.0@sha256:90724186f0a3517cf6914295b5ab410db9ce23190a2d9d0b9dd6463e3fa298f0";
       environment = {
         POSTGRES_PASSWORD = DB_PASSWORD;
@@ -82,6 +86,7 @@ in
       };
       volumes = [
         "/data/immich/db:/var/lib/postgresql/data"
+        "/data/immich/db.socket:/var/run/postgresql"
       ];
       cmd =
         [
