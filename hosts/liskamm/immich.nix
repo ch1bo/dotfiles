@@ -14,10 +14,10 @@ let
   version = "v1.118.2";
   port = 2283; # not exposed
   networkName = "immich";
-  # NOTE: Database only reachable from local, bridged network
   DB_DATABASE_NAME = "immich";
   DB_USERNAME = "postgres";
-  DB_PASSWORD = "postgres"; # FIXME: generate a random password
+  # NOTE: Database only reachable from local, bridged network
+  DB_PASSWORD = "uoa77tynl7jbuiFkr6PhuzUM";
 in
 {
   services.nginx.virtualHosts."photos.ncoding.at" = {
