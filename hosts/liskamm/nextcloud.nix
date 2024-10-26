@@ -89,4 +89,37 @@ in
       extraOptions = [ "--network=${networkName}" ];
     };
   };
+
+  # Backup to borgbase
+  services.borgbackup.jobs.nextcloud = {
+    paths = [
+      "/data/nextcloud/config"
+      "/data/nextcloud/data"
+      "/data/nextcloud/nextcloud.sql.gz"
+    ];
+    doInit = true;
+    repo = "n7ixpw3b@n7ixpw3b.repo.borgbase.com:repo";
+    encryption = {
+      mode = "repokey-blake2";
+      passCommand = "cat /root/keys/borg/nextcloud.pass";
+    };
+    environment.BORG_RSH = "ssh -i /root/keys/borg/id_ed25519";
+    compression = "auto,lzma";
+    startAt = "daily";
+    prune.keep = {
+      daily = 7; # Keep 7 daily archives
+      weekly = 4; # Keep 4 weekly archives
+      monthly = 12; # Keep 12 monthly archives
+    };
+    # Backup nextcloud database
+    readWritePaths = [
+      "/data/nextcloud"
+    ];
+    preHook = ''
+      MYSQL_PWD=$(${pkgs.gnugrep}/bin/grep dbpassword /data/nextcloud/config/config.php | ${pkgs.gnused}/bin/sed "s/.*dbpassword.*=>.*'\(.*\)',/\1/")
+      ${pkgs.docker}/bin/docker exec -e MYSQL_PWD=$MYSQL_PWD db mariadb-dump nextcloud -u oc_ch1bo \
+        | ${pkgs.gzip}/bin/gzip \
+        > /data/nextcloud/nextcloud.sql.gz
+    '';
+  };
 }

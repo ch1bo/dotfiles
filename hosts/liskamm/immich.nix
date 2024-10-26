@@ -118,7 +118,6 @@ in
   };
 
   # Backup to borgbase
-
   services.borgbackup.jobs.immich = {
     paths = [
       "/data/immich/files"
@@ -136,7 +135,7 @@ in
     prune.keep = {
       daily = 7; # Keep 7 daily archives
       weekly = 4; # Keep 4 weekly archives
-      monthly = -1; # Keep at least one archive for each month
+      monthly = 12; # Keep 12 monthly archives
     };
     # Backup immich database
     readWritePaths = [
@@ -144,7 +143,8 @@ in
     ];
     preHook = ''
       ${pkgs.docker}/bin/docker exec immich-db pg_dumpall --clean --if-exists --username=${DB_USERNAME} \
-        | ${pkgs.gzip}/bin/gzip > /data/immich/immich.sql.gz
+        | ${pkgs.gzip}/bin/gzip \
+        > /data/immich/immich.sql.gz
     '';
   };
 
