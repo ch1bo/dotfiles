@@ -40,8 +40,8 @@ in
         LOG_LEVEL = "trace";
         ONE_DIR = "0"; # TODO: broken? as it can't replace /var/spool/postfix?
         SSL_TYPE = "manual";
-        SSL_CERT_PATH="/certs/fullchain.pem";
-        SSL_KEY_PATH="/certs/key.pem";
+        SSL_CERT_PATH = "/certs/fullchain.pem";
+        SSL_KEY_PATH = "/certs/key.pem";
         ENABLE_SPAMASSASSIN = "1";
         SPAMASSASSIN_SPAM_TO_INBOX = "1";
         MOVE_SPAM_TO_JUNK = "1";
@@ -67,6 +67,27 @@ in
       extraOptions = [
         "--cap-add=NET_ADMIN" # for fail2ban
       ];
+    };
+  };
+
+  # Backup to borgbase
+  services.borgbackup.jobs.mail = {
+    paths = [ "/data/mail" ];
+    doInit = true;
+    repo = "smsua417@smsua417.repo.borgbase.com:repo";
+    encryption = {
+      mode = "repokey-blake2";
+      passCommand = "cat /root/keys/borg/mail.pass";
+    };
+    # TODO: use agenix
+    # https://github.com/ryantm/agenix
+    environment.BORG_RSH = "ssh -i /root/keys/borg/id_ed25519";
+    compression = "auto,lzma";
+    startAt = "daily";
+    prune.keep = {
+      daily = 7; # Keep 7 daily archives
+      weekly = 4; # Keep 4 weekly archives
+      monthly = 12; # Keep 12 monthly archives
     };
   };
 }

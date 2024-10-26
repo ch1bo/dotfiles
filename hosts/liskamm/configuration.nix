@@ -7,7 +7,6 @@
     ./nextcloud.nix
     ./mailserver.nix
     ./hydraw.nix
-    ./backup.nix
     ./home-assistant.nix
     ./immich.nix
   ];
