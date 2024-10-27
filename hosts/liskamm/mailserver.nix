@@ -1,73 +1,58 @@
-# NixOs oci-containers port of docker-mailserver
+# NixOS oci-containers port of docker-mailserver
+#
+# Used basic configuration example as starting point
+# https://docker-mailserver.github.io/docker-mailserver/latest/examples/tutorials/basic-installation/#a-basic-example-with-relevant-environmental-variables
+#
+# Documentation of environment variables
+# https://docker-mailserver.github.io/docker-mailserver/latest/config/environment/
+#
+# Off-site backups using borgbase.
 { config, pkgs, lib, ... }:
-
 let
-  boundPort = "8002";
+  version = "14.0.0";
   serverName = "mail.ncoding.at";
 in
 {
   services.nginx.virtualHosts.${serverName} = {
     forceSSL = true;
     enableACME = true;
-    locations."/" = {
-      proxyPass = "http://127.0.0.1:${boundPort}";
-      proxyWebsockets = true;
-      extraConfig = ''
-        proxy_buffering off;
-        client_max_body_size 128M;
-      '';
-    };
   };
 
-  virtualisation.oci-containers.containers = {
-    # FIXME: webmail container currently broken
-    # Feb 11 20:36:04 liskamm docker-webmail-start[2795016]: Traceback (most recent call last):
-    # Feb 11 20:36:04 liskamm docker-webmail-start[2795016]:   File "/start.py", line 13, in <module>
-    # Feb 11 20:36:04 liskamm docker-webmail-start[2795016]:     os.environ["MAX_FILESIZE"] = str(int(int(os.environ.get("MESSAGE_SIZE_LIMIT"))*0.66/1048576))
-    # Feb 11 20:36:04 liskamm docker-webmail-start[2795016]: TypeError: int() argument must be a string, a bytes-like object or a number, not 'NoneType'
-    # webmail = {
-    #   image = "mailu/rainloop";
-    #   volumes = [
-    #     "/data/rainloop:/var/www/html/data"
-    #   ];
-    #   ports = [ "${boundPort}:80" ];
-    # };
-
-    mailserver = {
-      image = "docker.io/mailserver/docker-mailserver:11.3.1";
-      environment = {
-        OVERRIDE_HOSTNAME = "${serverName}";
-        LOG_LEVEL = "trace";
-        ONE_DIR = "0"; # TODO: broken? as it can't replace /var/spool/postfix?
-        SSL_TYPE = "manual";
-        SSL_CERT_PATH = "/certs/fullchain.pem";
-        SSL_KEY_PATH = "/certs/key.pem";
-        ENABLE_SPAMASSASSIN = "1";
-        SPAMASSASSIN_SPAM_TO_INBOX = "1";
-        MOVE_SPAM_TO_JUNK = "1";
-        SA_TAG = "1"; # Add header
-        SA_TAG2 = "3"; # Add to subject
-        SA_KILL = "5.9"; # Move to Junk
-        SA_SPAM_SUBJECT = "[SPAM]";
-        ENABLE_CLAMAV = "1";
-        # TODO: ENABLE_FAIL2BAN="0";
-      };
-      ports = [
-        "25:25"
-        "465:465"
-        "587:587"
-        "993:993"
-      ];
-      volumes = [
-        "/data/mail/data:/var/mail"
-        "/data/mail/state:/var/mail-state"
-        "/data/mail/config:/tmp/docker-mailserver"
-        "${config.security.acme.certs.${serverName}.directory}:/certs:ro"
-      ];
-      extraOptions = [
-        "--cap-add=NET_ADMIN" # for fail2ban
-      ];
+  virtualisation.oci-containers.containers.mailserver = {
+    image = "docker.io/mailserver/docker-mailserver:${version}";
+    hostname = serverName;
+    ports = [
+      "25:25"
+      "465:465"
+      "587:587"
+      "993:993"
+    ];
+    volumes = [
+      "/data/mail/data:/var/mail"
+      "/data/mail/state:/var/mail-state"
+      "/data/mail/logs/:/var/log/mail"
+      "/data/mail/config:/tmp/docker-mailserver"
+      "/etc/localtime:/etc/localtime:ro"
+      "${config.security.acme.certs.${serverName}.directory}:/certs:ro"
+    ];
+    environment = {
+      SSL_TYPE = "manual";
+      SSL_CERT_PATH = "/certs/fullchain.pem";
+      SSL_KEY_PATH = "/certs/key.pem";
+      ENABLE_FAIL2BAN = "1";
+      ENABLE_RSPAMD = "1";
+      ENABLE_CLAMAV = "1";
+      # Rspamd replaces the following
+      ENABLE_POLICYD_SPF = "0";
+      ENABLE_AMAVIS = "0";
+      ENABLE_SPAMASSASSIN = "0";
+      RSPAMD_GREYLISTING = "1";
+      RSPAMD_LEARN = "1";
+      SPAM_SUBJECT = "[SPAM]";
     };
+    extraOptions = [
+      "--cap-add=NET_ADMIN" # for fail2ban
+    ];
   };
 
   # Backup to borgbase
