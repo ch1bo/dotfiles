@@ -2,24 +2,26 @@
 #
 # https://www.home-assistant.io/installation/linux#install-home-assistant-container
 # https://nixos.wiki/wiki/Home_Assistant#OCI_container
+#
+# Off-site backups using borgbase.
 { config, pkgs, lib, inputs, system, ... }:
 let
-  port = 8123;
+  version = "2024.10.4";
+  port = 8123; # not exposed
 in
 {
   services.nginx.virtualHosts."home.ncoding.at" = {
     forceSSL = true;
     enableACME = true;
     locations."/" = {
-      proxyPass = "http://127.0.0.1:${builtins.toString port}";
+      proxyPass = "http://127.0.0.1:${toString port}";
       proxyWebsockets = true;
-      # XXX: check proxy settings; why not recommended settings?
-      recommendedProxySettings = false;
+      recommendedProxySettings = true;
     };
   };
 
   virtualisation.oci-containers.containers.home-assistant = {
-    image = "ghcr.io/home-assistant/home-assistant:2024.5.0b1";
+    image = "ghcr.io/home-assistant/home-assistant:${version}";
     volumes = [ "/data/home-assistant:/config" ];
     environment.TZ = "Europe/Vienna";
     extraOptions = [
