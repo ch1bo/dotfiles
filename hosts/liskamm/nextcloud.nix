@@ -3,7 +3,7 @@
 { config, pkgs, lib, ... }:
 
 let
-  version = "29";
+  version = "30.0.1";
   port = 8001;
   networkName = "nextcloud";
   serverName = "nextcloud.ncoding.at";
