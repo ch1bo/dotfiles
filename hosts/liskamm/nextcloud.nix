@@ -3,9 +3,9 @@
 { config, pkgs, lib, ... }:
 
 let
-  nextcloudPort = "8001";
-  # TODO: rename to nextcloud
-  networkName = "nextcloud-back";
+  version = "29";
+  port = 8001;
+  networkName = "nextcloud";
   serverName = "nextcloud.ncoding.at";
 in
 {
@@ -13,8 +13,9 @@ in
     forceSSL = true;
     enableACME = true;
     locations."/" = {
-      proxyPass = "http://127.0.0.1:${nextcloudPort}";
+      proxyPass = "http://127.0.0.1:${toString port}";
       proxyWebsockets = true;
+      recommendedProxySettings = true;
       extraConfig = ''
         proxy_buffering off;
         client_max_body_size 4G;
@@ -51,40 +52,38 @@ in
 
   virtualisation.oci-containers.containers = {
     nextcloud = {
-      image = "nextcloud:29";
+      image = "nextcloud:${version}";
       environment = {
         TRUSTED_PROXIES = "172.18.0.1";
         APACHE_DISABLE_REWRITE_IP = "1";
         OVERWRITEPROTOCOL = "https";
         OVERWRITEHOST = serverName;
-        MYSQL_HOST = "db";
-        REDIS_HOST = "redis";
+        MYSQL_HOST = "nextcloud-db";
+        REDIS_HOST = "nextcloud-redis";
       };
-      ports = [ "${nextcloudPort}:80" ];
+      ports = [ "${toString port}:80" ];
       volumes = [
         "/data/nextcloud/apps:/var/www/html/apps"
         "/data/nextcloud/config:/var/www/html/config"
         "/data/nextcloud/data:/var/www/html/data"
       ];
+      dependsOn = [ "nextcloud-db" "nextcloud-redis" ];
       extraOptions = [ "--network=${networkName}" ];
     };
 
-    # TODO: rename to nextcloud-db
-    db = {
+    nextcloud-db = {
       image = "mariadb:10.10";
       environment = {
         MYSQL_RANDOM_ROOT_PASSWORD = "true";
         MARIADB_AUTO_UPGRADE = "true";
       };
       volumes = [
-        # TODO: move to /data/nextcloud/db
-        "/data/db:/var/lib/mysql"
+        "/data/nextcloud/db:/var/lib/mysql"
       ];
       extraOptions = [ "--network=${networkName}" ];
     };
 
-    # TODO: rename to nextcloud-redis
-    redis = {
+    nextcloud-redis = {
       image = "redis:7";
       extraOptions = [ "--network=${networkName}" ];
     };
