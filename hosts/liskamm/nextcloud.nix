@@ -72,7 +72,7 @@ in
     };
 
     nextcloud-db = {
-      image = "mariadb:10.10";
+      image = "mariadb:11.5";
       environment = {
         MYSQL_RANDOM_ROOT_PASSWORD = "true";
         MARIADB_AUTO_UPGRADE = "true";
