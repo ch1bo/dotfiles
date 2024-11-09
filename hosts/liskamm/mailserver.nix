@@ -18,6 +18,8 @@ in
     enableACME = true;
   };
 
+  networking.firewall.allowedTCPPorts = [ 25 465 587 993 ];
+
   virtualisation.oci-containers.containers.mailserver = {
     image = "docker.io/mailserver/docker-mailserver:${version}";
     hostname = serverName;

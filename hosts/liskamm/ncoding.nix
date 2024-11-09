@@ -1,8 +1,7 @@
 { config, pkgs, pkgs-unstable, lib, system, inputs, ... }:
 
 {
-  security.acme.acceptTerms = true;
-  security.acme.defaults.email = "webmaster@ncoding.at";
+  networking.firewall.allowedTCPPorts = [ 80 443 ];
 
   services.nginx.enable = true;
   services.nginx.recommendedProxySettings = true;
@@ -19,4 +18,7 @@
       enableACME = true;
       root = ncoding-web;
     };
+
+  security.acme.acceptTerms = true;
+  security.acme.defaults.email = "webmaster@ncoding.at";
 }

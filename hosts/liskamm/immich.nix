@@ -154,4 +154,23 @@ in
         | ${pkgs.docker}/bin/docker exec -i immich-db psql --username=${DB_USERNAME}
       '')
   ];
+
+  # Fail2ban blocking of failed login attempts
+  services.fail2ban = {
+    enable = true;
+    jails.immich.settings = {
+      enabled = true;
+      filter = "immich";
+      backend = "systemd";
+      findtime = "1d";
+      # bantime = "1d";
+      bantime = "1m";
+      maxretry = 3;
+    };
+  };
+  environment.etc."fail2ban/filter.d/immich.local".text = ''
+    [Definition]
+    failregex = .*Failed login attempt for user.+from ip address\s?<ADDR>
+    journalmatch = CONTAINER_NAME=immich-server
+  '';
 }

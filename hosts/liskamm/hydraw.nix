@@ -191,4 +191,7 @@
   #     GRAFANA_API_KEY = "/run/keys/grafana/api-key";
   #   };
   # };
+
+  # Open hydra-node ports
+  networking.firewall.allowedTCPPorts = [ 5001 5002 ];
 }

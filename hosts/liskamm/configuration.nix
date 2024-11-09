@@ -22,8 +22,7 @@
   networking.hostName = "liskamm";
   networking.hostId = "24c2d71d"; # required for ZFS
   networking.networkmanager.enable = true;
-
-  networking.firewall.enable = false;
+  networking.firewall.enable = true;
 
   # Set your time zone.
   time.timeZone = "Europe/Berlin";
@@ -90,6 +89,8 @@
     configDir = "/home/ch1bo/.config/syncthing";
     guiAddress = "0.0.0.0:8384";
   };
+  networking.firewall.allowedTCPPorts = [ 8384 ];
+
   # Increase inotify watches for syncthing - Dynamic since kernel v5.11
   # https://github.com/torvalds/linux/commit/92890123749bafc317bbfacbe0a62ce08d78efb7
   boot.kernel.sysctl."fs.inotify.max_user_watches" = lib.mkIf
