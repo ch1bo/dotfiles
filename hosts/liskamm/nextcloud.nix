@@ -54,7 +54,9 @@ in
     nextcloud = {
       image = "nextcloud:${version}";
       environment = {
-        TRUSTED_PROXIES = "172.18.0.1";
+        # XXX: Depends on when the network was created, should create the
+        # network more declaratively.
+        TRUSTED_PROXIES = "172.20.0.1";
         APACHE_DISABLE_REWRITE_IP = "1";
         OVERWRITEPROTOCOL = "https";
         OVERWRITEHOST = serverName;
@@ -121,4 +123,23 @@ in
         > /data/nextcloud/nextcloud.sql.gz
     '';
   };
+
+  # Fail2ban blocking of failed login attempts
+  services.fail2ban.enable = true;
+  services.fail2ban.jails.nextcloud.settings = {
+    enabled = true;
+    filter = "nextcloud";
+    backend = "auto";
+    logpath = "/data/nextcloud/data/nextcloud.log";
+    findtime = "1d";
+    bantime = "1d";
+    maxretry = 3;
+  };
+  environment.etc."fail2ban/filter.d/nextcloud.local".text = ''
+    [Definition]
+    _groupsre = (?:(?:,?\s*"\w+":(?:"[^"]+"|\w+))*)
+    failregex = ^\{%(_groupsre)s,?\s*"remoteAddr":"<HOST>"%(_groupsre)s,?\s*"message":"Login failed:
+                ^\{%(_groupsre)s,?\s*"remoteAddr":"<HOST>"%(_groupsre)s,?\s*"message":"Trusted domain error.
+    datepattern = ,?\s*"time"\s*:\s*"%%Y-%%m-%%d[T ]%%H:%%M:%%S(%%z)?"
+  '';
 }

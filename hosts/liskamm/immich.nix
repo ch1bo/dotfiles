@@ -156,17 +156,14 @@ in
   ];
 
   # Fail2ban blocking of failed login attempts
-  services.fail2ban = {
-    enable = true;
-    jails.immich.settings = {
-      enabled = true;
-      filter = "immich";
-      backend = "systemd";
-      findtime = "1d";
-      # bantime = "1d";
-      bantime = "1m";
-      maxretry = 3;
-    };
+  services.fail2ban.enable = true;
+  services.fail2ban.jails.immich.settings = {
+    enabled = true;
+    filter = "immich";
+    backend = "systemd";
+    findtime = "1d";
+    bantime = "1d";
+    maxretry = 3;
   };
   environment.etc."fail2ban/filter.d/immich.local".text = ''
     [Definition]
