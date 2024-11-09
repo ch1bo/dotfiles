@@ -71,6 +71,10 @@
 
   ## Services
 
+  # Fail2ban
+  services.fail2ban.enable = true;
+  services.fail2ban.ignoreIP = [ "192.168.0.0/16" ];
+
   # SSH
   programs.ssh.package = pkgs-unstable.openssh;
   services.openssh = {

@@ -31,7 +31,7 @@
         # }];
       };
       "liskamm" = {
-        hostname = "ncoding.at";
+        # hostname = "ncoding.at";
         forwardAgent = true;
         extraOptions = {
           "StreamLocalBindUnlink" = "yes";

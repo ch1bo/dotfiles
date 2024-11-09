@@ -48,4 +48,20 @@ in
       monthly = 12; # Keep 12 monthly archives
     };
   };
+
+  # Fail2ban blocking of failed login attempts
+  services.fail2ban.enable = true;
+  services.fail2ban.jails.home-assistant.settings = {
+    enabled = true;
+    filter = "home-assistant";
+    backend = "systemd";
+    findtime = "1d";
+    bantime = "1d";
+    maxretry = 3;
+  };
+  environment.etc."fail2ban/filter.d/home-assistant.local".text = ''
+    [Definition]
+    failregex = .*Login attempt or request with invalid authentication from <HOST>.*$
+    journalmatch = CONTAINER_NAME=home-assistant
+  '';
 }
