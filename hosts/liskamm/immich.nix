@@ -9,7 +9,7 @@
 # Off-site backups using borgbase.
 { config, pkgs, lib, ... }:
 let
-  version = "v1.119.1";
+  version = "v1.120.1";
   port = 2283; # not exposed
   networkName = "immich";
   DB_DATABASE_NAME = "immich";
