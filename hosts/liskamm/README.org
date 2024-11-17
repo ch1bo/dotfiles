@@ -137,6 +137,7 @@ keepassxc-cli show /home/ch1bo/keepass/keepass.kdbx BorgBase -a "mail passphrase
 keepassxc-cli show /home/ch1bo/keepass/keepass.kdbx BorgBase -a "nextcloud passphrase" > /root/keys/borg/nextcloud.pass
 keepassxc-cli show /home/ch1bo/keepass/keepass.kdbx BorgBase -a "immich passphrase" > /root/keys/borg/immich.pass
 keepassxc-cli show /home/ch1bo/keepass/keepass.kdbx BorgBase -a "home-assistant passphrase" > /root/keys/borg/home-assistant.pass
+keepassxc-cli show /home/ch1bo/keepass/keepass.kdbx BorgBase -a "vaultwarden passphrase" > /root/keys/borg/vaultwarden.pass
 #+end_src
 
 Systemd services run every day to do backups. Check their status with:

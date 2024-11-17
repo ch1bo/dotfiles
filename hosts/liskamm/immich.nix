@@ -6,7 +6,7 @@
 # Uses a private network to connect server, machine learning, db and redis
 # instances together.
 #
-# Off-site backups using borgbase.
+# Including fail2ban and off-site backups using borgbase.
 { config, pkgs, lib, ... }:
 let
   version = "v1.120.1";

@@ -9,6 +9,7 @@
     ./hydraw.nix
     ./home-assistant.nix
     ./immich.nix
+    ./vaultwarden.nix
   ];
 
   # At least the nvidia drivers are proprietary

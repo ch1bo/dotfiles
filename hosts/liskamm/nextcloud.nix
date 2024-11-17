@@ -1,5 +1,7 @@
 # Nextcloud config ported from previous server and
 # https://hub.docker.com/_/nextcloud/#running-this-image-with-docker-compose
+#
+# Including fail2ban and off-site backups using borgbase.
 { config, pkgs, lib, ... }:
 
 let

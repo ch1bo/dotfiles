@@ -6,9 +6,7 @@
 # Documentation of environment variables
 # https://docker-mailserver.github.io/docker-mailserver/latest/config/environment/
 #
-# Also includes a proxied roundcube webmail client.
-#
-# Off-site backups using borgbase.
+# Including proxied roundcube webmail client, fail2ban and off-site backups using borgbase.
 { config, pkgs, lib, ... }:
 let
   version = "14.0.0";

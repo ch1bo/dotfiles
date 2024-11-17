@@ -3,7 +3,7 @@
 # https://www.home-assistant.io/installation/linux#install-home-assistant-container
 # https://nixos.wiki/wiki/Home_Assistant#OCI_container
 #
-# Off-site backups using borgbase.
+# Including fail2ban and off-site backups using borgbase.
 { config, pkgs, lib, inputs, system, ... }:
 let
   version = "2024.10.4";
