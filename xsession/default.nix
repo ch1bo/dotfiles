@@ -4,7 +4,6 @@ let
   setKeyboardRate = "xset r rate 200 60";
 in
 {
-
   options.wifi = lib.mkOption {
     type = lib.types.str;
     example = "wlp58s0";
@@ -41,11 +40,14 @@ in
       '';
     };
 
+    # Window manager
     xsession.windowManager.xmonad = {
       enable = true;
       enableContribAndExtras = true;
       config = ./xmonad/xmonad.hs;
     };
+    # Compositor (transparency, shadows, etc.)
+    services.picom.enable = true;
 
     home.file.".xbindkeysrc".source = ./xbindkeysrc;
     home.file.".xmobarrc" = {
@@ -67,9 +69,11 @@ in
       enable = true;
       lockCmd = lib.mkDefault "/usr/bin/slock";
       xss-lock.extraOptions =
-        let dimScreenScript = pkgs.writeScript "dim-screen"
-          (builtins.readFile "${pkgs.xss-lock}/share/doc/xss-lock/dim-screen.sh");
-        in [ "-n ${dimScreenScript}" ];
+        let
+          dimScreenScript = pkgs.writeScript "dim-screen"
+            (builtins.readFile "${pkgs.xss-lock}/share/doc/xss-lock/dim-screen.sh");
+        in
+        [ "-n ${dimScreenScript}" ];
     };
 
     # launched by xmonad

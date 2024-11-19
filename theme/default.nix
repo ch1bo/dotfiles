@@ -33,6 +33,7 @@
       gtk-xft-rgba = "rgb";
     };
   };
+  home.sessionVariables.GTK_THEME = "Arc-Dark";
 
   programs.rofi = {
     theme = "Arc-Dark";
