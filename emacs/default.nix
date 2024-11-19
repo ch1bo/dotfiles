@@ -2,7 +2,7 @@
 #
 # This setup deliberately keeps the config and emacs distribution upstreams
 # within the dotfiles working copy to allow for faster tweaking.
-{ config, pkgs, pkgs-2311, lib, unstable, ... }:
+{ config, pkgs, lib, unstable, ... }:
 let
   emacsDir = "${config.dotfiles}/emacs";
 in
@@ -16,11 +16,11 @@ in
   '';
 
   programs.emacs.enable = true;
-  programs.emacs.package = pkgs.emacsNativeComp;
-  # Pre-install mu4e 1.10 as doom-emacs has still problems with latest 1.12
-  programs.emacs.extraPackages = epkgs: [
-    pkgs-2311.emacsPackages.mu4e
-  ];
+  # NOTE: home-manager emacs extraPackages is using pkgs.emacs by default and
+  # seemingly the native comp version is older than normal emacs.
+  programs.emacs.package = pkgs.emacsNativeComp.pkgs.withPackages (epkgs: with epkgs; [
+    epkgs.mu4e
+  ]);
 
   # Dependencies
   home.packages = [
