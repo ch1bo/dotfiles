@@ -3,6 +3,7 @@
   imports = [
     ./hardware-configuration.nix
     ../../modules/obsidian.nix
+    ../../modules/dygma-raise2.nix
   ];
 
   # At least the nvidia drivers are proprietary
