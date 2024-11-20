@@ -9,7 +9,9 @@
 # Including fail2ban and off-site backups using borgbase.
 { config, pkgs, lib, ... }:
 let
-  version = "v1.120.1";
+  # Check release notes
+  # https://github.com/immich-app/immich/releases
+  version = "v1.120.2";
   port = 2283; # not exposed
   networkName = "immich";
   DB_DATABASE_NAME = "immich";

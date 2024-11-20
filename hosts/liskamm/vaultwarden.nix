@@ -6,7 +6,9 @@
 # Including fail2ban and off-site backups using borgbase.
 { config, pkgs, lib, ... }:
 let
-  version = "1.32.4";
+  # Check release notes
+  # https://github.com/dani-garcia/vaultwarden/releases
+  version = "1.32.5";
   port = 3876; # not exposed
   domain = "passwords.ncoding.at";
 in

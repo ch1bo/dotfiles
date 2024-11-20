@@ -6,7 +6,9 @@
 # Including fail2ban and off-site backups using borgbase.
 { config, pkgs, lib, inputs, system, ... }:
 let
-  version = "2024.10.4";
+  # Check release notes
+  # https://github.com/home-assistant/core/releases
+  version = "2024.11.2";
   port = 8123; # not exposed
 in
 {
