@@ -77,7 +77,7 @@
   services.fail2ban.ignoreIP = [ "192.168.0.0/16" ];
 
   # SSH
-  programs.ssh.package = pkgs-unstable.openssh;
+  programs.ssh.package = pkgs.openssh;
   services.openssh = {
     enable = true;
     # GPG agent forwarding
@@ -115,7 +115,7 @@
       settings.trusted-users = users;
       settings.allowed-users = users;
       extraOptions = ''
-        experimental-features = nix-command flakes repl-flake
+        experimental-features = nix-command flakes
         allow-import-from-derivation = true
         accept-flake-config = true
       '';

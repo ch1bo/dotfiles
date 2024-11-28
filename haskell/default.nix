@@ -1,4 +1,4 @@
-{ pkgs, config, unstable, ... }:
+{ pkgs, config, ... }:
 {
   home.file.".ghc/ghci.conf".source = ./ghci.conf;
   home.file.".stack/config.yaml".source = ./stack-config.yaml;
@@ -11,6 +11,6 @@
   ];
 
   home.packages = [
-    unstable.haskellPackages.hp2pretty # used in bin/haskell-view-heap
+    pkgs.haskellPackages.hp2pretty # used in bin/haskell-view-heap
   ];
 }

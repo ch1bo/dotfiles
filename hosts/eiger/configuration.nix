@@ -16,7 +16,6 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   # Kernel configuration
-  boot.kernelPackages = pkgs.zfs.latestCompatibleLinuxPackages;
   boot.kernelParams = [
     # 12GB max ARC cache
     "zfs.zfs_arc_max=12884901888"
@@ -77,17 +76,6 @@
   # Bluetooth support (bluez)
   hardware.bluetooth.enable = true;
   services.blueman.enable = true;
-
-  # Sound
-  sound.enable = true;
-  hardware.pulseaudio = {
-    enable = true;
-    # Bluetooth support
-    package = pkgs.pulseaudioFull;
-  };
-  boot.extraModprobeConfig = ''
-    options snd slots=snd-hda-intel
-  '';
 
   # Enable mDNS (a.k.a bonjour)
   services.avahi.enable = true;
@@ -153,9 +141,9 @@
     unzip
     eva
     # desktop
-    gnome.gnome-disk-utility
-    gnome.nautilus
-    gnome.simple-scan
+    gnome-disk-utility
+    nautilus
+    simple-scan
     system-config-printer
     inkscape
     libreoffice
@@ -179,7 +167,7 @@
   ];
 
   # SSH
-  programs.ssh.package = pkgs-unstable.openssh;
+  programs.ssh.package = pkgs.openssh;
   services.openssh = {
     enable = true;
     # GPG agent forwarding
@@ -218,7 +206,7 @@
       settings.trusted-users = users;
       settings.allowed-users = users;
       extraOptions = ''
-        experimental-features = nix-command flakes repl-flake
+        experimental-features = nix-command flakes
         allow-import-from-derivation = true
         accept-flake-config = true
       '';

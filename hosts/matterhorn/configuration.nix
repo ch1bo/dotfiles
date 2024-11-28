@@ -16,7 +16,6 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   # Kernel configuration
-  boot.kernelPackages = pkgs.zfs.latestCompatibleLinuxPackages;
   boot.kernelParams = [
     # 4GB max ARC cache
     "zfs.zfs_arc_max=4294967296"
@@ -74,17 +73,6 @@
   # Bluetooth support (bluez)
   hardware.bluetooth.enable = true;
   services.blueman.enable = true;
-
-  # Sound
-  sound.enable = true;
-  hardware.pulseaudio = {
-    enable = true;
-    # Bluetooth support
-    package = pkgs.pulseaudioFull;
-  };
-  boot.extraModprobeConfig = ''
-    options snd slots=snd-hda-intel
-  '';
 
   # Docker deamon
   virtualisation.docker = {
@@ -161,9 +149,9 @@
     btop
     htop
     powertop
-    gnome.gnome-disk-utility
-    gnome.nautilus
-    gnome.simple-scan
+    gnome-disk-utility
+    nautilus
+    simple-scan
     dconf
     pavucontrol
     discord
@@ -207,7 +195,7 @@
       settings.trusted-users = users;
       settings.allowed-users = users;
       extraOptions = ''
-        experimental-features = nix-command flakes repl-flake
+        experimental-features = nix-command flakes
         allow-import-from-derivation = true
         accept-flake-config = true
       '';

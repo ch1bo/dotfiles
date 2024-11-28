@@ -1,5 +1,5 @@
-{ pkgs-unstable, ... }:
+{ pkgs, ... }:
 {
-  services.udev.packages = [ pkgs-unstable.bazecor ];
-  environment.systemPackages = [ pkgs-unstable.bazecor ];
+  services.udev.packages = [ pkgs.bazecor ];
+  environment.systemPackages = [ pkgs.bazecor ];
 }

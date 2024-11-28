@@ -2,7 +2,7 @@
 #
 # This setup deliberately keeps the config and emacs distribution upstreams
 # within the dotfiles working copy to allow for faster tweaking.
-{ config, pkgs, lib, unstable, ... }:
+{ config, pkgs, lib, ... }:
 let
   emacsDir = "${config.dotfiles}/emacs";
 in
@@ -30,6 +30,6 @@ in
     # Needed for copilot
     pkgs.nodejs
     # Using unstable for most experimental diagram support
-    unstable.nodePackages.mermaid-cli
+    pkgs.mermaid-cli
   ];
 }

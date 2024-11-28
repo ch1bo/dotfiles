@@ -1,4 +1,4 @@
-{ config, lib, pkgs, unstable, ... }:
+{ config, lib, pkgs, ... }:
 {
   imports = [
     ./base.nix
@@ -21,13 +21,6 @@
       tray = "never";
     };
 
-    # Start mic effect preset on login
-    services.pulseeffects = {
-      enable = true;
-      package = pkgs.pulseeffects-legacy;
-      preset = "Rode";
-    };
-
     # Default applications for files
     xdg.mimeApps.defaultApplications = {
       "application/pdf" = "firefox.desktop";
@@ -46,12 +39,12 @@
       docker-compose # docker projects
       docker-credential-helpers # store docker login credentials in D-Bus secrets
       brave # another browser
-      gnome.eog # image viewer
-      gnome.evince # pdf viewer
-      # gnome.nautilus -> see README.md#Dependencies
+      eog # image viewer
+      evince # pdf viewer
+      # nautilus -> see README.md#Dependencies
       pandoc # convert everything
       spotify # unlimited music
-      unstable.signal-desktop # connect with rl
+      signal-desktop # connect with rl
       slack # comms
       skypeforlinux # old-school comms
       remarkable-mouse # drawing tablets ftw

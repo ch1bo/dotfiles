@@ -5,7 +5,7 @@
 
   home.packages = [
     pkgs.libsecret # secret-tool
-    pkgs.mailctl # for oauth2 mail access
+    pkgs.oama # for oauth2 mail access
   ];
 
   accounts.email.maildirBasePath = "mail";
@@ -17,6 +17,5 @@
     pythonFile = builtins.readFile ./get_settings.py;
   };
 
-  xdg.configFile."mailctl/config.yaml".source = ./mailctl-config.yaml;
-  xdg.configFile."mailctl/services.yaml".source = ./mailctl-services.yaml;
+  xdg.configFile."oama/config.yaml".source = ./oama-config.yaml;
 }
