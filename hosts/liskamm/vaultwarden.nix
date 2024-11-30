@@ -64,7 +64,7 @@ in
     filter = "vaultwarden";
     backend = "systemd";
     findtime = "1d";
-    bantime = "1d";
+    bantime = "1w";
     maxretry = 3;
   };
   environment.etc."fail2ban/filter.d/vaultwarden.local".text = ''
