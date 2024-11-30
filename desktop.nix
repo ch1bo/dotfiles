@@ -50,6 +50,8 @@
       # gnome.nautilus -> see README.md#Dependencies
       pandoc # convert everything
       keepassxc # secret stuff
+      bitwarden-desktop # new secret stuff
+      bitwarden-menu # the nerd way to use bitwarden
       spotify # unlimited music
       unstable.signal-desktop # connect with rl
       slack # comms
