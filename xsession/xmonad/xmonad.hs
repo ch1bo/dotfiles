@@ -117,6 +117,8 @@ keyBindings conf@XConfig{XMonad.modMask = modMask} =
           ((modMask, xK_p), spawn "rofi -show run")
         , -- Switch windows with rofi
           ((modMask, xK_o), spawn "rofi -show window")
+        , -- Insert passwords with rofi
+          ((modMask, xK_i), spawn "bwm")
         , -- Close focused window
           ((modMask, xK_q), kill)
         , -- Rotate through the available layout algorithms
