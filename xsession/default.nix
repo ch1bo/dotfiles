@@ -94,25 +94,20 @@ in
     ];
 
     # Automatic screen setup
+    # TODO: move to a mobile only used on matterhorn
     programs.autorandr = {
       enable = true;
-
-      hooks.postswitch = {
-        # HACK Wait 3s until KVM switched, use udev instead?
-        "reset-keyboard-rate" = "sleep 3; ${setKeyboardRate}";
-        "reset-background" = setBackground;
-      };
-
       profiles =
         let
-          fingerprint = {
-            eDP-1 = "00ffffffffffff0006af936600000000001e0104a51d127803f795a6534aa0260d505400000001010101010101010101010101010101fa3c80b870b0244010103e001eb2100000180000000f0000000000000000000000000020000000fe0041554f0a202020202020202020000000fe004231333355414e30312e32200a0066";
-            DP-1 = "00ffffffffffff00410c3f09657100002b1e0104a55021783a10e5ad5048a526135054bfef00d1c0b3009500818081c0316845686168e77c70a0d0a0295030203a001d4e3100001a000000ff00554b3032303433303239303239000000fc0050484c203334365031430a2020000000fd0030641ea03c010a202020202020018502031af14d0103051404131f12021190595a23090707830100004ed470a0d0a0465030403a001d4e3100001c507800a0a038354030203a001d4e3100001ed8590060a3382840a0103a101d4e3100001aef51b87062a0355080b83a001d4e3100001c0000000000000000000000000000000000000000000000000000000000fa";
-          };
+          desktopMonitor = "00ffffffffffff00410c3f09657100002b1e0104a55021783a10e5ad5048a526135054bfef00d1c0b3009500818081c0316845686168e77c70a0d0a0295030203a001d4e3100001a000000ff00554b3032303433303239303239000000fc0050484c203334365031430a2020000000fd0030641ea03c010a202020202020018502031af14d0103051404131f12021190595a23090707830100004ed470a0d0a0465030403a001d4e3100001c507800a0a038354030203a001d4e3100001ed8590060a3382840a0103a101d4e3100001aef51b87062a0355080b83a001d4e3100001c0000000000000000000000000000000000000000000000000000000000fa";
+          notebookScreen = "00ffffffffffff0006af936600000000001e0104a51d127803f795a6534aa0260d505400000001010101010101010101010101010101fa3c80b870b0244010103e001eb2100000180000000f0000000000000000000000000020000000fe0041554f0a202020202020202020000000fe004231333355414e30312e32200a0066";
         in
         {
           docked = {
-            inherit fingerprint;
+            fingerprint = {
+              DP-1 = desktopMonitor;
+              eDP-1 = notebookScreen;
+            };
             config = {
               DP-1 = {
                 primary = true;
@@ -121,28 +116,25 @@ in
                 position = "0x0";
                 rate = "100.00";
               };
-              eDP-1 = {
-                crtc = 1;
-                mode = "1920x1200";
-                position = "3440x0";
-                rate = "60.00";
-              };
+              eDP-1.enable = false;
             };
           };
-
           mobile = {
-            inherit fingerprint;
-            config = {
-              eDP-1 = {
-                primary = true;
-                crtc = 0;
-                mode = "1920x1200";
-                position = "0x0";
-                rate = "60.00";
-              };
+            fingerprint.eDP-1 = notebookScreen;
+            config.eDP-1 = {
+              primary = true;
+              crtc = 0;
+              mode = "1920x1200";
+              position = "0x0";
+              rate = "60.00";
             };
           };
         };
+      hooks.postswitch = {
+        # HACK Wait 3s until KVM switched, use udev instead?
+        "reset-keyboard-rate" = "sleep 3; ${setKeyboardRate}";
+        "reset-background" = setBackground;
+      };
     };
   };
 }
