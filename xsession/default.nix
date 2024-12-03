@@ -94,7 +94,7 @@ in
     ];
 
     # Automatic screen setup
-    # TODO: move to a mobile only used on matterhorn
+    # TODO: move to a mobile only used on matterhorn? desktop profile used on eiger
     programs.autorandr = {
       enable = true;
       profiles =
@@ -103,6 +103,18 @@ in
           notebookScreen = "00ffffffffffff0006af936600000000001e0104a51d127803f795a6534aa0260d505400000001010101010101010101010101010101fa3c80b870b0244010103e001eb2100000180000000f0000000000000000000000000020000000fe0041554f0a202020202020202020000000fe004231333355414e30312e32200a0066";
         in
         {
+          desktop = {
+            fingerprint = {
+              DP-0 = desktopMonitor;
+            };
+            config = {
+              DP-0 = {
+                primary = true;
+                mode = "3440x1440";
+                rate = "100.00";
+              };
+            };
+          };
           docked = {
             fingerprint = {
               DP-1 = desktopMonitor;
@@ -111,9 +123,7 @@ in
             config = {
               DP-1 = {
                 primary = true;
-                crtc = 1;
                 mode = "3440x1440";
-                position = "0x0";
                 rate = "100.00";
               };
               eDP-1.enable = false;
@@ -123,9 +133,7 @@ in
             fingerprint.eDP-1 = notebookScreen;
             config.eDP-1 = {
               primary = true;
-              crtc = 0;
               mode = "1920x1200";
-              position = "0x0";
               rate = "60.00";
             };
           };

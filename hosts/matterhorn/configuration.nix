@@ -6,11 +6,6 @@
     ../../modules/dygma-raise2.nix
   ];
 
-  # At least the nvidia drivers are proprietary
-  nixpkgs.config.allowUnfree = true;
-  # XXX: zfs kernel module still marked as broken
-  nixpkgs.config.allowBroken = true;
-
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -202,6 +197,9 @@
       # Prime nix registry with same nixpkgs as system built from
       registry.nixpkgs.flake = inputs.nixpkgs;
     };
+
+  # At least spotify is proprietary
+  nixpkgs.config.allowUnfree = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
