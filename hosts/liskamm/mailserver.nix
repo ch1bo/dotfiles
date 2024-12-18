@@ -9,6 +9,8 @@
 # Including proxied roundcube webmail client, fail2ban and off-site backups using borgbase.
 { config, pkgs, lib, ... }:
 let
+  # Check release notes
+  # https://github.com/docker-mailserver/docker-mailserver/releases
   version = "14.0.0";
   serverName = "mail.ncoding.at";
   webmailPort = 8000; # not exposed
