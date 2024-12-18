@@ -106,6 +106,9 @@
   # Gnome secrets service
   services.gnome.gnome-keyring.enable = true;
 
+  # Auto-mount mtp devices
+  services.gvfs.enable = true;
+
   ## Programs
 
   # Games
