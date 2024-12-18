@@ -115,6 +115,19 @@ visible, hide it. Otherwise, show it."
       (quit-window nil window)
     (flycheck-list-errors)))
 
+;; Magit
+
+(use-package! magit-todos
+  :after magit
+  :config
+  (setq magit-todos-keyword-suffix "\\(?:([^)]+)\\)?:?") ; make colon optional
+  (define-key magit-todos-section-map "j" nil))
+
+(map!
+ :leader
+ :prefix-map ("p" . "project")
+ :desc "List todos" "t" #'magit-todos-list)
+
 ;; Org
 
 ;; TODO(SN): keybindings in org-agenda (e.g. org-agenda-later)
@@ -246,6 +259,9 @@ visible, hide it. Otherwise, show it."
 
 ;; Use java-mode for "monkeyc" files, but disable auto-formatting
 (add-to-list 'auto-mode-alist '("\\.mc\\'" . java-mode))
+(add-hook! 'java-mode-hook
+           '((c-set-style "doom")
+             (setq c-basic-offset 2)))
 
 ;; Nix
 

@@ -86,3 +86,6 @@
 ;; https://blog.bitsandbobs.net/blog/emacs-markdown-live-preview/
 (package! simple-httpd)
 (package! impatient-mode)
+
+;; Magit todos not included by default anymore
+(package! magit-todos)
