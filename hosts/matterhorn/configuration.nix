@@ -70,10 +70,11 @@
   services.blueman.enable = true;
 
   # Docker deamon
-  virtualisation.docker = {
-    enable = true;
-    storageDriver = "zfs";
-  };
+  virtualisation.docker.enable = true;
+  virtualisation.docker.storageDriver = "zfs";
+
+  # Access cryptos
+  hardware.ledger.enable = true;
 
   # Enable touchpad support (enabled default in most desktopManager).
   # TODO(SN): move to a notebook module
