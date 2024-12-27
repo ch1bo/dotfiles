@@ -122,7 +122,7 @@ in
     ];
     preHook = ''
       MYSQL_PWD=$(${pkgs.gnugrep}/bin/grep dbpassword /data/nextcloud/config/config.php | ${pkgs.gnused}/bin/sed "s/.*dbpassword.*=>.*'\(.*\)',/\1/")
-      ${pkgs.docker}/bin/docker exec -e MYSQL_PWD=$MYSQL_PWD db mariadb-dump nextcloud -u oc_ch1bo \
+      ${pkgs.docker}/bin/docker exec -e MYSQL_PWD=$MYSQL_PWD nextcloud-db mariadb-dump nextcloud -u oc_ch1bo \
         | ${pkgs.gzip}/bin/gzip \
         > /data/nextcloud/nextcloud.sql.gz
     '';
