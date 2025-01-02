@@ -344,26 +344,6 @@ visible, hide it. Otherwise, show it."
                       ))
    (mu4e-compose-signature . (with-temp-buffer (insert-file-contents "~/.dotfiles/mail/iohk.sig") (buffer-string)))
    ))
-;; TODO DRY with mail/accounts-book.nix
-(set-email-account!
- "book.io"
- '((user-mail-address . "sebastian@book.io")
-   (mu4e-trash-folder . "/book.io/[Gmail].Trash")
-   (mu4e-refile-folder  . "/book.io/[Gmail].All Mail")
-   (mu4e-sent-folder . "/book.io/[Gmail].Sent Mail")
-   (mu4e-drafts-folder . "/book.io/[Gmail].Drafts")
-   (smtpmail-smtp-user . "sebastian@book.io")
-   (smtpmail-smtp-server . "smtp.gmail.com")
-   (smtpmail-smtp-service . 465)
-   (smtpmail-stream-type . ssl)
-   (mu4e-update-interval . 120)
-   (mu4e-bookmarks . ((:name "Inbox" :query "maildir:/book.io/INBOX" :key ?i)
-                      (:name "Today" :query "maildir:/book.io/INBOX AND date:today..now" :key ?t)
-                      (:name "Flagged" :query "maildir:/book.io/* AND flag:flagged" :key ?f)
-                      (:name "Archive" :query "maildir:\"/book.io/[Gmail].All Mail\"" :key ?a)
-                      ))
-   (mu4e-compose-signature . nil)
-   ))
 
 ;; Git auto-commit
 (after! git-auto-commit-mode

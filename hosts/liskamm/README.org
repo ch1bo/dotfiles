@@ -161,3 +161,19 @@ Or use =borg extract= (faster):
 cd /data/immich
 borg-job-immich extract --list --strip-components 2 ::liskamm-immich-2024-10-23T00:00:04
 #+end_src
+
+* Mail failover
+
+Should the mailserver be unavailable for longer periods of time, the MX DNS entry in ncoding.at (and other domains) needs to point to a reachable mailbox. For this, the default service of lima-city.de can be used (up to 1GB of mails):
+#+begin_src
+MX mail.lima-city.de 0 1800
+#+end_src
+
+Then, after mailserver availability is restored, we want to sync back mails sent & received in the meantime:
+#+begin_src
+bw config server https://passwords.ncoding.at
+bw login
+export IMAPSYNC_PASSWORD1=$(bw get password mail.lima-city.de)
+export IMAPSYNC_PASSWORD2=$(bw get password mail.ncoding.at)
+nix run nixpkgs#imapsync -- --host1 mail.lima-city.de --user1 sebastian.nagel@ncoding.at --host2 mail.ncoding.at --user2 sebastian.nagel@ncoding.at
+#+end_src
