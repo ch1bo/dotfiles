@@ -5,14 +5,12 @@
 {
   # Add iohk substituters
   nix.settings.substituters = [
-    "https://cache.nixos.org"
     "https://cache.iog.io"
     "https://cardano-scaling.cachix.org"
   ];
   nix.settings.trusted-public-keys = [
-    "iohk.cachix.org-1:DpRUyj7h7V830dp/i6Nti+NEO2/nhblbov/8MW7Rqoo="
-    "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ= cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-    "cardano-scaling.cachix.org-1:RKvHKhGs/b6CBDqzKbDk0Rv6sod2kPSXLwPzcUQg9lY="
+    "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ="
+    "cardano-scaling.cachix.org-1:QNK4nFrowZ/aIJMCBsE35m+O70fV6eewsBNdQnCSMKA="
   ];
 
   # Let's add the command line tools directly for more convenience
@@ -53,7 +51,7 @@
   ## Testnet deployment
 
   virtualisation.oci-containers.containers.cardano-node-preview = {
-    image = "ghcr.io/intersectmbo/cardano-node:9.1.0";
+    image = "ghcr.io/intersectmbo/cardano-node:10.1.3";
     volumes = [
       "/data/cardano-configurations/network/preview:/config"
       "/data/cardano-node-preview:/data"
@@ -71,11 +69,11 @@
   virtualisation.oci-containers.containers.hydra-node-preview =
     let
       networkMagic = "2"; # preview
-      hydraScriptsTxId = "0fd2468a66a0b1cb944cff9512ecfa25cdd2799cb48b07210c449a5ecace267d";
+      hydraScriptsTxId = "bc0572b529f746b03a8549cb95dbd69b70b1a31b3207538db3f3b24b0d835410,e2d44465fb229f81ffb0b1e3170a1e7eb4a4aeeecaf1b6356281f8557629be7d,feb67f2116c8e52cb677068bc37a3121a9d0c05f25acd4bc950f69c717f442d5";
       nodeId = "sebastian@preview";
     in
     {
-      image = "ghcr.io/cardano-scaling/hydra-node:0.19.0";
+      image = "ghcr.io/cardano-scaling/hydra-node@sha256:7e207755c0cd031bb02afd5b0544bc1001a6f4ada6fce7b9d2f028b0d36cd3d6";
       volumes = [
         "/data/cardano-node-preview:/cardano-node:ro"
         "/data/credentials:/credentials:ro"
@@ -123,7 +121,7 @@
   ## MAINNET deployment
 
   # virtualisation.oci-containers.containers.cardano-node-mainnet = {
-  #   image = "ghcr.io/intersectmbo/cardano-node:9.1.0";
+  #   image = "ghcr.io/intersectmbo/cardano-node:10.1.3";
   #   volumes = [
   #     "/data/cardano-configurations/network/mainnet:/config"
   #     "/data/cardano-node-mainnet:/data"
