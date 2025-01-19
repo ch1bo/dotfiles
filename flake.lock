@@ -718,11 +718,11 @@
         "nixpkgs": "nixpkgs_7"
       },
       "locked": {
-        "lastModified": 1724700555,
-        "narHash": "sha256-lro1cWyGrIpwAaXqZti5LNY1xUUkRYjQng1+uLt0Mng=",
+        "lastModified": 1737284444,
+        "narHash": "sha256-EXHDDKmokM6bwuX+JyUGyTX6JictwDPRBTTQB31O+1Q=",
         "owner": "ch1bo",
         "repo": "cv",
-        "rev": "6f050d9f25e2f0cbd3f1df0effb8f7667982acbb",
+        "rev": "3ff3cbf2c901f96129f1e93dd11237cf67dc8141",
         "type": "github"
       },
       "original": {
