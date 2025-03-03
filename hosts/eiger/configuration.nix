@@ -4,6 +4,7 @@
     ./hardware-configuration.nix
     ../../modules/obsidian.nix
     ../../modules/dygma-raise2.nix
+    ../../modules/logitech-mouse.nix
   ];
 
   # Use the systemd-boot EFI boot loader.
