@@ -8,7 +8,7 @@
 let
   # Check release notes
   # https://github.com/home-assistant/core/releases
-  version = "2025.2.1";
+  version = "2025.3.0";
   port = 8123; # not exposed
 in
 {
