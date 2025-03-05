@@ -11,7 +11,7 @@
 let
   # Check release notes
   # https://github.com/docker-mailserver/docker-mailserver/releases
-  version = "14.0.0";
+  version = "15.0.0";
   serverName = "mail.ncoding.at";
   webmailPort = 8000; # not exposed
   imapPort = 993;
@@ -39,6 +39,7 @@ in
         "25:25" # smtp transfer
         "465:465" # smtp submission
         "993:993" # imap retrieval
+        "11334:11334" # rspamd webui
       ];
       volumes = [
         "/data/mail/data:/var/mail"
@@ -56,9 +57,12 @@ in
         ENABLE_RSPAMD = "1";
         ENABLE_CLAMAV = "1";
         # Rspamd replaces the following
+        ENABLE_OPENDKIM = "0";
+        ENABLE_OPENDMARC = "0";
         ENABLE_POLICYD_SPF = "0";
         ENABLE_AMAVIS = "0";
         ENABLE_SPAMASSASSIN = "0";
+        ENABLE_POSTGREY = "0";
         RSPAMD_GREYLISTING = "1";
         RSPAMD_LEARN = "1";
         SPAM_SUBJECT = "[SPAM]";
