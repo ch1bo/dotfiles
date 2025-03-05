@@ -64,7 +64,11 @@ in
         ENABLE_SPAMASSASSIN = "0";
         ENABLE_POSTGREY = "0";
         RSPAMD_GREYLISTING = "1";
+        # Rspam config
         RSPAMD_LEARN = "1";
+        RSPAMD_NEURAL = "1";
+        MOVE_SPAM_TO_JUNK = "1";
+        MARK_SPAM_AS_READ = "1";
         SPAM_SUBJECT = "[SPAM]";
       };
       extraOptions = [
