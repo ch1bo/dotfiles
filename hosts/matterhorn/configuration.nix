@@ -55,15 +55,25 @@
     symbolsFile = ./symbols/us-60percent;
   };
 
+  # Enable mDNS (a.k.a bonjour)
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;
+    openFirewall = true;
+  };
+
   # Printing
   services.printing.enable = true;
-  services.printing.drivers = [ pkgs.gutenprint ];
+  # services.printing.drivers = [ pkgs.gutenprint ];
+  services.printing.drivers = [ pkgs.hplipWithPlugin ];
   # Prevent CVE-2024-47176
   # https://www.evilsocket.net/2024/09/26/Attacking-UNIX-systems-via-CUPS-Part-I/
   systemd.services.cups-browsed.enable = false;
 
   # Scanning
   hardware.sane.enable = true;
+  hardware.sane.extraBackends = [ pkgs.sane-airscan ];
+  hardware.sane.disabledDefaultBackends = [ "escl" ];
 
   # Bluetooth support (bluez)
   hardware.bluetooth.enable = true;
@@ -165,6 +175,8 @@
     # nix tools
     nix-output-monitor
     nvd
+    # printing
+    cups-filters
   ];
 
   fonts.packages = [
