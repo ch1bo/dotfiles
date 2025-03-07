@@ -1,6 +1,6 @@
 #+begin_export html
 <br><strong style="color:#000;font-family:Helvetica,Arial;font-size:116%;">Sebastian Nagel</strong><br>
-<span style="color:#000;font-family:Helvetica,Arial;font-size:100%;"><span style="color:#f00">SOFTWARE ENGINEERING LEAD |</span> GERMANY</span>
+<span style="color:#000;font-family:Helvetica,Arial;font-size:100%;"><span style="color:#f00">TECHNICAL ARCHITECT |</span> LIECHTENSTEIN</span>
 <br><br>
 
 <span style="color:#999;font-family:Helvetica,Arial;font-size:85%;">Website: <a href="http://iohk.io" style="color:#f00;">www.iohk.io</a></span><br>
