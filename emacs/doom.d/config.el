@@ -82,6 +82,7 @@
        :desc "Previous error"       "p"   #'flycheck-previous-error
        :desc "Select checker"       "s"   #'flycheck-select-checker
        :desc "Verify setup"         "v"   #'flycheck-verify-setup
+       :desc "All errors"           "a"   #'lsp-treemacs-errors-list
        ))
 
 ;; Set variables easily
