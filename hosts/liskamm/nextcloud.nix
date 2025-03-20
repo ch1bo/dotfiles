@@ -146,4 +146,21 @@ in
                 ^\{%(_groupsre)s,?\s*"remoteAddr":"<HOST>"%(_groupsre)s,?\s*"message":"Trusted domain error.
     datepattern = ,?\s*"time"\s*:\s*"%%Y-%%m-%%d[T ]%%H:%%M:%%S(%%z)?"
   '';
+
+  # Expire trashbin cron job
+  # https://docs.nextcloud.com/server/latest/admin_manual/configuration_files/trashbin_configuration.html#background-job
+  systemd.timers."nextcloud-trashbin-expire" = {
+    wantedBy = [ "timers.target" ];
+    timerConfig = {
+      OnCalendar = "daily";
+      Persistent = true;
+      Unit = "nextcloud-trashbin-expire.service";
+    };
+  };
+  systemd.services."nextcloud-trashbin-expire" = {
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = "${pkgs.docker}/bin/docker exec -u www-data nextcloud bash -c './occ trashbin:expire'";
+    };
+  };
 }
