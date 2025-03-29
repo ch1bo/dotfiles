@@ -47,51 +47,6 @@
 *color14:      base0F
 *color15:      base07
 
-! ------ URXVT ------
-URxvt.colorIT:  base0D
-URxvt.colorBD:  base0E
-URxvt.colorUL:  base0C
-
-! URxvt.font: configured using home-manager xresources module
-URxvt.boldFont:
-URxvt.italicFont:
-URxvt.bolditalicFont:
-
-URxvt.letterSpace: 0
-URxvt.lineSpace: 0
-
-URxvt.scrollBar: false
-URxvt.transparent: false
-
-! extensions
-URxvt.perl-ext-common: default,clipboard,keyboard-select,font-size,url-select
-URxvt.keysym.C-C: perl:clipboard:copy
-URxvt.keysym.C-V: perl:clipboard:paste
-URxvt.clipboard.autocopy: true
-URxvt.clipboard.copycmd: xsel -ib
-URxvt.clipboard.pastecmd: xsel -ob
-URxvt.keysym.M-Escape: perl:keyboard-select:activate
-URxvt.keysym.C-plus: perl:font-size:increase
-URxvt.keysym.C-minus: perl:font-size:decrease
-URxvt.keysym.M-u: perl:url-select:select_next
-URxvt.url-select.launcher: /usr/bin/xdg-open
-URxvt.url-select.autocopy: false
-URxvt.url-select.underline: false
-! URLs
-URxvt.matcher.pattern.0: (\\w+:\/\/|www\.)[a-zA-Z0-9.:/?&@#-=]*
-! Absolute file paths
-URxvt.matcher.pattern.1: (\\/|~|\\.\\/|\\.\\.\\/)[\\w./?&@#-]+
-
-! misc
-URxvt*scrollTtyOutput: false
-URxvt*scrollWithBuffer: true
-URxvt*scrollTtyKeypress: true
-URxvt.secondaryScreen: 1
-URxvt.secondaryScroll: 0
-URxvt.saveLines: 9999
-URxvt.iso14755: false
-URxvt.iso14755_52: false
-
 ! ------ ROFI ------
 ! Colors and font configured using home-manager xresources module
 rofi.modi:                window,run,ssh

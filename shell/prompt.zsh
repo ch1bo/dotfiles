@@ -111,11 +111,12 @@ set_prompt() {
 
 preexec() {
   export TIMER=$(($(date +%s%0N)/1000000))
+  title "$1"
 }
 
 precmd() {
   RETVAL=$?
-  title "zsh" "zsh - %n@%m" ""
+  title "zsh %~"
   if [ $TIMER ]; then
     local now=$(($(date +%s%0N)/1000000))
     ELAPSED=$(($now-$TIMER))

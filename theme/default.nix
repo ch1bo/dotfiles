@@ -5,10 +5,6 @@
 # options here and use it in individual modules?
 { pkgs, lib, ... }:
 {
-  xresources.properties = {
-    "URxvt*font" = "xft:HasklugNerdFont:style=Regular:size=14:antialias=true";
-  };
-
   gtk = {
     enable = true;
     theme = {

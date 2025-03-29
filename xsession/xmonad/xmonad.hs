@@ -36,7 +36,7 @@ main = tray >> xmonad config
 config =
     def
         { modMask = mod4Mask -- Super as modifier
-        , terminal = "urxvt"
+        , terminal = "alacritty"
         , focusFollowsMouse = True -- Focus on mouse enter
         , clickJustFocuses = False -- Click 'into' window
         , normalBorderColor = "#21242b"
@@ -72,7 +72,7 @@ xmobar = statusBarProp "xmobar" (iconsPP statusIcons prettyStatus)
 
     statusIcons =
         composeAll
-            [ className =?- "urxvt" --> appIcon "\xf120"
+            [ className =?- "alacritty" --> appIcon "\xf120"
             , className =?- "emacs" --> appIcon "\xe632"
             , className =?- "firefox" --> appIcon "\xf0239"
             , className =?- "discord" --> appIcon "\xf066f"
@@ -218,7 +218,7 @@ layouts =
 
 manageHooks =
     composeAll
-        [ className =? "Gimp" --> doFloat
+        [ className =?- "gimp" --> doFloat
         , (className <&> isPrefixOf ".blueman") --> doFloatTopRight
         , (className <&> flip elem ["Pavucontrol", "Paprefs"]) --> doFloatTopRight
         , teamsNotification
@@ -227,7 +227,7 @@ manageHooks =
   where
     teamsNotification =
         title
-            =? "Microsoft Teams Notification"
+            =?- "Microsoft Teams Notification"
             --> doFloat
             <+> doF focusDown
 
@@ -240,8 +240,8 @@ manageHooks =
 scratchpads =
     [ NS
         { name = "terminal"
-        , cmd = terminal config <> " -name scratchpad"
-        , query = resource =? "scratchpad"
+        , cmd = terminal config <> " --class scratchpad"
+        , query = className =?- "scratchpad"
         , hook = customFloating (RationalRect 0.1 0.1 0.8 0.8)
         }
     ]

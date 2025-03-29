@@ -34,13 +34,3 @@ fi
 bindkey -v
 #linux terminal
 bindkey '^[[3~' delete-char
-# terminator
-bindkey '^[[1;5D' backward-word
-bindkey '^[[1;5C' forward-word
-bindkey '^[[1;5A' beginning-of-line
-bindkey '^[[1;5B' end-of-line
-# urxvt
-bindkey '^[Od' backward-word
-bindkey '^[Oc' forward-word
-bindkey '^[Oa' beginning-of-line
-bindkey '^[Ob' end-of-line

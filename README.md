@@ -1,8 +1,8 @@
 # Home sweet home.nix
 
-This is the place for my shell (zsh), terminal emulator (urxvt), window manager
-(xmonad), editor (emacs) configuration and many more workflow improvements &
-shortcuts (git aliases, fzf, z).
+This is the place for my shell (zsh), terminal emulator (alacritty), window
+manager (xmonad), editor (emacs) configuration and many more workflow
+improvements & shortcuts (git aliases, fzf, z).
 
 I used to symlink configurations from the home directory into this repository to
 keep them maintainable, but have now migrated to

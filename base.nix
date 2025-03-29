@@ -4,7 +4,7 @@
     ./git
     ./nix
     ./shell
-    ./urxvt
+    ./terminal
     ./vim
   ];
 
