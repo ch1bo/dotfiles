@@ -11,6 +11,7 @@
   accounts.email.maildirBasePath = "mail";
 
   programs.mu.enable = true;
+  programs.emacs.extraPackages = epkgs: [ epkgs.mu4e ];
   programs.msmtp.enable = true;
   programs.offlineimap = {
     enable = true;

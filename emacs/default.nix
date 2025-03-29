@@ -16,11 +16,6 @@ in
   '';
 
   programs.emacs.enable = true;
-  # NOTE: home-manager emacs extraPackages is using pkgs.emacs by default and
-  # seemingly the native comp version is older than normal emacs.
-  programs.emacs.package = pkgs.emacsNativeComp.pkgs.withPackages (epkgs: with epkgs; [
-    epkgs.mu4e
-  ]);
 
   # Dependencies
   home.packages = [
