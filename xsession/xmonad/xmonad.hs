@@ -242,6 +242,6 @@ scratchpads =
         { name = "terminal"
         , cmd = terminal config <> " -name scratchpad"
         , query = resource =? "scratchpad"
-        , hook = customFloating (RationalRect 0.10 0.25 0.8 0.5)
+        , hook = customFloating (RationalRect 0.1 0.1 0.8 0.8)
         }
     ]
