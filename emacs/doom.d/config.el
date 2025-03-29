@@ -72,18 +72,16 @@
       ;;; <leader> a --- agenda
       :desc "Org agenda"            "a"   #'org-agenda
       ;;; <leader> g --- git/version control
-      (:prefix ("g" . "git")
-       :desc "Git status"           "s"   #'magit-status
-       )
+      (:prefix "g"
+       :desc "Git status"           "s"   #'magit-status)
       ;;; <leader> e --- errors (flycheck)
-      (:prefix ("e" . "errors")
+      (:prefix "e"
        :desc "List errors"          "l"   #'+toggle-flycheck-error-list
        :desc "Next error"           "n"   #'flycheck-next-error
        :desc "Previous error"       "p"   #'flycheck-previous-error
        :desc "Select checker"       "s"   #'flycheck-select-checker
        :desc "Verify setup"         "v"   #'flycheck-verify-setup
-       :desc "All errors"           "a"   #'lsp-treemacs-errors-list
-       ))
+       :desc "All errors"           "a"   #'lsp-treemacs-errors-list))
 
 ;; Set variables easily
 (map! :map help-map
@@ -126,7 +124,7 @@ visible, hide it. Otherwise, show it."
 
 (map!
  :leader
- :prefix-map ("p" . "project")
+ :prefix "p"
  :desc "List todos" "t" #'magit-todos-list)
 
 ;; Org
@@ -183,21 +181,6 @@ visible, hide it. Otherwise, show it."
                                        "/*]]>*/-->\n"
                                        "</style>\n"))))))
   )
-
-;; Timeclock
-
-(after! timeclock
-  (setq timeclock-file "~/sync/org/timelog"))
-
-;; Unmap because by default global-display-fill-column-indicator-mode is bound to this
-(map! :leader "t c" nil)
-(map! :leader
-      (:prefix "t" (:prefix ("c" . "clock")
-                    :desc "Clock in" "i" #'timeclock-in
-                    :desc "Clock out" "o" #'timeclock-out
-                    :desc "Reread log" "r" #'timeclock-reread-log
-                    :desc "Status" "s" #'timeclock-status-string
-                    )))
 
 ;; LSP
 
@@ -351,7 +334,7 @@ visible, hide it. Otherwise, show it."
   (setq gac-debounce-interval 5.0))
 
 ;; Unfill paragraph
-
+;;
 ;; Stefan Monnier <foo at acm.org>. It is the opposite of fill-paragraph
 (defun unfill-paragraph (&optional region)
   "Takes a multi-line paragraph and makes it into a single line of text."
@@ -364,19 +347,25 @@ visible, hide it. Otherwise, show it."
 (map! :desc "Undo fill-paragraph" "C-q" #'unfill-paragraph)
 
 ;; Copilot
-
+;;
 ;; From https://github.com/copilot-emacs/copilot.el
 ;; Accept completion from copilot and fallback to company
 (use-package! copilot
-  :hook (prog-mode . copilot-mode)
   :bind (:map copilot-completion-map
               ("<tab>" . 'copilot-accept-completion)
               ("TAB" . 'copilot-accept-completion)
               ("C-TAB" . 'copilot-accept-completion-by-word)
-              ("C-<tab>" . 'copilot-accept-completion-by-word)))
-
+              ("C-<tab>" . 'copilot-accept-completion-by-word)
+              ("C-j" . 'copilot-next-completion)
+              ("C-k" . 'copilot-previous-completion))
+  :config
+  (setq copilot-indent-offset-warning-disable t))
+(map! (:leader
+       :prefix "t"
+       :desc "Copilot" "c" 'copilot-mode))
 
 ;; Github-like markdown preview
+;;
 ;; https://blog.bitsandbobs.net/blog/emacs-markdown-live-preview/
 (use-package! impatient-mode
   :commands impatient-mode)
@@ -399,3 +388,18 @@ visible, hide it. Otherwise, show it."
   (impatient-mode)
   (imp-set-user-filter 'github-markdown-filter)
   (imp-visit-buffer))
+
+;; Obsidian configuration
+;; TODO: Explore / extend this?
+;; (use-package! obsidian
+;;   :config
+;;   (obsidian-specify-path "~/obsidian/Personal/")
+;;   (global-obsidian-mode t)
+;;   ;; This directory will be used for `obsidian-capture' if set.
+;;   (obsidian-inbox-directory "Inbox")
+;;   ;; The directory for daily notes (file name is YYYY-MM-DD.md)
+;;   (obsidian-daily-notes-directory "Daily")
+;;   ;; Directory of note templates, unset (nil) by default
+;;   (obsidian-templates-directory "Templates")
+;;   ;; Daily Note template name - requires a template directory. Default: Daily Note Template.md
+;;   (obsidian-daily-note-template "Daily.md"))
