@@ -4,7 +4,7 @@
   programs.alacritty.enable = true;
   programs.alacritty.settings = {
     font = {
-      size = 10;
+      size = 14;
       normal.family = "Hasklug Nerd Font";
     };
 

@@ -47,6 +47,8 @@
 *color14:      base0F
 *color15:      base07
 
+Xft.dpi: 120
+
 ! ------ ROFI ------
 ! Colors and font configured using home-manager xresources module
 rofi.modi:                window,run,ssh
