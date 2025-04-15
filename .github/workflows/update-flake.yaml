@@ -1,8 +1,8 @@
-name: Update flake
+name: Update systems
 on:
   workflow_dispatch: # allows manual triggering
   schedule:
-    - cron: '0 0 * * 0' # runs weekly on Sunday at 00:00
+    - cron: '0 0 * * *' # every day at 00:00
 
 jobs:
   lockfile:
@@ -16,5 +16,30 @@ jobs:
           token: ${{ secrets.GH_TOKEN_FOR_UPDATES }}
           pr-title: "Update flake.lock"
           pr-labels: |
+            dependencies
+            automated
+
+  services:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            const releases = await github.rest.repos.listReleases({
+              owner: "immich-app",
+              repo: "immich",
+            });
+            console.log(releases.data[0]);
+            const latest = releases.data[0].tag_name;
+            await exec.exec('sed', ["-i", `s/version = ".*"/version = "${latest}"/`, "hosts/liskamm/immich.nix"])
+
+      - uses: peter-evans/create-pull-request@v7
+        with:
+          token: ${{ secrets.GH_TOKEN_FOR_UPDATES }}
+          branch: update-services
+          title: "Update immich"
+          labels: |
             dependencies
             automated
