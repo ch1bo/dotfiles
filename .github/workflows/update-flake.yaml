@@ -21,6 +21,25 @@ jobs:
 
   services:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        service:
+          - owner: immich-app
+            repo: immich
+            file: hosts/liskamm/immich.nix
+          - owner: dani-garcia
+            repo: vaultwarden
+            file: hosts/liskamm/vaultwarden.nix
+          - owner: home-assistant
+            repo: core
+            file: hosts/liskamm/home-assistant.nix
+          - owner: docker-mailserver
+            repo: docker-mailserver
+            file: hosts/liskamm/mailserver.nix
+          - owner: nextcloud
+            repo: server
+            file: hosts/liskamm/nextcloud.nix
+
     steps:
       - uses: actions/checkout@v4
 
@@ -28,18 +47,18 @@ jobs:
         with:
           script: |
             const releases = await github.rest.repos.listReleases({
-              owner: "immich-app",
-              repo: "immich",
+              owner: "${{matrix.service.owner}}",
+              repo: "${{matrix.service.repo}}",
             });
-            console.log(releases.data[0]);
+            console.log(releases);
             const latest = releases.data[0].tag_name;
-            await exec.exec('sed', ["-i", `s/version = ".*"/version = "${latest}"/`, "hosts/liskamm/immich.nix"])
+            await exec.exec('sed', ["-i", `s/version = ".*"/version = "${latest}"/`, "${{matrix.service.file}}"])
 
       - uses: peter-evans/create-pull-request@v7
         with:
           token: ${{ secrets.GH_TOKEN_FOR_UPDATES }}
           branch: update-services
-          title: "Update immich"
+          title: "Update ${{matrix.service.owner}}/${{matrix.service.repo}}"
           labels: |
             dependencies
             automated
