@@ -46,7 +46,6 @@
       spotify # unlimited music
       signal-desktop # connect with rl
       slack # comms
-      skypeforlinux # old-school comms
       remarkable-mouse # drawing tablets ftw
       restream # live stream remarkable
       gh # github utility
