@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, system, lib, ... }:
+{ config, pkgs, pkgs-unstable, inputs, system, lib, ... }:
 {
   imports = [
     ./hardware-configuration.nix
@@ -167,7 +167,7 @@
     element-desktop
     xournal
     libreoffice
-    portfolio
+    pkgs-unstable.portfolio
     eva
     bind.dnsutils
     system-config-printer

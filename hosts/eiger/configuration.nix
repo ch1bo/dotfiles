@@ -144,7 +144,7 @@
     inkscape
     libreoffice
     discord
-    portfolio
+    pkgs-unstable.portfolio
     ledger-live-desktop
     element-desktop
     obs-studio
