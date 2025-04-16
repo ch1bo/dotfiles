@@ -41,6 +41,13 @@ jobs:
             repo: server
             file: hosts/liskamm/nextcloud.nix
             mod: "(version) => version.slice(1)"
+            check: |
+              async (version) => {
+                const response = await fetch(`https://hub.docker.com/v2/repositories/library/nextcloud/tags?name=${version}`);
+                const ret = await response.json();
+                console.log(ret);
+                return ret.count > 0;
+              }
 
     steps:
       - uses: actions/checkout@v4
@@ -54,12 +61,23 @@ jobs:
               owner: "${{matrix.service.owner}}",
               repo: "${{matrix.service.repo}}",
             });
-            console.log(latest);
+            console.log(`Latest release tag: ${latest.data.tag_name}`);
+
             const mod = ${{ matrix.service.mod || '(x) => x' }};
             const newVersion = mod(latest.data.tag_name);
+            console.log(`New version: ${newVersion}`);
+
+            const check = ${{ matrix.service.check || '(x) => true' }};
+            const newVersionOk = await check(newVersion);
+            if (!newVersionOk) {
+              console.warn(`Ignored new version ${newVersion} because of failed check.`)
+              return;
+            }
+
             await exec.exec("sed", ["-i", `s/version = ".*"/version = "${newVersion}"/`, "${{matrix.service.file}}"])
             const {stdout} = await exec.getExecOutput("git", ["diff"]);
-            return stdout
+            console.log(stdout);
+            return stdout;
 
       - uses: peter-evans/create-pull-request@v7
         with:
