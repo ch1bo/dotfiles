@@ -141,10 +141,36 @@
   environment.systemPackages = with pkgs; [
     git
     vim
+    # tools
     atool
-    unzip
-    websocat
+    bind.dnsutils
+    dconf
+    nautilus
+    pavucontrol
     pdftk
+    unzip
+    usbutils
+    websocat
+    # nix tools
+    nix-output-monitor
+    nvd
+    # system monitoring
+    lm_sensors
+    btop
+    htop
+    powertop
+    gnome-disk-utility
+    # printing & scanning
+    cups-filters
+    simple-scan
+    system-config-printer
+    # various applications
+    discord
+    element-desktop
+    xournal
+    libreoffice
+    pkgs-unstable.portfolio
+    eva
     imagemagick
     inkscape
     gimp
@@ -153,30 +179,9 @@
     mplayer
     ledger-live-desktop
     telegram-desktop
-    # system monitoring
-    lm_sensors
-    btop
-    htop
-    powertop
-    gnome-disk-utility
-    nautilus
-    simple-scan
-    dconf
-    pavucontrol
-    discord
-    element-desktop
-    xournal
-    libreoffice
-    pkgs-unstable.portfolio
-    eva
-    bind.dnsutils
-    system-config-printer
-    usbutils
-    # nix tools
-    nix-output-monitor
-    nvd
-    # printing
-    cups-filters
+    # ai stuff
+    pkgs-unstable.zed-editor-fhs
+    pkgs-unstable.code-cursor
   ];
 
   fonts.packages = [
