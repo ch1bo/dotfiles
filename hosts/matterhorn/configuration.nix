@@ -1,4 +1,4 @@
-{ config, pkgs, pkgs-unstable, inputs, system, lib, ... }:
+{ config, pkgs, inputs, system, lib, ... }:
 {
   imports = [
     ./hardware-configuration.nix
@@ -169,7 +169,7 @@
     element-desktop
     xournal
     libreoffice
-    pkgs-unstable.portfolio
+    pkgs.unstable.portfolio
     eva
     imagemagick
     inkscape
@@ -180,8 +180,8 @@
     ledger-live-desktop
     telegram-desktop
     # ai stuff
-    pkgs-unstable.zed-editor-fhs
-    pkgs-unstable.code-cursor
+    pkgs.unstable.zed-editor-fhs
+    pkgs.unstable.code-cursor
   ];
 
   fonts.packages = [
