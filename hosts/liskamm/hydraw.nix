@@ -120,21 +120,21 @@
 
   ## MAINNET deployment
 
-  # virtualisation.oci-containers.containers.cardano-node-mainnet = {
-  #   image = "ghcr.io/intersectmbo/cardano-node:10.1.3";
-  #   volumes = [
-  #     "/data/cardano-configurations/network/mainnet:/config"
-  #     "/data/cardano-node-mainnet:/data"
-  #   ];
-  #   cmd = [ "run" ];
-  #   environment = {
-  #     CARDANO_CONFIG = "/config/cardano-node/config.json";
-  #     CARDANO_TOPOLOGY = "/config/cardano-node/topology.json";
-  #     CARDANO_DATABASE_PATH = "/data/db";
-  #     CARDANO_SOCKET_PATH = "/data/node.socket";
-  #     CARDANO_LOG_DIR = "/data/logs";
-  #   };
-  # };
+  virtualisation.oci-containers.containers.cardano-node-mainnet = {
+    image = "ghcr.io/intersectmbo/cardano-node:10.4.1";
+    volumes = [
+      "/data/cardano-configurations/network/mainnet:/config"
+      "/data/cardano-node-mainnet:/data"
+    ];
+    cmd = [ "run" ];
+    environment = {
+      CARDANO_CONFIG = "/config/cardano-node/config.json";
+      CARDANO_TOPOLOGY = "/config/cardano-node/topology.json";
+      CARDANO_DATABASE_PATH = "/data/db";
+      CARDANO_SOCKET_PATH = "/data/node.socket";
+      CARDANO_LOG_DIR = "/data/logs";
+    };
+  };
 
   # virtualisation.oci-containers.containers.hydra-node-mainnet =
   #   let
