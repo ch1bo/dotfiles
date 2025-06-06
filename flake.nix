@@ -11,9 +11,9 @@
     cv.url = "github:ch1bo/cv";
 
     # hydraw
-    hydra.url = "github:input-output-hk/hydra/4421f52313b109281a47e38c3fecc82bbb9baa7a";
-    cardano-node.url = "github:intersectmbo/cardano-node/10.1.3";
-    mithril.url = "github:input-output-hk/mithril/2450.0";
+    hydra.url = "github:input-output-hk/hydra/0.21.0";
+    cardano-node.url = "github:intersectmbo/cardano-node/10.4.1";
+    mithril.url = "github:input-output-hk/mithril/2517.1";
   };
 
   outputs = inputs: {
