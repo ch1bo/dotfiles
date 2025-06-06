@@ -15,23 +15,20 @@
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
-  fileSystems."/" =
-    {
-      device = "rpool/safe/root";
-      fsType = "zfs";
-    };
+  fileSystems."/" = {
+    device = "rpool/safe/root";
+    fsType = "zfs";
+  };
 
-  fileSystems."/nix" =
-    {
-      device = "rpool/local/nix";
-      fsType = "zfs";
-    };
+  fileSystems."/nix" = {
+    device = "rpool/local/nix";
+    fsType = "zfs";
+  };
 
-  fileSystems."/boot" =
-    {
-      device = "/dev/disk/by-id/nvme-WD_Blue_SN570_500GB_22051Z800497-part1";
-      fsType = "vfat";
-    };
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-id/nvme-WD_Blue_SN570_500GB_22051Z800497-part1";
+    fsType = "vfat";
+  };
 
   # TODO: /home not on dpool?
   # fileSystems."/home" =
@@ -40,11 +37,15 @@
   #     fsType = "zfs";
   #   };
 
-  fileSystems."/data" =
-    {
-      device = "dpool/data";
-      fsType = "zfs";
-    };
+  fileSystems."/data" = {
+    device = "dpool/data";
+    fsType = "zfs";
+  };
+
+  fileSystems."/data/cardano-node-mainnet" = {
+    device = "dpool/data/cardano-node-mainnet";
+    fsType = "zfs";
+  };
 
   swapDevices = [ ];
 
