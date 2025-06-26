@@ -17,10 +17,14 @@ jobs:
       contents: read
     strategy:
       matrix:
-        # TODO: fix disk space limits for ["eiger", "matterhorn"]
-        hostname: ["liskamm"]
+        hostname: ["liskamm", "eiger", "matterhorn"]
     steps:
-      - uses: actions/checkout@v4
+      - uses: data-intuitive/reclaim-the-bytes@v2
+        with:
+          # NOTE: Remove more when needed, but these take also time
+          # See https://github.com/marketplace/actions/reclaim-the-bytes
+          remove-android-sdk: false
+          remove-docker-images: false
       - uses: DeterminateSystems/nix-installer-action@main
         with:
           extra-conf: |
@@ -30,5 +34,6 @@ jobs:
         with:
           name: ch1bo
           authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+      - uses: actions/checkout@v4
       - uses: DeterminateSystems/flake-checker-action@main
       - run: nix build ".#nixosConfigurations.${{ matrix.hostname }}.config.system.build.toplevel"
