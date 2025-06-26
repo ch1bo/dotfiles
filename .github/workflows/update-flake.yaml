@@ -99,4 +99,5 @@ jobs:
             ```diff
             ${{steps.version-bump.outputs.result}}
             ```
+            [All releases](https://github.com/${{matrix.service.owner}}/${{matrix.service.repo}}/releases)
             [Release notes for ${{steps.version-bump.outputs.newVersion}}](https://github.com/${{matrix.service.owner}}/${{matrix.service.repo}}/releases/tag/${{steps.version-bump.outputs.latestTag}})
