@@ -74,7 +74,7 @@
 
   # Fail2ban
   services.fail2ban.enable = true;
-  services.fail2ban.ignoreIP = [ "192.168.0.0/16" ];
+  services.fail2ban.ignoreIP = [ "192.168.0.0/16" "212.186.186.46/24" ];
 
   # SSH
   programs.ssh.package = pkgs.openssh;
