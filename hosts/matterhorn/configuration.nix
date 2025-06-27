@@ -167,7 +167,7 @@
     # various applications
     discord
     element-desktop
-    xournal
+    xournalpp
     libreoffice
     pkgs.unstable.portfolio
     eva
