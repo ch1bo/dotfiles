@@ -13,14 +13,13 @@
   };
 
   # Locate missing commands using nix-index
-  programs.zsh.initExtra = ''
+  programs.zsh.initContent = ''
     source ${pkgs.nix-index}/etc/profile.d/command-not-found.sh
   '';
 
   home.packages = [
     pkgs.cachix # nix cache
     pkgs.nix-index # locate for nix
-    pkgs.nixfmt # format nix
     pkgs.nixpkgs-fmt # format nix the nixpkgs way
   ];
 }

@@ -20,7 +20,7 @@ Config { font =         "HasklugNerdFont 14"
        , commands =
          [ Run XMonadLog
          -- TODO broken? always "Updating..."
-         -- , Run Wireless "wlp3s0" [ "--template", "<essid>" ] 10
+         -- , Run Wireless "@wifi@" [ "--template", "<essid>" ] 10
          , Run DynNetwork     [ "--template" , " <tx>k  <rx>k"
                               , "--Low"      , "1000"       -- units: kB/s
                               , "--High"     , "5000"       -- units: kB/s

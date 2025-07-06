@@ -23,7 +23,7 @@ in
       share = false;
     };
     autosuggestion.enable = true;
-    initExtra = ''
+    initContent = ''
       source ${./colors.zsh};
       source ${./completion.zsh};
       source ${./prompt.zsh};

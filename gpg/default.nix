@@ -9,7 +9,7 @@
   # .gnupg/private-keys-v1.d
   services.gpg-agent = {
     enable = true;
-    pinentryPackage = pkgs.pinentry-gnome3;
+    pinentry.package = pkgs.pinentry-gnome3;
     # NOTE: This is incompatible with agents = [ "ssh" ] of keychain
     enableSshSupport = true;
     # Used for agent forwarding

@@ -51,8 +51,7 @@ in
 
     home.file.".xbindkeysrc".source = ./xbindkeysrc;
     home.file.".xmobarrc" = {
-      source = pkgs.substituteAll {
-        src = ./xmobarrc.hs;
+      source = pkgs.replaceVars ./xmobarrc.hs {
         wifi = "${config.wifi}";
       };
       onChange = ''
