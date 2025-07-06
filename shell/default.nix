@@ -1,9 +1,6 @@
 { config, pkgs, ... }:
 let
   shellAliases = {
-    ls = "ls --color=auto";
-    lt = "lsd --tree";
-    ll = "lsd -l";
     grep = "grep --color=auto";
     fgrep = "fgrep --color=auto";
     egrep = "egrep --color=auto";

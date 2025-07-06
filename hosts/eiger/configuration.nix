@@ -111,13 +111,9 @@
   fonts.packages = [
     pkgs.fira-code
     pkgs.hasklig
-    (pkgs.nerdfonts.override {
-      fonts = [
-        "FiraCode"
-        "Hasklig"
-        "NerdFontsSymbolsOnly"
-      ];
-    })
+    pkgs.nerd-fonts.fira-code
+    pkgs.nerd-fonts.hasklug
+    pkgs.nerd-fonts.symbols-only
   ];
 
   # Other things
