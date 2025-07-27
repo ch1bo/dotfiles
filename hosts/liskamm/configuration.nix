@@ -4,6 +4,7 @@
   imports = [
     ./hardware-configuration.nix
     ./ncoding.nix
+    ./laendlefinder.nix
     ./nextcloud.nix
     ./mailserver.nix
     ./hydraw.nix

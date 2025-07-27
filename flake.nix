@@ -9,6 +9,7 @@
 
     # ncoding
     cv.url = "github:ch1bo/cv";
+    laendlefinder.url = "github:ch1bo/laendlefinder";
 
     # hydraw
     hydra.url = "github:input-output-hk/hydra/0.21.0";
