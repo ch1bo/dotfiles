@@ -2429,11 +2429,11 @@
         "rust-overlay": "rust-overlay_2"
       },
       "locked": {
-        "lastModified": 1753648026,
-        "narHash": "sha256-EHquSnEK/rS03hYCz2ATGC5nn813ySxuCgR77TB7O6g=",
+        "lastModified": 1753733731,
+        "narHash": "sha256-jZFs2/EHSkgG7BKJlmpOoeK98ZE0HC1GBoJ5WUVmuSM=",
         "owner": "ch1bo",
         "repo": "laendlefinder",
-        "rev": "c6e952545e8e763fe634f928a147eafe31ff58d9",
+        "rev": "b34998165e258b0c65a59f089b156c8a43a5df31",
         "type": "github"
       },
       "original": {
