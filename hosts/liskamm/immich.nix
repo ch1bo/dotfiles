@@ -82,7 +82,7 @@ in
     };
 
     immich-db = {
-      image = "ghcr.io/immich-app/postgres:14-vectorchord0.3.0-pgvectors0.2.0";
+      image = "ghcr.io/immich-app/postgres:14-vectorchord0.4.3-pgvectors0.2.0@sha256:32324a2f41df5de9efe1af166b7008c3f55646f8d0e00d9550c16c9822366b4a";
       environment = {
         POSTGRES_PASSWORD = DB_PASSWORD;
         POSTGRES_USER = DB_USERNAME;
@@ -96,7 +96,7 @@ in
     };
 
     immich-redis = {
-      image = "docker.io/redis:6.2-alpine@sha256:2ba50e1ac3a0ea17b736ce9db2b0a9f6f8b85d4c27d5f5accc6a416d8f42c6d5";
+      image = "docker.io/valkey/valkey:8-bookworm@sha256:facc1d2c3462975c34e10fccb167bfa92b0e0dbd992fc282c29a61c3243afb11";
       extraOptions = [ "--network=${networkName}" ];
     };
   };
