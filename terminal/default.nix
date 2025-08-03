@@ -11,13 +11,23 @@
     scrolling.history = 100000;
 
     hints.enabled = [
-      # Copy paths easily
+      # Copy paths
       {
+        binding = { key = "P"; mods = "Control|Shift"; };
+        action = "copy";
         regex = ''(\\/|~|\\.\\/|\\.\\.\\/)[\\w./?&@#-]+'';
         post_processing = true;
-        action = "copy";
-        binding.key = "P";
-        binding.mods = "Control|Shift";
+      }
+      # Open links
+      {
+        binding = { key = "O"; mods = "Control|Shift"; };
+        command = "xdg-open";
+        hyperlinks = true;
+        mouse.enabled = true;
+        mouse.mods = "Control";
+        post_processing = true;
+        persist = false;
+        regex = ''(ipfs:|ipns:|magnet:|mailto:|gemini://|gopher://|https://|http://|news:|file:|git://|ssh:|ftp://)[^\u0000-\u001F\u007F-\u009F<>"\\s{-}\\^⟨⟩‘]+'';
       }
     ];
 
