@@ -11,7 +11,7 @@
 let
   # Check release notes
   # https://github.com/docker-mailserver/docker-mailserver/releases
-  version = "15.0.2";
+  version = "15.1.0";
   serverName = "mail.ncoding.at";
   webmailPort = 8000; # not exposed
   imapPort = 993;
