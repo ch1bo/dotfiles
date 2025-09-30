@@ -7,6 +7,15 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # system inputs
+    zen-browser = {
+      url = "github:0xc000022070/zen-browser-flake";
+      inputs = {
+        home-manager.follows = "home-manager";
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
+
     # ncoding
     cv.url = "github:ch1bo/cv";
     laendlefinder.url = "github:ch1bo/laendlefinder";

@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ pkgs, ... }:
 {
   imports = [
     ./base.nix
@@ -9,6 +9,7 @@
     ./theme
     ./xsession
     ./home-modules/passwords
+    ./home-modules/browser/zen.nix
   ];
 
   config = {

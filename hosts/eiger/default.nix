@@ -17,6 +17,7 @@ nixpkgs.lib.nixosSystem rec {
       home-manager.useUserPackages = true;
       # Additional arguments used in home.nix
       home-manager.extraSpecialArgs = {
+        inherit inputs;
         unstable = import nixpkgs-unstable {
           config = config.nixpkgs.config;
           inherit system;
