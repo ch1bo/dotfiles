@@ -8,7 +8,7 @@ nixpkgs.lib.nixosSystem rec {
   modules = [
     # Overlay pkgs.unstable with same config as pkgs. This notably re-uses the
     # allowUnfree config and allows the same unfree pkgs in unstable.
-    ({ config, pkgs, ... }: {
+    ({ config, ... }: {
       nixpkgs.overlays = [
         (final: prev: {
           unstable = import nixpkgs-unstable {
@@ -28,7 +28,7 @@ nixpkgs.lib.nixosSystem rec {
       home-manager.useUserPackages = true;
       # Additional arguments used in home.nix
       home-manager.extraSpecialArgs = {
-        unstable = pkgs.unstable;
+        inherit inputs;
       };
       # XXX: user name needs to match multiple places
       home-manager.users.ch1bo = import ./home.nix;

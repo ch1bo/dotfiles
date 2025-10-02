@@ -1,4 +1,4 @@
-{ config, pkgs, pkgs-unstable, lib, system, inputs, ... }:
+{ config, pkgs, lib, system, inputs, ... }:
 
 {
   networking.firewall.allowedTCPPorts = [ 80 443 ];

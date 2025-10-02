@@ -1,4 +1,4 @@
-{ config, pkgs, pkgs-unstable, lib, system, inputs, ... }:
+{ config, pkgs, lib, system, inputs, ... }:
 
 {
   services.nginx.virtualHosts."laendlefinder.ncoding.at" = {

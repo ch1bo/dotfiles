@@ -1,4 +1,4 @@
-{ config, pkgs, pkgs-unstable, lib, inputs, system, ... }:
+{ config, pkgs, lib, inputs, system, ... }:
 {
   imports = [
     ./hardware-configuration.nix
@@ -140,7 +140,7 @@
     inkscape
     libreoffice
     discord
-    pkgs-unstable.portfolio
+    unstable.portfolio
     ledger-live-desktop
     element-desktop
     obs-studio
