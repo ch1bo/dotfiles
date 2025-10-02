@@ -26,6 +26,7 @@ nixpkgs.lib.nixosSystem rec {
     ({ pkgs, ... }: {
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
+      home-manager.backupFileExtension = "bkp";
       # Additional arguments used in home.nix
       home-manager.extraSpecialArgs = {
         inherit inputs;
