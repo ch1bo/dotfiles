@@ -275,14 +275,17 @@ visible, hide it. Otherwise, show it."
 
 ;; Email
 
-(setq +mu4e-backend 'offlineimap
-      mu4e-maildir "~/mail"
+(setq mu4e-maildir "~/mail"
       mml-secure-openpgp-sign-with-sender t
       mml-secure-openpgp-encrypt-to-self t
       mu4e-alert-interesting-mail-query "flag:unread AND NOT flag:trashed AND maildir:*INBOX")
 ;; use msmtp
-(setq message-send-mail-function 'message-send-mail-with-sendmail
-      sendmail-program "msmtp")
+(after! mu4e
+  (setq sendmail-program (executable-find "msmtp")
+        send-mail-function #'smtpmail-send-it
+        message-sendmail-f-is-evil t
+        message-sendmail-extra-arguments '("--read-envelope-from")
+        message-send-mail-function #'message-send-mail-with-sendmail))
 ;; Sign mails by default
 (add-hook! 'mu4e-compose-mode-hook :append #'mml-secure-message-sign-pgpauto)
 ;; Load/Refresh main mu4e view on context change
@@ -291,6 +294,7 @@ visible, hide it. Otherwise, show it."
 (set-email-account!
  "ncoding.at"
  '((user-mail-address . "sebastian.nagel@ncoding.at")
+   (+mu4e-personal-addresses . (("sebastian.nagel@ncoding.at" "sebastian.nagel@ncoding.li")))
    (mu4e-trash-folder . "/ncoding.at/Trash")
    (mu4e-refile-folder  . "/ncoding.at/Archive")
    (mu4e-sent-folder . "/ncoding.at/Sent")
@@ -299,6 +303,7 @@ visible, hide it. Otherwise, show it."
    (smtpmail-smtp-server . "mail.ncoding.at")
    (smtpmail-smtp-service . 465)
    (smtpmail-stream-type . ssl)
+   (smtpmail-servers-requiring-authorization . "mail\\.ncoding\\.at")
    (mu4e-update-interval . 120)
    (mu4e-bookmarks . ((:name "Inbox" :query "maildir:/ncoding.at/INBOX" :key ?i)
                       (:name "Today" :query "maildir:/ncoding.at/INBOX AND date:today..now" :key ?t)
