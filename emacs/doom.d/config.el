@@ -275,7 +275,8 @@ visible, hide it. Otherwise, show it."
 
 ;; Email
 
-(setq mu4e-maildir "~/mail"
+(setq +mu4e-backend 'offlineimap ;; XXX: Remove once mu4e-backend does not default to mbsync
+      mu4e-maildir "~/mail"
       mml-secure-openpgp-sign-with-sender t
       mml-secure-openpgp-encrypt-to-self t
       mu4e-alert-interesting-mail-query "flag:unread AND NOT flag:trashed AND maildir:*INBOX")
