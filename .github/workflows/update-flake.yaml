@@ -12,7 +12,7 @@ jobs:
       - uses: DeterminateSystems/nix-installer-action@main
       - uses: DeterminateSystems/update-flake-lock@main
         with:
-          inputs: nixpkgs nixpkgs-unstable home-manager cv
+          inputs: nixpkgs nixpkgs-unstable home-manager cv zen-browser
           token: ${{ secrets.GH_TOKEN_FOR_UPDATES }}
           pr-title: "Update flake.lock"
           pr-labels: |
