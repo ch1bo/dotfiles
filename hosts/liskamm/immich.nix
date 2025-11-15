@@ -30,6 +30,21 @@ in
       extraConfig = ''
         proxy_buffering off;
         client_max_body_size 4G;
+
+        # Allow CORS for the official hosted instance
+        if ($request_method = 'OPTIONS') {
+            add_header 'Access-Control-Allow-Origin' 'https://ch1bo.github.io' always;
+            add_header 'Access-Control-Allow-Methods' 'GET, POST, PUT, DELETE, OPTIONS' always;
+            add_header 'Access-Control-Allow-Headers' 'x-api-key, Content-Type, Accept' always;
+            add_header 'Access-Control-Max-Age' 1728000;
+            add_header 'Content-Type' 'text/plain charset=UTF-8';
+            add_header 'Content-Length' 0;
+            return 204;
+        }
+
+        add_header 'Access-Control-Allow-Origin' 'https://ch1bo.github.io' always;
+        add_header 'Access-Control-Allow-Methods' 'GET, POST, PUT, DELETE, OPTIONS' always;
+        add_header 'Access-Control-Allow-Headers' 'x-api-key, Content-Type, Accept' always;
       '';
     };
   };
