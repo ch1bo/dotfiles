@@ -61,6 +61,9 @@
 ;; No mixed pitch fonts
 (setq +zen-mixed-pitch-modes nil)
 
+;; Configure formatting
+(setq apheleia-formatters-respect-indent-level nil)
+
 ;; Keybindings
 ;;
 ;; Typically overrides of ../doom.emacs.d/modules/config/default/+evil-bindings.el
