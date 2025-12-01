@@ -1,1 +1,5 @@
 .direnv/
+
+# Hard links I keep here to sync across machines
+.zsh_history*
+.z*
