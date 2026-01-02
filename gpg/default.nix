@@ -15,15 +15,8 @@
     # Used for agent forwarding
     enableExtraSocket = true;
   };
-
-  # Manage SSH and GPG agents
-  programs.keychain = {
-    enable = true;
-    # NOTE: Try using GPG agent for SSH auth
-    extraFlags = [ "--ssh-spawn-gpg" "--quiet" ];
-    # Keys are added manually or via keepassxc
-    keys = [ ];
-  };
+  # Always use gpg-agent as ssh agent
+  home.sessionVariables.SSH_AUTH_SOCK = "/run/user/${config.home.uid or "1000"}/gnupg/S.gpg-agent.ssh";
 
   # Mainly for mailvelope
   home.packages = [ pkgs.gpgme ];
