@@ -3,13 +3,14 @@
 My workstation, open loop water cooled :snowflake:
 
 | Case | Fractal Meshify 2                  |
-| CPU  | Ryzen 7950x, 16 cores, 80MB L3     |
+| CPU  | Ryzen 9950x, 16 cores, 128MB L3    |
 | RAM  | G.Skill Trident Z5 6000 CL32, 64GB |
-| MB   | ASUS ROG Strix B650-E              |
+| MB   | ASUS ROG Strix B850-E              |
 | GPU  | RTX 4070Ti 12GB                    |
 | SSD  | Samsung 990 Pro 1TB                |
 | SSD  | Samsung 980 Pro 1TB                |
-| SSD  | Samsung 970 EVO 1TB                |
+
+NOTE: physically downgraded to mt7921 (wifi 6) because mt7927 (wifi 7) not supported
 
 * Partitioning
 I use a single 1TB SSD for NixOS itself right now:
