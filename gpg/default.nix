@@ -19,6 +19,8 @@
   # Manage SSH and GPG agents
   programs.keychain = {
     enable = true;
+    # NOTE: Try using GPG agent for SSH auth
+    extraFlags = [ "--ssh-spawn-gpg" "--quiet" ];
     # Keys are added manually or via keepassxc
     keys = [ ];
   };
