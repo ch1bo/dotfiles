@@ -17,6 +17,7 @@
   # SSH config TODO(SN): DRY with other hosts
   programs.ssh = {
     enable = true;
+    enableDefaultConfig = false;
     matchBlocks = {
       "eiger" = {
         # hostname = "ncoding.at";

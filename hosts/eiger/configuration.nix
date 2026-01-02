@@ -153,11 +153,6 @@
 
   ## Services
 
-  # Android tools
-  services.udev.packages = [
-    pkgs.android-udev-rules
-  ];
-
   # SSH
   programs.ssh.package = pkgs.openssh;
   services.openssh = {

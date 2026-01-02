@@ -18,6 +18,7 @@
   # SSH config TODO(SN): re-use on other hosts?
   programs.ssh = {
     enable = true;
+    enableDefaultConfig = false;
     matchBlocks = {
       "liskamm" = {
         forwardAgent = true;

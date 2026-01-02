@@ -128,9 +128,6 @@
 
   # Android debug bridge and other tools
   programs.adb.enable = true;
-  services.udev.packages = [
-    pkgs.android-udev-rules
-  ];
 
   # Remote administration / support
   services.teamviewer.enable = true;

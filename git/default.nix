@@ -4,15 +4,23 @@
   programs.git = {
     enable = true;
     lfs.enable = true;
-    userName = "Sebastian Nagel";
-    userEmail = "sebastian.nagel@ncoding.at";
+    settings = {
+      user = {
+        name = "Sebastian Nagel";
+        email = "sebastian.nagel@ncoding.at";
+      };
 
-    signing = {
-      key = "0xB2BF1EFDD95012D9";
-      signByDefault = true;
-    };
+      alias = {
+        co = "checkout";
+        graph = "log --graph --oneline --decorate";
+        changelog = "log --pretty=format:'%s' --no-merges";
+        count = "shortlog -sn";
+        wtf = "!${./git-wtf}";
+        dlm = "!${./git-delete-local-merged}";
+        up = "!${./git-up}";
+        sup = "!${./git-sup}";
+      };
 
-    extraConfig = {
       color.ui = true;
       diff.submodule = "log";
       fetch.recurseSubmodules = "on-demand";
@@ -26,15 +34,9 @@
       status.submoduleSummary = true;
     };
 
-    aliases = {
-      co = "checkout";
-      graph = "log --graph --oneline --decorate";
-      changelog = "log --pretty=format:'%s' --no-merges";
-      count = "shortlog -sn";
-      wtf = "!${./git-wtf}";
-      dlm = "!${./git-delete-local-merged}";
-      up = "!${./git-up}";
-      sup = "!${./git-sup}";
+    signing = {
+      key = "0xB2BF1EFDD95012D9";
+      signByDefault = true;
     };
 
     ignores = [

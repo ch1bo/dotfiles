@@ -19,8 +19,6 @@
   # Manage SSH and GPG agents
   programs.keychain = {
     enable = true;
-    # NOTE: Disable SSH agent as we use the GPG agent for that
-    agents = [ "gpg" ];
     # Keys are added manually or via keepassxc
     keys = [ ];
   };
