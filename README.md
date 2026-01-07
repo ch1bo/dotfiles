@@ -70,6 +70,8 @@ After installing these dependencies, it's just:
 - [x] Flake-based nixos configurations (no symlinking)
 - [x] Make independent of "<nixpkgs>" (using nix flakes)
 - [ ] Do auto-upgrades from CI builds (with ways to go back)
+- [ ] Deploy configurations using [`colmena`](https://colmena.cli.rs/unstable/introduction.html)
+  - [ ] Upload secrets from bitwarden to machines?
 - [ ] Modularize into proper topics
   - [x] Re-integrate home config with system configuration.nix
   - [ ] DRY and modularize system configuration properly between systems
@@ -81,7 +83,7 @@ After installing these dependencies, it's just:
 - [ ] New terminal emulator
 - [ ] Clean up with XDG and have proper mime associations
 - [ ] Reduce "first steps at home" (above)
-- [ ] Set firefox settings / search engines declaratively
+- [ ] Set zen settings / search engines declaratively
 
 ## Inspired by
 
