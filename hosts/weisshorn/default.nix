@@ -31,13 +31,7 @@ nixpkgs.lib.nixosSystem rec {
         inherit inputs;
       };
       # XXX: user name needs to match multiple places
-      home-manager.users.ch1bo = {
-        imports = [
-          ../../base.nix
-          ../../gpg
-        ];
-        home.username = "ch1bo";
-      };
+      home-manager.users.ch1bo = import ./home.nix;
     })
   ];
 }
