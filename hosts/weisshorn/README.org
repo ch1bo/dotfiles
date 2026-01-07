@@ -10,6 +10,7 @@ A new server for my Liechtenstein office based on previous AM5 hardware.
 | SSD  | Samsung 870 EVO 2TB            |
 
 * TODO
+- [ ] SSH setup/forwarding
 - [ ] Describe disk setup
 - [ ] ZFS mirror on 2.5" SSDs
 - [ ] Target offsite backups here
