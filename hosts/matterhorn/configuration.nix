@@ -129,9 +129,6 @@
   # Android debug bridge and other tools
   programs.adb.enable = true;
 
-  # Remote administration / support
-  services.teamviewer.enable = true;
-
   # Screensaver / -locker (usses setuid wrapper)
   programs.slock.enable = true;
 
