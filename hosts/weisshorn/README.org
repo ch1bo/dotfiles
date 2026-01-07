@@ -1,0 +1,21 @@
+#+TITLE: Weisshorn
+
+A new server for my Liechtenstein office based on previous AM5 hardware.
+
+| Case | BeQuiet Pure Base 501          |
+| CPU  | Ryzen 7950x, 16 cores, 80MB L3 |
+| RAM  | Kingston Fury DDR5 5600, 64GB  |
+| SSD  | Samsung 970 EVO 1TB            |
+| SSD  | Samsung 870 EVO 2TB            |
+| SSD  | Samsung 870 EVO 2TB            |
+
+* TODO
+- [ ] Describe disk setup
+- [ ] ZFS mirror on 2.5" SSDs
+- [ ] Target offsite backups here
+- [ ] Move services from liskamm here
+
+* Disk setup
+
+Operating system on the NVMe SSD and data on two 2TB SATA SSDs in separate ZFS
+Raid1 pool.

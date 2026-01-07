@@ -31,6 +31,7 @@
       eiger = import ./hosts/eiger inputs;
       matterhorn = import ./hosts/matterhorn inputs;
       liskamm = import ./hosts/liskamm inputs;
+      weisshorn = import ./hosts/weisshorn inputs;
     };
   };
 
