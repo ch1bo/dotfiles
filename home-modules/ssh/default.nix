@@ -19,18 +19,10 @@
         hostname = "5.34.251.181"; # TODO: Update DNS
         port = 2222;
         forwardAgent = true;
-        extraOptions = {
-          "StreamLocalBindUnlink" = "yes";
-          "RemoteForward" = "/run/user/1000/gnupg/S.gpg-agent /run/user/1000/gnupg/S.gpg-agent.extra";
-        };
       };
       "liskamm" = {
         hostname = "ncoding.at";
         forwardAgent = true;
-        extraOptions = {
-          "StreamLocalBindUnlink" = "yes";
-          "RemoteForward" = "/run/user/1000/gnupg/S.gpg-agent /run/user/1000/gnupg/S.gpg-agent.extra";
-        };
       };
       "remarkable" = {
         user = "root";
