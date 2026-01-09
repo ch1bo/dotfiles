@@ -9,7 +9,6 @@ setopt PROMPT_SUBST
 setopt CORRECT
 setopt COMPLETE_IN_WORD
 
-HISTFILE="$HOME/.zsh_history"
 HISTSIZE=10000000
 SAVEHIST=10000000
 setopt BANG_HIST                 # Treat the '!' character specially during expansion.
@@ -24,11 +23,6 @@ setopt HIST_IGNORE_SPACE         # Don't record an entry starting with a space.
 setopt HIST_SAVE_NO_DUPS         # Don't write duplicate entries in the history file.
 setopt HIST_REDUCE_BLANKS        # Remove superfluous blanks before recording entry.
 setopt HIST_VERIFY               # Don't execute immediately upon history expansion.
-
-# History backup
-if [[ $(wc -l ${HISTFILE} | awk '{print $1}') -gt $(wc -l ${HISTFILE}.bkp | awk '{print $1}' || 0) ]]; then
-  cp ${HISTFILE} ${HISTFILE}.bkp
-fi
 
 # vim bindings
 bindkey -v

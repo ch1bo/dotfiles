@@ -30,6 +30,12 @@ in
       source ${./window.zsh};
       source ${./config.zsh};
 
+      # History backup
+      HISTFILE="${config.dotfiles}/data/zsh-history"
+      if [[ $(wc -l $HISTFILE | awk '{print $1}') -gt $(wc -l $HISTFILE.bkp | awk '{print $1}' || 0) ]]; then
+        cp $HISTFILE $HISTFILE.bkp
+      fi
+
       # syntax highlighting
       source "${pkgs.zsh-syntax-highlighting}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 
@@ -37,6 +43,7 @@ in
       eval "$(${pkgs.direnv}/bin/direnv hook zsh)"
 
       # z for jumping around
+      _Z_DATA=${config.dotfiles}/data/z
       source ${./z.sh}
 
       # z as source for fzf
