@@ -1,5 +1,5 @@
 # Using https://github.com/0xc000022070/zen-browser-flake
-{ inputs, config, pkgs, ... }:
+{ inputs, config, pkgs, lib, ... }:
 {
   imports = [
     inputs.zen-browser.homeModules.twilight
@@ -140,21 +140,22 @@
 
     };
 
+    # TODO: these seem not to work?
     pinsForce = true;
     pins = {
-      # TODO add more
       "Clockify" = {
         id = "fbe8aca9-6962-45eb-a099-0e7e18e9f25d";
         workspace = spaces."Work".id;
         url = "https://app.clockify.me/tracker";
         isEssential = true;
+        position = 0;
       };
       "GitHub" = {
         id = "f6f117f5-8c5d-42f5-b8db-ded620fc2de2";
         workspace = spaces."Work".id;
         url = "https://github.com/notifications";
-        position = 101;
         isEssential = true;
+        position = 1;
       };
     };
 
@@ -231,6 +232,35 @@
           bing.metaData.hidden = "true";
         };
     };
+  };
+
+  # XXX: For some reason I need this installs section for it to work
+  home.file.".zen/profiles.ini" = {
+    text =
+      let
+        # Vendored generation code from mkFirefoxModule
+        profiles =
+          lib.flip lib.mapAttrs' config.programs.zen-browser.profiles
+            (_: profile:
+              lib.nameValuePair "Profile${toString profile.id}" {
+                Name = profile.name;
+                Path = profile.path;
+                IsRelative = 1;
+                Default = if profile.isDefault then 1 else 0;
+              }
+            ) // {
+            General = {
+              StartWithLastProfile = 1;
+              Version = config.programs.zen-browser.profileVersion;
+            };
+          };
+      in
+      lib.generators.toINI { } (profiles // {
+        Install166448B1A78F3C9E = {
+          Default = "default";
+          Locked = 1;
+        };
+      });
   };
 
   # Open files with the browser
