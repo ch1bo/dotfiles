@@ -1,4 +1,9 @@
 # Using https://github.com/0xc000022070/zen-browser-flake
+#
+# TODO: extensions and ideally sync setup
+#
+# TODO: keybindings are stored in zen-keyboard-shortcuts.json, should be able to
+# update this with custom overrides similar to places.sqlite is modified.
 { inputs, config, pkgs, lib, ... }:
 {
   imports = [
@@ -57,9 +62,7 @@
         FormData = true;
         Cache = true;
       };
-      ExtensionSettings = mkExtensionSettings {
-        # TODO
-      };
+      # TODO ExtensionSettings = mkExtensionSettings { };
       Preferences = mkLockedAttrs {
         "browser.aboutConfig.showWarning" = false;
         "browser.tabs.warnOnClose" = false;
