@@ -2,8 +2,8 @@
 
 {
   imports = [
-    # Include the results of the hardware scan.
     ./hardware-configuration.nix
+    ./syncthing.nix
   ];
 
   boot.loader.systemd-boot.enable = true;
