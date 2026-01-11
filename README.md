@@ -80,10 +80,10 @@ After installing these dependencies, it's just:
   - [ ] Get rid of the dependencies (above)
 - [ ] Add tooling to "swap" dotfiles like https://github.com/hlissner/dotfiles/blob/master/bin/hey
 - [ ] Theme rofi
-- [ ] New terminal emulator
+- [x] New terminal emulator
 - [ ] Clean up with XDG and have proper mime associations
 - [ ] Reduce "first steps at home" (above)
-- [ ] Set zen settings / search engines declaratively
+- [x] Set zen settings / search engines declaratively
 
 ## Inspired by
 
