@@ -30,17 +30,23 @@ in
       source ${./window.zsh};
       source ${./config.zsh};
 
-      # History backup
-      HISTFILE="${config.dotfiles}/data/zsh-history"
-      if [[ $(wc -l $HISTFILE | awk '{print $1}') -gt $(wc -l $HISTFILE.bkp | awk '{print $1}' || 0) ]]; then
-        cp $HISTFILE $HISTFILE.bkp
-      fi
-
       # syntax highlighting
       source "${pkgs.zsh-syntax-highlighting}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 
       # evaluate .envrc files
       eval "$(${pkgs.direnv}/bin/direnv hook zsh)"
+
+      # Stop here if we don't have z/zsh-history set up
+      if [[ ! -d ${config.dotfiles}/data ]]; then
+        echo "Missing ${config.dotfiles}/data, zsh history and z unavailable; create it and sync via syncthing"
+        exit
+      fi
+
+      # History backup
+      HISTFILE="${config.dotfiles}/data/zsh-history"
+      if [[ $(wc -l $HISTFILE | awk '{print $1}') -gt $(wc -l $HISTFILE.bkp | awk '{print $1}' || 0) ]]; then
+        cp $HISTFILE $HISTFILE.bkp
+      fi
 
       # z for jumping around
       _Z_DATA=${config.dotfiles}/data/z
