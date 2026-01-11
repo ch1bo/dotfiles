@@ -83,7 +83,7 @@ Then, zfs starts mirroring automatically (= resilvering) where status can be see
 zpool status
 #+end_src
 
-** Replacing a disk in the ZFS pool (e.g. SDD upgrade)
+** Replacing a disk in the ZFS pool (e.g. SSD upgrade)
 
 #+begin_src
 zpool replace dpool /dev/disk/by-id/ata-ST2000LM015-2E8174_WDZXFS70-part1 /dev/disk/by-id/ata-INTENSO_SSD_AA000000000000001966

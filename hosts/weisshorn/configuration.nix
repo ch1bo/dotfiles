@@ -3,6 +3,7 @@
 {
   imports = [
     ./hardware-configuration.nix
+    ./zfs.nix
     ./syncthing.nix
   ];
 
@@ -10,6 +11,7 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "weisshorn";
+  networking.hostId = "18b70f8d"; # required for ZFS
   networking.networkmanager.enable = true;
   networking.firewall.enable = true;
 
