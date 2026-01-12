@@ -91,7 +91,11 @@
       };
     };
 
+  # Use legacy profile mode to avoid needing machine-specific Install identifier
+  home.sessionVariables.MOZ_LEGACY_PROFILES = "1";
+
   programs.zen-browser.profiles.default = rec {
+    id = 0; # Profile IDs must be sequential starting from 0
     settings = {
       "zen.workspaces.continue-where-left-off" = true;
       "zen.workspaces.natural-scroll" = true;
@@ -235,17 +239,6 @@
           bing.metaData.hidden = "true";
         };
     };
-  };
-
-  # XXX: For some reason I need this installs section for it to work
-  # FIXME: the identifier is different for each machine?
-  home.file.".zen/profiles.ini" = {
-    text = lib.generators.toINI { } ({
-      Install1B8A9FC1F6C22260 = {
-        Default = "default";
-        Locked = 1;
-      };
-    });
   };
 
   # Open files with the browser
