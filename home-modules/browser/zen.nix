@@ -168,7 +168,7 @@
 
     search = {
       force = true;
-      default = "ddg";
+      default = "DuckDuckGo";
       engines =
         let
           nixSnowflakeIcon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
@@ -225,7 +225,7 @@
             definedAliases = [ "maps" "gmaps" ];
           };
 
-          "ddg" = {
+          "DuckDuckGo" = {
             urls = [{
               template = "https://duckduckgo.com";
               params = [
@@ -237,6 +237,16 @@
           };
 
           bing.metaData.hidden = "true";
+
+          "Hoogle" = {
+            urls = [{
+              template = "https://hoogle.haskell.org/";
+              params = [
+                { name = "hoogle"; value = "{searchTerms}"; }
+              ];
+            }];
+            definedAliases = [ "h" ];
+          };
         };
     };
   };
