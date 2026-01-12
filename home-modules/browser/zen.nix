@@ -238,32 +238,14 @@
   };
 
   # XXX: For some reason I need this installs section for it to work
+  # FIXME: the identifier is different for each machine?
   home.file.".zen/profiles.ini" = {
-    text =
-      let
-        # Vendored generation code from mkFirefoxModule
-        profiles =
-          lib.flip lib.mapAttrs' config.programs.zen-browser.profiles
-            (_: profile:
-              lib.nameValuePair "Profile${toString profile.id}" {
-                Name = profile.name;
-                Path = profile.path;
-                IsRelative = 1;
-                Default = if profile.isDefault then 1 else 0;
-              }
-            ) // {
-            General = {
-              StartWithLastProfile = 1;
-              Version = config.programs.zen-browser.profileVersion;
-            };
-          };
-      in
-      lib.generators.toINI { } (profiles // {
-        Install166448B1A78F3C9E = {
-          Default = "default";
-          Locked = 1;
-        };
-      });
+    text = lib.generators.toINI { } ({
+      Install1B8A9FC1F6C22260 = {
+        Default = "default";
+        Locked = 1;
+      };
+    });
   };
 
   # Open files with the browser
@@ -272,11 +254,7 @@
       associations = builtins.listToAttrs (map
         (name: {
           inherit name;
-          value =
-            let
-              zen-browser = config.programs.zen-browser.package;
-            in
-            zen-browser.meta.desktopFileName;
+          value = "zen-twilight.desktop";
         }) [
         "application/x-extension-shtml"
         "application/x-extension-xhtml"
@@ -296,6 +274,7 @@
       ]);
     in
     {
+      enable = true;
       associations.added = associations;
       defaultApplications = associations;
     };
