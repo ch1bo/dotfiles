@@ -38,6 +38,7 @@
     home.packages = [
       pkgs.bat # cat clone with wings
       pkgs.jq # json processing in scripts / terminal
+      pkgs.yq # the same for yaml
       pkgs.openssl # key handling
     ];
   };

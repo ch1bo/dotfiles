@@ -146,22 +146,31 @@
     unzip
     usbutils
     websocat
+    yq
+    patchelf
+    graphviz
+    gnumake
     # nix tools
     nix-output-monitor
     nvd
+    nix-tree
+    nix-du
+    inputs.nix-alien.packages.${system}.nix-alien
     # system monitoring
     lm_sensors
     btop
     htop
     powertop
     gnome-disk-utility
+    nettools
+    nmap
+    fio
     # printing & scanning
     cups-filters
     simple-scan
     system-config-printer
     # various applications
     discord
-    element-desktop
     xournalpp
     libreoffice
     pkgs.unstable.portfolio
@@ -173,10 +182,7 @@
     ffmpeg
     mplayer
     ledger-live-desktop
-    telegram-desktop
-    # ai stuff
-    pkgs.unstable.zed-editor-fhs
-    pkgs.unstable.code-cursor
+    pkgs.unstable.claude-code
   ];
 
   fonts.packages = [

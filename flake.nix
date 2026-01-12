@@ -8,6 +8,7 @@
     };
 
     # system inputs
+    nix-alien.url = "github:thiagokokada/nix-alien";
     zen-browser = {
       url = "github:0xc000022070/zen-browser-flake";
       inputs = {
