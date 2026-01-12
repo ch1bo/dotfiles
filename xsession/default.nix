@@ -46,6 +46,7 @@ in
       enableContribAndExtras = true;
       config = ./xmonad/xmonad.hs;
     };
+    home.file.".xmonad/xmonad-${pkgs.stdenv.hostPlatform.system}".force = true;
     # Compositor (transparency, shadows, etc.)
     services.picom.enable = true;
 
