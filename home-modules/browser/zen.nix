@@ -5,7 +5,6 @@
 {
   imports = [
     inputs.zen-browser.homeModules.twilight
-    ./zen-keyboard-shortcuts.nix
   ];
 
   programs.zen-browser.enable = true;
