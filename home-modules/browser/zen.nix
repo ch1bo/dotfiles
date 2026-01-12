@@ -104,29 +104,29 @@
       "zen.urlbar.behavior" = "float";
     };
 
-    # Keyboard shortcuts customization
-    # See home-modules/browser/README-keyboard-shortcuts.md for documentation
-    # Specify only the shortcuts you want to override/modify
-    # All other shortcuts keep their Zen Browser defaults
+    keyboardShortcutsVersion = 14; # pin to detect regressions
     keyboardShortcuts = [
-      # Example: Workspace switching with Meta+Number (Super/Windows/Command key)
-      # Uncomment to enable:
-      # {
-      #   id = "zen-workspace-switch-1";
-      #   key = "1";
-      #   modifiers.meta = true;
-      # }
-      # {
-      #   id = "zen-workspace-switch-2";
-      #   key = "2";
-      #   modifiers.meta = true;
-      # }
-
-      # Example: Disable accidental quit
-      # {
-      #   id = "key_quitApplication";
-      #   disabled = true;
-      # }
+      {
+        id = "zen-compact-mode-toggle";
+        key = "s";
+        modifiers.control = true;
+        modifiers.alt = true;
+      }
+      {
+        id = "zen-compact-mode-show-sidebar"; # toggle floating sideboar
+        key = "f";
+        modifiers.control = true;
+        modifiers.alt = true;
+      }
+      {
+        id = "key_savePage";
+        key = "s";
+        modifiers.control = true;
+      }
+      {
+        id = "key_quitApplication";
+        disabled = true;
+      }
     ];
 
     # Optional: Pin to a specific shortcuts version to detect breaking changes
