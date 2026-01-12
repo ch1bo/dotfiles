@@ -1,13 +1,11 @@
 # Using https://github.com/0xc000022070/zen-browser-flake
 #
 # TODO: extensions and ideally sync setup
-#
-# TODO: keybindings are stored in zen-keyboard-shortcuts.json, should be able to
-# update this with custom overrides similar to places.sqlite is modified.
 { inputs, config, pkgs, lib, ... }:
 {
   imports = [
     inputs.zen-browser.homeModules.twilight
+    ./zen-keyboard-shortcuts.nix
   ];
 
   programs.zen-browser.enable = true;
@@ -105,6 +103,36 @@
       "zen.welcome-screen.seen" = true;
       "zen.urlbar.behavior" = "float";
     };
+
+    # Keyboard shortcuts customization
+    # See home-modules/browser/README-keyboard-shortcuts.md for documentation
+    # Specify only the shortcuts you want to override/modify
+    # All other shortcuts keep their Zen Browser defaults
+    keyboardShortcuts = [
+      # Example: Workspace switching with Meta+Number (Super/Windows/Command key)
+      # Uncomment to enable:
+      # {
+      #   id = "zen-workspace-switch-1";
+      #   key = "1";
+      #   modifiers.meta = true;
+      # }
+      # {
+      #   id = "zen-workspace-switch-2";
+      #   key = "2";
+      #   modifiers.meta = true;
+      # }
+
+      # Example: Disable accidental quit
+      # {
+      #   id = "key_quitApplication";
+      #   disabled = true;
+      # }
+    ];
+
+    # Optional: Pin to a specific shortcuts version to detect breaking changes
+    # Find the current version at about:config -> zen.keyboard.shortcuts.version
+    # If Zen Browser updates and changes shortcuts, activation will fail with a clear error
+    # keyboardShortcutsVersion = 1;
 
     spacesForce = true;
     spaces = {
