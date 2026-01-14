@@ -87,6 +87,7 @@ in
       pkgs.trayer # launched by xmonad
       pkgs.xmobar # launched by xmonad
       pkgs.xorg.xrandr # manage monitors
+      pkgs.xorg.xhost # used this with docker?
       pkgs.xorg.xrdb # manipulate xresources
       pkgs.xorg.xset # configure xorg
       pkgs.maim # for taking screenshots, used by xbindkeys

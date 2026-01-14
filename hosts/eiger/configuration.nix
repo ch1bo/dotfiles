@@ -2,6 +2,8 @@
 {
   imports = [
     ./hardware-configuration.nix
+    ../../modules/desktop.nix
+    ../../modules/nix-tools.nix
     ../../modules/obsidian.nix
     ../../modules/dygma-raise2.nix
     ../../modules/logitech-mouse.nix
@@ -114,41 +116,6 @@
     pkgs.nerd-fonts.fira-code
     pkgs.nerd-fonts.hasklug
     pkgs.nerd-fonts.symbols-only
-  ];
-
-  # Other things
-  environment.systemPackages = with pkgs; [
-    git
-    vim
-    # system monitoring
-    lm_sensors
-    htop
-    powertop
-    # tools
-    dconf
-    pavucontrol
-    usbutils
-    ntfsprogs
-    atool
-    unzip
-    eva
-    # desktop
-    gnome-disk-utility
-    nautilus
-    simple-scan
-    system-config-printer
-    inkscape
-    libreoffice
-    discord
-    unstable.portfolio
-    ledger-live-desktop
-    element-desktop
-    obs-studio
-    ffmpeg
-    mplayer
-    # nix tools
-    nix-output-monitor
-    nvd
   ];
 
   ## Services

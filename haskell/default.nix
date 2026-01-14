@@ -11,6 +11,7 @@
 
   home.packages = [
     pkgs.fourmolu # in case there is no project specific formatter
+    pkgs.stylish-haskell # .. and if they prefer stylish only
     pkgs.haskellPackages.hp2pretty # used in bin/haskell-view-heap
   ];
 }

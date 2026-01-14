@@ -2,6 +2,8 @@
 {
   imports = [
     ./hardware-configuration.nix
+    ../../modules/desktop.nix
+    ../../modules/nix-tools.nix
     ../../modules/obsidian.nix
     ../../modules/vpn.nix
     ../../modules/dygma-raise2.nix
@@ -131,59 +133,6 @@
 
   # Screensaver / -locker (usses setuid wrapper)
   programs.slock.enable = true;
-
-  # Other things
-  environment.systemPackages = with pkgs; [
-    git
-    vim
-    # tools
-    atool
-    bind.dnsutils
-    dconf
-    nautilus
-    pavucontrol
-    pdftk
-    unzip
-    usbutils
-    websocat
-    yq
-    patchelf
-    graphviz
-    gnumake
-    # nix tools
-    nix-output-monitor
-    nvd
-    nix-tree
-    nix-du
-    inputs.nix-alien.packages.${system}.nix-alien
-    # system monitoring
-    lm_sensors
-    btop
-    htop
-    powertop
-    gnome-disk-utility
-    nettools
-    nmap
-    fio
-    # printing & scanning
-    cups-filters
-    simple-scan
-    system-config-printer
-    # various applications
-    discord
-    xournalpp
-    libreoffice
-    pkgs.unstable.portfolio
-    eva
-    imagemagick
-    inkscape
-    gimp
-    obs-studio
-    ffmpeg
-    mplayer
-    ledger-live-desktop
-    pkgs.unstable.claude-code
-  ];
 
   fonts.packages = [
     pkgs.fira-code
