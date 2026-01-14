@@ -2,6 +2,7 @@
 {
   imports = [
     ./hardware-configuration.nix
+    ../../modules/user.nix
     ../../modules/desktop.nix
     ../../modules/nix-tools.nix
     ../../modules/obsidian.nix
@@ -109,8 +110,8 @@
   # Synchronizing things between hosts
   services.syncthing = {
     enable = true;
-    user = "ch1bo";
-    dataDir = "/home/ch1bo";
+    user = config.user.name;
+    dataDir = config.user.home;
     openDefaultPorts = true;
   };
 
@@ -143,30 +144,11 @@
     pkgs.roboto
   ];
 
-  ## User configuration
-
-  users.users.ch1bo = {
-    isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" "docker" "adbusers" ];
-    uid = 1000;
-  };
-
-  nix =
-    let users = [ "root" "ch1bo" ];
-    in {
-      settings.trusted-users = users;
-      settings.allowed-users = users;
-      extraOptions = ''
-        experimental-features = nix-command flakes
-        allow-import-from-derivation = true
-        accept-flake-config = true
-      '';
-      # Prime nix registry with same nixpkgs as system built from
-      registry.nixpkgs.flake = inputs.nixpkgs;
-    };
-
   # At least spotify is proprietary
   nixpkgs.config.allowUnfree = true;
+
+  # Finally, this is me 
+  user.name = "ch1bo";
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

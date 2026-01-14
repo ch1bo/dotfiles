@@ -3,6 +3,7 @@
 {
   imports = [
     ./hardware-configuration.nix
+    ../../modules/user.nix
     ./ncoding.nix
     ./laendlefinder.nix
     ./nextcloud.nix
@@ -90,11 +91,13 @@
   # Synchronizing things between hosts
   services.syncthing = {
     enable = true;
+    user = config.user.name;
+    dataDir = config.user.home;
     openDefaultPorts = true;
-    user = "ch1bo";
-    configDir = "/home/ch1bo/.config/syncthing";
-    guiAddress = "0.0.0.0:8384";
   };
+
+  # TODO: configure gui password via sops or age
+  services.syncthing.guiAddress = "0.0.0.0:8384";
   networking.firewall.allowedTCPPorts = [ 8384 ];
 
   # Increase inotify watches for syncthing - Dynamic since kernel v5.11
@@ -103,26 +106,8 @@
     (config.boot.kernelPackages.kernel.kernelOlder "5.11")
     1048576; # instead of 8192
 
-  ## User configuration
-
-  users.users.ch1bo = {
-    isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" "docker" ];
-    uid = 1000;
-  };
-
-  nix = let users = [ "root" "ch1bo" ]; in
-    {
-      settings.trusted-users = users;
-      settings.allowed-users = users;
-      extraOptions = ''
-        experimental-features = nix-command flakes
-        allow-import-from-derivation = true
-        accept-flake-config = true
-      '';
-      # Prime nix registry with same nixpkgs as system built from
-      registry.nixpkgs.flake = inputs.nixpkgs;
-    };
+  # Finally, this is me 
+  user.name = "ch1bo";
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

@@ -2,14 +2,14 @@
 {
   services.syncthing = {
     enable = true;
+    user = config.user.name;
+    dataDir = config.user.home;
     openDefaultPorts = true;
-    user = "ch1bo";
-    configDir = "/home/ch1bo/.config/syncthing";
   };
 
+  # TODO: configure gui password via sops or age
   services.syncthing.guiAddress = "0.0.0.0:8384";
   networking.firewall.allowedTCPPorts = [ 8384 ];
-  # TODO: configure gui password via sops or age
 
   # Declarative directories
   services.syncthing.settings = {

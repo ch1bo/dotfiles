@@ -3,6 +3,7 @@
 {
   imports = [
     ./hardware-configuration.nix
+    ../../modules/user.nix
     ./zfs.nix
     ./syncthing.nix
   ];
@@ -49,25 +50,8 @@
     nvd
   ];
 
-  users.users.ch1bo = {
-    isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" "docker" ];
-    uid = 1000;
-    packages = with pkgs; [ ];
-  };
-
-  nix = let users = [ "root" "ch1bo" ]; in
-    {
-      settings.trusted-users = users;
-      settings.allowed-users = users;
-      extraOptions = ''
-        experimental-features = nix-command flakes
-        allow-import-from-derivation = true
-        accept-flake-config = true
-      '';
-      # Prime nix registry with same nixpkgs as system built from
-      registry.nixpkgs.flake = inputs.nixpkgs;
-    };
+  # Finally, this is me 
+  user.name = "ch1bo";
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
