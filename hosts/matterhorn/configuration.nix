@@ -92,7 +92,10 @@
 
   # Enable touchpad support (enabled default in most desktopManager).
   # TODO(SN): move to a notebook module
-  services.libinput.enable = true;
+  services.libinput = {
+    enable = true;
+    touchpad.accelSpeed = "0.3";
+  };
 
   # Power management
   services.tlp.enable = true;
