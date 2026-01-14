@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 {
   imports = [
     ./base.nix
@@ -29,7 +29,7 @@
 
     # the browser
     programs.firefox.enable = true;
-    programs.firefox.profiles.ch1bo.extraConfig = ''
+    programs.firefox.profiles.${config.home.username}.extraConfig = ''
       // Allow file:// links
       user_pref("capability.policy.policynames", "localfilelinks");
       user_pref("capability.policy.localfilelinks.sites", "http://localhost:8080");

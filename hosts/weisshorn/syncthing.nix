@@ -22,12 +22,12 @@
     folders = {
       "dotfiles" = {
         id = "d6cet-yojnm";
-        path = "/home/ch1bo/.dotfiles";
+        path = "${config.user.home}/.dotfiles";
         devices = [ "liskamm" "eiger" "matterhorn" ];
       };
       "obsidian" = {
         id = "p2bc3-tuajo";
-        path = "/home/ch1bo/obsidian";
+        path = "${config.user.home}/obsidian";
         devices = [ "liskamm" "eiger" "matterhorn" ];
       };
     };

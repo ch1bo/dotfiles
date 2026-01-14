@@ -23,7 +23,7 @@ nixpkgs.lib.nixosSystem rec {
     # The home-manager module
     home-manager.nixosModules.home-manager
     # Configure home-manager to use global system config
-    ({ pkgs, ... }: {
+    ({ config, ... }: {
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
       home-manager.backupFileExtension = "bkp";
@@ -31,8 +31,9 @@ nixpkgs.lib.nixosSystem rec {
       home-manager.extraSpecialArgs = {
         inherit inputs;
       };
-      # XXX: user name needs to match multiple places
-      home-manager.users.ch1bo = import ./home.nix;
+      home-manager.users.${config.user.name} = {
+        home.username = config.user.name;
+      } // import ./home.nix;
     })
   ];
 }

@@ -6,12 +6,10 @@
     ../../home-modules/ssh
   ];
 
+  wifi = "wlp8s0";
+
   # TODO: man pages are broken?
   manual.manpages.enable = false;
-
-  home.username = "ch1bo";
-  # TODO(SN): make "wifi" optional
-  wifi = "wlp0s0000";
 
   # Use setuid-wrapped slock
   services.screen-locker.lockCmd = "/run/wrappers/bin/slock";
