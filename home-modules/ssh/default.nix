@@ -5,22 +5,19 @@
     enableDefaultConfig = false;
     matchBlocks = {
       "eiger" = {
-        # hostname = "ncoding.at";
-        # port = 2201;
+        hostname = "192.168.2.30";
         forwardAgent = true;
-        # localForwards = [{
-        #   # syncthing
-        #   bind.port = 8385;
-        #   host.address = "127.0.0.1";
-        #   host.port = 8384;
-        # }];
       };
       "weisshorn" = {
+        hostname = "192.168.2.238";
+        forwardAgent = true;
+      };
+      "weisshorn-ext" = {
         hostname = "5.34.251.181"; # TODO: Update DNS
         port = 2222;
         forwardAgent = true;
       };
-      "liskamm" = {
+      "liskamm-ext" = {
         hostname = "ncoding.at";
         forwardAgent = true;
       };
