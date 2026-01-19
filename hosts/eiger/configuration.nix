@@ -41,7 +41,12 @@
   # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
   networking.useDHCP = false;
   networking.interfaces.eno1.useDHCP = true;
-  networking.interfaces.eno1.wakeOnLan.enable = true;
+
+  # Wake on LAN
+  networking = {
+    interfaces.eno1.wakeOnLan.enable = true;
+    firewall.allowedUDPPorts = [ 9 ];
+  };
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";

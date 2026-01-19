@@ -7,6 +7,7 @@
     ../../modules/nix-tools.nix
     ./zfs.nix
     ./syncthing.nix
+    ./wake-eiger.nix
   ];
 
   boot.loader.systemd-boot.enable = true;
