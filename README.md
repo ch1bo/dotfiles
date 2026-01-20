@@ -84,9 +84,12 @@ After installing these dependencies, it's just:
 - [ ] Clean up with XDG and have proper mime associations
 - [ ] Reduce "first steps at home" (above)
 - [x] Set zen settings / search engines declaratively
+- [ ] Evaluate [nushell](https://www.nushell.sh/)
+- [ ] Look into [niri](https://github.com/YaLTeR/niri)
 
 ## Inspired by
 
+- https://github.com/ryan4yin/nix-config
 - https://github.com/hlissner/dotfiles
 - https://github.com/jkachmar/dotnix
 - https://github.com/fzakaria/nix-home
