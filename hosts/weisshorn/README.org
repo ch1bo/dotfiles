@@ -15,6 +15,9 @@ A new server for my Liechtenstein office based on previous AM5 hardware.
 - [X] ZFS mirror on 2.5" SSDs
 - [ ] Target offsite backups here
 - [ ] Move services from liskamm here
+  - [ ] Non-container mail? https://nixos-mailserver.readthedocs.io/en/latest/index.html
+  - [ ] Non-container immich? https://wiki.nixos.org/wiki/Immich
+  - [ ] Non-container nextcloud? https://nixos.wiki/wiki/Nextcloud
 
 * Disk setup
 

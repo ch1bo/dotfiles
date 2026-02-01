@@ -44,6 +44,8 @@
     vim
     dconf
     gptfdisk
+    tmux
+    pv
     # monitoring
     btop
     smartmontools
