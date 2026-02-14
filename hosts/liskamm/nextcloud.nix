@@ -7,7 +7,7 @@
 let
   # Check release notes
   # https://github.com/nextcloud/server/releases
-  version = "32.0.5";
+  version = "32.0.6";
   port = 8001;
   networkName = "nextcloud";
   serverName = "nextcloud.ncoding.at";
