@@ -74,7 +74,7 @@ xmobar = statusBarProp "xmobar" (iconsPP statusIcons prettyStatus)
         composeAll
             [ className =?- "alacritty" --> appIcon "\xf120"
             , className =?- "emacs" --> appIcon "\xe632"
-            , className =?- "firefox" <||> className =?- "zen-twilight" --> appIcon "\xf0239"
+            , className =?- "firefox" <||> className =?- "zen-beta" --> appIcon "\xf0239"
             , className =?- "discord" --> appIcon "\xf066f"
             , className =?- "slack" --> appIcon "\xf04b1"
             , className =?- "spotify" --> appIcon "\xf1bc"
@@ -167,7 +167,7 @@ keyBindings conf@XConfig{XMonad.modMask = modMask} =
         , -- Show/hide scratchpad
           ((modMask, xK_s), namedScratchpadAction scratchpads "terminal")
         , -- Launch browser
-          ((modMask, xK_w), spawn "zen")
+          ((modMask, xK_w), spawn "zen-beta")
         , -- Lock screen
           ((controlMask .|. mod1Mask, xK_l), spawn "loginctl lock-session")
         , -- Switch language

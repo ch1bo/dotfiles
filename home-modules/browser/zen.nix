@@ -4,7 +4,7 @@
 { inputs, config, pkgs, lib, ... }:
 {
   imports = [
-    inputs.zen-browser.homeModules.twilight
+    inputs.zen-browser.homeModules.beta
   ];
 
   programs.zen-browser.enable = true;
@@ -91,7 +91,7 @@
   # Use legacy profile mode to avoid needing machine-specific Install identifier
   home.sessionVariables.MOZ_LEGACY_PROFILES = "1";
 
-  programs.zen-browser.profiles.default = rec {
+  programs.zen-browser.profiles.${config.home.username} = rec {
     id = 0; # Profile IDs must be sequential starting from 0
     settings = {
       "zen.workspaces.continue-where-left-off" = true;
@@ -284,7 +284,7 @@
       associations = builtins.listToAttrs (map
         (name: {
           inherit name;
-          value = "zen-twilight.desktop";
+          value = "zen-beta.desktop";
         }) [
         "application/x-extension-shtml"
         "application/x-extension-xhtml"
