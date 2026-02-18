@@ -185,6 +185,110 @@ visible, hide it. Otherwise, show it."
                                        "</style>\n"))))))
   )
 
+;; Export org log entries to a project's Logbook.md as GFM
+(defun org-log-to-logbook ()
+  "Convert org log entries to GitHub Flavored Markdown using pandoc,
+then prepend as a new H2 entry in a Logbook.md file. Uses the active
+region if set, otherwise collects all entries from :log: tagged
+subtrees in org-agenda-files. The target file is auto-detected in
+the project root, falling back to a file prompt."
+  (interactive)
+  (let* ((source-region (when (use-region-p)
+                          (list (current-buffer) (region-beginning) (region-end))))
+         (org-text
+          (if source-region
+              (buffer-substring-no-properties (nth 1 source-region) (nth 2 source-region))
+            ;; Collect children of all :log: tagged subtrees from agenda files
+            (let ((text ""))
+              (org-map-entries
+               (lambda ()
+                 (let ((beg (save-excursion (org-end-of-meta-data t) (point)))
+                       (end (save-excursion (org-end-of-subtree t) (point))))
+                   (setq text (concat text (buffer-substring-no-properties beg end)))))
+               "log" 'agenda)
+              (when (string-empty-p text)
+                (user-error "No :log: entries found in org-agenda files"))
+              text)))
+         ;; Preprocess: convert headings to list items and optionally strip metadata
+         (strip-meta (y-or-n-p "Strip date/time and context lines? "))
+         (preprocessed
+          (with-temp-buffer
+            (insert org-text)
+            (goto-char (point-min))
+            ;; Convert org headings (* ) to list items (- )
+            (while (re-search-forward "^\\*+ " nil t)
+              (replace-match "- "))
+            ;; Optionally remove timestamp and context/annotation lines
+            (when strip-meta
+              ;; Remove timestamp lines: <2026-02-18 Wed 14:30> or [2026-02-18 Wed 14:30]
+              (flush-lines "^[[:space:]]*[<\\[][0-9]\\{4\\}-" (point-min) (point-max))
+              ;; Remove annotation/context lines: [[link][desc]]
+              (flush-lines "^[[:space:]]*\\[\\[" (point-min) (point-max)))
+            (buffer-string)))
+         ;; Convert via pandoc
+         (gfm-text (with-temp-buffer
+                     (insert preprocessed)
+                     (unless (zerop (call-process-region
+                                     (point-min) (point-max)
+                                     "pandoc" t t nil
+                                     "-f" "org" "-t" "gfm"))
+                       (user-error "pandoc conversion failed:\n%s" (buffer-string)))
+                     (buffer-string)))
+         ;; Extract date from first timestamp in org-text, fall back to today
+         (date (or (when (string-match "[<\\[][0-9]\\{4\\}-[0-9]\\{2\\}-[0-9]\\{2\\}" org-text)
+                     (substring (match-string 0 org-text) 1))
+                   (format-time-string "%Y-%m-%d")))
+         (title (read-string (format "Entry title [%s]: " date)))
+         (date-heading (format "## %s" date))
+         (entry-heading (format "### %s" title))
+         ;; Find target file
+         (project-root (doom-project-root))
+         (default-logbook (when project-root
+                            (let ((f (expand-file-name "Logbook.md" project-root)))
+                              (when (file-exists-p f) f))))
+         (logbook-file (or default-logbook
+                           (read-file-name "Logbook.md: " project-root "Logbook.md"))))
+    ;; Open and find/create the date H2
+    (find-file logbook-file)
+    (goto-char (point-min))
+    (if (re-search-forward (concat "^" (regexp-quote date-heading) "$") nil t)
+        ;; Date H2 exists — skip past it and any blank lines
+        (progn
+          (forward-line 1)
+          (while (and (not (eobp)) (looking-at "^$"))
+            (forward-line 1)))
+      ;; Create date H2 before the first H2 (or at end of buffer)
+      (goto-char (point-min))
+      (if (re-search-forward "^## " nil t)
+          (beginning-of-line)
+        (goto-char (point-max))
+        (unless (bolp) (insert "\n")))
+      (insert date-heading "\n\n"))
+    ;; Insert H3 entry
+    (let ((insert-start (point)))
+      (insert entry-heading "\n\n" gfm-text "\n")
+      ;; Unfill: join wrapped lines into single long lines per entry
+      (let ((fill-column most-positive-fixnum))
+        (fill-region insert-start (point)))
+      (goto-char insert-start))
+    ;; Remove exported entries from org source
+    (if source-region
+        ;; Delete the selected region
+        (with-current-buffer (nth 0 source-region)
+          (delete-region (nth 1 source-region) (nth 2 source-region)))
+      ;; Delete children of all :log: tagged subtrees
+      (org-map-entries
+       (lambda ()
+         (let ((beg (save-excursion (org-end-of-meta-data t) (point)))
+               (end (save-excursion (org-end-of-subtree t) (point))))
+           (delete-region beg end)))
+       "log" 'agenda))
+    (message "Logbook entry added, org entries removed")))
+
+(map! :leader
+      :prefix "n"
+      :desc "Log to Logbook.md" "L" #'org-log-to-logbook)
+
 ;; LSP
 
 (setq lsp-enable-file-watchers nil
