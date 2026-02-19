@@ -17,10 +17,11 @@
     source ${pkgs.nix-index}/etc/profile.d/command-not-found.sh
   '';
 
-  home.packages = [
-    pkgs.cachix # nix cache
-    pkgs.nix-index # locate for nix
-    pkgs.nixfmt # format nix
-    pkgs.nil # nix lsp
+  home.packages = with pkgs; [
+    cachix # nix cache
+    nix-index # locate for nix
+    nixfmt # format nix
+    nil # nix lsp
+    statix # lint nix
   ];
 }
