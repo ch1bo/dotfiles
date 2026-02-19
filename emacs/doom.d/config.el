@@ -356,7 +356,7 @@ the project root, falling back to a file prompt."
 
 ;; Nix
 
-(set-formatter! 'nixpkgs-fmt '("nixpkgs-fmt") :modes '(nix-mode))
+(set-formatter! 'nixfmt '("nixfmt") :modes '(nix-mode))
 
 ;; Aiken (Cardano)
 

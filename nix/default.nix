@@ -20,6 +20,7 @@
   home.packages = [
     pkgs.cachix # nix cache
     pkgs.nix-index # locate for nix
-    pkgs.nixpkgs-fmt # format nix the nixpkgs way
+    pkgs.nixfmt # format nix
+    pkgs.nil # nix lsp
   ];
 }
