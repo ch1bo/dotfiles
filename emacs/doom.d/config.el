@@ -358,6 +358,9 @@ the project root, falling back to a file prompt."
 
 (set-formatter! 'nixfmt '("nixfmt") :modes '(nix-mode))
 
+(after! flycheck
+  (flycheck-add-next-checker 'lsp 'statix))
+
 ;; Aiken (Cardano)
 
 (use-package! aiken-mode)
