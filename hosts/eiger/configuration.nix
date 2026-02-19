@@ -1,10 +1,11 @@
-{ config, pkgs, lib, inputs, system, ... }:
+{ config, pkgs, ... }:
 {
   imports = [
     ./hardware-configuration.nix
     ../../modules/user.nix
     ../../modules/desktop.nix
     ../../modules/nix-tools.nix
+    ../../modules/docker.nix
     ../../modules/obsidian.nix
     ../../modules/dygma-raise2.nix
     ../../modules/logitech-mouse.nix
@@ -57,11 +58,13 @@
 
   services.xserver.enable = true;
   services.displayManager.defaultSession = "user-xsession";
-  services.xserver.displayManager.session = [{
-    name = "user-xsession";
-    manage = "desktop";
-    start = ''exec $HOME/.xsession'';
-  }];
+  services.xserver.displayManager.session = [
+    {
+      name = "user-xsession";
+      manage = "desktop";
+      start = "exec $HOME/.xsession";
+    }
+  ];
 
   # Use nvidia drivers
   services.xserver.videoDrivers = [ "nvidia" ];
@@ -93,10 +96,6 @@
 
   # Scanning
   hardware.sane.enable = true;
-
-  # Docker deamon
-  virtualisation.docker.enable = true;
-  virtualisation.docker.storageDriver = "zfs";
 
   # Access cryptos
   hardware.ledger.enable = true;
@@ -152,7 +151,7 @@
   # At least spotify is proprietary
   nixpkgs.config.allowUnfree = true;
 
-  # Finally, this is me 
+  # Finally, this is me
   user.name = "ch1bo";
 
   # This value determines the NixOS release from which the default

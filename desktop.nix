@@ -37,8 +37,6 @@
     '';
 
     home.packages = with pkgs; [
-      docker-compose # docker projects
-      docker-credential-helpers # store docker login credentials in D-Bus secrets
       brave # another browser
       eog # image viewer
       evince # pdf viewer

@@ -1,4 +1,10 @@
-{ config, pkgs, lib, inputs, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  inputs,
+  ...
+}:
 
 {
   imports = [
@@ -54,7 +60,7 @@
     nvd
   ];
 
-  # Finally, this is me 
+  # Finally, this is me
   user.name = "ch1bo";
 
   # This value determines the NixOS release from which the default

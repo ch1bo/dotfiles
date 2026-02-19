@@ -1,9 +1,16 @@
-{ config, pkgs, lib, inputs, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  inputs,
+  ...
+}:
 
 {
   imports = [
     ./hardware-configuration.nix
     ../../modules/user.nix
+    ../../modules/docker.nix
     ./ncoding.nix
     ./laendlefinder.nix
     ./nextcloud.nix
@@ -43,9 +50,6 @@
     keyMap = "us";
   };
 
-  # Docker deamon
-  virtualisation.docker.enable = true;
-
   # ZFS
   # 4GB max ARC cache
   boot.kernelParams = [ "zfs.zfs_arc_max=4294967296" ];
@@ -76,7 +80,10 @@
 
   # Fail2ban
   services.fail2ban.enable = true;
-  services.fail2ban.ignoreIP = [ "192.168.0.0/16" "212.186.186.46/24" ];
+  services.fail2ban.ignoreIP = [
+    "192.168.0.0/16"
+    "212.186.186.46/24"
+  ];
 
   # SSH
   programs.ssh.package = pkgs.openssh;
@@ -102,11 +109,10 @@
 
   # Increase inotify watches for syncthing - Dynamic since kernel v5.11
   # https://github.com/torvalds/linux/commit/92890123749bafc317bbfacbe0a62ce08d78efb7
-  boot.kernel.sysctl."fs.inotify.max_user_watches" = lib.mkIf
-    (config.boot.kernelPackages.kernel.kernelOlder "5.11")
-    1048576; # instead of 8192
+  boot.kernel.sysctl."fs.inotify.max_user_watches" =
+    lib.mkIf (config.boot.kernelPackages.kernel.kernelOlder "5.11") 1048576; # instead of 8192
 
-  # Finally, this is me 
+  # Finally, this is me
   user.name = "ch1bo";
 
   # This value determines the NixOS release from which the default

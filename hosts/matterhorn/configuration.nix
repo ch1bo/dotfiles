@@ -1,10 +1,18 @@
-{ config, pkgs, inputs, system, lib, ... }:
+{
+  config,
+  pkgs,
+  inputs,
+  system,
+  lib,
+  ...
+}:
 {
   imports = [
     ./hardware-configuration.nix
     ../../modules/user.nix
     ../../modules/desktop.nix
     ../../modules/nix-tools.nix
+    ../../modules/docker.nix
     ../../modules/obsidian.nix
     ../../modules/vpn.nix
     ../../modules/dygma-raise2.nix
@@ -43,11 +51,13 @@
   # Use custom xsession as display manager
   services.xserver.enable = true;
   services.displayManager.defaultSession = "user-xsession";
-  services.xserver.displayManager.session = [{
-    name = "user-xsession";
-    manage = "desktop";
-    start = "exec $HOME/.xsession";
-  }];
+  services.xserver.displayManager.session = [
+    {
+      name = "user-xsession";
+      manage = "desktop";
+      start = "exec $HOME/.xsession";
+    }
+  ];
 
   # Keyboard setup
   services.xserver.xkb.layout = "us";
@@ -82,10 +92,6 @@
   # Bluetooth support (bluez)
   hardware.bluetooth.enable = true;
   services.blueman.enable = true;
-
-  # Docker deamon
-  virtualisation.docker.enable = true;
-  virtualisation.docker.storageDriver = "zfs";
 
   # Access cryptos
   hardware.ledger.enable = true;
@@ -156,7 +162,7 @@
   # At least spotify is proprietary
   nixpkgs.config.allowUnfree = true;
 
-  # Finally, this is me 
+  # Finally, this is me
   user.name = "ch1bo";
 
   # This value determines the NixOS release from which the default
