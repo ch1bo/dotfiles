@@ -1,7 +1,13 @@
 # Using https://github.com/0xc000022070/zen-browser-flake
 #
 # TODO: extensions and ideally sync setup
-{ inputs, config, pkgs, lib, ... }:
+{
+  inputs,
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 {
   imports = [
     inputs.zen-browser.homeModules.beta
@@ -11,17 +17,19 @@
 
   programs.zen-browser.policies =
     let
-      mkLockedAttrs = builtins.mapAttrs (_: value: {
-        Value = value;
-        Status = "locked";
-      });
+      mkLockedAttrs = builtins.mapAttrs (
+        _: value: {
+          Value = value;
+          Status = "locked";
+        }
+      );
 
       mkPluginUrl = id: "https://addons.mozilla.org/firefox/downloads/latest/${id}/latest.xpi";
 
       mkExtensionEntry =
-        { id
-        , pinned ? false
-        ,
+        {
+          id,
+          pinned ? false,
         }:
         let
           base = {
@@ -29,14 +37,11 @@
             installation_mode = "force_installed";
           };
         in
-        if pinned
-        then base // { default_area = "navbar"; }
-        else base;
+        if pinned then base // { default_area = "navbar"; } else base;
 
-      mkExtensionSettings = builtins.mapAttrs (_: entry:
-        if builtins.isAttrs entry
-        then entry
-        else mkExtensionEntry { id = entry; });
+      mkExtensionSettings = builtins.mapAttrs (
+        _: entry: if builtins.isAttrs entry then entry else mkExtensionEntry { id = entry; }
+      );
     in
     {
       AutofillAddressEnabled = true;
@@ -103,7 +108,7 @@
       "zen.urlbar.behavior" = "float";
     };
 
-    keyboardShortcutsVersion = 14; # pin to detect regressions
+    keyboardShortcutsVersion = 16; # pin to detect regressions
     keyboardShortcuts = [
       {
         id = "zen-compact-mode-toggle";
@@ -141,15 +146,20 @@
         position = 1000;
         theme = {
           type = "gradient";
-          colors = [{
-            algorithm = "floating";
-            type = "explicit-lightness";
-            red = 107;
-            green = 126;
-            blue = 148;
-            lightness = 50;
-            position = { x = 51; y = 97; };
-          }];
+          colors = [
+            {
+              algorithm = "floating";
+              type = "explicit-lightness";
+              red = 107;
+              green = 126;
+              blue = 148;
+              lightness = 50;
+              position = {
+                x = 51;
+                y = 97;
+              };
+            }
+          ];
           opacity = 0.5;
         };
       };
@@ -159,22 +169,26 @@
         position = 2000;
         theme = {
           type = "gradient";
-          colors = [{
-            algorithm = "floating";
-            type = "explicit-lightness";
-            red = 84;
-            green = 140;
-            blue = 171;
-            lightness = 50;
-            position = { x = 68; y = 137; };
-          }];
+          colors = [
+            {
+              algorithm = "floating";
+              type = "explicit-lightness";
+              red = 84;
+              green = 140;
+              blue = 171;
+              lightness = 50;
+              position = {
+                x = 68;
+                y = 137;
+              };
+            }
+          ];
           opacity = 0.5;
         };
       };
 
     };
 
-    # TODO: these seem not to work?
     pinsForce = true;
     pins = {
       "Clockify" = {
@@ -184,12 +198,26 @@
         isEssential = true;
         position = 0;
       };
+      "GCal" = {
+        id = "336445e0-1f54-45cb-a83a-83d0d59f4d74";
+        workspace = spaces."Work".id;
+        url = "https://calendar.google.com";
+        isEssential = true;
+        position = 1;
+      };
+      "GMail" = {
+        id = "f9ff7a4d-95ab-4179-ba40-4835d0bbe502";
+        workspace = spaces."Work".id;
+        url = "https://mail.google.com";
+        isEssential = true;
+        position = 2;
+      };
       "GitHub" = {
         id = "f6f117f5-8c5d-42f5-b8db-ded620fc2de2";
         workspace = spaces."Work".id;
         url = "https://github.com/notifications";
         isEssential = true;
-        position = 1;
+        position = 3;
       };
     };
 
@@ -206,9 +234,18 @@
               {
                 template = "https://search.nixos.org/packages";
                 params = [
-                  { name = "type"; value = "packages"; }
-                  { name = "channel"; value = "unstable"; }
-                  { name = "query"; value = "{searchTerms}"; }
+                  {
+                    name = "type";
+                    value = "packages";
+                  }
+                  {
+                    name = "channel";
+                    value = "unstable";
+                  }
+                  {
+                    name = "query";
+                    value = "{searchTerms}";
+                  }
                 ];
               }
             ];
@@ -221,8 +258,14 @@
               {
                 template = "https://search.nixos.org/options";
                 params = [
-                  { name = "channel"; value = "unstable"; }
-                  { name = "query"; value = "{searchTerms}"; }
+                  {
+                    name = "channel";
+                    value = "unstable";
+                  }
+                  {
+                    name = "query";
+                    value = "{searchTerms}";
+                  }
                 ];
               }
             ];
@@ -235,8 +278,14 @@
               {
                 template = "https://home-manager-options.extranix.com/";
                 params = [
-                  { name = "query"; value = "{searchTerms}"; }
-                  { name = "release"; value = "master"; }
+                  {
+                    name = "query";
+                    value = "{searchTerms}";
+                  }
+                  {
+                    name = "release";
+                    value = "master";
+                  }
                 ];
               }
             ];
@@ -245,33 +294,61 @@
           };
 
           "Google Maps" = {
-            urls = [{
-              template = "http://maps.google.com";
-              params = [{ name = "q"; value = "{searchTerms}"; }];
-            }];
-            definedAliases = [ "maps" "gmaps" ];
+            urls = [
+              {
+                template = "http://maps.google.com";
+                params = [
+                  {
+                    name = "q";
+                    value = "{searchTerms}";
+                  }
+                ];
+              }
+            ];
+            definedAliases = [
+              "maps"
+              "gmaps"
+            ];
           };
 
           "DuckDuckGo" = {
-            urls = [{
-              template = "https://duckduckgo.com";
-              params = [
-                { name = "q"; value = "{searchTerms}"; }
-                { name = "origin"; value = "unknown"; }
-              ];
-            }];
-            definedAliases = [ "duck" "ddg" "dck" "dckk" ];
+            urls = [
+              {
+                template = "https://duckduckgo.com";
+                params = [
+                  {
+                    name = "q";
+                    value = "{searchTerms}";
+                  }
+                  {
+                    name = "origin";
+                    value = "unknown";
+                  }
+                ];
+              }
+            ];
+            definedAliases = [
+              "duck"
+              "ddg"
+              "dck"
+              "dckk"
+            ];
           };
 
           bing.metaData.hidden = "true";
 
           "Hoogle" = {
-            urls = [{
-              template = "https://hoogle.haskell.org/";
-              params = [
-                { name = "hoogle"; value = "{searchTerms}"; }
-              ];
-            }];
+            urls = [
+              {
+                template = "https://hoogle.haskell.org/";
+                params = [
+                  {
+                    name = "hoogle";
+                    value = "{searchTerms}";
+                  }
+                ];
+              }
+            ];
             definedAliases = [ "h" ];
           };
         };
@@ -281,27 +358,30 @@
   # Open files with the browser
   xdg.mimeApps =
     let
-      associations = builtins.listToAttrs (map
-        (name: {
-          inherit name;
-          value = "zen-beta.desktop";
-        }) [
-        "application/x-extension-shtml"
-        "application/x-extension-xhtml"
-        "application/x-extension-html"
-        "application/x-extension-xht"
-        "application/x-extension-htm"
-        "x-scheme-handler/unknown"
-        "x-scheme-handler/mailto"
-        "x-scheme-handler/chrome"
-        "x-scheme-handler/about"
-        "x-scheme-handler/https"
-        "x-scheme-handler/http"
-        "application/xhtml+xml"
-        "application/json"
-        "text/plain"
-        "text/html"
-      ]);
+      associations = builtins.listToAttrs (
+        map
+          (name: {
+            inherit name;
+            value = "zen-beta.desktop";
+          })
+          [
+            "application/x-extension-shtml"
+            "application/x-extension-xhtml"
+            "application/x-extension-html"
+            "application/x-extension-xht"
+            "application/x-extension-htm"
+            "x-scheme-handler/unknown"
+            "x-scheme-handler/mailto"
+            "x-scheme-handler/chrome"
+            "x-scheme-handler/about"
+            "x-scheme-handler/https"
+            "x-scheme-handler/http"
+            "application/xhtml+xml"
+            "application/json"
+            "text/plain"
+            "text/html"
+          ]
+      );
     in
     {
       enable = true;
