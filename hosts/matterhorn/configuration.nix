@@ -1,9 +1,6 @@
 {
   config,
   pkgs,
-  inputs,
-  system,
-  lib,
   ...
 }:
 {
@@ -16,6 +13,7 @@
     ../../modules/obsidian.nix
     ../../modules/vpn.nix
     ../../modules/dygma-raise2.nix
+    ../../modules/vms.nix
   ];
 
   # Use the systemd-boot EFI boot loader.
