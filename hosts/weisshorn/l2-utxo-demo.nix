@@ -50,6 +50,9 @@
       CARDANO_DATABASE_PATH = "/data/db";
       CARDANO_SOCKET_PATH = "/data/node.socket";
       CARDANO_LOG_DIR = "/data/logs";
+      # For the cardano-cli
+      CARDANO_NODE_SOCKET_PATH = "/data/node.socket";
+      CARDANO_NODE_NETWORK_ID = "1";
     };
   };
 }
