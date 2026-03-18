@@ -27,7 +27,12 @@
   services.nginx.virtualHosts."l2-eutxo-interop.cardano-scaling.org" = {
     forceSSL = true;
     enableACME = true;
-    root = "/home/txpipe/frontend/";
+    locations."/" = {
+      return = "200 '<html><body>It works</body></html>'";
+      extraConfig = ''
+        default_type text/html;
+      '';
+    };
   };
 
   virtualisation.docker.enable = true;
