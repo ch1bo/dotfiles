@@ -5,9 +5,8 @@
 # - a preprod cadano-node
 # - docker compose to run backend services
 # - a reverse proxy to expose the frontend
-{ ... }:
 {
-  config.users.users.txpipe = {
+  users.users.txpipe = {
     isNormalUser = true;
     home = "/home/txpipe";
     extraGroups = [ "docker" ];
@@ -17,13 +16,18 @@
     ];
   };
 
-  config.services.nginx.virtualHosts."l2-eutxo-interop.cardano-scaling.org" = {
+  services.nginx.enable = true;
+  services.nginx.recommendedProxySettings = true;
+  security.acme.acceptTerms = true;
+  security.acme.defaults.email = "webmaster@ncoding.li";
+  services.nginx.virtualHosts."l2-eutxo-interop.cardano-scaling.org" = {
     forceSSL = true;
     enableACME = true;
     root = "/home/txpipe/frontend/";
   };
 
-  config.virtualisation.oci-containers.containers.cardano-node-preprod = {
+  virtualisation.docker.enable = true;
+  virtualisation.oci-containers.containers.cardano-node-preprod = {
     image = "ghcr.io/intersectmbo/cardano-node:10.6.2";
     volumes = [
       "/data/cardano-configurations/network/preprod:/config"
