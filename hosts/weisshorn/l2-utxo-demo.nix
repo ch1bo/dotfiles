@@ -36,6 +36,7 @@
   };
 
   virtualisation.docker.enable = true;
+  virtualisation.oci-containers.backend = "docker";
   virtualisation.oci-containers.containers.cardano-node-preprod = {
     image = "ghcr.io/intersectmbo/cardano-node:10.6.2";
     volumes = [
