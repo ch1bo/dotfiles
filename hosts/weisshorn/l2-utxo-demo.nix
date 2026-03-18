@@ -16,6 +16,10 @@
     ];
   };
 
+  networking.firewall.allowedTCPPorts = [
+    80
+    443
+  ];
   services.nginx.enable = true;
   services.nginx.recommendedProxySettings = true;
   security.acme.acceptTerms = true;
