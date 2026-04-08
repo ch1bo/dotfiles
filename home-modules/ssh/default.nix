@@ -13,7 +13,7 @@
         forwardAgent = true;
       };
       "weisshorn-ext" = {
-        hostname = "5.34.251.181"; # TODO: Update DNS
+        hostname = "vpn.ncoding.li";
         port = 2222;
         forwardAgent = true;
       };

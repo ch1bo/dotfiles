@@ -125,6 +125,7 @@
   programs.ssh.package = pkgs.openssh;
   services.openssh = {
     enable = true;
+    settings.X11Forwarding = true;
     # GPG agent forwarding
     extraConfig = ''
       StreamLocalBindUnlink yes

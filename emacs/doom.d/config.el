@@ -358,8 +358,9 @@ the project root, falling back to a file prompt."
 
 (set-formatter! 'nixfmt '("nixfmt") :modes '(nix-mode))
 
-(after! flycheck
-  (flycheck-add-next-checker 'lsp 'statix))
+;; FIXME: 'lsp is not defined until lsp-mode's flycheck integration was enabled
+;; (after! flycheck
+;;   (flycheck-add-next-checker 'lsp 'statix))
 
 ;; Aiken (Cardano)
 
