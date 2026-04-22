@@ -7,7 +7,9 @@
 {
   # Docker deamon
   virtualisation.docker.enable = true;
-  virtualisation.docker.storageDriver = "zfs";
+  # overlayfs is faster than zfs, is compatible with zfs now, and zfs driver was
+  # create so many datasets/snapshots
+  virtualisation.docker.storageDriver = "overlay2";
   environment.systemPackages = with pkgs; [
     docker-credential-helpers # store docker login credentials in D-Bus secrets
   ];
