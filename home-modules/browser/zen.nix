@@ -108,7 +108,7 @@
       "zen.urlbar.behavior" = "float";
     };
 
-    keyboardShortcutsVersion = 16; # pin to detect regressions
+    keyboardShortcutsVersion = 17; # pin to detect regressions
     keyboardShortcuts = [
       {
         id = "zen-compact-mode-toggle";
