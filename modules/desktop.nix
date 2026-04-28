@@ -38,10 +38,10 @@
     inkscape
     ledger-live-desktop
     libreoffice
-    mplayer
     obs-studio
     unstable.claude-code
     unstable.portfolio
+    vlc
     xournalpp
   ];
 }
