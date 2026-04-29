@@ -11,7 +11,7 @@
 let
   # Check release notes
   # https://github.com/immich-app/immich/releases
-  version = "v2.7.4";
+  version = "v2.7.5";
   port = 2283; # not exposed
   networkName = "immich";
   DB_DATABASE_NAME = "immich";
