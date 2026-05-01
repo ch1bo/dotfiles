@@ -37,27 +37,38 @@
         set -euo pipefail
         HOST=''${1:-$(hostname)}
         FLAKE=".?submodules=1#$HOST"
-        REMOTE_ARGS=()
-        if [ "$HOST" != "$(hostname)" ]; then
-          REMOTE_ARGS=(--target-host "$HOST" --build-host "$HOST")
-        fi
+        LOCAL=$(hostname)
 
         echo "Building $HOST..."
-        nixos-rebuild build --flake "$FLAKE" \
-          "''${REMOTE_ARGS[@]}" |& nom
+        if [ "$HOST" != "$LOCAL" ]; then
+          RESULT=$(nixos-rebuild build --flake "$FLAKE" \
+            --target-host "$HOST" --build-host "$HOST" 2>&1 \
+            | tee >(nom >&2) \
+            | grep -oP '/nix/store/\S+-nixos-system-\S+' | tail -1)
+        else
+          nixos-rebuild build --flake "$FLAKE" |& nom
+          RESULT=$(readlink -f ./result)
+        fi
 
         echo ""
         echo "Diff against running system:"
-        if [ ''${#REMOTE_ARGS[@]} -gt 0 ]; then
-          nvd diff "$(ssh "$HOST" readlink /run/current-system)" ./result
+        if [ "$HOST" != "$LOCAL" ]; then
+          ssh "$HOST" nvd diff /run/current-system "$RESULT"
         else
-          nvd diff /run/current-system ./result
+          nvd diff /run/current-system "$RESULT"
         fi
 
         echo ""
         read -p "Switch $HOST? [y/N] " -n 1 -r; echo
-        [[ $REPLY =~ ^[Yy]$ ]] && nixos-rebuild switch --flake "$FLAKE" \
-          "''${REMOTE_ARGS[@]}" |& nom
+        if [[ $REPLY =~ ^[Yy]$ ]]; then
+          if [ "$HOST" != "$LOCAL" ]; then
+            ssh -t "$HOST" sudo nix-env -p /nix/var/nix/profiles/system --set "$RESULT" \
+              \&\& sudo "$RESULT/bin/switch-to-configuration" switch
+          else
+            sudo nix-env -p /nix/var/nix/profiles/system --set "$RESULT"
+            sudo "$RESULT/bin/switch-to-configuration" switch
+          fi
+        fi
       '';
 
       statusScript = pkgs.writeShellScriptBin "status" ''
@@ -69,10 +80,19 @@
         printf "%-15s %-12s %s\n" "HOST" "DEPLOYED" "BEHIND"
         printf "%-15s %-12s %s\n" "----" "--------" "------"
         for host in $HOSTS; do
-          rev=$(ssh -o ConnectTimeout=3 "$host" nixos-version --configuration-revision 2>/dev/null || echo "unreachable")
-          if [ "$rev" = "unreachable" ]; then
-            printf "%-15s %-12s %s\n" "$host" "unreachable" "-"
+          if [ "$host" = "$(hostname)" ]; then
+            rev=$(nixos-version --configuration-revision 2>/dev/null || true)
           else
+            rev=$(ssh -o ConnectTimeout=3 "$host" nixos-version --configuration-revision 2>/dev/null || true)
+          fi
+          if [ -z "$rev" ]; then
+            if [ "$host" = "$(hostname)" ]; then
+              printf "%-15s %-12s %s\n" "$host" "unknown" "-"
+            else
+              printf "%-15s %-12s %s\n" "$host" "unreachable" "-"
+            fi
+          else
+            rev=''${rev%-dirty}
             short=''${rev:0:7}
             behind=$(git rev-list --count "''${rev}..HEAD" 2>/dev/null || echo "?")
             printf "%-15s %-12s %s\n" "$host" "$short" "$behind"
