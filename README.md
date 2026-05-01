@@ -70,8 +70,8 @@ After installing these dependencies, it's just:
 - [x] Flake-based nixos configurations (no symlinking)
 - [x] Make independent of "<nixpkgs>" (using nix flakes)
 - [ ] Do auto-upgrades from CI builds (with ways to go back)
-- [ ] Deploy configurations using [`colmena`](https://colmena.cli.rs/unstable/introduction.html)
-  - [ ] Upload secrets from bitwarden to machines?
+- [x] Deploy scripts (or [`colmena`](https://colmena.cli.rs/unstable/introduction.html))
+- [ ] Upload secrets from bitwarden to machines?
 - [ ] Modularize into proper topics
   - [x] Re-integrate home config with system configuration.nix
   - [ ] DRY and modularize system configuration properly between systems

@@ -1,4 +1,4 @@
-inputs@{ nixpkgs, nixpkgs-unstable, home-manager, ... }:
+inputs@{ self, nixpkgs, nixpkgs-unstable, home-manager, ... }:
 # Build a nixos system using stable nixpkgs
 nixpkgs.lib.nixosSystem rec {
   system = "x86_64-linux";
@@ -6,6 +6,7 @@ nixpkgs.lib.nixosSystem rec {
     inherit inputs system;
   };
   modules = [
+    { system.configurationRevision = self.rev or self.dirtyRev or "dirty"; }
     # Overlay pkgs.unstable with same config as pkgs. This notably re-uses the
     # allowUnfree config and allows the same unfree pkgs in unstable.
     ({ config, ... }: {
