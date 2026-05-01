@@ -21,6 +21,9 @@
     ./vaultwarden.nix
   ];
 
+  # TODO: Migrate away from this
+  virtualisation.docker.storageDriver = lib.mkForce "zfs";
+
   # At least the nvidia drivers are proprietary
   nixpkgs.config.allowUnfree = true;
 
