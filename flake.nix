@@ -41,9 +41,10 @@
 
         echo "Building $HOST..."
         if [ "$HOST" != "$LOCAL" ]; then
+          ssh -o ConnectTimeout=10 "$HOST" true
           RESULT=$(nixos-rebuild build --flake "$FLAKE" \
-            --target-host "$HOST" --build-host "$HOST" 2>&1 \
-            | tee >(nom >&2) \
+            --target-host "$HOST" --build-host "$HOST" \
+            2> >(nom >&2) \
             | grep -oP '/nix/store/\S+-nixos-system-\S+' | tail -1)
         else
           nixos-rebuild build --flake "$FLAKE" |& nom
@@ -53,7 +54,7 @@
         echo ""
         echo "Diff against running system:"
         if [ "$HOST" != "$LOCAL" ]; then
-          ssh "$HOST" nvd diff /run/current-system "$RESULT"
+          ssh -t "$HOST" nvd diff /run/current-system "$RESULT"
         else
           nvd diff /run/current-system "$RESULT"
         fi
