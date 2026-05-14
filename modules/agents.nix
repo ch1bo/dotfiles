@@ -21,6 +21,8 @@ let
     python3
     vim
     gh
+    openssh
+    direnv
   ];
 
   # Inside the jail it's safe to skip the per-tool permission prompts and
@@ -39,6 +41,8 @@ let
       (try-readwrite (noescape "~/.claude.json"))
       mount-cwd
       (add-pkg-deps agentPackages)
+      # Access the nix store to load cached direnv nix shells
+      (readonly "/nix/store")
       (try-fwd-env "TERM")
     ]
   );
