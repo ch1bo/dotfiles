@@ -39,7 +39,6 @@
     ledger-live-desktop
     libreoffice
     obs-studio
-    unstable.claude-code
     unstable.portfolio
     vlc
     xournalpp

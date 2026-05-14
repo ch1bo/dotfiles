@@ -2437,6 +2437,21 @@
         "type": "github"
       }
     },
+    "jail-nix": {
+      "locked": {
+        "lastModified": 1772137954,
+        "narHash": "sha256-h4MGNbOo7L3RHi4uNFmsg5g17/DHXEfnv/xiG6BrNFQ=",
+        "owner": "~alexdavid",
+        "repo": "jail.nix",
+        "rev": "42b355c38ca63dab4904acc5c0d95f17954a8c9b",
+        "type": "sourcehut"
+      },
+      "original": {
+        "owner": "~alexdavid",
+        "repo": "jail.nix",
+        "type": "sourcehut"
+      }
+    },
     "laendlefinder": {
       "inputs": {
         "flake-utils": "flake-utils_8",
@@ -3775,6 +3790,7 @@
         "cv": "cv",
         "home-manager": "home-manager",
         "hydra": "hydra_2",
+        "jail-nix": "jail-nix",
         "laendlefinder": "laendlefinder",
         "mithril": "mithril_2",
         "nix-alien": "nix-alien",

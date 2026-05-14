@@ -9,6 +9,7 @@
 
     # system inputs
     nix-alien.url = "github:thiagokokada/nix-alien";
+    jail-nix.url = "sourcehut:~alexdavid/jail.nix";
     zen-browser = {
       url = "github:0xc000022070/zen-browser-flake/beta";
       inputs = {

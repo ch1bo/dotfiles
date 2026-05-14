@@ -8,6 +8,7 @@
     ./hardware-configuration.nix
     ../../modules/user.nix
     ../../modules/desktop.nix
+    ../../modules/agents.nix
     ../../modules/nix-tools.nix
     ../../modules/docker.nix
     ../../modules/obsidian.nix
