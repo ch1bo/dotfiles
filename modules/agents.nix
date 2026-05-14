@@ -19,6 +19,8 @@ let
     ripgrep
     nodejs
     python3
+    vim
+    gh
   ];
 
   # Inside the jail it's safe to skip the per-tool permission prompts and
@@ -31,6 +33,8 @@ let
     with jail.combinators;
     [
       network
+      (try-readonly (noescape "~/.config"))
+      (try-readwrite (noescape "~/.cache"))
       (try-readwrite (noescape "~/.claude"))
       (try-readwrite (noescape "~/.claude.json"))
       mount-cwd
