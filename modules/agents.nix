@@ -35,15 +35,18 @@ let
     with jail.combinators;
     [
       network
+      (try-fwd-env "TERM")
+      mount-cwd
+      # Additional tools
+      (add-pkg-deps agentPackages)
+      # Access the nix store to load cached direnv nix shells
+      (readonly "/nix/store")
+      # Access to various dotfiles
       (try-readonly (noescape "~/.config"))
       (try-readwrite (noescape "~/.cache"))
       (try-readwrite (noescape "~/.claude"))
       (try-readwrite (noescape "~/.claude.json"))
-      mount-cwd
-      (add-pkg-deps agentPackages)
-      # Access the nix store to load cached direnv nix shells
-      (readonly "/nix/store")
-      (try-fwd-env "TERM")
+      (try-readwrite (noescape "~/.cabal"))
     ]
   );
 
