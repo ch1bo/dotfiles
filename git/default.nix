@@ -27,6 +27,7 @@
       fetch.writeCommitGraph = true;
       pull.rebase = "merges";
       push.default = "simple";
+      rebase.updateRefs = true;
       rerere = {
         enabled = true;
         autoupdate = true;
