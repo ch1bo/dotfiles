@@ -23,8 +23,9 @@
 
   # Kernel configuration
   boot.kernelParams = [
-    # 4GB max ARC cache
-    "zfs.zfs_arc_max=4294967296"
+    # 2-12GB ARC cache
+    "zfs.zfs_arc_max=12884901888"
+    "zfs.zfs_arc_min=2147483648"
   ];
   boot.zfs.forceImportRoot = false;
   boot.zfs.allowHibernation = true; # safe because swap is not on zfs
