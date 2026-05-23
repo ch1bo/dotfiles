@@ -19,6 +19,7 @@
     ./immich.nix
     ./vaultwarden.nix
     ./vpn-ncoding.nix
+    ./inbox.nix
   ];
 
   # TODO: Migrate away from this

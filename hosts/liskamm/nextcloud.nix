@@ -2,7 +2,12 @@
 # https://hub.docker.com/_/nextcloud/#running-this-image-with-docker-compose
 #
 # Including fail2ban and off-site backups using borgbase.
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 let
   # Check release notes
@@ -44,8 +49,10 @@ in
       RemainAfterExit = "yes";
     };
     script =
-      let dockercli = "${config.virtualisation.docker.package}/bin/docker";
-      in ''
+      let
+        dockercli = "${config.virtualisation.docker.package}/bin/docker";
+      in
+      ''
         if [[ $(${dockercli} network inspect ${networkName}) == "[]" ]]; then
           ${dockercli} network create ${networkName}
         else
@@ -72,8 +79,14 @@ in
         "/data/nextcloud/apps:/var/www/html/apps"
         "/data/nextcloud/config:/var/www/html/config"
         "/data/nextcloud/data:/var/www/html/data"
+        # Scanner inbox (samba drop point in inbox.nix) surfaced as an
+        # External Storage mount inside Nextcloud — see liskamm/README.org.
+        "/data/inbox:/inbox"
       ];
-      dependsOn = [ "nextcloud-db" "nextcloud-redis" ];
+      dependsOn = [
+        "nextcloud-db"
+        "nextcloud-redis"
+      ];
       extraOptions = [ "--network=${networkName}" ];
     };
 

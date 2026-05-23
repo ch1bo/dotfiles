@@ -221,6 +221,26 @@ Both sides must agree. Update =ips= in =wireguard.nix= and =AllowedIPs= for the
 liskamm peer on the VPS in the same change window, otherwise the server will
 silently drop packets from the unexpected source.
 
+* Scan inbox
+
+Guest-writable SMB share at =\\liskamm\inbox= (see =inbox.nix=) backed by
+=/data/inbox=, bind-mounted into Nextcloud as =/inbox= and surfaced via the
+*External Storage* app. Files are owned by uid 33 (=www-data=) so both samba
+and Nextcloud can write them.
+
+** One-time Nextcloud setup
+
+1. *Apps* → enable =External storage support=.
+2. *Settings → Administration → External storages* → add a =Local= folder at
+   =/inbox=, available for user =ch1bo=.
+
+** Verifying from another Linux box
+
+#+begin_src
+smbclient -N //liskamm/inbox -c 'put /etc/hostname test.txt'
+ls -la /data/inbox/   # on liskamm: owner should be www-data
+#+end_src
+
 * Mail failover
 
 Should the mailserver be unavailable for longer periods of time, the MX DNS entry in ncoding.at (and other domains) needs to point to a reachable mailbox. For this, the default service of lima-city.de can be used (up to 1GB of mails):
