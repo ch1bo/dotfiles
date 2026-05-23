@@ -3,11 +3,11 @@
 # https://nixos.wiki/wiki/WireGuard
 { pkgs, ... }:
 {
-  # Default configuration of the NixOS firewall will block the traffic because of rpfilter.
-  networking.firewall.checkReversePath = false;
-
-  # Install wireguard
   environment.systemPackages = [ pkgs.wireguard-tools ];
+
+  # rpfilter drops packets arriving on wg0 because their source (10.5.5.x) does
+  # not match the routing table for the default interface.
+  networking.firewall.checkReversePath = false;
 
   # Generate keys:
   # > umask 077

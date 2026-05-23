@@ -2,7 +2,6 @@
   config,
   pkgs,
   lib,
-  inputs,
   ...
 }:
 
@@ -19,6 +18,7 @@
     ./home-assistant.nix
     ./immich.nix
     ./vaultwarden.nix
+    ./vpn-ncoding.nix
   ];
 
   # TODO: Migrate away from this

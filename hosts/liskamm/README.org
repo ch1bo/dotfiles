@@ -162,6 +162,65 @@ cd /data/immich
 borg-job-immich extract --list --strip-components 2 ::liskamm-immich-2024-10-23T00:00:04
 #+end_src
 
+* Wireguard tunnel to vpn.ncoding.li
+
+Liskamm sits on a residential connection with a dynamic IP. Public traffic for
+=ncoding.li= (and friends) hits the VPS at =vpn.ncoding.li= and is forwarded
+across a persistent wireguard tunnel to =10.5.5.2= here. The client side is
+declared in =wireguard.nix=; the matching peer entry and the DNAT/reverse-proxy
+rules live on the VPS.
+
+** First-time key install
+
+Keys are generated out-of-band and dropped into =/root/keys/wg/= (same pattern
+as the borg credentials above). Do this once as root on liskamm:
+
+#+begin_src
+mkdir -p /root/keys/wg
+chmod 0700 /root/keys/wg
+umask 077
+wg genkey | tee /root/keys/wg/private | wg pubkey > /root/keys/wg/public
+chmod 0400 /root/keys/wg/private
+#+end_src
+
+Hand =/root/keys/wg/public= to the VPS admin and add it as a peer there with
+=AllowedIPs = 10.5.5.2/32=. Paste the VPS's public key into the =publicKey=
+field in =wireguard.nix= and rebuild.
+
+** Operations
+
+Check the tunnel:
+
+#+begin_src
+sudo wg show wg0
+systemctl status wireguard-wg0
+journalctl -u wireguard-wg0 -e
+#+end_src
+
+A healthy peer shows a recent handshake (under ~2 min) and traffic counters
+moving. From liskamm, =ping 10.5.5.1= (or whatever the VPS holds) should work;
+from the VPS, =ping 10.5.5.2= should work.
+
+** Rotating keys
+
+#+begin_src
+wg genkey | tee /root/keys/wg/private.new | wg pubkey > /root/keys/wg/public.new
+#+end_src
+
+Update the peer entry on the VPS to the new public key, then on liskamm:
+
+#+begin_src
+mv /root/keys/wg/private.new /root/keys/wg/private
+mv /root/keys/wg/public.new /root/keys/wg/public
+systemctl restart wireguard-wg0
+#+end_src
+
+** Changing the tunnel IP or VPS endpoint
+
+Both sides must agree. Update =ips= in =wireguard.nix= and =AllowedIPs= for the
+liskamm peer on the VPS in the same change window, otherwise the server will
+silently drop packets from the unexpected source.
+
 * Mail failover
 
 Should the mailserver be unavailable for longer periods of time, the MX DNS entry in ncoding.at (and other domains) needs to point to a reachable mailbox. For this, the default service of lima-city.de can be used (up to 1GB of mails):
