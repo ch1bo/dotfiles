@@ -15,7 +15,6 @@
     ./syncthing.nix
     ./wake-eiger.nix
     ./l2-utxo-demo.nix
-    ./dns-server.nix
   ];
 
   boot.loader.systemd-boot.enable = true;
