@@ -23,6 +23,7 @@ let
     gh
     openssh
     direnv
+    playwright-mcp
   ];
 
   # Inside the jail it's safe to skip the per-tool permission prompts and
