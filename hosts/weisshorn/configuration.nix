@@ -21,6 +21,13 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  boot.kernelParams = [
+    # ASUS mainboards with I225-V seem to have problems with power saving
+    # https://www.reddit.com/r/buildapc/comments/xypn1m/network_card_intel_ethernet_controller_i225v_igc/
+    "pcie_port_pm=off"
+    "pcie_aspm.policy=performance"
+  ];
+
   networking.hostName = "weisshorn";
   networking.hostId = "18b70f8d"; # required for ZFS
   networking.networkmanager.enable = true;
