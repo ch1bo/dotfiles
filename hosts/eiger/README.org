@@ -10,7 +10,27 @@ My workstation, open loop water cooled :snowflake:
 | SSD  | Samsung 990 Pro 1TB                |
 | SSD  | Samsung 980 Pro 1TB                |
 
-NOTE: physically downgraded to mt7921 (wifi 6) because mt7927 (wifi 7) not supported
+* WiFi / Bluetooth
+
+The mt7927 (wifi 7) module that originally shipped with the B850-E had no
+in-tree Linux driver, so I swapped it for the mt7921 (wifi 6) module from my
+previous B650-E build.
+
+On 2026-05-26 the bluetooth half stopped initialising on cold boot (=wmt func
+ctrl (-22)=). Failure is reproducible: survives reboots, kernel upgrades (6.12
+LTS → 7.0 mainline), =btusb= reload, USB re-enumeration of =1-11=, PCIe
+remove+rescan of the wifi half, and a full AC-cut power cycle. Nothing
+software-side changed between "worked yesterday" and "broken today", and the
+wifi half of the same chip continues to associate normally — so the BT silicon
+(or its RF front-end) on this module is almost certainly dead.
+
+Workaround: USB BT dongle. =hardware.bluetooth.enable= already covers it.
+
+As of 2026-05, mt7927 mainline support is close but not landed: the 20-patch
+WiFi series is in v4 review on linux-wireless, BT still needs three out-of-tree
+pieces (USB IDs in btusb, MT6639 hardware variant, firmware). Once those merge —
+or via the =mediatek-mt7927-dkms= out-of-tree package — the original card could
+go back in and the dongle could come out.
 
 * Partitioning
 I use a single 1TB SSD for NixOS itself right now:

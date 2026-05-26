@@ -17,6 +17,7 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   # Kernel configuration
+  boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.kernelParams = [
     # 12GB max ARC cache
     "zfs.zfs_arc_max=12884901888"
