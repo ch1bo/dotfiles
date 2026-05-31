@@ -17,8 +17,8 @@
     ./l2-utxo-demo.nix
     ../../modules/docker.nix
     ./mailserver.nix
-    # Needed for reverse proxying of ncoding.at
     ./vpn-ncoding.nix
+    ./liskamm-proxy.nix
   ];
 
   boot.loader.systemd-boot.enable = true;
