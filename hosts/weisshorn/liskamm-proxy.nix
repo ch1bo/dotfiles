@@ -9,9 +9,12 @@ let
     locations."/" = {
       proxyPass = "https://${upstream}";
       recommendedProxySettings = true;
+      extraConfig = ''
+        proxy_ssl_verify off;
+        proxy_ssl_server_name on;
+      '';
     }
     // extra;
-    extraConfig = "proxy_ssl_verify off;";
   };
 in
 {
