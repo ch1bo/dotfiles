@@ -172,20 +172,16 @@ rules live on the VPS.
 
 ** First-time key install
 
-Keys are generated out-of-band and dropped into =/root/keys/wg/= (same pattern
-as the borg credentials above). Do this once as root on liskamm:
+The router generates a key pair for each client and provides a =client.conf=.
+Drop the private key into =/root/keys/wg/= once as root on liskamm:
 
-#+begin_src
+#+begin_src sh
 mkdir -p /root/keys/wg
 chmod 0700 /root/keys/wg
-umask 077
-wg genkey | tee /root/keys/wg/private | wg pubkey > /root/keys/wg/public
-chmod 0400 /root/keys/wg/private
+install -m 0400 /dev/stdin /root/keys/wg/private <<< "<private key from client.conf>"
 #+end_src
 
-Hand =/root/keys/wg/public= to the VPS admin and add it as a peer there with
-=AllowedIPs = 10.5.5.2/32=. Paste the VPS's public key into the =publicKey=
-field in =wireguard.nix= and rebuild.
+The router's public key is already in =vpn-ncoding.nix=.
 
 ** Operations
 

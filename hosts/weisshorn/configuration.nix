@@ -15,6 +15,10 @@
     ./syncthing.nix
     ./wake-eiger.nix
     ./l2-utxo-demo.nix
+    ../../modules/docker.nix
+    ./mailserver.nix
+    # Needed for reverse proxying of ncoding.at
+    ./vpn-ncoding.nix
   ];
 
   boot.loader.systemd-boot.enable = true;

@@ -13,7 +13,8 @@
     ./ncoding.nix
     ./laendlefinder.nix
     ./nextcloud.nix
-    ./mailserver.nix
+    # moved to weisshorn
+    # ./mailserver.nix
     ./hydraw.nix
     ./home-assistant.nix
     ./immich.nix

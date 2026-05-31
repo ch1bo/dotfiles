@@ -19,6 +19,61 @@ A new server for my Liechtenstein office based on previous AM5 hardware.
   - [ ] Non-container immich? https://wiki.nixos.org/wiki/Immich
   - [ ] Non-container nextcloud? https://nixos.wiki/wiki/Nextcloud
 
+* Off-site backups
+
+Mail data is backed up off-site to borgbase. The SSH key and passphrase need to
+be installed once at =/root/keys/borg=:
+
+#+begin_src sh
+mkdir -p /root/keys/borg
+bw config server https://passwords.ncoding.at
+bw login
+bw get attachment id_ed25519 --itemid $(bw list items --search BorgBase | jq -r '.[0].id') --output /root/keys/borg/id_ed25519
+chmod 0400 /root/keys/borg/id_ed25519
+bw get item BorgBase | jq -r '.fields[] | select(.name == "mail passphrase") | .value' > /root/keys/borg/mail.pass
+#+end_src
+
+Systemd services run every day to do backups. Check their status with:
+#+begin_src sh
+journalctl -u borgbackup-job-mail
+#+end_src
+
+Wrapper scripts can be used to list and restore backups:
+#+begin_src sh
+borg-job-mail list
+borg-job-mail mount :: /mnt
+#+end_src
+
+* Wireguard tunnel to vpn.ncoding.li
+
+Weisshorn runs behind NAT at the ncoding.li site. Public traffic for
+=ncoding.at= hits the router at =vpn.ncoding.li= and is forwarded across a
+persistent wireguard tunnel to =10.5.5.5= here. The client side is declared in
+=vpn-ncoding.nix=; the matching peer entry and the DNAT/forward rules live on
+the router.
+
+** First-time key install
+
+The router generates a key pair for each client and provides a =client.conf=.
+Drop the private key into =/root/keys/wg/= once as root on weisshorn:
+
+#+begin_src sh
+mkdir -p /root/keys/wg
+chmod 0700 /root/keys/wg
+install -m 0400 /dev/stdin /root/keys/wg/private <<< "<private key from client.conf>"
+#+end_src
+
+The router's public key is already in =vpn-ncoding.nix=.
+
+** Operations
+
+Check the tunnel:
+#+begin_src sh
+sudo wg show wg0
+systemctl status wireguard-wg0
+journalctl -u wireguard-wg0 -e
+#+end_src
+
 * Disk setup
 
 Operating system on the NVMe SSD and data on two 2TB SATA SSDs in separate ZFS
