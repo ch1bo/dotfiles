@@ -1,7 +1,17 @@
-{ config, pkgs, lib, system, inputs, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  system,
+  inputs,
+  ...
+}:
 
 {
-  networking.firewall.allowedTCPPorts = [ 80 443 ];
+  networking.firewall.allowedTCPPorts = [
+    80
+    443
+  ];
 
   services.nginx.enable = true;
   services.nginx.recommendedProxySettings = true;
@@ -9,11 +19,18 @@
     let
       ncoding-web = pkgs.symlinkJoin {
         name = "ncoding.at";
-        paths = [ ./ncoding.at inputs.cv.packages.${system}.cv ];
+        paths = [
+          ./ncoding.at
+          inputs.cv.packages.${system}.cv
+        ];
       };
     in
     {
-      serverAliases = [ "ncoding.at" ];
+      serverAliases = [
+        "ncoding.at"
+        "ncoding.li"
+        "www.ncoding.li"
+      ];
       forceSSL = true;
       enableACME = true;
       root = ncoding-web;
