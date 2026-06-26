@@ -49,6 +49,7 @@ in
   # --network=host so node-to-node on :3010 binds directly without docker
   # NAT, and so the in-container Prometheus endpoint (127.0.0.1:12798,
   # hardcoded in config.json) is reachable by Alloy on the host.
+  virtualisation.oci-containers.backend = "docker";
   virtualisation.oci-containers.containers.leios-bp = {
     image = nodeImage;
     user = "${toString uid}:${toString gid}";

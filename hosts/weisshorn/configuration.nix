@@ -11,7 +11,6 @@
     ./zfs.nix
     ./syncthing.nix
     ./wake-eiger.nix
-    ./l2-utxo-demo.nix
     ../../modules/docker.nix
     ./mailserver.nix
     ./vpn-ncoding.nix
