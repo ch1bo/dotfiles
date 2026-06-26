@@ -166,15 +166,10 @@ in
         }
       }
 
-      local.file_match "local_files" {
-        path_targets = [{"__path__" = "${workingDir}/node.log"}]
-        sync_period  = "5s"
-      }
-
-      loki.source.file "cardano_node_log" {
-        targets       = local.file_match.local_files.targets
-        forward_to    = [loki.process.extract_cardano_node_logs.receiver]
-        tail_from_end = false
+      loki.source.journal "cardano_node_journal" {
+        matches    = "_SYSTEMD_UNIT=docker-leios-bp.service"
+        labels     = { job = "cardano-node" }
+        forward_to = [loki.process.extract_cardano_node_logs.receiver]
       }
 
       loki.process "extract_cardano_node_logs" {
@@ -204,9 +199,9 @@ in
       }
     '';
   };
-  # Alloy tails ${workingDir}/node.log; without this the service can't
-  # read it through systemd's ProtectHome= sandbox.
-  systemd.services.alloy.serviceConfig.ReadOnlyPaths = [ workingDir ];
+  # Alloy reads cardano-node stdout via journald; needs the journal group
+  # to escape the systemd-journal-gateway access restriction.
+  systemd.services.alloy.serviceConfig.SupplementaryGroups = [ "systemd-journal" ];
 
   services.grafana = {
     enable = true;
