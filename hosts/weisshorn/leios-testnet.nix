@@ -52,7 +52,10 @@ in
   virtualisation.oci-containers.containers.leios-bp = {
     image = nodeImage;
     user = "${toString uid}:${toString gid}";
-    extraOptions = [ "--network=host" ];
+    extraOptions = [
+      "--network=host"
+      "--workdir=/data"
+    ];
     volumes = [ "${workingDir}:/data" ];
     entrypoint = "cardano-node";
     cmd = [
