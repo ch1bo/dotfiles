@@ -185,7 +185,10 @@ in
           }
           drop_malformed = true
         }
-        stage.timestamp { source = "at"  format = "RFC3339" }
+        stage.timestamp {
+          source = "at"
+          format = "RFC3339"
+        }
         stage.labels {
           values = { level = "sev", host = "host", sev = "sev", ns = "ns" }
         }
