@@ -1,8 +1,5 @@
 {
-  config,
   pkgs,
-  lib,
-  inputs,
   ...
 }:
 
@@ -19,6 +16,7 @@
     ./mailserver.nix
     ./vpn-ncoding.nix
     ./liskamm-proxy.nix
+    ./leios-testnet.nix
   ];
 
   boot.loader.systemd-boot.enable = true;
