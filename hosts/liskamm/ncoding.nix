@@ -8,10 +8,7 @@
 }:
 
 {
-  networking.firewall.allowedTCPPorts = [
-    80
-    443
-  ];
+  networking.firewall.allowedTCPPorts = [ 80 ];
 
   services.nginx.enable = true;
   services.nginx.recommendedProxySettings = true;
@@ -31,11 +28,6 @@
         "ncoding.li"
         "www.ncoding.li"
       ];
-      forceSSL = true;
-      enableACME = true;
       root = ncoding-web;
     };
-
-  security.acme.acceptTerms = true;
-  security.acme.defaults.email = "webmaster@ncoding.at";
 }

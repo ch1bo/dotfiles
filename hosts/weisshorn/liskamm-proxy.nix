@@ -7,11 +7,9 @@ let
     forceSSL = true;
     enableACME = true;
     locations."/" = {
-      proxyPass = "https://${upstream}";
+      proxyPass = "http://${upstream}";
       recommendedProxySettings = true;
       extraConfig = ''
-        proxy_ssl_verify off;
-        proxy_ssl_server_name on;
         client_max_body_size 4G;
         # Increase timeouts for nextcloud
         proxy_connect_timeout 600s;

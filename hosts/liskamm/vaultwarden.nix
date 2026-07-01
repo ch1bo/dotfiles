@@ -14,8 +14,6 @@ let
 in
 {
   services.nginx.virtualHosts.${domain} = {
-    forceSSL = true;
-    enableACME = true;
     locations."/" = {
       proxyPass = "http://127.0.0.1:${toString port}";
       proxyWebsockets = true;
