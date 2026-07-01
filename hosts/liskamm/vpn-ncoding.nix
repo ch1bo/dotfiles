@@ -2,6 +2,9 @@
 # See hosts/liskamm/README.org for instructions
 { pkgs, ... }:
 {
+  # The tunnel is the only path we want web services to be reachable on.
+  ncoding.publicInterface = "wg0";
+
   environment.systemPackages = [ pkgs.wireguard-tools ];
 
   # rpfilter drops packets arriving on wg0 because their source (10.5.5.x) does

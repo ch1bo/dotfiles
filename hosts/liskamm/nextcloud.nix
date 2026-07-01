@@ -18,6 +18,7 @@ let
   serverName = "nextcloud.ncoding.at";
 in
 {
+  networking.firewall.interfaces.${config.ncoding.publicInterface}.allowedTCPPorts = [ 80 ];
   services.nginx.virtualHosts.${serverName} = {
     locations."/" = {
       proxyPass = "http://127.0.0.1:${toString port}";

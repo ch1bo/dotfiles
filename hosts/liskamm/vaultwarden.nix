@@ -13,6 +13,7 @@ let
   domain = "passwords.ncoding.at";
 in
 {
+  networking.firewall.interfaces.${config.ncoding.publicInterface}.allowedTCPPorts = [ 80 ];
   services.nginx.virtualHosts.${domain} = {
     locations."/" = {
       proxyPass = "http://127.0.0.1:${toString port}";

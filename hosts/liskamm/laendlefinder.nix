@@ -1,6 +1,7 @@
 { config, pkgs, lib, system, inputs, ... }:
 
 {
+  networking.firewall.interfaces.${config.ncoding.publicInterface}.allowedTCPPorts = [ 80 ];
   services.nginx.virtualHosts."laendlefinder.ncoding.at" = {
     root = inputs.laendlefinder.packages.${system}.default;
     locations."/properties.csv".root = "/data/laendlefinder";

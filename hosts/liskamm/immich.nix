@@ -20,6 +20,7 @@ let
   DB_PASSWORD = "uoa77tynl7jbuiFkr6PhuzUM";
 in
 {
+  networking.firewall.interfaces.${config.ncoding.publicInterface}.allowedTCPPorts = [ 80 ];
   services.nginx.virtualHosts."photos.ncoding.at" = {
     locations."/" = {
       proxyPass = "http://127.0.0.1:${toString port}";
