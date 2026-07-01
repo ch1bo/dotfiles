@@ -9,7 +9,7 @@
         forwardAgent = true;
       };
       "weisshorn" = {
-        hostname = "192.168.2.238";
+        hostname = "10.5.5.5"; # TODO: DRY with vpn config
         forwardAgent = true;
       };
       "weisshorn-ext" = {
