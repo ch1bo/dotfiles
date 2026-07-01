@@ -4,7 +4,14 @@
 # https://nixos.wiki/wiki/Home_Assistant#OCI_container
 #
 # Including fail2ban and off-site backups using borgbase.
-{ config, pkgs, lib, inputs, system, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  inputs,
+  system,
+  ...
+}:
 let
   # Check release notes
   # https://github.com/home-assistant/core/releases
@@ -51,6 +58,7 @@ in
   };
 
   # Fail2ban blocking of failed login attempts
+  # TODO: declarative config of vpn subnet as trusted_proxy in the HA configuration.yaml
   services.fail2ban.enable = true;
   services.fail2ban.jails.home-assistant.settings = {
     enabled = true;

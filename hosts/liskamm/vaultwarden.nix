@@ -4,7 +4,12 @@
 # https://github.com/dani-garcia/vaultwarden
 #
 # Including fail2ban and off-site backups using borgbase.
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 let
   # Check release notes
   # https://github.com/dani-garcia/vaultwarden/releases
@@ -29,6 +34,7 @@ in
       SIGNUPS_ALLOWED = "false";
       SHOW_PASSWORD_HINT = "false";
       ADMIN_TOKEN = "$argon2id$v=19$m=19456,t=2,p=1$C0Iqwm7K4IO6280xA3Ki06MILPS7i5e5qmcI3v0nXlA$gfrExado4UTb1dyjIBpyg/3GWhrmaeQvIK95xjP4msc";
+      IP_HEADER = "X-Forwarded-For";
     };
     ports = [ "${toString port}:80" ];
     volumes = [
@@ -57,6 +63,7 @@ in
 
   # Fail2ban blocking of failed login attempts
   # https://github.com/dani-garcia/vaultwarden/wiki/Fail2Ban-Setup
+  # FIXME: fail2ban not in effect while proxied
   services.fail2ban.enable = true;
   services.fail2ban.jails.vaultwarden.settings = {
     enabled = true;

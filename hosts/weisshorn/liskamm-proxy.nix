@@ -10,6 +10,11 @@ let
       proxyPass = "http://${upstream}";
       recommendedProxySettings = true;
       extraConfig = ''
+        # Reset X-Forwarded-For (instead of the default $proxy_add_x_forwarded_for
+        # which appends) so clients cannot spoof a leading entry. Backends read
+        # the leftmost value as the real client IP, which f2b then bans.
+        proxy_set_header X-Forwarded-For $remote_addr;
+
         client_max_body_size 4G;
         # Increase timeouts for nextcloud
         proxy_connect_timeout 600s;

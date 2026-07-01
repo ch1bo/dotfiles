@@ -64,9 +64,12 @@ in
     nextcloud = {
       image = "nextcloud:${version}";
       environment = {
-        # XXX: Depends on when the network was created, should create the
-        # network more declaratively.
-        TRUSTED_PROXIES = "172.20.0.1";
+        # Docker bridge gateway (allow any typical docker IP) and weisshorn
+        # (10.5.5.1, the outer TLS-terminating proxy). Nextcloud walks
+        # X-Forwarded-For back through this list to find the real client IP for
+        # logging / f2b.
+        # TODO: avoid hard-coding the liskamm-proxy ip
+        TRUSTED_PROXIES = "172.16.0.0/12 10.5.5.1";
         APACHE_DISABLE_REWRITE_IP = "1";
         OVERWRITEPROTOCOL = "https";
         OVERWRITEHOST = serverName;
@@ -141,6 +144,7 @@ in
   };
 
   # Fail2ban blocking of failed login attempts
+  # FIXME: fail2ban not in effect while proxied
   services.fail2ban.enable = true;
   services.fail2ban.jails.nextcloud.settings = {
     enabled = true;

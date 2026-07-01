@@ -7,7 +7,12 @@
 # instances together.
 #
 # Including fail2ban and off-site backups using borgbase.
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 let
   # Check release notes
   # https://github.com/immich-app/immich/releases
@@ -59,8 +64,10 @@ in
       RemainAfterExit = "yes";
     };
     script =
-      let dockercli = "${config.virtualisation.docker.package}/bin/docker";
-      in ''
+      let
+        dockercli = "${config.virtualisation.docker.package}/bin/docker";
+      in
+      ''
         if [[ $(${dockercli} network inspect ${networkName}) == "[]" ]]; then
           ${dockercli} network create ${networkName}
         else
@@ -83,7 +90,10 @@ in
         "/data/immich/files:/usr/src/app/upload"
         "/etc/localtime:/etc/localtime:ro"
       ];
-      dependsOn = [ "immich-db" "immich-redis" ];
+      dependsOn = [
+        "immich-db"
+        "immich-redis"
+      ];
       extraOptions = [ "--network=${networkName}" ];
     };
 
@@ -147,15 +157,14 @@ in
   };
 
   environment.systemPackages = [
-    (pkgs.writeShellScriptBin
-      "restore-immich-db"
-      ''
-        ${pkgs.gzip}/bin/gunzip < /data/immich/immich.sql.gz \
-        | ${pkgs.docker}/bin/docker exec -i immich-db psql --username=${DB_USERNAME}
-      '')
+    (pkgs.writeShellScriptBin "restore-immich-db" ''
+      ${pkgs.gzip}/bin/gunzip < /data/immich/immich.sql.gz \
+      | ${pkgs.docker}/bin/docker exec -i immich-db psql --username=${DB_USERNAME}
+    '')
   ];
 
   # Fail2ban blocking of failed login attempts
+  # FIXME: fail2ban not in effect while proxied
   services.fail2ban.enable = true;
   services.fail2ban.jails.immich.settings = {
     enabled = true;
