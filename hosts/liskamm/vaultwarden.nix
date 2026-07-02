@@ -13,7 +13,7 @@
 let
   # Check release notes
   # https://github.com/dani-garcia/vaultwarden/releases
-  version = "1.35.8";
+  version = "1.36.0";
   port = 3876; # not exposed
   domain = "passwords.ncoding.at";
 in
