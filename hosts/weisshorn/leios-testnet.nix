@@ -23,7 +23,7 @@ let
   prometheusPort = 9090;
   lokiPort = 3100;
 
-  nodeImage = "ghcr.io/input-output-hk/ouroboros-leios/cardano-node-leios:prototype-2026w26";
+  nodeImage = "ghcr.io/input-output-hk/ouroboros-leios/cardano-node-leios:prototype-2026w27";
 
   # Derived from modules/user.nix so the node container matches the host
   # user that owns /data/leios-testnet.
@@ -40,11 +40,11 @@ in
 
   # --- Block-producing node ------------------------------------------------
   #
-  # cardano-node-leios:prototype-2026w26 just ships the statically-linked
-  # cardano-node + cardano-cli binaries (no entrypoint script). We invoke
-  # cardano-node directly with the KES/VRF/op-cert flags so the same image
-  # serves as a producer. The config snapshot under /data/leios-testnet is
-  # whatever upstream ./pin-config.sh produced — we don't re-stage it here.
+  # cardano-node-leios image ships the statically-linked cardano-node +
+  # cardano-cli binaries (no entrypoint script). We invoke cardano-node directly
+  # with the KES/VRF/op-cert flags so the same image serves as a producer. The
+  # config snapshot under /data/leios-testnet is whatever upstream
+  # ./pin-config.sh produced — we don't re-stage it here.
   #
   # --network=host so node-to-node on :3010 binds directly without docker
   # NAT, and so the in-container Prometheus endpoint (127.0.0.1:12798,
@@ -63,8 +63,8 @@ in
       "run"
     ]
     ++ lib.cli.toGNUCommandLine { } {
-      config = "/data/config.json";
-      topology = "/data/topology.json";
+      config = "/data/config/config.json";
+      topology = "/data/config/topology.json";
       database-path = "/data/db";
       socket-path = "/data/node.socket";
       host-addr = "0.0.0.0";
