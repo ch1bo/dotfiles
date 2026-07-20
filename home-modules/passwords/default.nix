@@ -2,7 +2,6 @@
 {
   home.packages = with pkgs; [
     keepassxc # secret stuff
-    bitwarden-desktop # new secret stuff
     bitwarden-menu
     bitwarden-cli # needed at least by bitwarden-menu
   ];
