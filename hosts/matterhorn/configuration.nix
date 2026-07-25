@@ -88,6 +88,12 @@
   hardware.sane.enable = true;
   hardware.sane.extraBackends = [ pkgs.sane-airscan ];
   hardware.sane.disabledDefaultBackends = [ "escl" ];
+  # mDNS resolve of the HP's _uscan._tcp times out on this network, so pin the
+  # eSCL endpoint statically. Requires a DHCP reservation for 192.168.0.90.
+  environment.etc."sane.d/airscan.conf".text = ''
+    [devices]
+    "HP OfficeJet Pro 9130e" = http://192.168.0.90/eSCL/, eSCL
+  '';
 
   # Bluetooth support (bluez)
   hardware.bluetooth.enable = true;
