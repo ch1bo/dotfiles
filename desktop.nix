@@ -24,7 +24,7 @@
 
     # Default applications for files
     xdg.mimeApps.defaultApplications = {
-      "application/pdf" = "firefox.desktop";
+      "application/pdf" = "org.gnome.Evince.desktop";
     };
 
     # the browser
