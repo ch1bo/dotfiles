@@ -23,6 +23,8 @@ let
   DB_USERNAME = "postgres";
   # NOTE: Database only reachable from local, bridged network
   DB_PASSWORD = "uoa77tynl7jbuiFkr6PhuzUM";
+  # Use the same docker package as the oci-image system
+  docker = "${config.virtualisation.docker.package}/bin/docker";
 in
 {
   networking.firewall.interfaces.${config.ncoding.publicInterface}.allowedTCPPorts = [ 80 ];
@@ -63,17 +65,13 @@ in
       Type = "oneshot";
       RemainAfterExit = "yes";
     };
-    script =
-      let
-        dockercli = "${config.virtualisation.docker.package}/bin/docker";
-      in
-      ''
-        if [[ $(${dockercli} network inspect ${networkName}) == "[]" ]]; then
-          ${dockercli} network create ${networkName}
-        else
-          echo "Docker network ${networkName} already exists"
-        fi
-      '';
+    script = ''
+      if [[ $(${docker} network inspect ${networkName}) == "[]" ]]; then
+        ${docker} network create ${networkName}
+      else
+        echo "Docker network ${networkName} already exists"
+      fi
+    '';
   };
 
   virtualisation.oci-containers.containers = {
@@ -150,7 +148,7 @@ in
       "/data/immich"
     ];
     preHook = ''
-      ${pkgs.docker}/bin/docker exec immich-db pg_dumpall --clean --if-exists --username=${DB_USERNAME} \
+      ${docker} exec immich-db pg_dumpall --clean --if-exists --username=${DB_USERNAME} \
         | ${pkgs.gzip}/bin/gzip \
         > /data/immich/immich.sql.gz
     '';
@@ -159,7 +157,7 @@ in
   environment.systemPackages = [
     (pkgs.writeShellScriptBin "restore-immich-db" ''
       ${pkgs.gzip}/bin/gunzip < /data/immich/immich.sql.gz \
-      | ${pkgs.docker}/bin/docker exec -i immich-db psql --username=${DB_USERNAME}
+      | ${docker} exec -i immich-db psql --username=${DB_USERNAME}
     '')
   ];
 

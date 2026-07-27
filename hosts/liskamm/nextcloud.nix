@@ -16,6 +16,8 @@ let
   port = 8001;
   networkName = "nextcloud";
   serverName = "nextcloud.ncoding.at";
+  # Use the same docker package as the oci-image system
+  docker = "${config.virtualisation.docker.package}/bin/docker";
 in
 {
   networking.firewall.interfaces.${config.ncoding.publicInterface}.allowedTCPPorts = [ 80 ];
@@ -137,7 +139,7 @@ in
     ];
     preHook = ''
       MYSQL_PWD=$(${pkgs.gnugrep}/bin/grep dbpassword /data/nextcloud/config/config.php | ${pkgs.gnused}/bin/sed "s/.*dbpassword.*=>.*'\(.*\)',/\1/")
-      ${pkgs.docker}/bin/docker exec -e MYSQL_PWD=$MYSQL_PWD nextcloud-db mariadb-dump nextcloud -u oc_ch1bo \
+      ${docker} exec -e MYSQL_PWD=$MYSQL_PWD nextcloud-db mariadb-dump nextcloud -u oc_ch1bo \
         | ${pkgs.gzip}/bin/gzip \
         > /data/nextcloud/nextcloud.sql.gz
     '';
@@ -176,7 +178,7 @@ in
   systemd.services."nextcloud-trashbin-expire" = {
     serviceConfig = {
       Type = "oneshot";
-      ExecStart = "${pkgs.docker}/bin/docker exec -u www-data nextcloud bash -c './occ trashbin:expire'";
+      ExecStart = "${docker} exec -u www-data nextcloud bash -c './occ trashbin:expire'";
     };
   };
 }
