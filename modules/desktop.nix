@@ -30,6 +30,7 @@
     usbutils
     websocat
     # desktop applications
+    blender
     discord
     eva
     ffmpeg
