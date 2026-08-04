@@ -111,9 +111,6 @@
   # Screensaver / -locker (usses setuid wrapper)
   programs.slock.enable = true;
 
-  # Android tools
-  programs.adb.enable = true;
-
   fonts.packages = [
     pkgs.fira-code
     pkgs.hasklig

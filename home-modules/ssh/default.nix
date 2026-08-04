@@ -3,7 +3,7 @@
   programs.ssh = {
     enable = true;
     enableDefaultConfig = false;
-    matchBlocks = {
+    settings = {
       "eiger" = {
         hostname = "192.168.2.30";
         forwardAgent = true;
@@ -23,17 +23,13 @@
       };
       "remarkable" = {
         user = "root";
-        extraOptions = {
-          "PubkeyAcceptedKeyTypes" = "+ssh-rsa";
-          "HostKeyAlgorithms" = "+ssh-rsa";
-        };
+        PubkeyAcceptedKeyTypes = "+ssh-rsa";
+        HostKeyAlgorithms = "+ssh-rsa";
       };
       "ambicam" = {
         user = "pi";
         forwardAgent = true;
-        extraOptions = {
-          "PubkeyAcceptedAlgorithms" = "+ssh-rsa";
-        };
+        PubkeyAcceptedAlgorithms = "+ssh-rsa";
       };
       "ambilight" = {
         user = "root";

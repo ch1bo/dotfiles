@@ -14,6 +14,7 @@
     gnome-disk-utility
     fio
     # random tools
+    android-tools
     atool
     bind.dnsutils
     dconf

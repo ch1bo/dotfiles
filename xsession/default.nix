@@ -1,4 +1,9 @@
-{ config, lib, pkgs, types, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   setBackground = "${pkgs.feh}/bin/feh --bg-max ${./matterhorn-wide.jpg}";
   setKeyboardRate = "xset r rate 200 60";
@@ -70,8 +75,9 @@ in
       lockCmd = lib.mkDefault "/usr/bin/slock";
       xss-lock.extraOptions =
         let
-          dimScreenScript = pkgs.writeScript "dim-screen"
-            (builtins.readFile "${pkgs.xss-lock}/share/doc/xss-lock/dim-screen.sh");
+          dimScreenScript = pkgs.writeScript "dim-screen" (
+            builtins.readFile "${pkgs.xss-lock}/share/doc/xss-lock/dim-screen.sh"
+          );
         in
         [ "-n ${dimScreenScript}" ];
     };
@@ -86,10 +92,10 @@ in
       pkgs.brightnessctl # used by xbindkeys
       pkgs.trayer # launched by xmonad
       pkgs.xmobar # launched by xmonad
-      pkgs.xorg.xrandr # manage monitors
-      pkgs.xorg.xhost # used this with docker?
-      pkgs.xorg.xrdb # manipulate xresources
-      pkgs.xorg.xset # configure xorg
+      pkgs.xrandr # manage monitors
+      pkgs.xhost # used this with docker?
+      pkgs.xrdb # manipulate xresources
+      pkgs.xset # configure xorg
       pkgs.maim # for taking screenshots, used by xbindkeys
       pkgs.xclip # for taking screenshots, used by xbindkeys
     ];
