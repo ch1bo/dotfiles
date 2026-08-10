@@ -31,7 +31,7 @@
     usbutils
     websocat
     # desktop applications
-    blender
+    unstable.blender
     discord
     eva
     ffmpeg

@@ -17,8 +17,6 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   # Kernel configuration
-  # XXX: Latest is 7.1 for which zfs does not build right now
-  boot.kernelPackages = pkgs.linuxPackages_7_0;
   boot.kernelParams = [
     # 12GB max ARC cache
     "zfs.zfs_arc_max=12884901888"
