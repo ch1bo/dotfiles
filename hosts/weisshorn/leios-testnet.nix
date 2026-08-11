@@ -71,6 +71,7 @@ in
       port = nodePort;
       shelley-kes-key = "/data/keys/kes.skey";
       shelley-vrf-key = "/data/keys/vrf.skey";
+      shelley-bls-key = "/data/keys/bls.skey";
       shelley-operational-certificate = "/data/keys/opcert.cert";
     };
   };
