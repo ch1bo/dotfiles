@@ -23,7 +23,7 @@ let
   prometheusPort = 9090;
   lokiPort = 3100;
 
-  nodeImage = "ghcr.io/input-output-hk/ouroboros-leios/cardano-node-leios:prototype-2026w31a";
+  nodeImage = "ghcr.io/input-output-hk/ouroboros-leios/cardano-node-leios:prototype-2026w32";
 
   # Derived from modules/user.nix so the node container matches the host
   # user that owns /data/leios-testnet.
@@ -218,6 +218,12 @@ in
       security = {
         admin_user = "admin";
         admin_password = "admin";
+        # Encrypts secrets stored in Grafana's database (datasource
+        # credentials, alerting contact points). This deployment has none —
+        # both datasources are unauthenticated on localhost — so the historic
+        # Grafana default is kept, which also avoids re-encrypting the
+        # existing database.
+        secret_key = "SW2YcwTIb9zpOOhoPsMm";
       };
       analytics = {
         reporting_enabled = false;
