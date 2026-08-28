@@ -304,11 +304,6 @@ the project root, falling back to a file prompt."
 (after! flycheck
   (add-hook 'flycheck-mode-hook #'flycheck-clang-tidy-setup))
 
-;; Groovy
-
-(setq lsp-groovy-server-file
-      (concat lsp-server-install-dir "groovy-language-server/groovy-language-server-all.jar"))
-
 ;; Haskell
 
 ;; Additional haskell mode key bindings
