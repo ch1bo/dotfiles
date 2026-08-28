@@ -23,7 +23,7 @@ let
   prometheusPort = 9090;
   lokiPort = 3100;
 
-  nodeImage = "ghcr.io/input-output-hk/ouroboros-leios/cardano-node-leios:prototype-2026w32";
+  nodeImage = "ghcr.io/input-output-hk/ouroboros-leios/cardano-node-leios:prototype-2026w34";
 
   # Derived from modules/user.nix so the node container matches the host
   # user that owns /data/leios-testnet.
