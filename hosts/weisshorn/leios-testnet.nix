@@ -12,6 +12,7 @@
   config,
   pkgs,
   lib,
+  inputs,
   ...
 }:
 let
@@ -23,7 +24,7 @@ let
   prometheusPort = 9090;
   lokiPort = 3100;
 
-  nodeImage = "ghcr.io/input-output-hk/ouroboros-leios/cardano-node-leios:prototype-2026w34";
+  nodeImage = "ghcr.io/input-output-hk/ouroboros-leios/cardano-node-leios:prototype-2026w35";
 
   # Derived from modules/user.nix so the node container matches the host
   # user that owns /data/leios-testnet.
@@ -33,6 +34,8 @@ let
 
 in
 {
+  imports = [ inputs.metsuke.nixosModules.metsuke ];
+
   networking.firewall.allowedTCPPorts = [
     nodePort
     grafanaPort
@@ -76,7 +79,32 @@ in
     };
   };
 
+  # --- Metsuke telemetry agent ---------------------------------------------
+  #
+  # Ships node metrics and Leios trace lines to the MusashiNet rewards
+  # program, signed with the pool's Leios (BLS) key so the cold key never
+  # touches this host. pool_id and upload_url come from the rewards program
+  # onboarding (the metsuke server's root page) — the placeholders below must
+  # be replaced before this is deployed. Everything left unset uses the
+  # defaults shipped in the metsuke crate (scrape/upload cadence, spool under
+  # /var/lib/metsuke, SNTP via time.cloudflare.com).
+  services.metsuke = {
+    enable = true;
+    signingKeyFile = "${workingDir}/keys/bls.skey";
+    settings = {
+      pool_id = "pool1qrk3v8qsuzpwmr38mf5q3z4rmsxmg979hlx0yahhe2je5qdpshc";
+      metrics_url = "http://127.0.0.1:${toString metricsPort}/metrics";
+      upload_url = "https://metsuke-leios.play.dev.cardano.org/v1/submit";
+      # Trace-line collection: the node container logs to journald via the
+      # docker unit; this grants the agent the systemd-journal group, same as
+      # Alloy below. Namespace selection uses the crate's Leios defaults
+      # (forging, voting and diffusion traces).
+      log.journal_unit = "docker-leios-bp.service";
+    };
+  };
+
   # --- Observability stack ------------------------------------------
+  #
   # Mirrors ouroboros-leios/demo/extras/x-ray + testnet/run.sh, each process as its own
   # NixOS service. State lives under the NixOS defaults
   # (/var/lib/{prometheus2,loki,private/alloy,grafana}); the upstream
@@ -263,5 +291,4 @@ in
       ];
     };
   };
-
 }

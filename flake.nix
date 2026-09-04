@@ -22,6 +22,9 @@
     cv.url = "github:ch1bo/cv";
     laendlefinder.url = "github:ch1bo/laendlefinder";
 
+    # cardano
+    metsuke.url = "github:input-output-hk/metsuke";
+
     # hydraw
     hydra.url = "github:input-output-hk/hydra/0.21.0";
     cardano-node.url = "github:intersectmbo/cardano-node/10.4.1";
