@@ -23,7 +23,7 @@
     laendlefinder.url = "github:ch1bo/laendlefinder";
 
     # cardano
-    metsuke.url = "github:input-output-hk/metsuke";
+    metsuke.url = "github:input-output-hk/metsuke/jl/next-2026-09-01";
 
     # hydraw
     hydra.url = "github:input-output-hk/hydra/0.21.0";

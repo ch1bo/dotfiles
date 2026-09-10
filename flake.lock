@@ -496,16 +496,16 @@
     "cardano-node-leios": {
       "flake": false,
       "locked": {
-        "lastModified": 1786342374,
-        "narHash": "sha256-6ioSN5qxvL6b67UKPY2iVytiOoZlTnCgG3ep+kJiPxg=",
+        "lastModified": 1788041145,
+        "narHash": "sha256-nTSpAenigGKGw9bONa4ko4E3V//ISteNncJVAv1P9sQ=",
         "owner": "input-output-hk",
         "repo": "ouroboros-leios",
-        "rev": "3534e7065419c906b35d3be7c976aeace8cf2085",
+        "rev": "e8594e1355c0c6d36ebb9886c8c8c47fa946046b",
         "type": "github"
       },
       "original": {
         "owner": "input-output-hk",
-        "ref": "refs/tags/prototype-2026w32",
+        "ref": "refs/tags/prototype-2026w35",
         "repo": "ouroboros-leios",
         "type": "github"
       }
@@ -2673,15 +2673,16 @@
         "treefmt-nix": "treefmt-nix_3"
       },
       "locked": {
-        "lastModified": 1788253305,
-        "narHash": "sha256-sXUIxHqrSCjYsDmgAvg1sGjb0sMXkLwkJROSoY+ItXI=",
+        "lastModified": 1788995493,
+        "narHash": "sha256-Z7GUATU7PEhQjX3OPk8yO0pL8Jbsph/GHzctJoWir30=",
         "owner": "input-output-hk",
         "repo": "metsuke",
-        "rev": "cb393f6c256da4422a62b78f5027b72e367cd693",
+        "rev": "c682f997f1f05382648325a35af94f5e8ebef94f",
         "type": "github"
       },
       "original": {
         "owner": "input-output-hk",
+        "ref": "jl/next-2026-09-01",
         "repo": "metsuke",
         "type": "github"
       }
