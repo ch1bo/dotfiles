@@ -3,6 +3,7 @@ let
   jail = inputs.jail-nix.lib.init pkgs;
 
   claude-code = pkgs.unstable.claude-code;
+  codex-cli = pkgs.unstable.codex;
 
   # https://github.com/ahujasid/blender-mcp — MCP server exposing a running
   # Blender to the agent. Not in nixpkgs, so packaged from PyPI here rather than
@@ -57,38 +58,50 @@ let
     blender-mcp
   ];
 
+  jailConfig = with jail.combinators; [
+    network
+    (try-fwd-env "TERM")
+    mount-cwd
+    # Additional tools
+    (add-pkg-deps agentPackages)
+    # Access the nix store to load cached direnv nix shells
+    (readonly "/nix/store")
+    # Access to various dotfiles
+    (try-readonly (noescape "~/.config"))
+    (try-readwrite (noescape "~/.cache"))
+    (try-readwrite (noescape "~/.claude"))
+    (try-readwrite (noescape "~/.claude.json"))
+    (try-readwrite (noescape "~/.codex"))
+    (try-readwrite (noescape "~/.cabal"))
+  ];
+
   # Inside the jail it's safe to skip the per-tool permission prompts and
   # let claude-code run autonomously — escapes are bounded by bwrap.
   dangerousClaude = pkgs.writeShellScriptBin "claude" ''
     exec ${claude-code}/bin/claude --dangerously-skip-permissions --enable-auto-mode "$@"
   '';
 
-  claude = jail "claude" dangerousClaude (
-    with jail.combinators;
-    [
-      network
-      (try-fwd-env "TERM")
-      mount-cwd
-      # Additional tools
-      (add-pkg-deps agentPackages)
-      # Access the nix store to load cached direnv nix shells
-      (readonly "/nix/store")
-      # Access to various dotfiles
-      (try-readonly (noescape "~/.config"))
-      (try-readwrite (noescape "~/.cache"))
-      (try-readwrite (noescape "~/.claude"))
-      (try-readwrite (noescape "~/.claude.json"))
-      (try-readwrite (noescape "~/.cabal"))
-    ]
-  );
+  claude = jail "claude" dangerousClaude jailConfig;
 
   unsafe-claude = pkgs.writeShellScriptBin "unsafe-claude" ''
     exec ${claude-code}/bin/claude "$@"
+  '';
+
+  yoloCodex = pkgs.writeShellScriptBin "codex" ''
+    exec ${codex-cli}/bin/codex --yolo "$@"
+  '';
+
+  codex = jail "codex" yoloCodex jailConfig;
+
+  unsafe-codex = pkgs.writeShellScriptBin "unsafe-codex" ''
+    exec ${codex-cli}/bin/codex "$@"
   '';
 in
 {
   environment.systemPackages = [
     claude
     unsafe-claude
+    codex
+    unsafe-codex
   ];
 }
