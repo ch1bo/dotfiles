@@ -313,6 +313,17 @@ the project root, falling back to a file prompt."
       "h" #'haskell-hoogle-lookup-from-local
       "H" #'haskell-hoogle)
 
+;; Upsert source-repository-package stanzas in cabal.project
+(load! "cabal-source-repo")
+(map! :after haskell-mode
+      :map haskell-mode-map
+      :localleader
+      "u" #'cabal-source-repo-upsert)
+(map! :after haskell-mode
+      :map haskell-cabal-mode-map
+      :localleader
+      "u" #'cabal-source-repo-upsert)
+
 ;; Appropriate HLS is assumed to be in scope (by nix-shell)
 (setq lsp-haskell-server-path "haskell-language-server"
       lsp-haskell-importlens-on nil
@@ -332,6 +343,38 @@ the project root, falling back to a file prompt."
 
 ;; TODO How to organize formatters? brittany is default, and switching using
 ;; config updates is annoying.
+
+;; Agda
+
+;; Lazy Agda via envrc: the buffer's direnv environment provides `agda';
+;; refresh is your usual envrc-allow / envrc-reload — nothing is cached here.
+(defun +agda-mode-bootstrap ()
+  "Enable `agda2-mode' through the buffer's envrc environment."
+  ;; Attach the project's direnv env to this buffer *now* (normally envrc
+  ;; only attaches after the major mode is already set — too late for us).
+  (unless (bound-and-true-p envrc-mode)
+    (when (require 'envrc nil t)
+      (envrc-mode 1)))
+  (let ((agda (executable-find "agda")))   ; buffer-local exec-path from envrc
+    (unless agda
+      (user-error "No agda on this buffer's PATH (envrc allowed?)"))
+    (unless (fboundp 'agda2-mode)
+      (load-file (string-trim
+                  (shell-command-to-string
+                   (format "%s --emacs-mode locate" (shell-quote-argument agda))))))
+    ;; Load the real mode file so agda2-program-name is a special (dynamic)
+    ;; variable — under lexical-binding a let over an undefined defcustom
+    ;; binds lexically and the mode body would still see the global "agda".
+    (require 'agda2-mode)
+    ;; agda2-mode spawns agda eagerly in its mode body, right after
+    ;; kill-all-local-variables has wiped envrc's buffer-local PATH — so hand
+    ;; it the already-resolved binary for that one moment.
+    (let ((agda2-program-name agda))
+      (agda2-mode))))
+
+(dolist (pat '("\\.agda\\'" "\\.lagda\\'"
+               "\\.lagda\\.\\(md\\|org\\|rst\\|tex\\)\\'"))
+  (add-to-list 'auto-mode-alist (cons pat #'+agda-mode-bootstrap)))
 
 ;; Purescript
 
