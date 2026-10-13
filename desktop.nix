@@ -43,6 +43,7 @@
       # nautilus -> see README.md#Dependencies
       pandoc # convert everything
       spotify # unlimited music
+      unstable.spotifast # lean music
       signal-desktop # connect with rl
       slack # comms
       remarkable-mouse # drawing tablets ftw
