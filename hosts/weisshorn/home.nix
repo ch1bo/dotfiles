@@ -4,4 +4,6 @@
     ../../gpg
     ../../home-modules/ssh
   ];
+
+  shell.dataDir = "/data";
 }
