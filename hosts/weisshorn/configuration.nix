@@ -11,6 +11,7 @@
     ./zfs.nix
     ./syncthing.nix
     ./wake-eiger.nix
+    ../../modules/agents.nix
     ../../modules/docker.nix
     ./mailserver.nix
     ./vpn-ncoding.nix
@@ -79,6 +80,9 @@
     nix-output-monitor
     nvd
   ];
+
+  # At least claude-code is proprietary
+  nixpkgs.config.allowUnfree = true;
 
   # Finally, this is me
   user.name = "ch1bo";

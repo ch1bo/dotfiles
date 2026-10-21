@@ -73,6 +73,12 @@ let
     (try-readwrite (noescape "~/.claude.json"))
     (try-readwrite (noescape "~/.codex"))
     (try-readwrite (noescape "~/.cabal"))
+    # GPU access for blender renders
+    (add-runtime ''
+      for d in /dev/nvidia*; do
+        [ -e "$d" ] && RUNTIME_ARGS+=(--dev-bind "$d" "$d")
+      done
+    '')
   ];
 
   # Inside the jail it's safe to skip the per-tool permission prompts and
