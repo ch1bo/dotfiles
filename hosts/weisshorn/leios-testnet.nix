@@ -24,7 +24,10 @@ let
   prometheusPort = 9090;
   lokiPort = 3100;
 
-  nodeImage = "ghcr.io/input-output-hk/ouroboros-leios/cardano-node-leios:rc-2026w42";
+  # Instance label shared by Prometheus metrics and Loki logs.
+  instance = config.networking.hostName;
+
+  nodeImage = "ghcr.io/input-output-hk/ouroboros-leios/cardano-node-leios:rc-2026w43";
 
   # Derived from modules/user.nix so the node container matches the host
   # user that owns /data/leios-testnet.
@@ -174,15 +177,37 @@ in
         }
       }
 
+      // Labels follow the proto-/dozen-devnet convention (job, environment,
+      // instance) that the shared cardano-leios-* dashboards select on. The
+      // instance must equal the Loki instance label below: the dashboards
+      // source $instance from Loki and use it in Prometheus queries.
       prometheus.scrape "cardano_node_exporter" {
         targets = [{
           "__address__" = "127.0.0.1:${toString metricsPort}",
-          "job"         = "cardano_node_metrics",
-          "instance"    = "localhost",
+          "job"         = "integrations/cardano-node",
+          "environment" = "leios",
+          "group"       = "leios-testnet",
+          "instance"    = "${instance}",
           "alias"       = "node",
           "process"     = "Node",
         }]
         metrics_path    = "/metrics"
+        scrape_timeout  = "1s"
+        scrape_interval = "1s"
+        forward_to = [prometheus.remote_write.prometheus.receiver]
+      }
+
+      // Counters Alloy derives from log lines (leios_logmetrics_*), exposed on
+      // Alloy's own HTTP server. honor_labels keeps the pipeline-supplied
+      // instance/voterId labels the voting dashboard selects on.
+      prometheus.scrape "alloy_pipeline_metrics" {
+        targets = [{
+          "__address__" = "127.0.0.1:12345",
+          "instance"    = "${instance}",
+          "environment" = "leios",
+          "group"       = "leios-testnet",
+        }]
+        honor_labels    = true
         scrape_timeout  = "1s"
         scrape_interval = "1s"
         forward_to = [prometheus.remote_write.prometheus.receiver]
@@ -195,35 +220,36 @@ in
         }
       }
 
+      // Front-end: the journal stands in for upstream's process-compose
+      // unwrapping and routing stage. Each line's body is the raw node trace
+      // JSON; service and instance are stamped here, everything downstream is
+      // the shared upstream enrichment modules (./alloy-modules, copied from
+      // ouroboros-leios demo/proto-devnet/config/alloy-modules).
       loki.source.journal "cardano_node_journal" {
         matches    = "_SYSTEMD_UNIT=docker-leios-bp.service"
-        labels     = { job = "cardano-node" }
-        forward_to = [loki.process.extract_cardano_node_logs.receiver]
+        labels     = { job = "cardano-node", service = "cardano-node", instance = "${instance}" }
+        forward_to = [mod.cardano_node_process.node.receiver]
       }
 
-      loki.process "extract_cardano_node_logs" {
-        stage.json {
-          expressions = {
-            at     = "at",
-            sev    = "sev",
-            host   = "host",
-            thread = "thread",
-            ns     = "ns",
-            data   = "data",
-          }
-          drop_malformed = true
-        }
-        stage.timestamp {
-          source = "at"
-          format = "RFC3339"
-        }
-        stage.labels {
-          values = { level = "sev", host = "host", sev = "sev", ns = "ns" }
-        }
-        stage.static_labels {
-          values = { service = "cardano-node", type = "cardano-node" }
-        }
-        stage.output { source = "data" }
+      import.file "mod" {
+        filename = "${./alloy-modules}"
+      }
+
+      // Node chain as in proto-devnet:
+      // cardano_node_process -> voting -> diffusion -> call-trace -> loki
+      mod.cardano_node_process "node" {
+        forward_to = [mod.leios_voting_process.vote.receiver]
+      }
+
+      mod.leios_voting_process "vote" {
+        forward_to = [mod.leios_diffusion_process.diffusion.receiver]
+      }
+
+      mod.leios_diffusion_process "diffusion" {
+        forward_to = [mod.call_trace_process.call.receiver]
+      }
+
+      mod.call_trace_process "call" {
         forward_to = [loki.write.loki.receiver]
       }
     '';
@@ -263,19 +289,44 @@ in
     };
     provision = {
       enable = true;
-      datasources.settings.datasources = [
+      # Grafana can't change the uid of an existing datasource ("data source
+      # not found"), so delete them by name first and re-create them below.
+      # Both are unauthenticated and only referenced by uid, so re-creating
+      # them on every start is harmless.
+      datasources.settings.deleteDatasources = [
         {
           name = "Prometheus";
+          orgId = 1;
+        }
+        {
+          name = "Loki";
+          orgId = 1;
+        }
+      ];
+      datasources.settings.datasources = [
+        # uids pinned to "mimir" / "loki" as in ouroboros-leios x-ray (matching
+        # cardano-playground) so the shared dashboards resolve their datasources.
+        {
+          name = "Prometheus";
+          uid = "mimir";
           type = "prometheus";
           access = "proxy";
           url = "http://127.0.0.1:${toString prometheusPort}";
           isDefault = true;
+          # Match Alloy's 1s scrape, otherwise Grafana floors $__rate_interval
+          # at 60s.
+          jsonData.timeInterval = "1s";
         }
         {
           name = "Loki";
+          uid = "loki";
           type = "loki";
           access = "proxy";
           url = "http://127.0.0.1:${toString lokiPort}";
+          jsonData = {
+            timeout = 60;
+            maxLines = 1000;
+          };
         }
       ];
       dashboards.settings.providers = [

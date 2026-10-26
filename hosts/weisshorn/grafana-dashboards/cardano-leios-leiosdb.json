@@ -1,30 +1,16 @@
 {
   "annotations": {
-    "list": [
-      {
-        "builtIn": 1,
-        "datasource": {
-          "type": "grafana",
-          "uid": "-- Grafana --"
-        },
-        "enable": true,
-        "hide": true,
-        "iconColor": "rgba(0, 211, 255, 1)",
-        "name": "Annotations & Alerts",
-        "type": "dashboard"
-      }
-    ]
+    "list": []
   },
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 5,
   "links": [],
   "panels": [
     {
       "datasource": {
-        "type": "datasource",
-        "uid": "-- Mixed --"
+        "type": "prometheus",
+        "uid": "mimir"
       },
       "fieldConfig": {
         "defaults": {
@@ -40,7 +26,7 @@
             "barAlignment": 0,
             "barWidthFactor": 0.6,
             "drawStyle": "line",
-            "fillOpacity": 0,
+            "fillOpacity": 9,
             "gradientMode": "none",
             "hideFrom": {
               "legend": false,
@@ -72,44 +58,12 @@
               {
                 "color": "green",
                 "value": 0
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Load (assumed 204B per tx)"
-            },
-            "properties": [
-              {
-                "id": "custom.axisPlacement",
-                "value": "right"
-              },
-              {
-                "id": "unit",
-                "value": "TxkB/s"
               }
             ]
           },
-          {
-            "matcher": {
-              "id": "byFrameRefID",
-              "options": "Mempool bytes"
-            },
-            "properties": [
-              {
-                "id": "unit",
-                "value": "deckbytes"
-              }
-            ]
-          }
-        ]
+          "unit": "short"
+        },
+        "overrides": []
       },
       "gridPos": {
         "h": 8,
@@ -117,7 +71,8 @@
         "x": 0,
         "y": 0
       },
-      "id": 1,
+      "id": 4,
+      "maxDataPoints": 500,
       "options": {
         "legend": {
           "calcs": [],
@@ -136,37 +91,25 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "mimir"
           },
           "editorMode": "code",
-          "expr": "cardano_node_metrics_mempoolBytes_int / 1000",
-          "legendFormat": "{{process}} mempool",
-          "range": true,
-          "refId": "Mempool bytes"
-        },
-        {
-          "datasource": {
-            "type": "loki",
-            "uid": "P8E80F9AEF21F6940"
-          },
-          "direction": "backward",
-          "editorMode": "code",
-          "expr": "rate({service=\"tx-centrifuge\", ns=\"TxCentrifuge.Builder.NewTx\"}[30s]) * 204 / 1000",
+          "expr": "cardano_node_metrics_leiosDbVolatileEbs_int",
           "hide": false,
           "instant": false,
-          "legendFormat": "Load (assumed 204B per tx)",
-          "queryType": "range",
+          "legendFormat": "{{alias}}",
           "range": true,
-          "refId": "Load"
+          "refId": "A"
         }
       ],
-      "title": "Mempool",
-      "type": "timeseries"
+      "title": "Volatile ebs",
+      "type": "timeseries",
+      "description": "Rows of the `ebs` table in the volatile LeiosDB partition."
     },
     {
       "datasource": {
-        "type": "loki",
-        "uid": "P8E80F9AEF21F6940"
+        "type": "prometheus",
+        "uid": "mimir"
       },
       "fieldConfig": {
         "defaults": {
@@ -182,7 +125,7 @@
             "barAlignment": 0,
             "barWidthFactor": 0.6,
             "drawStyle": "line",
-            "fillOpacity": 0,
+            "fillOpacity": 9,
             "gradientMode": "none",
             "hideFrom": {
               "legend": false,
@@ -217,7 +160,7 @@
               }
             ]
           },
-          "unit": "reqps"
+          "unit": "short"
         },
         "overrides": []
       },
@@ -227,107 +170,8 @@
         "x": 12,
         "y": 0
       },
-      "id": 2,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "hideZeros": false,
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "12.3.1",
-      "targets": [
-        {
-          "datasource": {
-            "type": "loki",
-            "uid": "P8E80F9AEF21F6940"
-          },
-          "direction": "backward",
-          "editorMode": "code",
-          "expr": "rate({service=\"tx-centrifuge\", ns=\"TxCentrifuge.Builder.NewTx\"}[30s])",
-          "legendFormat": "tx/s",
-          "queryType": "range",
-          "refId": "A"
-        }
-      ],
-      "title": "Submission load",
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "barWidthFactor": 0.6,
-            "drawStyle": "line",
-            "fillOpacity": 10,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineWidth": 2,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "never",
-            "showValues": false,
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "dashed"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": 0
-              },
-              {
-                "color": "red",
-                "value": 200
-              }
-            ]
-          },
-          "unit": "kBs"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 0,
-        "y": 8
-      },
-      "id": 3,
+      "id": 8,
+      "maxDataPoints": 500,
       "options": {
         "legend": {
           "calcs": [],
@@ -346,33 +190,141 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "mimir"
           },
           "editorMode": "code",
-          "expr": "rate(cardano_node_metrics_cumulativeTxBytes_int{job=\"cardano_node_metrics\"}[300s]) / 1000",
-          "legendFormat": "{{alias}} txkB/s",
+          "expr": "cardano_node_metrics_leiosDbImmutableEbs_int",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "{{alias}}",
           "range": true,
           "refId": "A"
         }
       ],
-      "title": "Confirmed tx throughput",
+      "title": "Immutable ebs",
+      "type": "timeseries",
+      "description": "Rows of the `ebs` table in the immutable LeiosDB partition."
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "mimir"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 9,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          },
+          "unit": "bytes"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 24,
+        "x": 0,
+        "y": 8
+      },
+      "id": 16,
+      "maxDataPoints": 500,
+      "options": {
+        "legend": {
+          "calcs": [
+            "max"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "pluginVersion": "12.3.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "mimir"
+          },
+          "editorMode": "code",
+          "expr": "cardano_node_metrics_leiosDbWalBytes_int",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "{{alias}}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "SQLite WAL size",
       "type": "timeseries"
     }
   ],
   "preload": false,
-  "refresh": "5s",
+  "refresh": "1m",
   "schemaVersion": 42,
-  "tags": [],
+  "tags": [
+    "leios",
+    "leiosdb"
+  ],
   "templating": {
     "list": []
   },
   "time": {
-    "from": "now-5m",
+    "from": "now-30m",
     "to": "now"
   },
   "timepicker": {},
-  "timezone": "browser",
-  "title": "Proto DevNet - Throughput",
-  "uid": "gg7w7r",
-  "version": 1
+  "timezone": "utc",
+  "title": "Cardano Leios - LeiosDB",
+  "uid": "cardano-leios-leiosdb",
+  "version": 1,
+  "weekStart": ""
 }

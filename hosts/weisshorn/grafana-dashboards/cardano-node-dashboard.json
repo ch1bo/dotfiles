@@ -31,7 +31,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "mimir"
       },
       "fieldConfig": {
         "defaults": {
@@ -118,7 +118,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "mimir"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -137,7 +137,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "mimir"
       },
       "fieldConfig": {
         "defaults": {
@@ -224,7 +224,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "mimir"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -242,7 +242,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "mimir"
       },
       "fieldConfig": {
         "defaults": {
@@ -330,7 +330,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "mimir"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -350,7 +350,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "mimir"
       },
       "fieldConfig": {
         "defaults": {
@@ -437,7 +437,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "mimir"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -454,7 +454,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "mimir"
       },
       "description": "Calculated at a 1 hr averaging window",
       "fieldConfig": {
@@ -544,7 +544,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "mimir"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -557,7 +557,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "mimir"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -574,7 +574,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "mimir"
       },
       "fieldConfig": {
         "defaults": {
@@ -663,7 +663,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "mimir"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -680,7 +680,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "mimir"
       },
       "fieldConfig": {
         "defaults": {
@@ -767,7 +767,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "mimir"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -784,7 +784,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "mimir"
       },
       "fieldConfig": {
         "defaults": {
@@ -870,7 +870,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "mimir"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -887,7 +887,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "mimir"
       },
       "description": "",
       "fieldConfig": {
@@ -973,7 +973,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "mimir"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -991,7 +991,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "mimir"
       },
       "fieldConfig": {
         "defaults": {
@@ -1078,7 +1078,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "mimir"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -1096,7 +1096,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "mimir"
       },
       "fieldConfig": {
         "defaults": {
@@ -1183,7 +1183,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "mimir"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -1198,7 +1198,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "mimir"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -1212,7 +1212,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "mimir"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -1227,7 +1227,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "mimir"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -1242,7 +1242,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "mimir"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -1261,7 +1261,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "mimir"
       },
       "description": "Cardano-node ping latency measured from localhost with cardano-cli ping",
       "fieldConfig": {
@@ -1349,7 +1349,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "mimir"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -1366,7 +1366,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "mimir"
       },
       "fieldConfig": {
         "defaults": {
@@ -1433,7 +1433,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "mimir"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -1450,7 +1450,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "mimir"
       },
       "fieldConfig": {
         "defaults": {
@@ -1537,7 +1537,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "mimir"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -1554,7 +1554,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "mimir"
       },
       "fieldConfig": {
         "defaults": {
@@ -1641,7 +1641,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "mimir"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -1658,7 +1658,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "mimir"
       },
       "description": "KES periods remaining",
       "fieldConfig": {
@@ -1746,7 +1746,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "mimir"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -1763,7 +1763,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "mimir"
       },
       "description": "Counts only memory that is physically free",
       "fieldConfig": {
@@ -1851,7 +1851,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "mimir"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -1868,7 +1868,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "mimir"
       },
       "fieldConfig": {
         "defaults": {
@@ -1955,7 +1955,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "mimir"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -1972,7 +1972,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "mimir"
       },
       "description": "The cardano-node uptime",
       "fieldConfig": {
@@ -2060,7 +2060,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "mimir"
           },
           "editorMode": "code",
           "exemplar": true,
