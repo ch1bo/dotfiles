@@ -23,12 +23,16 @@
     laendlefinder.url = "github:ch1bo/laendlefinder";
 
     # cardano
-    metsuke.url = "github:input-output-hk/metsuke";
-
-    # hydraw
-    hydra.url = "github:input-output-hk/hydra/0.21.0";
-    cardano-node.url = "github:intersectmbo/cardano-node/10.4.1";
-    mithril.url = "github:input-output-hk/mithril/2517.1";
+    metsuke = {
+      url = "github:input-output-hk/metsuke";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-parts.follows = "cv/flake-parts";
+        # Only used by metsuke's checks; point at self to avoid fetching them.
+        advisory-db.follows = "";
+        cardano-node-leios.follows = "";
+      };
+    };
   };
 
   outputs =
@@ -133,14 +137,10 @@
     extra-substituters = [
       "https://ch1bo.cachix.org"
       "https://nix-community.cachix.org"
-      "https://cache.iog.io"
-      "https://cardano-scaling.cachix.org"
     ];
     extra-trusted-public-keys = [
       "ch1bo.cachix.org-1:uFj+YZChhtGGAC8/Reo3MNGK2rFfAkfeir51zuffH2Q="
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-      "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ="
-      "cardano-scaling.cachix.org-1:QNK4nFrowZ/aIJMCBsE35m+O70fV6eewsBNdQnCSMKA="
     ];
     allow-import-from-derivation = true;
   };

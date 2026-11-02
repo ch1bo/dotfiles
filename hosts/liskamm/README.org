@@ -15,7 +15,6 @@ powerful hardware.
 - [X] check bootloader
 - [X] Install from live USB
 - [X] data zpool mount
-- [X] rebuild with hydraw enabled
 - [X] off-site backups
 - [X] make disk-level ZFS pools
 - [ ] Fix mail state?

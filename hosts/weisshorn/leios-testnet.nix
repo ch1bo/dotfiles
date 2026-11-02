@@ -27,7 +27,7 @@ let
   # Instance label shared by Prometheus metrics and Loki logs.
   instance = config.networking.hostName;
 
-  nodeImage = "ghcr.io/input-output-hk/ouroboros-leios/cardano-node-leios:rc-2026w43";
+  nodeImage = "ghcr.io/input-output-hk/ouroboros-leios/cardano-node-leios:rc-2026w44";
 
   # Derived from modules/user.nix so the node container matches the host
   # user that owns /data/leios-testnet.

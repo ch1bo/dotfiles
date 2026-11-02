@@ -42,11 +42,6 @@
     fsType = "zfs";
   };
 
-  fileSystems."/data/cardano-node-mainnet" = {
-    device = "dpool/data/cardano-node-mainnet";
-    fsType = "zfs";
-  };
-
   swapDevices = [ ];
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "performance";
