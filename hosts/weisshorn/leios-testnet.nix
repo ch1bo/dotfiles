@@ -258,6 +258,27 @@ in
   # to escape the systemd-journal-gateway access restriction.
   systemd.services.alloy.serviceConfig.SupplementaryGroups = [ "systemd-journal" ];
 
+  # Dashboards are provisioned from the working dir (see below). Seed it from
+  # the dotfiles copy if missing, so deleting it re-initialises on next start.
+  systemd.services.grafana-dashboards-seed = {
+    description = "Seed Grafana dashboards in ${workingDir}";
+    requiredBy = [ "grafana.service" ];
+    before = [ "grafana.service" ];
+    serviceConfig = {
+      Type = "oneshot";
+      User = config.user.name;
+      Group = userCfg.group;
+    };
+    script = ''
+      target=${workingDir}/grafana-dashboards
+      if [ ! -e "$target" ]; then
+        mkdir -p "$target"
+        cp -r --no-preserve=mode ${./grafana-dashboards}/. "$target"
+        chmod -R a+rX "$target"
+      fi
+    '';
+  };
+
   services.grafana = {
     enable = true;
     settings = {
@@ -337,7 +358,10 @@ in
           type = "file";
           disableDeletion = true;
           editable = false;
-          options.path = ./grafana-dashboards;
+          # Read from the working dir instead of the nix store so dashboards
+          # can be iterated on without a rebuild; Grafana rescans periodically.
+          updateIntervalSeconds = 10;
+          options.path = "${workingDir}/grafana-dashboards";
         }
       ];
     };
