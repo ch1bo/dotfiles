@@ -27,7 +27,7 @@ let
   # Instance label shared by Prometheus metrics and Loki logs.
   instance = config.networking.hostName;
 
-  nodeImage = "ghcr.io/input-output-hk/ouroboros-leios/cardano-node-leios:rc-2026w44";
+  nodeImage = "ghcr.io/input-output-hk/ouroboros-leios/cardano-node-leios:rc-2026w45";
 
   # Derived from modules/user.nix so the node container matches the host
   # user that owns /data/leios-testnet.
@@ -274,8 +274,9 @@ in
       if [ ! -e "$target" ]; then
         mkdir -p "$target"
         cp -r --no-preserve=mode ${./grafana-dashboards}/. "$target"
-        chmod -R a+rX "$target"
       fi
+      # Editors may save with restrictive modes; grafana must be able to read.
+      chmod -R a+rX "$target"
     '';
   };
 
@@ -357,7 +358,10 @@ in
           folder = "Leios";
           type = "file";
           disableDeletion = true;
-          editable = false;
+          editable = true;
+          # UI saves only go to grafana's DB; export the JSON back to the
+          # dashboards dir to keep them, as a file change overwrites them.
+          allowUiUpdates = true;
           # Read from the working dir instead of the nix store so dashboards
           # can be iterated on without a rebuild; Grafana rescans periodically.
           updateIntervalSeconds = 10;

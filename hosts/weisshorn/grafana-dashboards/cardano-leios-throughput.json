@@ -5,8 +5,8 @@
     "name": "cardano-leios-throughput",
     "namespace": "default",
     "uid": "17bfde5f-beca-4413-b8ff-9fb6c7653656",
-    "resourceVersion": "1793003712167997",
-    "generation": 1,
+    "resourceVersion": "1793703763913990",
+    "generation": 13,
     "creationTimestamp": "2026-10-26T08:35:12Z",
     "labels": {
       "grafana.app/deprecatedInternalID": "2448727176708096"
@@ -16,9 +16,11 @@
       "grafana.app/folder": "cfqbuyf4yvrpcd",
       "grafana.app/managedBy": "classic-file-provisioning",
       "grafana.app/managerId": "leios",
-      "grafana.app/sourceChecksum": "4de8576f753d270a4207db6235ef3190",
-      "grafana.app/sourcePath": "/nix/store/nwa2x7qs9qn79n44nagv0y9lrqsqd2sx-grafana-dashboards/cardano-leios-throughput.json",
-      "grafana.app/sourceTimestamp": "1000",
+      "grafana.app/sourceChecksum": "d1ea30d0d01a8d441b02fb56112da1e2",
+      "grafana.app/sourcePath": "/data/leios-testnet/grafana-dashboards/cardano-leios-throughput.json",
+      "grafana.app/sourceTimestamp": "1793702261000",
+      "grafana.app/updatedBy": "access-policy:service",
+      "grafana.app/updatedTimestamp": "2026-11-03T11:02:43Z",
       "grafana.app/folderTitle": "Leios",
       "grafana.app/folderUrl": "/dashboards/f/cfqbuyf4yvrpcd/leios"
     }
@@ -276,7 +278,453 @@
                 }
               }
             },
-            "version": "13.0.9"
+            "version": "13.0.12"
+          }
+        }
+      },
+      "panel-10": {
+        "kind": "Panel",
+        "spec": {
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "loki"
+                      },
+                      "group": "loki",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "direction": "backward",
+                        "editorMode": "code",
+                        "expr": "avg_over_time({service=\"cardano-node\", kind=\"LeiosAdaptiveEb\", instance=~\"$instance\"} | json v=\"participation\", c=\"certifiable\" | c=\"true\" | unwrap v [${window}s]) by (instance)",
+                        "instant": false,
+                        "legendFormat": "{{instance}} voted",
+                        "queryType": "range",
+                        "range": true
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "A"
+                  }
+                },
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "loki"
+                      },
+                      "group": "loki",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "direction": "backward",
+                        "editorMode": "code",
+                        "expr": "avg_over_time({service=\"cardano-node\", kind=\"LeiosAdaptiveEb\", instance=~\"$instance\"} | json v=\"ebCapacityScale\" | unwrap v [${window}s]) by (instance)",
+                        "instant": false,
+                        "legendFormat": "{{instance}} capacity scale",
+                        "queryType": "range",
+                        "range": true
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "C"
+                  }
+                },
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "loki"
+                      },
+                      "group": "loki",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "direction": "backward",
+                        "editorMode": "code",
+                        "expr": "avg_over_time({service=\"cardano-node\", kind=\"LeiosAdaptiveEb\", instance=~\"$instance\"} | json m=\"missedQuorum\", c=\"certifiable\" | c=\"true\", m!=\"\" | label_format miss=`{{ if eq .m \"true\" }}1{{ else }}0{{ end }}` | unwrap miss [${window}s]) by (instance)",
+                        "instant": false,
+                        "legendFormat": "{{instance}} missed share",
+                        "queryType": "range",
+                        "range": true
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "D"
+                  }
+                }
+              ],
+              "queryOptions": {},
+              "transformations": []
+            }
+          },
+          "description": "Each producer's adaptive endorsements controller (LeiosAdaptiveEb), averaged over the Rate / avg window. Voted and missed count only certifiable announcements.\n\nVoted is the stake that voted on an announcement, against the quorum threshold (red line). The right axis is the share of them that missed it. Each miss cuts the capacity scale by Decrease (0.8), down to MinScale. Every announcement that reaches the quorum adds Increase (0.02) back, certifiable or not, so recovery also counts quorums the next block came too early to certify.",
+          "id": 10,
+          "links": [],
+          "title": "Adaptive endorsements",
+          "vizConfig": {
+            "group": "timeseries",
+            "kind": "VizConfig",
+            "spec": {
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "palette-classic"
+                  },
+                  "custom": {
+                    "axisBorderShow": false,
+                    "axisCenteredZero": false,
+                    "axisColorMode": "text",
+                    "axisLabel": "Stake / capacity",
+                    "axisPlacement": "auto",
+                    "barAlignment": 0,
+                    "barWidthFactor": 0.6,
+                    "drawStyle": "line",
+                    "fillOpacity": 0,
+                    "gradientMode": "none",
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    },
+                    "insertNulls": false,
+                    "lineInterpolation": "linear",
+                    "lineWidth": 1,
+                    "pointSize": 4,
+                    "scaleDistribution": {
+                      "type": "linear"
+                    },
+                    "showPoints": "never",
+                    "showValues": false,
+                    "spanNulls": true,
+                    "stacking": {
+                      "group": "A",
+                      "mode": "none"
+                    },
+                    "thresholdsStyle": {
+                      "mode": "dashed"
+                    }
+                  },
+                  "min": 0,
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "transparent",
+                        "value": 0
+                      },
+                      {
+                        "color": "red",
+                        "value": 0.75
+                      }
+                    ]
+                  },
+                  "unit": "percentunit"
+                },
+                "overrides": [
+                  {
+                    "matcher": {
+                      "id": "byFrameRefID",
+                      "options": "C"
+                    },
+                    "properties": [
+                      {
+                        "id": "custom.lineWidth",
+                        "value": 2
+                      },
+                      {
+                        "id": "custom.lineStyle",
+                        "value": {
+                          "dash": [
+                            10,
+                            10
+                          ],
+                          "fill": "dash"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "matcher": {
+                      "id": "byFrameRefID",
+                      "options": "D"
+                    },
+                    "properties": [
+                      {
+                        "id": "custom.axisPlacement",
+                        "value": "right"
+                      },
+                      {
+                        "id": "custom.axisLabel",
+                        "value": "Missed share"
+                      },
+                      {
+                        "id": "unit",
+                        "value": "percentunit"
+                      },
+                      {
+                        "id": "min",
+                        "value": 0
+                      },
+                      {
+                        "id": "max",
+                        "value": 1
+                      },
+                      {
+                        "id": "custom.drawStyle",
+                        "value": "points"
+                      },
+                      {
+                        "id": "custom.thresholdsStyle",
+                        "value": {
+                          "mode": "off"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              "options": {
+                "annotations": {
+                  "clustering": -1,
+                  "multiLane": false
+                },
+                "legend": {
+                  "calcs": [
+                    "mean",
+                    "min"
+                  ],
+                  "displayMode": "table",
+                  "placement": "bottom",
+                  "showLegend": true
+                },
+                "tooltip": {
+                  "hideZeros": false,
+                  "mode": "multi",
+                  "sort": "desc"
+                }
+              }
+            },
+            "version": "13.0.12"
+          }
+        }
+      },
+      "panel-11": {
+        "kind": "Panel",
+        "spec": {
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "loki"
+                      },
+                      "group": "loki",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "direction": "backward",
+                        "editorMode": "code",
+                        "expr": "avg_over_time({service=\"cardano-node\", kind=\"LeiosBlockForged\", instance=~\"$instance\"} | json txs=\"numTxs\" | unwrap txs [${window}s]) by (instance)",
+                        "instant": false,
+                        "legendFormat": "{{instance}}",
+                        "queryType": "range",
+                        "range": true
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "A"
+                  }
+                },
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "loki"
+                      },
+                      "group": "loki",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "direction": "backward",
+                        "editorMode": "code",
+                        "expr": "avg_over_time({service=\"cardano-node\", kind=\"LeiosAdaptiveEb\", instance=~\"$instance\"} | json scale=\"ebCapacityScale\" | unwrap scale [${window}s]) by (instance)",
+                        "instant": false,
+                        "legendFormat": "{{instance}} capacity scale",
+                        "queryType": "range",
+                        "range": true
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "B"
+                  }
+                }
+              ],
+              "queryOptions": {},
+              "transformations": []
+            }
+          },
+          "description": "Transactions per forged endorser block, per node, averaged over the Rate / avg window.\n\nRead the shape, not the level: a flat top means a size limit is binding, while scatter below the ceiling means the forge time budget is. The red line is the hard per-EB transaction cap, which no protocol parameter can raise.\n\nDashed lines on the right axis are each producer's adaptive endorsements capacity scale (LeiosAdaptiveEb). Where a producer has it enabled, the fill should track its scale: the EB capacity is cut to that share after announcements miss their quorum. See the Adaptive endorsements panel for why.",
+          "id": 11,
+          "links": [],
+          "title": "Endorser block fill",
+          "vizConfig": {
+            "group": "timeseries",
+            "kind": "VizConfig",
+            "spec": {
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "palette-classic"
+                  },
+                  "custom": {
+                    "axisBorderShow": false,
+                    "axisCenteredZero": false,
+                    "axisColorMode": "text",
+                    "axisLabel": "Tx per EB",
+                    "axisPlacement": "auto",
+                    "barAlignment": 0,
+                    "barWidthFactor": 0.6,
+                    "drawStyle": "points",
+                    "fillOpacity": 0,
+                    "gradientMode": "none",
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    },
+                    "insertNulls": false,
+                    "lineInterpolation": "linear",
+                    "lineWidth": 0,
+                    "pointSize": 6,
+                    "scaleDistribution": {
+                      "type": "linear"
+                    },
+                    "showPoints": "always",
+                    "showValues": false,
+                    "spanNulls": false,
+                    "stacking": {
+                      "group": "A",
+                      "mode": "none"
+                    },
+                    "thresholdsStyle": {
+                      "mode": "line"
+                    }
+                  },
+                  "min": 0,
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green",
+                        "value": 0
+                      },
+                      {
+                        "color": "red",
+                        "value": 13888
+                      }
+                    ]
+                  },
+                  "unit": "short"
+                },
+                "overrides": [
+                  {
+                    "matcher": {
+                      "id": "byFrameRefID",
+                      "options": "B"
+                    },
+                    "properties": [
+                      {
+                        "id": "custom.axisPlacement",
+                        "value": "right"
+                      },
+                      {
+                        "id": "custom.axisLabel",
+                        "value": "Capacity scale"
+                      },
+                      {
+                        "id": "unit",
+                        "value": "percentunit"
+                      },
+                      {
+                        "id": "min",
+                        "value": 0
+                      },
+                      {
+                        "id": "max",
+                        "value": 1
+                      },
+                      {
+                        "id": "custom.drawStyle",
+                        "value": "line"
+                      },
+                      {
+                        "id": "custom.lineWidth",
+                        "value": 2
+                      },
+                      {
+                        "id": "custom.lineStyle",
+                        "value": {
+                          "dash": [
+                            10,
+                            10
+                          ],
+                          "fill": "dash"
+                        }
+                      },
+                      {
+                        "id": "custom.showPoints",
+                        "value": "never"
+                      },
+                      {
+                        "id": "custom.spanNulls",
+                        "value": true
+                      },
+                      {
+                        "id": "custom.thresholdsStyle",
+                        "value": {
+                          "mode": "off"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              "options": {
+                "annotations": {
+                  "clustering": -1,
+                  "multiLane": false
+                },
+                "legend": {
+                  "calcs": [
+                    "mean",
+                    "max"
+                  ],
+                  "displayMode": "table",
+                  "placement": "bottom",
+                  "showLegend": true
+                },
+                "tooltip": {
+                  "hideZeros": false,
+                  "mode": "multi",
+                  "sort": "desc"
+                }
+              }
+            },
+            "version": "13.0.12"
           }
         }
       },
@@ -360,6 +808,7 @@
                       "mode": "dashed"
                     }
                   },
+                  "max": 100,
                   "thresholds": {
                     "mode": "absolute",
                     "steps": [
@@ -444,7 +893,7 @@
                 }
               }
             },
-            "version": "13.0.9"
+            "version": "13.0.12"
           }
         }
       },
@@ -624,8 +1073,8 @@
                       {
                         "id": "color",
                         "value": {
-                          "mode": "fixed",
-                          "fixedColor": "blue"
+                          "fixedColor": "blue",
+                          "mode": "fixed"
                         }
                       }
                     ]
@@ -639,8 +1088,8 @@
                       {
                         "id": "color",
                         "value": {
-                          "mode": "fixed",
-                          "fixedColor": "green"
+                          "fixedColor": "green",
+                          "mode": "fixed"
                         }
                       }
                     ]
@@ -668,7 +1117,7 @@
                 }
               }
             },
-            "version": "13.0.9"
+            "version": "13.0.12"
           }
         }
       },
@@ -853,7 +1302,7 @@
                 }
               }
             },
-            "version": "13.0.9"
+            "version": "13.0.12"
           }
         }
       },
@@ -974,7 +1423,7 @@
                 }
               }
             },
-            "version": "13.0.9"
+            "version": "13.0.12"
           }
         }
       },
@@ -1094,447 +1543,7 @@
                 }
               }
             },
-            "version": "13.0.9"
-          }
-        }
-      },
-      "panel-10": {
-        "kind": "Panel",
-        "spec": {
-          "data": {
-            "kind": "QueryGroup",
-            "spec": {
-              "queries": [
-                {
-                  "kind": "PanelQuery",
-                  "spec": {
-                    "hidden": false,
-                    "query": {
-                      "datasource": {
-                        "name": "loki"
-                      },
-                      "group": "loki",
-                      "kind": "DataQuery",
-                      "spec": {
-                        "direction": "backward",
-                        "editorMode": "code",
-                        "expr": "avg_over_time({service=\"cardano-node\", kind=\"LeiosAdaptiveEb\", instance=~\"$instance\"} | json v=\"participation\", c=\"certifiable\" | c=\"true\" | unwrap v [${window}s]) by (instance)",
-                        "instant": false,
-                        "legendFormat": "{{instance}} voted",
-                        "queryType": "range",
-                        "range": true
-                      },
-                      "version": "v0"
-                    },
-                    "refId": "A"
-                  }
-                },
-                {
-                  "kind": "PanelQuery",
-                  "spec": {
-                    "hidden": false,
-                    "query": {
-                      "datasource": {
-                        "name": "loki"
-                      },
-                      "group": "loki",
-                      "kind": "DataQuery",
-                      "spec": {
-                        "direction": "backward",
-                        "editorMode": "code",
-                        "expr": "avg_over_time({service=\"cardano-node\", kind=\"LeiosAdaptiveEb\", instance=~\"$instance\"} | json v=\"ebCapacityScale\" | unwrap v [${window}s]) by (instance)",
-                        "instant": false,
-                        "legendFormat": "{{instance}} capacity scale",
-                        "queryType": "range",
-                        "range": true
-                      },
-                      "version": "v0"
-                    },
-                    "refId": "C"
-                  }
-                },
-                {
-                  "kind": "PanelQuery",
-                  "spec": {
-                    "hidden": false,
-                    "query": {
-                      "datasource": {
-                        "name": "loki"
-                      },
-                      "group": "loki",
-                      "kind": "DataQuery",
-                      "spec": {
-                        "direction": "backward",
-                        "editorMode": "code",
-                        "expr": "avg_over_time({service=\"cardano-node\", kind=\"LeiosAdaptiveEb\", instance=~\"$instance\"} | json m=\"missedQuorum\", c=\"certifiable\" | c=\"true\", m!=\"\" | label_format miss=`{{ if eq .m \"true\" }}1{{ else }}0{{ end }}` | unwrap miss [${window}s]) by (instance)",
-                        "instant": false,
-                        "legendFormat": "{{instance}} missed share",
-                        "queryType": "range",
-                        "range": true
-                      },
-                      "version": "v0"
-                    },
-                    "refId": "D"
-                  }
-                }
-              ],
-              "queryOptions": {},
-              "transformations": []
-            }
-          },
-          "description": "Each producer's adaptive endorsements controller (LeiosAdaptiveEb), averaged over the Rate / avg window. Only certifiable announcements count.\n\nVoted is the stake that voted on an announcement, against the quorum threshold (red line). The controller's input on the right axis is the share of them that missed it. Each miss cuts the capacity scale by Decrease (0.8), each quorum made adds Increase (0.01) back, down to MinScale.",
-          "id": 10,
-          "links": [],
-          "title": "Adaptive endorsements",
-          "vizConfig": {
-            "group": "timeseries",
-            "kind": "VizConfig",
-            "spec": {
-              "fieldConfig": {
-                "defaults": {
-                  "color": {
-                    "mode": "palette-classic"
-                  },
-                  "custom": {
-                    "axisBorderShow": false,
-                    "axisCenteredZero": false,
-                    "axisColorMode": "text",
-                    "axisLabel": "Stake / capacity",
-                    "axisPlacement": "auto",
-                    "barAlignment": 0,
-                    "barWidthFactor": 0.6,
-                    "drawStyle": "line",
-                    "fillOpacity": 0,
-                    "gradientMode": "none",
-                    "hideFrom": {
-                      "legend": false,
-                      "tooltip": false,
-                      "viz": false
-                    },
-                    "insertNulls": false,
-                    "lineInterpolation": "linear",
-                    "lineWidth": 1,
-                    "pointSize": 4,
-                    "scaleDistribution": {
-                      "type": "linear"
-                    },
-                    "showPoints": "never",
-                    "showValues": false,
-                    "spanNulls": true,
-                    "stacking": {
-                      "group": "A",
-                      "mode": "none"
-                    },
-                    "thresholdsStyle": {
-                      "mode": "dashed"
-                    }
-                  },
-                  "mappings": [],
-                  "min": 0,
-                  "unit": "percentunit",
-                  "thresholds": {
-                    "mode": "absolute",
-                    "steps": [
-                      {
-                        "color": "transparent",
-                        "value": null
-                      },
-                      {
-                        "color": "red",
-                        "value": 0.75
-                      }
-                    ]
-                  }
-                },
-                "overrides": [
-                  {
-                    "matcher": {
-                      "id": "byFrameRefID",
-                      "options": "C"
-                    },
-                    "properties": [
-                      {
-                        "id": "custom.lineWidth",
-                        "value": 2
-                      },
-                      {
-                        "id": "custom.lineStyle",
-                        "value": {
-                          "fill": "dash",
-                          "dash": [
-                            10,
-                            10
-                          ]
-                        }
-                      }
-                    ]
-                  },
-                  {
-                    "matcher": {
-                      "id": "byFrameRefID",
-                      "options": "D"
-                    },
-                    "properties": [
-                      {
-                        "id": "custom.axisPlacement",
-                        "value": "right"
-                      },
-                      {
-                        "id": "custom.axisLabel",
-                        "value": "Missed share"
-                      },
-                      {
-                        "id": "unit",
-                        "value": "percentunit"
-                      },
-                      {
-                        "id": "min",
-                        "value": 0
-                      },
-                      {
-                        "id": "max",
-                        "value": 1
-                      },
-                      {
-                        "id": "custom.drawStyle",
-                        "value": "points"
-                      },
-                      {
-                        "id": "custom.thresholdsStyle",
-                        "value": {
-                          "mode": "off"
-                        }
-                      }
-                    ]
-                  }
-                ]
-              },
-              "options": {
-                "legend": {
-                  "calcs": [
-                    "mean",
-                    "min"
-                  ],
-                  "displayMode": "table",
-                  "placement": "bottom",
-                  "showLegend": true
-                },
-                "tooltip": {
-                  "hideZeros": false,
-                  "mode": "multi",
-                  "sort": "desc"
-                }
-              }
-            },
-            "version": "13.0.9"
-          }
-        }
-      },
-      "panel-11": {
-        "kind": "Panel",
-        "spec": {
-          "data": {
-            "kind": "QueryGroup",
-            "spec": {
-              "queries": [
-                {
-                  "kind": "PanelQuery",
-                  "spec": {
-                    "hidden": false,
-                    "query": {
-                      "datasource": {
-                        "name": "loki"
-                      },
-                      "group": "loki",
-                      "kind": "DataQuery",
-                      "spec": {
-                        "direction": "backward",
-                        "editorMode": "code",
-                        "expr": "avg_over_time({service=\"cardano-node\", kind=\"LeiosBlockForged\", instance=~\"$instance\"} | json txs=\"numTxs\" | unwrap txs [${window}s]) by (instance)",
-                        "instant": false,
-                        "legendFormat": "{{instance}}",
-                        "queryType": "range",
-                        "range": true
-                      },
-                      "version": "v0"
-                    },
-                    "refId": "A"
-                  }
-                },
-                {
-                  "kind": "PanelQuery",
-                  "spec": {
-                    "hidden": false,
-                    "query": {
-                      "datasource": {
-                        "name": "loki"
-                      },
-                      "group": "loki",
-                      "kind": "DataQuery",
-                      "spec": {
-                        "direction": "backward",
-                        "editorMode": "code",
-                        "expr": "avg_over_time({service=\"cardano-node\", kind=\"LeiosAdaptiveEb\", instance=~\"$instance\"} | json scale=\"ebCapacityScale\" | unwrap scale [${window}s]) by (instance)",
-                        "instant": false,
-                        "legendFormat": "{{instance}} capacity scale",
-                        "queryType": "range",
-                        "range": true
-                      },
-                      "version": "v0"
-                    },
-                    "refId": "B"
-                  }
-                }
-              ],
-              "queryOptions": {},
-              "transformations": []
-            }
-          },
-          "description": "Transactions per forged endorser block, per node, averaged over the Rate / avg window.\n\nRead the shape, not the level: a flat top means a size limit is binding, while scatter below the ceiling means the forge time budget is. The red line is the hard per-EB transaction cap, which no protocol parameter can raise.\n\nDashed lines on the right axis are each producer's adaptive endorsements capacity scale (LeiosAdaptiveEb). Where a producer has it enabled, the fill should track its scale: the EB capacity is cut to that share after announcements miss their quorum. See the Adaptive endorsements panel for why.",
-          "id": 11,
-          "links": [],
-          "title": "Endorser block fill",
-          "vizConfig": {
-            "group": "timeseries",
-            "kind": "VizConfig",
-            "spec": {
-              "fieldConfig": {
-                "defaults": {
-                  "color": {
-                    "mode": "palette-classic"
-                  },
-                  "custom": {
-                    "axisBorderShow": false,
-                    "axisCenteredZero": false,
-                    "axisColorMode": "text",
-                    "axisLabel": "Tx per EB",
-                    "axisPlacement": "auto",
-                    "barAlignment": 0,
-                    "barWidthFactor": 0.6,
-                    "drawStyle": "points",
-                    "fillOpacity": 0,
-                    "gradientMode": "none",
-                    "hideFrom": {
-                      "legend": false,
-                      "tooltip": false,
-                      "viz": false
-                    },
-                    "insertNulls": false,
-                    "lineInterpolation": "linear",
-                    "lineWidth": 0,
-                    "pointSize": 6,
-                    "scaleDistribution": {
-                      "type": "linear"
-                    },
-                    "showPoints": "always",
-                    "showValues": false,
-                    "spanNulls": false,
-                    "stacking": {
-                      "group": "A",
-                      "mode": "none"
-                    },
-                    "thresholdsStyle": {
-                      "mode": "line"
-                    }
-                  },
-                  "mappings": [],
-                  "min": 0,
-                  "unit": "short",
-                  "thresholds": {
-                    "mode": "absolute",
-                    "steps": [
-                      {
-                        "color": "green",
-                        "value": null
-                      },
-                      {
-                        "color": "red",
-                        "value": 13888
-                      }
-                    ]
-                  }
-                },
-                "overrides": [
-                  {
-                    "matcher": {
-                      "id": "byFrameRefID",
-                      "options": "B"
-                    },
-                    "properties": [
-                      {
-                        "id": "custom.axisPlacement",
-                        "value": "right"
-                      },
-                      {
-                        "id": "custom.axisLabel",
-                        "value": "Capacity scale"
-                      },
-                      {
-                        "id": "unit",
-                        "value": "percentunit"
-                      },
-                      {
-                        "id": "min",
-                        "value": 0
-                      },
-                      {
-                        "id": "max",
-                        "value": 1
-                      },
-                      {
-                        "id": "custom.drawStyle",
-                        "value": "line"
-                      },
-                      {
-                        "id": "custom.lineWidth",
-                        "value": 2
-                      },
-                      {
-                        "id": "custom.lineStyle",
-                        "value": {
-                          "fill": "dash",
-                          "dash": [
-                            10,
-                            10
-                          ]
-                        }
-                      },
-                      {
-                        "id": "custom.showPoints",
-                        "value": "never"
-                      },
-                      {
-                        "id": "custom.spanNulls",
-                        "value": true
-                      },
-                      {
-                        "id": "custom.thresholdsStyle",
-                        "value": {
-                          "mode": "off"
-                        }
-                      }
-                    ]
-                  }
-                ]
-              },
-              "options": {
-                "legend": {
-                  "calcs": [
-                    "mean",
-                    "max"
-                  ],
-                  "displayMode": "table",
-                  "placement": "bottom",
-                  "showLegend": true
-                },
-                "tooltip": {
-                  "hideZeros": false,
-                  "mode": "multi",
-                  "sort": "desc"
-                }
-              }
-            },
-            "version": "13.0.9"
+            "version": "13.0.12"
           }
         }
       }
