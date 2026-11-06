@@ -68,6 +68,8 @@ let
     (readonly "/nix/store")
     # Access to various dotfiles
     (try-readonly (noescape "~/.config"))
+    # Blank the gh token
+    (write-text (noescape "~/.config/gh/hosts.yml") "Censored")
     (try-readwrite (noescape "~/.cache"))
     (try-readwrite (noescape "~/.claude"))
     (try-readwrite (noescape "~/.claude.json"))

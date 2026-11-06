@@ -160,6 +160,7 @@
     pkgs.nerd-fonts.hasklug
     pkgs.nerd-fonts.symbols-only
     pkgs.roboto
+    pkgs.dinish
   ];
 
   # At least spotify is proprietary
